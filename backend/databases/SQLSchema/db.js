@@ -11,10 +11,6 @@ const sequelize = new Sequelize(
     }
 );
 
-//console.log("\nDATABASE", dbConfig.DB, "\n\n")
-//console.log("\nUSER", dbConfig.USER, "\n\n")
-//console.log("\nPASSWORD", dbConfig.PASSWORD, "\n\n")
-//console.log("\nHOST", dbConfig.HOST, "\n\n")
 const db = {};
 
 db.Sequelize = Sequelize;

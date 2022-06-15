@@ -1,6 +1,13 @@
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const express = require("express");
+const { MongoClient } = require ('mongodb');
+
+const uri = "mongodb://localhost:27017/pocketchange";
+const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
@@ -9,6 +16,12 @@ const Business = database.Business
 const Pocket = database.Pocket
 const Change = database.Change
 const Transaction = database.Transaction
+
+
+const mongodatabase = require('../databases/mongoSchema/mongodb')
+const mongoUser = mongodatabase.User
+const mongoBusiness = mongodatabase.Business
+const mongoPocket = mongodatabase.Pocket
 
 const typeDefs = require('./typeDefinitions.js')
 const resolvers = require('./resolvers.js')
@@ -20,7 +33,10 @@ const context = async ({ req }) => {
     Business,
     Pocket,
     Change,
-    Transaction
+    Transaction,
+    mongoUser,
+    mongoBusiness,
+    mongoPocket
   }
 }
 
@@ -42,7 +58,15 @@ app.get("*", (req, res) => {
 const port = process.env.PORT || 4000;
 sequelizeConnection.authenticate().then(() => {
     console.log('mySQL database connection established successfully')
-    app.listen(port, () => {
-      console.log(`Server ready at ${port}`);
+    client.connect(function (err, db) {
+        if (err || !db) {
+          return callback(err);
+        }
+  
+        dbConnection = db.db("sample_airbnb");
+        console.log("Successfully connected to MongoDB.");
+        app.listen(port, () => {
+            console.log(`Server ready at ${port}`);
+        })
+      });
     })
-})
