@@ -1,5 +1,16 @@
 const Sequelize = require('sequelize');
-const Conn = require("./Conn.js");
+require('dotenv').config();
+const dbConfig = require("./db_config.js");
+
+const Conn = new Sequelize(
+    dbConfig.DB, //name of db
+    dbConfig.USER, //username
+    dbConfig.PASSWORD, //password
+    {
+        dialect: dbConfig.dialect,
+        host: dbConfig.HOST
+    }
+);
 
 const Transaction = Conn.define('transaction', {
     id: {
