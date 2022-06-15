@@ -3,7 +3,7 @@ const path = require('path');
 const express = require("express");
 
 const database = require('../databases/SQLSchema/db')
-const sequelizeConnection = database.Conn
+const sequelizeConnection = database.sequelize
 const User = database.User
 const Business = database.Business
 const Pocket = database.Pocket
