@@ -1,8 +1,7 @@
-const Sequelize = require('sequelize');
-require('dotenv').config();
 const dbConfig = require("./db_config.js");
 
-const Conn = new Sequelize(
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
     dbConfig.DB, //name of db
     dbConfig.USER, //username
     dbConfig.PASSWORD, //password
@@ -11,26 +10,26 @@ const Conn = new Sequelize(
         host: dbConfig.HOST
     }
 );
-require('dotenv').config();
-const Business = require ("./Business.js")
-const User = require("./User.js")
-const Pocket = require("./Pocket.js")
-const Change = require("./Change.js")
-const Transaction = require("./Transaction.js")
 
-Conn.sync({force: true})
+//console.log("\nDATABASE", dbConfig.DB, "\n\n")
+//console.log("\nUSER", dbConfig.USER, "\n\n")
+//console.log("\nPASSWORD", dbConfig.PASSWORD, "\n\n")
+//console.log("\nHOST", dbConfig.HOST, "\n\n")
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+db.Business = require("./Business.model.js")(sequelize, Sequelize);
+db.User = require("./User.model.js")(sequelize, Sequelize);
+db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+db.Change = require("./Change.model.js")(sequelize, Sequelize);
+db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
+
+sequelize.sync({force: true})
 .then(() => {
     console.log("\n\n\nDatabase is up and running!\n\n\n");
 })
 .catch((error) => console.log(error));
 
-
-
-module.exports= { 
-    Conn: Conn,
-    Business: Business,
-    User: User,
-    Pocket: Pocket,
-    Change: Change,
-    Transaction: Transaction
-};
+module.exports = db;
