@@ -48,12 +48,6 @@ server.start().then(res => {
     server.applyMiddleware({ app }) 
 })
 
-app.use(express.static(path.join(__dirname, "../../frontend/web-build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../frontend/web-build/index.html"));
-});
-
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
 const port = process.env.PORT || 4000;
 sequelizeConnection.authenticate().then(() => {
