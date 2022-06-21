@@ -19,9 +19,9 @@ const Transaction = database.Transaction
 
 
 const mongodatabase = require('../databases/mongoSchema/mongodb')
-const mongoUser = mongodatabase.User
-const mongoBusiness = mongodatabase.Business
-const mongoPocket = mongodatabase.Pocket
+const mongoUser = mongodatabase.mongoUser
+const mongoBusiness = mongodatabase.mongoBusiness
+const mongoPocket = mongodatabase.mongoPocket
 
 const typeDefs = require('./typeDefinitions.js')
 const resolvers = require('./resolvers.js')
