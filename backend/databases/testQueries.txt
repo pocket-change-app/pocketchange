@@ -1,0 +1,19 @@
+Input the following queries into playground to test:
+query User($userID: ID){
+    user(userID: $userID) {
+      userID
+    }
+}
+
+query Business($busID: ID){
+    business(busID: $busID) {
+      busID
+      pocketID
+    }
+  }
+
+Example Query Variables:
+{
+  "userID": "1c",
+  "busID": "1b"
+}
