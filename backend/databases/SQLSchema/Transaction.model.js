@@ -9,6 +9,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.UUID,
             allowNull: false
         },
+        value:{
+            type: Sequelize.FLOAT,
+            allowNull: false
+        },
         date: {
             type: Sequelize.DATE,
             allowNull: false
