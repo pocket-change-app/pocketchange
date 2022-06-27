@@ -12,8 +12,16 @@ query Business($busID: ID){
     }
   }
 
+query loginUser($username:String, $password: String){
+  loginUser(username:$username, password: $password) {
+    userID
+  }
+}
+  
 Example Query Variables:
 {
   "userID": "1c",
-  "busID": "1b"
+  "busID": "1b",
+  "username" : "beans",
+  "password": "cool"
 }

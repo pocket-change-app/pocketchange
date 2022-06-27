@@ -1,0 +1,14 @@
+Input the following mutations into playground to test:
+
+mutation RegisterUser($username:String, $password: String){
+  registerUser(username:$username, password: $password) {
+    userID
+  }
+}
+
+
+Example Mutation Variables:
+{
+  "username" : "beans",
+  "password": "cool"
+}
