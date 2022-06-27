@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const pocketSchema = new mongoose.Schema({
+const mongoPocketSchema = new mongoose.Schema({
     pocketID: { type: mongoose.Schema.Types.ObjectId }, // no auto since generated in SQL
     pocketname: { type: mongoose.Schema.Types.String },
     businesses: [mongoose.Schema.Types.ObjectId],
@@ -8,6 +8,6 @@ const pocketSchema = new mongoose.Schema({
     //georegion?
   })
   
-  const pocket = mongoose.model('Pocket', pocketSchema)
+  const mongoPocket = mongoose.model('mongoPocket', mongoPocketSchema)
 
-  module.exports ={pocket}
+  module.exports ={mongoPocket}

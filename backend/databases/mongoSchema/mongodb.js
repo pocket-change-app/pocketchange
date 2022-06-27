@@ -6,9 +6,9 @@ const db = {};
 
 db.Mongoose = Mongoose;
 db.mongoose = mongoose;
-db.User =  require('./user')
-db.Pocket = require('./pocket')
-db.Business = require('./business')
+db.mongoUser =  require('./mongoUser')
+db.mongoPocket = require('./mongoPocket')
+db.mongoBusiness = require('./mongoBusiness')
 
 mongoose.on('error', console.error.bind(console, 'connection error'))
 

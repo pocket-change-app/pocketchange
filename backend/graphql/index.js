@@ -1,13 +1,8 @@
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+//const Mongoose = require('mongoose');
 const express = require("express");
 const { MongoClient } = require ('mongodb');
-
-const uri = "mongodb://localhost:27017/pocketchange";
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
 
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
@@ -19,9 +14,11 @@ const Transaction = database.Transaction
 
 
 const mongodatabase = require('../databases/mongoSchema/mongodb')
-const mongoUser = mongodatabase.mongoUser
-const mongoBusiness = mongodatabase.mongoBusiness
-const mongoPocket = mongodatabase.mongoPocket
+const mongoose = mongodatabase.mongoose
+const mongoUser = mongoose.model('mongoUser')
+console.log("MONGOUSER", mongoUser)
+const mongoBusiness = mongoose.model('mongoBusiness')
+const mongoPocket = mongoose.model('mongoPocket')
 
 const typeDefs = require('./typeDefinitions.js')
 const resolvers = require('./resolvers.js')
@@ -50,17 +47,13 @@ server.start().then(res => {
 
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
 const port = process.env.PORT || 4000;
-sequelizeConnection.authenticate().then(() => {
+mongoose.once('open', () => {
+  console.log('Database connection open')
+  // DROP DATABASES
+  sequelizeConnection.authenticate().then(() => {
     console.log('mySQL database connection established successfully')
-    client.connect(function (err, db) {
-        if (err || !db) {
-          return callback(err);
-        }
-  
-        dbConnection = db.db("sample_airbnb");
-        console.log("Successfully connected to MongoDB.");
         app.listen(port, () => {
             console.log(`Server ready at ${port}`);
         })
-      });
     })
+})
