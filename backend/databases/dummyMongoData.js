@@ -1,9 +1,10 @@
 db = connect('mongodb://localhost/pocketchange')
 
-db.users.insertMany( [
+db.mongousers.insertMany( [
    {
       userID: '1c',
       username: 'ilovelocal',
+      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '1p', '2p' ],
       favouriteBusiness: ['1c'],
       emailAddress:'ilovelocal@gmail.com'
@@ -11,6 +12,7 @@ db.users.insertMany( [
    {
       userID: '2c',
       username: 'localrules',
+      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '2p' ],
       favouriteBusiness: ['8b'],
       emailAddress:'localrules@gmail.com'
@@ -18,6 +20,7 @@ db.users.insertMany( [
    {
       userID: '3c',
       username: 'shop123',
+      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '1p'],
       favouriteBusiness: ['2b'],
       emailAddress:'shop123@gmail.com'
@@ -25,6 +28,7 @@ db.users.insertMany( [
    {
       userID: '4c',
       username: 'loyalshop',
+      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '2p'],
       favouriteBusiness: ['5b'],
       emailAddress:'loyalshop@gmail.com'
@@ -32,17 +36,19 @@ db.users.insertMany( [
    {
       userID: '5c',
       username: 'mmrewards',
+      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '1p'],
       favouriteBusiness: ['3b'],
       emailAddress:'mmrewards@gmail.com'
    },
 ] )
 
-db.businesses.insertMany( [
+db.mongobusinesses.insertMany( [
     {
        busID: '1b',
        role: 'BIA',
        busname: 'Avling',
+       password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
        pocket: '1p',
        emailAddress:'avling@gmail.com'
     },
@@ -50,6 +56,7 @@ db.businesses.insertMany( [
         busID: '2b',
         role: 'owner',
         busname: 'Paella',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '1p',
         emailAddress:'paella@gmail.com'
      },
@@ -57,6 +64,7 @@ db.businesses.insertMany( [
         busID: '3b',
         role: 'owner',
         busname: 'Mercury Espresso Bar',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '1p',
         emailAddress:'mercury@gmail.com'
      },
@@ -64,6 +72,7 @@ db.businesses.insertMany( [
         busID: '4b',
         role: 'owner',
         busname: 'Slowhands Pizza',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '1p',
         emailAddress:'slowhands@gmail.com'
      },
@@ -71,6 +80,7 @@ db.businesses.insertMany( [
         busID: '5b',
         role: 'BIA',
         busname: 'De Mello Coffee',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '2p',
         emailAddress:'demello@gmail.com'
      },
@@ -78,6 +88,7 @@ db.businesses.insertMany( [
         busID: '6b',
         role: 'owner',
         busname: 'Himalayan Java House',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '2p',
         emailAddress:'himalayanjava@gmail.com'
      },
@@ -85,6 +96,7 @@ db.businesses.insertMany( [
         busID: '7b',
         role: 'owner',
         busname: 'Isaan Der Yonge',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '2p',
         emailAddress:'isaander@gmail.com'
      },
@@ -92,12 +104,13 @@ db.businesses.insertMany( [
         busID: '7b',
         role: 'owner',
         busname: 'Juicy Dumplings Yonge',
+        password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
         pocket: '2p',
         emailAddress:'juicydumpling@gmail.com'
      },
  ] )
 
- db.pockets.insertMany( [
+ db.mongopockets.insertMany( [
     {
        pocketId: '1p',
        pocketname: 'Leslieville',
