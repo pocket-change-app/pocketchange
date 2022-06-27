@@ -4,6 +4,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.UUID,
             allowNull: false,
             primaryKey: true
+        },
+        salt: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            primaryKey: false
         }
     });
   

@@ -8,6 +8,11 @@ module.exports = (sequelize, Sequelize) => {
         pocketId: {
             type: Sequelize.UUID,
             allowNull: false
+        },
+        salt: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            primaryKey: false
         }
     });
   
