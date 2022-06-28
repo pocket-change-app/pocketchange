@@ -1,11 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Change = sequelize.define("change", {
-        id: {
+        ID: {
             type: Sequelize.UUID,
             allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        pocketId: {
+        pocketID: {
             type: Sequelize.UUID,
             allowNull: false
         },
@@ -13,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.FLOAT,
             allowNull: false
         },
-        customerId: {
+        customerID: {
             type: Sequelize.UUID,
             allowNull: false
         },

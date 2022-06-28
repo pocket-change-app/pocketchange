@@ -17,13 +17,6 @@ const obfuscate = (pass) => {
   };
 };
 
-// (C) TEST ENCRYPT
-// Save BOTH the password and salt into database or file
-const clearpass = "He110Wor!d";
-const obfuscated = obfuscate(clearpass);
-console.log("===== HASHED PASSWORD + SALT =====");
-console.log(obfuscated);
-
 // (D) VALIDATE PASSWORD
 const validate = (userpass, hashedpass, salt) => {
   let hash = crypto.createHmac("sha512", salt);
@@ -32,13 +25,6 @@ const validate = (userpass, hashedpass, salt) => {
   return userpass == hashedpass;
 };
 
-// (E) TEST VALIDATE
-// clearpass = "FOOBAR";
-const validated = validate(clearpass, obfuscated.hash, obfuscated.salt);
-console.log("===== VALIDATION =====");
-console.log("Clear password: " + clearpass);
-console.log("Validation status: " + validated);
-
 
 const resolvers = {
   Query:{
@@ -46,10 +32,10 @@ const resolvers = {
       if (userID === '') {
         return null;
       }
-      const userInfo = await User.findOne({ where : {id: userID}});
+      const userInfo = await User.findOne({ where : {ID: userID}});
       if (userInfo) {
         return {
-          "userID": userInfo.dataValues.id
+          "userID": userInfo.dataValues.ID
         }
       } else {
         throw new ApolloError(`userID:${userID} doesn't exist`);
@@ -60,11 +46,11 @@ const resolvers = {
       if (busID === '') {
         return null;
       }
-      const businessInfo = await Business.findOne({ where : {id: busID}});
+      const businessInfo = await Business.findOne({ where : {ID: busID}});
       if(businessInfo){
           return {
-            "busID": businessInfo.dataValues.id,
-            "pocketID": businessInfo.dataValues.pocketId,
+            "busID": businessInfo.dataValues.ID,
+            "pocketID": businessInfo.dataValues.pocketID,
           }
 
       }
@@ -73,14 +59,33 @@ const resolvers = {
         return {};
       }
     },
+    pocket: async (parent, { pocketID }, { Pocket, mongoPocket}) => {
+      if (pocketID === '') {
+        return null;
+      }
+      const pocketInfo = await Pocket.findOne({ where : {ID: pocketID}});
+      const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
+      if(pocketInfo && mongoPocketInfo ){
+          return {
+            "pocketID": pocketInfo.dataValues.ID,
+            "circulatingPoints": pocketInfo.dataValues.circulatingPoints,
+            "changeRate": pocketInfo.dataValues.changeRate,
+            "customers": mongoPocketInfo.customers,
+            "businesses": mongoPocketInfo.businesses,
+            "pocketName" : mongoPocketInfo.pocketname
+          }
+
+      }
+      else {
+        throw new ApolloError(`pocketID:${pocketID} doesn't exist`);
+        return {};
+      }
+    },
     loginUser: async (parent, { username, password }, { mongoUser, User}) => {
-      console.log("UNHASHED", password)
       const user = await mongoUser.findOne({ username })
-      console.log("HASHED", user.password)
-      const userTable = await User.findOne({id: user.userID})
+      const userTable = await User.findOne({ID: user.userID})
       if (user){
         const validated = validate(password, user.password, userTable.dataValues.salt)
-        console.log(validated)
         if(validated){
           return user
         }
@@ -92,23 +97,55 @@ const resolvers = {
         throw new ApolloError(`username:${username} doesn't exist`);
       }
     },
+    loginBus: async (parent, { busname, password }, { mongoBusiness, Business}) => {
+      const bus = await mongoBusiness.findOne({ busname })
+      const busTable = await Business.findOne({ID: bus.userID})
+      if (bus){
+        const validated = validate(password, bus.password, busTable.dataValues.salt)
+        if(validated){
+          return bus
+        }
+        else{
+          throw new ApolloError(`password incorrect`);
+        }
+      }
+      else {
+        throw new ApolloError(`business username:${busname} doesn't exist`);
+      }
+    },
   },
   Mutation: {
-    registerUser: async (parent, { username, password }, { User, mongoUser }) => {
+    registerUser: async (parent, { username, password }, { User, mongoUser, mongoBusiness }) => {
       const encryptpass = obfuscate(password);
       const existing = await mongoUser.findOne({ username })
-      if (!existing) {
-        const newUser = new mongoUser({ username})
-        const { _id } = await newUser.save()
-        newUser.userID = _id
-        newUser.password = encryptpass.hash
-        await newUser.save()
-        await User.create({ id: _id, salt: encryptpass.salt});
-        return newUser
+      const busExisting = await mongoBusiness.findOne({ busname: username })
+      if (!existing && !busExisting) {
+        const newUser = await User.create({ salt: encryptpass.salt});
+        const newMongoUser = await mongoUser.create({ userID: newUser.ID, username:username, password: encryptpass.hash})
+        newMongoUser.save()
+        return newMongoUser
       } else {
-        throw new ApolloError('User already exists')
+        throw new ApolloError('User already exists, or username taken')
       }
-  }
+    },
+    registerBus: async (parent, { busname, password, pocketID }, { Business, mongoBusiness, mongoUser }) => {
+      const encryptpass = obfuscate(password);
+      const existing = await mongoBusiness.findOne({ busname: busname })
+      const userExisting = await mongoUser.findOne({ username: busname })
+      if (!existing && !userExisting) {
+        const newBus = await Business.create({ salt: encryptpass.salt, pocketID: pocketID});
+        const newMongoBus = await mongoBusiness.create({ 
+          busID: newBus.ID, 
+          busname: busname, 
+          password: encryptpass.hash,
+          pocketID: newBus.pocketID
+        })
+        newMongoBus.save()
+        return newMongoBus
+      } else {
+        throw new ApolloError('Business already exists, or username taken')
+      }
+    }
   }
 }
 module.exports = resolvers

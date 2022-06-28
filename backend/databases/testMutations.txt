@@ -6,9 +6,17 @@ mutation RegisterUser($username:String, $password: String){
   }
 }
 
+mutation RegisterBus($busname:String, $password: String, $pocketID: String){
+  registerBus(busname:$busname, password: $password, pocketID:$pocketID) {
+    busID
+    pocketID
+  }
+}
 
 Example Mutation Variables:
 {
   "username" : "beans",
-  "password": "cool"
+  "password": "cool",
+  "pocketID":"1p",
+  "busname": "business businessy"
 }

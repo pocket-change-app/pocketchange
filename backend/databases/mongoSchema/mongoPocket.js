@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const mongoPocketSchema = new mongoose.Schema({
-    pocketID: { type: mongoose.Schema.Types.ObjectId }, // no auto since generated in SQL
+    pocketID: { type: mongoose.Schema.Types.String }, // no auto since generated in SQL
     pocketname: { type: mongoose.Schema.Types.String },
-    businesses: [mongoose.Schema.Types.ObjectId],
-    customers: [mongoose.Schema.Types.ObjectId]
+    businesses: [mongoose.Schema.Types.String],
+    customers: [mongoose.Schema.Types.String]
     //georegion?
   })
   

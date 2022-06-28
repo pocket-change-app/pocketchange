@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const mongoUserSchema = new mongoose.Schema({
-    userID: { type: mongoose.Schema.Types.ObjectId }, // no auto since generated in SQL
+    userID: { type: mongoose.Schema.Types.String }, // no auto since generated in SQL
     username: { type: mongoose.Schema.Types.String },
     password: { type: mongoose.Schema.Types.String },
-    pockets:  [mongoose.Schema.Types.ObjectId],
-    favouriteBusiness: [mongoose.Schema.Types.ObjectId],
+    pockets:  [mongoose.Schema.Types.String],
+    favouriteBusiness: [mongoose.Schema.Types.String],
     emailAddress: { type: mongoose.Schema.Types.String }
   })
   

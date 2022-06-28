@@ -1,14 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
-        id: {
+        ID: {
             type: Sequelize.UUID,
             allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
         salt: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            primaryKey: false
+            type: Sequelize.UUID,
+            allowNull: true
         }
     });
   

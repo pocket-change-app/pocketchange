@@ -1,18 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
     const Business = sequelize.define("business", {
-        id: {
+        ID: {
             type: Sequelize.UUID,
             allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        pocketId: {
+        pocketID: {
             type: Sequelize.UUID,
             allowNull: false
         },
         salt: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            primaryKey: false
+            type: Sequelize.UUID,
+            allowNull: true
         }
     });
   

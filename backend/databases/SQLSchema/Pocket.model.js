@@ -1,12 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
     const Pocket = sequelize.define("pocket", {
-        id: {
+        ID: {
             type: Sequelize.UUID,
             allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
         circulatingPoints: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
             allowNull: false
         },
         changeRate: {
