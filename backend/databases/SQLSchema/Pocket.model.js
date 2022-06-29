@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        circulatingPoints: {
+        circulatingChange: {
             type: Sequelize.FLOAT,
             allowNull: false
         },

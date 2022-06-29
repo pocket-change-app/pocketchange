@@ -90,6 +90,24 @@ const resolvers = {
         return {};
       }
     },
+    change: async (parent, { changeID }, { Change }) => {
+      if (changeID === '') {
+        return null;
+      }
+      const changeInfo = await Change.findOne({ where : {ID: changeID}});
+      if (changeInfo) {
+        return {
+          "changeID": changeInfo.dataValues.ID,
+          "pocketID": changeInfo.pocketID,
+          "value": changeInfo.value,
+          "customerID":changeInfo.customerID,
+          "expiryDate": changeInfo.expiryDate,
+        }
+      } else {
+        throw new ApolloError(`changeID:${changeID} doesn't exist`);
+        return {};
+      }
+    },
     loginUser: async (parent, { username, password }, { mongoUser, User}) => {
       const user = await mongoUser.findOne({ username })
       if (user){
@@ -134,6 +152,24 @@ const resolvers = {
         throw new ApolloError(`business username:${busname} doesn't exist in MongoDB`);
       }
     },
+    getUserChange: async (parent, { userID, pocketID }, { Change}) => {
+      const userChange = await Change.findOne({
+        userID: userID,
+        pocketID: pocketID
+      })
+      if (userChange){
+        return{
+          "changeID": userChange.dataValues.ID,
+          "pocketID": userChange.pocketID,
+          "value": userChange.value,
+          "userID":userChange.userID,
+          "expiryDate": userChange.expiryDate,
+        }
+      }
+      else {
+        throw new ApolloError(`business username:${busname} doesn't exist in SQL` );
+      }
+    },
   },
   Mutation: {
     registerUser: async (parent, { username, password }, { User, mongoUser, mongoBusiness }) => {
@@ -166,7 +202,54 @@ const resolvers = {
       } else {
         throw new ApolloError('Business already exists, or username taken')
       }
-    }
+    },
+    calculateUserChange: async (parent, { userID, pocketID }, { Change, Transaction, sequelizeConnection}) => {
+      //SELECT `userID`, `pocketID`, SUM(`changeEarned`) AS `totalChangeEarned` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
+      const changeEarnedPerUserPerPocket = await Transaction.findAll({ 
+        attributes: ["userID", "pocketID", 
+        [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeEarned')), 'totalChangeEarned']
+        ],
+        group: ["userID", "pocketID"],
+        where: {userID: userID, pocketID: pocketID}
+      })
+      if (changeEarnedPerUserPerPocket[0]){
+        const totalChangeEarned = changeEarnedPerUserPerPocket[0].dataValues.totalChangeEarned
+        //console.log("change earned", totalChangeEarned)
+        //SELECT `userID`, `pocketID`, SUM(`changeRedeemed`) AS `totalChangeRedeemed` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
+        const changeRedeemedPerUserPerPocket = await Transaction.findAll({ 
+          attributes: ["userID", "pocketID", 
+          [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeRedeemed')), 'totalChangeRedeemed']
+          ],
+          group: ["userID", "pocketID"],
+          where: {userID: userID, pocketID: pocketID}
+        })
+        if (changeRedeemedPerUserPerPocket[0]){
+          const totalChangeRedeemed =  changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed
+          //console.log("change redeemed", totalChangeRedeemed)
+          const currentChange = totalChangeEarned - totalChangeRedeemed
+          //console.log("CUR CHANGE", currentChange)
+          //update the User change
+          const userChange = await Change.findOne({
+            userID: userID,
+            pocketID: pocketID
+          })
+          if (userChange){
+            await userChange.update({value: currentChange})
+            return{
+              "changeID": userChange.dataValues.ID,
+              "pocketID": userChange.pocketID,
+              "value": userChange.value,
+              "userID":userChange.userID,
+              "expiryDate": userChange.expiryDate,
+            }
+          }
+        }
+      }
+      //SELECT `userID`,`pocketID`, SUM(`changeRedeemed`) as totalChangeRedeemed from `transactions` GROUP BY `userID`, `pocketID`;
+      else {
+        throw new ApolloError(`no change for this userID:${userID} and  pocketID:${pocketID}` );
+      }
+    },
   }
 }
 module.exports = resolvers

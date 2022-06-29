@@ -13,6 +13,16 @@ mutation RegisterBus($busname:String, $password: String, $pocketID: String){
   }
 }
 
+mutation calculateUserChange($userID: ID, $pocketID: ID){
+    calculateUserChange(userID: $userID, pocketID: $pocketID) {
+      changeID
+      pocketID
+      value
+      userID
+      expiryDate
+    }
+  }
+
 Example Mutation Variables:
 {
   "username" : "beans",

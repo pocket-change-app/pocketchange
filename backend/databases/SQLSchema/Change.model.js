@@ -11,10 +11,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         value: {
-            type: Sequelize.FLOAT,
+            type: Sequelize.DECIMAL(10,2),
             allowNull: false
         },
-        customerID: {
+        userID: {
             type: Sequelize.UUID,
             allowNull: false
         },

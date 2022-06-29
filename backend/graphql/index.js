@@ -33,7 +33,8 @@ const context = async ({ req }) => {
     Transaction,
     mongoUser,
     mongoBusiness,
-    mongoPocket
+    mongoPocket, 
+    sequelizeConnection
   }
 }
 

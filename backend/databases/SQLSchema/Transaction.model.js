@@ -6,12 +6,12 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        customerID: {
+        userID: {
             type: Sequelize.UUID,
             allowNull: false
         },
         value:{
-            type: Sequelize.FLOAT,
+            type: Sequelize.DECIMAL(10,2),
             allowNull: false
         },
         date: {
@@ -27,11 +27,11 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         changeRedeemed: {
-            type: Sequelize.FLOAT,
+            type: Sequelize.DECIMAL(10,2),
             allowNull: false
         },
         changeEarned: {
-            type: Sequelize.FLOAT,
+            type: Sequelize.DECIMAL(10,2),
             allowNull: false
         }
     });

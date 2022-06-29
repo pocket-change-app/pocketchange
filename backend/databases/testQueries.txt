@@ -10,13 +10,23 @@ query User($userID: ID){
     }
 }
 
-uery Business($busID: ID){
+query Business($busID: ID){
     business(busID: $busID) {
       busID
       pocketID
       busname
       emailAddress
       role
+    }
+  }
+
+query Change($changeID: ID){
+    change(changeID: $changeID) {
+      changeID
+      pocketID
+      value
+      userID
+      expiryDate
     }
   }
 
@@ -27,7 +37,7 @@ query Pocket($pocketID:ID){
     customers
     businesses
     changeRate
-    circulatingPoints
+    circulatingChange
   }
 }
 
@@ -44,6 +54,12 @@ query loginBus($busname:String, $password: String){
     busname
   }
 }
+
+query loginUser($username:String, $password: String){
+  loginUser(username:$username, password: $password) {
+    userID
+  }
+}
   
   
 Example Query Variables:
@@ -53,5 +69,6 @@ Example Query Variables:
   "username" : "beans",
   "password": "cool",
   "pocketID":"1p",
-  "busname": "business businessy"
+  "busname": "business businessy",
+  "changeID": "1change"
 }
