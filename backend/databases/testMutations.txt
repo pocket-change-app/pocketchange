@@ -23,6 +23,17 @@ mutation calculateUserChange($userID: ID, $pocketID: ID){
     }
   }
 
+mutation calculatePocketChange($pocketID: ID){
+    calculatePocketChange(pocketID: $pocketID) {
+      pocketID
+      pocketName
+      customers
+      businesses
+      changeRate
+      circulatingChange
+    }
+  }
+
 Example Mutation Variables:
 {
   "username" : "beans",

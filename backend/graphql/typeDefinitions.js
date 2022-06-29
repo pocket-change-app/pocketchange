@@ -45,6 +45,7 @@ const typeDefs = gql`
     registerUser(username: String, password: String): User
     registerBus(busname: String, password: String, pocketID:String): Business
     calculateUserChange(userID: ID, pocketID: ID):Change
+    calculatePocketChange(pocketID: ID):Pocket
   }
 `
 

@@ -50,4 +50,3 @@ INSERT INTO `changes` (ID,pocketID, value, userID, expiryDate, createdAt, update
 INSERT INTO `changes` (ID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("3change", "2p",  "1.00", "2c", '2023-02-04 20:34:13','2023-02-04 20:34:13','2022-02-04 20:34:13');
 INSERT INTO `changes` (ID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("4change", "1p",  "2.00", "3c", '2023-02-04 20:34:13','2023-02-04 20:34:13','2022-02-04 20:34:13');
 INSERT INTO `changes` (ID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("5change", "2p",  "2.50", "4c", '2023-02-04 20:34:13','2023-02-04 20:34:13','2022-02-04 20:34:13');
-INSERT INTO `changes` (ID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("6change", "1p",  "3.60", "5c", '2023-02-04 20:34:13','2023-02-04 20:34:13','2022-02-04 20:34:13');

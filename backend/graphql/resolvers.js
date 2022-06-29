@@ -77,7 +77,7 @@ const resolvers = {
       if(pocketInfo && mongoPocketInfo ){
           return {
             "pocketID": pocketInfo.dataValues.ID,
-            "circulatingPoints": pocketInfo.dataValues.circulatingPoints,
+            "circulatingChange": pocketInfo.dataValues.circulatingChange,
             "changeRate": pocketInfo.dataValues.changeRate,
             "customers": mongoPocketInfo.customers,
             "businesses": mongoPocketInfo.businesses,
@@ -99,7 +99,7 @@ const resolvers = {
         return {
           "changeID": changeInfo.dataValues.ID,
           "pocketID": changeInfo.pocketID,
-          "value": changeInfo.value,
+          "value": (changeInfo.value).toFixed(2),
           "customerID":changeInfo.customerID,
           "expiryDate": changeInfo.expiryDate,
         }
@@ -111,10 +111,10 @@ const resolvers = {
     loginUser: async (parent, { username, password }, { mongoUser, User}) => {
       const user = await mongoUser.findOne({ username })
       if (user){
-        const userTable = await User.findOne({ID: user.userID})
+        const userTable = await User.findOne({where:{ID: user.userID}})
         if(userTable){
-          console.log(userTable.dataValues.salt)
-          console.log(userTable.dataValues.createdAt)
+          //console.log(userTable.dataValues.salt)
+          //console.log(userTable.dataValues.createdAt)
           const validated = validate(password, user.password, userTable.dataValues.salt)
           if(validated){
             return user
@@ -134,7 +134,7 @@ const resolvers = {
     loginBus: async (parent, { busname, password }, { mongoBusiness, Business}) => {
       const bus = await mongoBusiness.findOne({ busname })
       if (bus){
-        const busTable = await Business.findOne({ID: bus.busID})
+        const busTable = await Business.findOne({where: {ID: bus.busID}})
         if(busTable){
           const validated = validate(password, bus.password, busTable.dataValues.salt)
           if(validated){
@@ -161,7 +161,7 @@ const resolvers = {
         return{
           "changeID": userChange.dataValues.ID,
           "pocketID": userChange.pocketID,
-          "value": userChange.value,
+          "value": (userChange).value.toFixed(),
           "userID":userChange.userID,
           "expiryDate": userChange.expiryDate,
         }
@@ -228,24 +228,83 @@ const resolvers = {
           //console.log("change redeemed", totalChangeRedeemed)
           const currentChange = totalChangeEarned - totalChangeRedeemed
           //console.log("CUR CHANGE", currentChange)
-          //update the User change
-          const userChange = await Change.findOne({
-            userID: userID,
-            pocketID: pocketID
+          //update the User change, if the users change for this pocket exists
+          var userChange = await Change.findOne({ where: {userID: userID,
+            pocketID: pocketID}
           })
           if (userChange){
             await userChange.update({value: currentChange})
+          }
+          else{
+            //create new userChange object since the users change for this pocket has not been calculated
+            //get the date of most recent transaction
+            const mostRecentDateInfo = await Transaction.findOne({ 
+              where: {userID: userID, pocketID: pocketID},
+              order: [ [ 'createdAt', 'DESC' ]],
+            })
+            const mostRecentDate = new Date(mostRecentDateInfo.dataValues.updatedAt)
+            //set expiry date to 6 months after last transaction
+            var expiryDate = (mostRecentDate).setMonth(mostRecentDate.getMonth() + 6)
+            //store expiry date in yyyy-mm-dd format
+            expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
+            userChange = await Change.create({userID: userID,
+              pocketID: pocketID, value: currentChange, expiryDate: expiryDate})
+          }
+          return{
+            "changeID": userChange.dataValues.ID,
+            "pocketID": userChange.pocketID,
+            "value": userChange.value,
+            "userID":userChange.userID,
+            "expiryDate": userChange.expiryDate,
+          }
+        }
+      }
+      else {
+        throw new ApolloError(`no change for this userID:${userID} and  pocketID:${pocketID}` );
+      }
+      },
+    calculatePocketChange: async (parent, {pocketID }, { Pocket, Transaction, mongoPocket, sequelizeConnection}) => {
+      //SELECT `pocketID`, SUM(`changeEarned`) AS `totalChangeEarned` FROM `transactions` AS `transaction` WHERE `transaction`.`pocketID` = '2p' GROUP BY `pocketID`;
+      //console.log(pocketID)
+      const changeEarnedPerPocket = await Transaction.findAll({ 
+        attributes: ["pocketID", 
+        [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeEarned')), 'totalChangeEarned']
+        ],
+        group: ["pocketID"],
+        where: {pocketID: pocketID}
+      })
+      if (changeEarnedPerPocket[0]){
+        const totalChangeEarned = changeEarnedPerPocket[0].dataValues.totalChangeEarned
+        //onsole.log("change earned", totalChangeEarned)
+        //SELECT `userID`, `pocketID`, SUM(`changeRedeemed`) AS `totalChangeRedeemed` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
+        const changeRedeemedPerPocket = await Transaction.findAll({ 
+          attributes: ["pocketID", 
+          [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeRedeemed')), 'totalChangeRedeemed']
+          ],
+          group: ["pocketID"],
+          where: {pocketID: pocketID}
+        })
+        if (changeRedeemedPerPocket[0]){
+          const totalChangeRedeemed =  changeRedeemedPerPocket[0].dataValues.totalChangeRedeemed
+          //console.log("change redeemed", totalChangeRedeemed)
+          const currentChange = totalChangeEarned - totalChangeRedeemed
+         //console.log("CUR CHANGE", currentChange)
+          //update the Pocket circulating change
+          const pocketChange = await Pocket.findOne({ where: {ID: pocketID}})
+          const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
+          if (pocketChange && mongoPocketInfo){
+            await pocketChange.update({circulatingChange: currentChange})
             return{
-              "changeID": userChange.dataValues.ID,
-              "pocketID": userChange.pocketID,
-              "value": userChange.value,
-              "userID":userChange.userID,
-              "expiryDate": userChange.expiryDate,
+              "pocketID": pocketChange.dataValues.ID,
+              "circulatingChange": (pocketChange.dataValues.circulatingChange).toFixed(2),
+              "changeRate": pocketChange.dataValues.changeRate,
+              "customers": mongoPocketInfo.customers,
+              "businesses": mongoPocketInfo.businesses,
+              "pocketName" : mongoPocketInfo.pocketname
             }
           }
         }
       }
-      //SELECT `userID`,`pocketID`, SUM(`changeRedeemed`) as totalChangeRedeemed from `transactions` GROUP BY `userID`, `pocketID`;
       else {
         throw new ApolloError(`no change for this userID:${userID} and  pocketID:${pocketID}` );
       }
