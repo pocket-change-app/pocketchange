@@ -6,7 +6,7 @@ db.mongousers.insertMany( [
       username: 'ilovelocal',
       password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
       pockets: [ '1p', '2p' ],
-      favouriteBusiness: ['1c'],
+      favouriteBusiness: ['1b'],
       emailAddress:'ilovelocal@gmail.com'
    },
    {

@@ -1,17 +1,25 @@
 Input the following queries into playground to test:
+
 query User($userID: ID){
     user(userID: $userID) {
       userID
+      username
+      emailAddress
+      favouriteBusiness
+      pockets
     }
 }
 
-query Business($busID: ID){
+uery Business($busID: ID){
     business(busID: $busID) {
       busID
       pocketID
+      busname
+      emailAddress
+      role
     }
   }
-  
+
 query Pocket($pocketID:ID){
   pocket(pocketID:$pocketID) {
     pocketID

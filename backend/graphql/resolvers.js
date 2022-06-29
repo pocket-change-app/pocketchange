@@ -28,29 +28,38 @@ const validate = (userpass, hashedpass, salt) => {
 
 const resolvers = {
   Query:{
-    user: async (parent, { userID }, { User }) => {
+    user: async (parent, { userID }, { User, mongoUser }) => {
       if (userID === '') {
         return null;
       }
       const userInfo = await User.findOne({ where : {ID: userID}});
-      if (userInfo) {
+      const mongoUserInfo = await mongoUser.findOne({ userID});
+      if (userInfo && mongoUserInfo) {
         return {
-          "userID": userInfo.dataValues.ID
+          "userID": userInfo.dataValues.ID,
+          "username": mongoUserInfo.username,
+          "emailAddress": mongoUserInfo.emailAddress,
+          "pockets":mongoUserInfo.pockets,
+          "favouriteBusiness": mongoUserInfo.favouriteBusiness,
         }
       } else {
         throw new ApolloError(`userID:${userID} doesn't exist`);
         return {};
       }
     },
-    business: async (parent, { busID }, { Business}) => {
+    business: async (parent, { busID }, { Business, mongoBusiness}) => {
       if (busID === '') {
         return null;
       }
       const businessInfo = await Business.findOne({ where : {ID: busID}});
-      if(businessInfo){
+      const mongoBusInfo = await mongoBusiness.findOne({ busID});
+      if(businessInfo && mongoBusInfo){
           return {
             "busID": businessInfo.dataValues.ID,
             "pocketID": businessInfo.dataValues.pocketID,
+            "busname": mongoBusInfo.busname,
+            "emailAddress": mongoBusInfo.emailAddress,
+            "role": mongoBusInfo.role
           }
 
       }
@@ -83,34 +92,46 @@ const resolvers = {
     },
     loginUser: async (parent, { username, password }, { mongoUser, User}) => {
       const user = await mongoUser.findOne({ username })
-      const userTable = await User.findOne({ID: user.userID})
       if (user){
-        const validated = validate(password, user.password, userTable.dataValues.salt)
-        if(validated){
-          return user
+        const userTable = await User.findOne({ID: user.userID})
+        if(userTable){
+          console.log(userTable.dataValues.salt)
+          console.log(userTable.dataValues.createdAt)
+          const validated = validate(password, user.password, userTable.dataValues.salt)
+          if(validated){
+            return user
+          }
+          else{
+            throw new ApolloError(`password incorrect`);
+          }
         }
-        else{
-          throw new ApolloError(`password incorrect`);
+        else {
+          throw new ApolloError(`username:${username} doesn't exist in SQL`);
         }
       }
       else {
-        throw new ApolloError(`username:${username} doesn't exist`);
+        throw new ApolloError(`username:${username} doesn't exist in MongoDB`);
       }
     },
     loginBus: async (parent, { busname, password }, { mongoBusiness, Business}) => {
       const bus = await mongoBusiness.findOne({ busname })
-      const busTable = await Business.findOne({ID: bus.userID})
       if (bus){
-        const validated = validate(password, bus.password, busTable.dataValues.salt)
-        if(validated){
-          return bus
+        const busTable = await Business.findOne({ID: bus.busID})
+        if(busTable){
+          const validated = validate(password, bus.password, busTable.dataValues.salt)
+          if(validated){
+            return bus
+          }
+          else{
+            throw new ApolloError(`password incorrect`);
+          }
         }
-        else{
-          throw new ApolloError(`password incorrect`);
+        else {
+          throw new ApolloError(`business username:${busname} doesn't exist in SQL` );
         }
       }
       else {
-        throw new ApolloError(`business username:${busname} doesn't exist`);
+        throw new ApolloError(`business username:${busname} doesn't exist in MongoDB`);
       }
     },
   },

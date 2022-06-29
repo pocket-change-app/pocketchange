@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         salt: {
             type: Sequelize.UUID,
-            allowNull: true
+            allowNull: false
         }
     });
   

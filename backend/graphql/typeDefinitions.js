@@ -5,6 +5,8 @@ const typeDefs = gql`
     userID: ID 
     username: String
     emailAddress: String
+    favouriteBusiness: [String]
+    pockets: [String]
   }
   type Business {
     busID: ID 
