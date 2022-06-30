@@ -2,25 +2,26 @@ const { gql, ApolloError } = require('apollo-server');
 
 module.exports = {
     Query: {
-        pocket: async (parent, { pocketID }, { Pocket, mongoPocket}) => {
-            if (pocketID === '') {
+        transaction: async (parent, { transactionID }, { Transaction}) => {
+            if (transactionID === '') {
               return null;
             }
-            const pocketInfo = await Pocket.findOne({ where : {ID: pocketID}});
-            const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
-            if(pocketInfo && mongoPocketInfo ){
+            const transactionInfo = await Transaction.findOne({ where : {ID: transactionID}});
+            if(transactionInfo ){
                 return {
-                  "pocketID": pocketInfo.dataValues.ID,
-                  "circulatingChange": pocketInfo.dataValues.circulatingChange,
-                  "changeRate": pocketInfo.dataValues.changeRate,
-                  "customers": mongoPocketInfo.customers,
-                  "businesses": mongoPocketInfo.businesses,
-                  "pocketName" : mongoPocketInfo.pocketname
+                  "transactionID": transactionInfo.dataValues.ID,
+                  "userID": transactionInfo.dataValues.userID,
+                  "value": transactionInfo.dataValues.value,
+                  "date": transactionInfo.dataValues.Date,
+                  "busID": transactionInfo.dataValues.busID,
+                  "pocketID": transactionInfo.dataValues.pocketID,
+                  "changeRedeemed": transactionInfo.dataValues.changeRedeemed,
+                  "changeEarned": transactionInfo.dataValues.changeEarned,
                 }
       
             }
             else {
-              throw new ApolloError(`pocketID:${pocketID} doesn't exist`);
+              throw new ApolloError(`transactionID:${transactionID} doesn't exist`);
               return {};
             }
         },
