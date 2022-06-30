@@ -16,7 +16,6 @@ const Transaction = database.Transaction
 const mongodatabase = require('../databases/mongoSchema/mongodb')
 const mongoose = mongodatabase.mongoose
 const mongoUser = mongoose.model('mongoUser')
-console.log("MONGOUSER", mongoUser)
 const mongoBusiness = mongoose.model('mongoBusiness')
 const mongoPocket = mongoose.model('mongoPocket')
 
