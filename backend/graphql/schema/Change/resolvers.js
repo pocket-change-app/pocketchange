@@ -11,7 +11,7 @@ module.exports = {
           return {
             "changeID": changeInfo.dataValues.ID,
             "pocketID": changeInfo.pocketID,
-            "value": (changeInfo.value).toFixed(2),
+            "value": Math.round((changeInfo.dataValues.value + Number.EPSILON) * 100) / 100 ,
             "customerID":changeInfo.customerID,
             "expiryDate": changeInfo.expiryDate,
           }
@@ -21,15 +21,15 @@ module.exports = {
         }
     },
     getUserChange: async (parent, { userID, pocketID }, { Change}) => {
-        const userChange = await Change.findOne({
+        const userChange = await Change.findOne({where:{
           userID: userID,
-          pocketID: pocketID
+          pocketID: pocketID}
         })
         if (userChange){
           return{
             "changeID": userChange.dataValues.ID,
             "pocketID": userChange.pocketID,
-            "value": (userChange).value.toFixed(),
+            "value": Math.round((userChange.dataValues.value + Number.EPSILON) * 100) / 100,
             "userID":userChange.userID,
             "expiryDate": userChange.expiryDate,
           }
@@ -63,15 +63,18 @@ module.exports = {
           })
           if (changeRedeemedPerUserPerPocket[0]){
             const totalChangeRedeemed =  changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed
+            //console.log("TYPE OF CHANGE REDEEMED" , typeof(totalChangeRedeemed))
             //console.log("change redeemed", totalChangeRedeemed)
             const currentChange = totalChangeEarned - totalChangeRedeemed
+           // console.log("TYPE OF CURRCHANGE" , typeof(currentChange))
+            //console.log("TYPE OF CURRCHANGE POST" , typeof(Math.round((currentChange+ Number.EPSILON) * 100) / 100))
             //console.log("CUR CHANGE", currentChange)
             //update the User change, if the users change for this pocket exists
             var userChange = await Change.findOne({ where: {userID: userID,
               pocketID: pocketID}
             })
             if (userChange){
-              await userChange.update({value: currentChange})
+              await userChange.update({value: Math.round((currentChange+ Number.EPSILON) * 100) / 100 })
             }
             else{
               //create new userChange object since the users change for this pocket has not been calculated
@@ -86,7 +89,7 @@ module.exports = {
               //store expiry date in yyyy-mm-dd format
               expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
               userChange = await Change.create({userID: userID,
-                pocketID: pocketID, value: currentChange, expiryDate: expiryDate})
+                pocketID: pocketID, value: Math.round((currentChange+ Number.EPSILON) * 100) / 100, expiryDate: expiryDate})
             }
             return{
               "changeID": userChange.dataValues.ID,
