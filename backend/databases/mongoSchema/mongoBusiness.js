@@ -5,6 +5,7 @@ const mongoBusinessSchema = new mongoose.Schema({
     password: { type: mongoose.Schema.Types.String },
     role: { type: mongoose.Schema.Types.String },
     busname: { type: mongoose.Schema.Types.String },
+    dateEstablished: { type: mongoose.Schema.Types.Date },
     pocketID: {type: mongoose.Schema.Types.String},
     emailAddress: { type: mongoose.Schema.Types.String },
   })

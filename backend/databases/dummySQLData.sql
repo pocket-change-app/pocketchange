@@ -8,9 +8,13 @@ INSERT INTO users (ID, salt, createdAt,updatedAt) VALUES ("3c",'552bad3bc6c09965
 INSERT INTO users (ID, salt, createdAt,updatedAt) VALUES ("4c", '552bad3bc6c09965','2022-03-04 09:22:11','2022-03-04 20:34:13');
 INSERT INTO users (ID, salt, createdAt,updatedAt) VALUES ("5c", '552bad3bc6c09965','2022-03-04 09:22:11','2022-03-04 20:34:13');
 
+-- insert pocketManagers
+INSERT INTO pocketManagers (ID,pocketID, salt, createdAt, updatedAt) VALUES ("1PM", "1p", '552bad3bc6c09965', '2022-02-04 09:22:11','2022-02-04 20:34:13');
+INSERT INTO pocketManagers (ID,pocketID, salt, createdAt, updatedAt) VALUES ("2PM", "1p",  '552bad3bc6c09965','2022-02-04 09:22:11','2022-02-04 20:34:13');
+
 -- insert pockets
-INSERT INTO pockets (ID,circulatingChange, changeRate, createdAt, updatedAt) VALUES ("1p", "16.00", "0.08", '2022-02-04 09:22:11','2022-02-04 20:34:13');
-INSERT INTO pockets (ID,circulatingChange, changeRate, createdAt, updatedAt) VALUES ("2p", "4.5", "0.10", '2022-02-04 09:22:11','2022-02-04 20:34:13');
+INSERT INTO pockets (ID, pocketManagerID, circulatingChange, changeRate, createdAt, updatedAt) VALUES ("1p", '1PM', "16.00", "0.08", '2022-02-04 09:22:11','2022-02-04 20:34:13');
+INSERT INTO pockets (ID, pocketManagerID, circulatingChange, changeRate, createdAt, updatedAt) VALUES ("2p", '2PM', "4.5", "0.10", '2022-02-04 09:22:11','2022-02-04 20:34:13');
 
 -- insert businesses
 INSERT INTO businesses (ID,pocketID, salt, createdAt, updatedAt) VALUES ("1b", "1p", '552bad3bc6c09965', '2022-02-04 09:22:11','2022-02-04 20:34:13');
