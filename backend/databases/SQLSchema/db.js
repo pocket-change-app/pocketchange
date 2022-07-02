@@ -19,6 +19,7 @@ db.sequelize = sequelize;
 db.Business = require("./Business.model.js")(sequelize, Sequelize);
 db.User = require("./User.model.js")(sequelize, Sequelize);
 db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+db.PocketManager = require("./PocketManager.model.js")(sequelize, Sequelize);
 db.Change = require("./Change.model.js")(sequelize, Sequelize);
 db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
 

@@ -6,6 +6,9 @@ export default {
             user(userID: $userID) {
                 userID
                 username
+                name
+                birthDate
+                totalChange
                 emailAddress
                 favouriteBusiness
                 pockets

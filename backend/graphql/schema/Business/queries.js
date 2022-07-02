@@ -4,11 +4,12 @@ export default {
     Business: gql`
         query Business($busID: ID){
             business(busID: $busID) {
-            busID
-            pocketID
-            busname
-            emailAddress
-            role
+              busID
+              pocketID
+              busname
+              dateEstablished
+              emailAddress
+              role
             }
         }
 `,

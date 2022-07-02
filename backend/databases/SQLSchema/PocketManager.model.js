@@ -1,25 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const Pocket = sequelize.define("pocket", {
+    const PocketManager = sequelize.define("pocketManager", {
         ID: {
             type: Sequelize.UUID,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        pocketManagerID: {
+        pocketID: {
             type: Sequelize.UUID,
-            allowNull: false,
-            primaryKey: false
-        },
-        circulatingChange: {
-            type: Sequelize.DECIMAL(10,2),
             allowNull: false
         },
-        changeRate: {
-            type: Sequelize.DECIMAL(10,2), 
+        salt: {
+            type: Sequelize.UUID,
             allowNull: false
         }
     });
   
-    return Pocket;
+    return PocketManager;
 };

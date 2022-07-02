@@ -47,6 +47,16 @@ query loginUser($username:String, $password: String){
   }
 }
 
+query pocketManager($managerID: ID){
+          pocketManager(managerID: $managerID) {
+            managerID
+            name
+            managername
+            pocketID
+            emailAddress
+          }
+      }
+
 query loginBus($busname:String, $password: String){
   loginBus(busname:$busname, password: $password) {
     busID

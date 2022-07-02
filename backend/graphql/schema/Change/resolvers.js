@@ -52,7 +52,6 @@ module.exports = {
         })
         if (changeEarnedPerUserPerPocket[0]){
           const totalChangeEarned = changeEarnedPerUserPerPocket[0].dataValues.totalChangeEarned
-          //console.log("change earned", totalChangeEarned)
           //SELECT `userID`, `pocketID`, SUM(`changeRedeemed`) AS `totalChangeRedeemed` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
           const changeRedeemedPerUserPerPocket = await Transaction.findAll({ 
             attributes: ["userID", "pocketID", 
@@ -63,12 +62,7 @@ module.exports = {
           })
           if (changeRedeemedPerUserPerPocket[0]){
             const totalChangeRedeemed =  changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed
-            //console.log("TYPE OF CHANGE REDEEMED" , typeof(totalChangeRedeemed))
-            //console.log("change redeemed", totalChangeRedeemed)
             const currentChange = totalChangeEarned - totalChangeRedeemed
-           // console.log("TYPE OF CURRCHANGE" , typeof(currentChange))
-            //console.log("TYPE OF CURRCHANGE POST" , typeof(Math.round((currentChange+ Number.EPSILON) * 100) / 100))
-            //console.log("CUR CHANGE", currentChange)
             //update the User change, if the users change for this pocket exists
             var userChange = await Change.findOne({ where: {userID: userID,
               pocketID: pocketID}

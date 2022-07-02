@@ -14,6 +14,9 @@ module.exports = {
               return {
                 "userID": userInfo.dataValues.ID,
                 "username": mongoUserInfo.username,
+                "name": mongoUserInfo.name,
+                "birthDate": mongoUserInfo.birthDate,
+                "totalChange":mongoUserInfo.username,
                 "emailAddress": mongoUserInfo.emailAddress,
                 "pockets":mongoUserInfo.pockets,
                 "favouriteBusiness": mongoUserInfo.favouriteBusiness,
@@ -49,11 +52,12 @@ module.exports = {
     },
   
     Mutation: {
-        registerUser: async (parent, { username, password }, { User, mongoUser, mongoBusiness }) => {
+        registerUser: async (parent, { username, password }, { User, mongoUser,mongoPocketManager, mongoBusiness }) => {
             const encryptpass = obfuscate(password);
             const existing = await mongoUser.findOne({ username })
             const busExisting = await mongoBusiness.findOne({ busname: username })
-            if (!existing && !busExisting) {
+            const managerExisting = await mongoPocketManager.findOne({ managername: username })
+            if (!existing && !busExisting && !managerExisting) {
               const newUser = await User.create({ salt: encryptpass.salt});
               const newMongoUser = await mongoUser.create({ userID: newUser.ID, username:username, password: encryptpass.hash})
               newMongoUser.save()

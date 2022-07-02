@@ -8,6 +8,7 @@ module.exports = gql`
         busID: ID 
         pocketID: ID
         busname: String
+        dateEstablished: Date
         emailAddress: String
         role: String
     }

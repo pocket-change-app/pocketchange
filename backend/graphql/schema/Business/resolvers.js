@@ -19,6 +19,7 @@ module.exports = {
               "busID": businessInfo.dataValues.ID,
               "pocketID": businessInfo.dataValues.pocketID,
               "busname": mongoBusInfo.busname,
+              "dateEstablished": mongoBusInfo.dateEstablished,
               "emailAddress": mongoBusInfo.emailAddress,
               "role": mongoBusInfo.role
             }
@@ -56,13 +57,14 @@ module.exports = {
   },
 
   Mutation: {
-    registerBus: async (parent, { busname, password, pocketID }, { Business, mongoBusiness, mongoUser }) => {
+    registerBus: async (parent, { busname, password, pocketID }, { Business, mongoBusiness, mongoPocketManager, mongoUser }) => {
         //immediately encrypt the business users password
         const encryptpass = obfuscate(password);
-        //check to see the username they want isnt taken by another user or a business
+        //check to see the username they want isnt taken by another user or a business or pm
         const existing = await mongoBusiness.findOne({ busname: busname })
         const userExisting = await mongoUser.findOne({ username: busname })
-        if (!existing && !userExisting) {
+        const managerExisting = await mongoPocketManager.findOne({ managername: busname })
+        if (!existing && !userExisting && !managerExisting) {
           //create a new business in Mongo and SQL
           const newBus = await Business.create({ salt: encryptpass.salt, pocketID: pocketID});
           const newMongoBus = await mongoBusiness.create({ 

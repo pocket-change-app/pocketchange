@@ -7,10 +7,6 @@ const updateChangeAcross = async(Change, Pocket, pocketID, userID, updatedChange
     var expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
     //store expiry date in yyyy-mm-dd format
     expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
-    console.log("UPDATED CHANGE", updatedChange)
-    console.log("UPDATED CHANGE CIRC", updatedChangeCirculating)
-    console.log("UPDATED CHANGE TYPE", typeof(updatedChange))
-    console.log("UPDATED CHANGE CIRC TYPE", typeof(updatedChangeCirculating))
     await Change.update({
         value: updatedChange,
         expiryDate: expiryDate
@@ -69,7 +65,6 @@ module.exports = {
                         const businessPocket = businessInfo.dataValues.pocketID
                         var changeEarned = 0
                         if(businessPocket == pocketID){
-                            console.log("business in pocket")
                             //get pocket Info
                             const pocketInfo = await Pocket.findOne({where:{ID:pocketID}})
                             //get change info
@@ -79,7 +74,6 @@ module.exports = {
                               })
                             //get date 
                             const dateOfTransaction = new Date().toISOString().slice(0, 10)
-                            console.log("DATE", dateOfTransaction)
                             //business is in the pocket, so now check if change is used
                             if(changeUsing >0.00){
                                 //subtract change from users change in SQL and from pockets circulating change
@@ -103,20 +97,13 @@ module.exports = {
                                 var changeRedeemed = 0
                                 const changeRate = pocketInfo.dataValues.changeRate
                                 changeEarned = Math.round((value*(changeRate)+ Number.EPSILON) * 100) / 100 
-                                console.log("CHANGE EARNED MAIN", changeEarned)
-                                console.log("TYPE OF VALUE IN CHANGE", typeof(userChangeInfo.dataValues.value))
-                                console.log("TYPE OF CHANGE EARNED", typeof(changeEarned), changeEarned)
                                 const currChange = Math.round((Number(userChangeInfo.dataValues.value) + Number.EPSILON) * 100) / 100 
-                                console.log("TYPE OF VALUE IN CURRCHANGE", typeof(currChange), currChange)
                                 const updatedChange = Math.round(((currChange  + changeEarned)+ Number.EPSILON) * 100) / 100 
-                                console.log("UPDATED CHANGE MAIN", updatedChange)
                                 const oldChangeCirculating =  Math.round((Number(pocketInfo.dataValues.circulatingChange) + Number.EPSILON) * 100) / 100
-                                console.log("TYPE OF VALUE IN CIRC CHANGE MAIN", typeof(oldChangeCirculating), oldChangeCirculating)
                                 const updatedChangeCirculating = oldChangeCirculating + changeEarned
                                 await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                             }
                             //change is updated across
-                            console.log("CHANGE EARNED AFTER UPDATE", changeEarned)
                             const newTransaction = await Transaction.create({
                                 userID: userID,
                                 value: value,

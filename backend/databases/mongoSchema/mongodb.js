@@ -9,6 +9,7 @@ db.mongoose = mongoose;
 db.mongoUser =  require('./mongoUser')
 db.mongoPocket = require('./mongoPocket')
 db.mongoBusiness = require('./mongoBusiness')
+db.mongoPocketManager = require('./mongoPocketManager')
 
 mongoose.on('error', console.error.bind(console, 'connection error'))
 

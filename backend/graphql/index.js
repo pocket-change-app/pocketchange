@@ -9,6 +9,7 @@ const sequelizeConnection = database.sequelize
 const User = database.User
 const Business = database.Business
 const Pocket = database.Pocket
+const PocketManager = database.PocketManager
 const Change = database.Change
 const Transaction = database.Transaction
 
@@ -18,6 +19,7 @@ const mongoose = mongodatabase.mongoose
 const mongoUser = mongoose.model('mongoUser')
 const mongoBusiness = mongoose.model('mongoBusiness')
 const mongoPocket = mongoose.model('mongoPocket')
+const mongoPocketManager = mongoose.model('mongoPocketManager')
 
 const typeDefs = require('./typeDefinitions.js')
 const resolvers = require('./resolvers.js')
@@ -28,11 +30,13 @@ const context = async ({ req }) => {
     User,
     Business,
     Pocket,
+    PocketManager,
     Change,
     Transaction,
     mongoUser,
     mongoBusiness,
     mongoPocket, 
+    mongoPocketManager,
     sequelizeConnection
   }
 }

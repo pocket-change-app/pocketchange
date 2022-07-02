@@ -7,6 +7,9 @@ module.exports = gql`
     type User {
         userID: ID 
         username: String
+        name: String
+        birthDate: Date
+        totalChange: Decimal
         emailAddress: String
         favouriteBusiness: [String]
         pockets: [String]
