@@ -1,6 +1,8 @@
 const { gql, ApolloError } = require('apollo-server');
 const R = require('ramda');
 const { Business } = require('../../../databases/SQLSchema/db');
+const {Op} = require('sequelize');
+const {renameNestedKeys} = require('../../utils')
 
 const updateChangeAcross = async(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
     transactionDate = new Date(dateOfTransaction)
@@ -46,12 +48,42 @@ module.exports = {
               return {};
             }
         },
+        getAllTransactionsByBus: async (parent, { busID, startDate, endDate }, { Transaction}) => {
+          if (busID === '') {
+            return null;
+          }
+          if(startDate && endDate){
+            //get transactions between dates
+            //assume start date and end date in yyyy-mm-dd format as that is the Date format specified
+            //SELECT `transaction`.* FROM `transactions` AS `transaction` WHERE `transaction`.`businessID` = '2b' AND (DATE(`transaction`.`date`) BETWEEN '2010-01-30' AND '2030-09-29') ORDER BY `date`;
+            const where = { businessID: busID,
+                date: {
+                  [Op.between]: [startDate, endDate]
+                }
+            };
+            const transactionsByBusInDates = await Transaction.findAll({ 
+              where: where
+            })
+            //need to rename the ID to transactionID and businessID to busID
+            const finalTransactionObject = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionsByBusInDates))
+            return finalTransactionObject
+          }
+          //else get all Transactions
+          else{
+            const transactionInfo = await Transaction.findAll({ where : {businessID: busID}});
+            if(transactionInfo ){
+              const transactionObj = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionInfo))
+              return transactionObj
+    
+            }
+          }
+      },
     },
   
     Mutation: {
         processTransaction: async (parent, {userID, busID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, Change}) => {
             if(userID, busID, pocketID, value){
-                 //write this resolver TO-DO
+                //write this resolver TO-DO
                 //check to make sure user is in pocket
                 const changeUsing = Math.round((Number(changeUsed) + Number.EPSILON) * 100) / 100
                 const mongoUserInfo = await mongoUser.findOne({ userID })
@@ -117,7 +149,7 @@ module.exports = {
                                 "transactionID": newTransaction.dataValues.ID,
                                 "userID": newTransaction.dataValues.userID,
                                 "value": newTransaction.dataValues.value,
-                                "date": newTransaction.dataValues.Date,
+                                "date": newTransaction.dataValues.date,
                                 "busID": newTransaction.dataValues.businessID,
                                 "pocketID": newTransaction.dataValues.pocketID,
                                 "changeRedeemed": newTransaction.dataValues.changeRedeemed,
