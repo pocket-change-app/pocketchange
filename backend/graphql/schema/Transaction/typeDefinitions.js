@@ -20,6 +20,10 @@ module.exports = gql`
         Query a specific Transaction from it's ID
         """
         transaction(transactionID:ID):Transaction
+        """
+        Query all Transactions given a businessID, between certain dates
+        """
+        getAllTransactionsByBus(busID:ID, startDate: Date, endDate: Date):[Transaction]
     }
 
     type Mutation {

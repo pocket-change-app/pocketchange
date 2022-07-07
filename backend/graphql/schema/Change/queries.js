@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export default {
     Change: gql`
-        query Change($changeID: ID){
+        query change($changeID: ID){
             change(changeID: $changeID) {
                 changeID
                 pocketID

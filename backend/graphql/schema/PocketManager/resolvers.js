@@ -29,7 +29,7 @@ module.exports = {
           return {};
         }
     },
-    loginManager: async (parent, { managername, password }, { mongoPocketanager, PocketManager}) => {
+    loginManager: async (parent, { managername, password }, { mongoPocketManager, PocketManager}) => {
         const manager = await mongoPocketManager.findOne({ managername })
         //check to make sure manager with that username actually exists
         if (manager){
@@ -67,7 +67,11 @@ module.exports = {
           //create a new pocket manager in Mongo and SQL
           const newManager= await PocketManager.create({ salt: encryptpass.salt, pocketID: pocketID});
           //assign to Pocket the PocketManager
-          await Pocket.update({ pocketManagerID: newManager.ID })
+          await Pocket.update({
+            pocketManager: newManager.ID,
+          }, {
+            where: {ID: pocketID}
+          })
           await mongoPocket.update({pocketManager: newManager.ID})
           const newMongoPocketManager = await mongoPocketManager.create({ 
             managerID: newManager.ID, 

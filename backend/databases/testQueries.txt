@@ -71,11 +71,36 @@ query loginUser($username:String, $password: String){
   }
 }
   
-  
+query getAllTransactionsByBus($busID:ID, $startDate: Date, $endDate: Date){
+        getAllTransactionsByBus(busID:$busID, startDate: $startDate, endDate: $endDate){
+            transactionID
+            userID
+            value
+            date
+            busID
+            pocketID
+            changeRedeemed
+            changeEarned
+        }
+    }
+
+query PocketManager($managerID: ID){
+    pocketManager(managerID: $managerID) {
+      managerID
+      name
+      managername
+      pocketID
+      emailAddress
+    }
+}
+
 Example Query Variables:
 {
   "userID": "1c",
   "busID": "1b",
+  "managerID":"1PM",
+  "startDate": "2022-07-04",
+  "endDate":"2023-03-04",
   "username" : "beans",
   "password": "cool",
   "pocketID":"1p",

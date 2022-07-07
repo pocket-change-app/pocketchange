@@ -19,7 +19,7 @@ module.exports = gql`
         """
         Login as a pocket manager to the pocketmanager side of the app
         """
-        loginManager(managerID:String, password:String):PocketManager
+        loginManager(managername:String, password:String):PocketManager
       }
       type Mutation {
         """
