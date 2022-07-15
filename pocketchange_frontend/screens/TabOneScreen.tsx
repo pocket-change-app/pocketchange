@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontFamily: 'metropolis black',
-    color: colors.gold,
+    color: colors.subtle,
   },
   separator: {
     marginVertical: 30,
