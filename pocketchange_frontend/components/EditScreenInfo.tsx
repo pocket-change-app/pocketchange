@@ -1,7 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import Colors from '../constants/Colors';
+import Colors, { colors } from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
@@ -50,8 +50,13 @@ function handleHelpPress() {
 
 const styles = StyleSheet.create({
   getStartedContainer: {
+    backgroundColor: colors.card,
     alignItems: 'center',
     marginHorizontal: 50,
+    borderColor: colors.subtle,
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 15,
   },
   homeScreenFilename: {
     marginVertical: 7,
