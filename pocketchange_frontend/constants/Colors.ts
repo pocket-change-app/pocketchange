@@ -22,10 +22,10 @@ export default {
     tabIconSelected: colors.dark,
   },
   dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    text: colors.dark,
+    background: colors.bg,
+    tint: colors.dark,
+    tabIconDefault: colors.subtle,
+    tabIconSelected: colors.dark,
   }
 };
