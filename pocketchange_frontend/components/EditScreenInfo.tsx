@@ -10,23 +10,17 @@ export default function EditScreenInfo({ path }: { path: string }) {
     <View>
       <View style={styles.getStartedContainer}>
         <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
+          style={styles.getStartedText}>
           Open up the code for this screen:
         </Text>
 
         <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)">
+          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
           <MonoText>{path}</MonoText>
         </View>
 
         <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
+          style={styles.getStartedText}>
           Change any of the text, save the file, and your app will automatically update.
         </Text>
       </View>
@@ -50,13 +44,8 @@ function handleHelpPress() {
 
 const styles = StyleSheet.create({
   getStartedContainer: {
-    backgroundColor: colors.card,
     alignItems: 'center',
-    marginHorizontal: 50,
-    borderColor: colors.subtle,
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 15,
+    // backgroundColor: '#000'
   },
   homeScreenFilename: {
     marginVertical: 7,
