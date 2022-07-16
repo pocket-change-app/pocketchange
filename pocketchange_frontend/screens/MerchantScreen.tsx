@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native';
 
-// import EditScreenInfo from '../components/EditScreenInfo';
 import { BusinessCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 
 export default function MerchantScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <BusinessCardSm name="Jimmy's Coffee" address="806 QUEEN ST E" pocket="Riverside" />
-    </View>
+    </ScrollView>
   );
 }
 
