@@ -1,32 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
+import { styles } from '../Styles';
 import { Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
+import { IdCard } from '../components/Cards';
 
 export default function WalletScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Three</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabThreeScreen.tsx" />
-    </View>
+    <ScrollView style={styles.container}>
+      <IdCard 
+        name="Elias Williams" 
+        lifetimeChange={12345}
+        dateOfBirth='12/16/1998'
+      />
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

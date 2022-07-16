@@ -13,11 +13,11 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors, { colors } from '../constants/Colors';
 // import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
+import BusinessModalScreen from '../screens/BusinessModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantsScreen from '../screens/MerchantsScreen';
-import TabThreeScreen from '../screens/WalletScreen';
+import WalletScreen from '../screens/WalletScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -43,8 +43,12 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+      <Stack.Group screenOptions={{ presentation: 'modal',  headerTitleStyle: styles.headerTitleModal }}>
+        <Stack.Screen 
+          name="BusinessModal" 
+          component={BusinessModalScreen} 
+          options={({ route }) => ({ title: route.params.name })}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -76,20 +80,20 @@ function BottomTabNavigator() {
           title: 'Pockets',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
           // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
-          // headerRight: () => (
-            // <Pressable
-            //   onPress={() => navigation.navigate('Modal')}
-            //   style={({ pressed }) => ({
-            //     opacity: pressed ? 0.5 : 1,
-            //   })}>
-            //   <FontAwesome
-            //     name="info-circle"
-            //     size={25}
-            //     color={Colors[colorScheme].text}
-            //     style={{ marginRight: 15 }}
-            //   />
-            // </Pressable>
-          // ),
+          headerRight: () => (
+             <Pressable
+               onPress={() => navigation.navigate('BusinessModal')}
+               style={({ pressed }) => ({
+                 opacity: pressed ? 0.5 : 1,
+               })}>
+               <FontAwesome
+                 name="info-circle"
+                 size={25}
+                 color={Colors[colorScheme].text}
+                 style={{ marginRight: 15 }}
+               />
+            </Pressable>
+          ),
         })}
       />
       <BottomTab.Screen
@@ -102,7 +106,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Wallet"
-        component={TabThreeScreen}
+        component={WalletScreen}
         options={{
           title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
@@ -130,11 +134,16 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: 12,
-    fontFamily: 'metropolis medium'
+    fontFamily: 'metropolis medium',
   },
   headerTitle: {
     fontSize: 30,
     fontFamily: 'metropolis black italic',
+    color: colors.subtle,
+  },
+  headerTitleModal: {
+    fontSize: 20,
+    fontFamily: 'metropolis medium',
     color: colors.subtle,
   }
 })
