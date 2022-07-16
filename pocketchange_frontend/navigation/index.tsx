@@ -63,8 +63,10 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Merchants"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        tabBarLabelStyle: styles.tabLabel,
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: colors.dark,
+        tabBarInactiveTintColor: colors.subtle,
+        tabBarShowLabel: false,
         headerTitleStyle: styles.headerTitle
       }}>
       <BottomTab.Screen
@@ -122,6 +124,9 @@ function TabBarIcon(props: {
 
 
 const styles = StyleSheet.create({
+  tabBar: {
+    height: 100,
+  },
   tabLabel: {
     fontSize: 12,
     fontFamily: 'metropolis medium'

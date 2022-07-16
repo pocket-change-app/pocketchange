@@ -26,16 +26,21 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
+    lineHeight: 26,
     fontFamily: 'metropolis black',
     color: colors.dark,
   },
   address: {
+    textTransform: 'uppercase',
     fontSize: 18,
+    lineHeight: 20,
     fontFamily: 'metropolis medium',
     color: colors.medium,
   },
   pocket: {
+    textTransform: 'uppercase',
     fontSize: 18,
+    lineHeight: 20,
     fontFamily: 'metropolis bold italic',
     color: colors.subtle,
   }
