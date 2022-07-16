@@ -61,7 +61,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Pockets"
+      initialRouteName="Merchants"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarLabelStyle: styles.tabLabel,

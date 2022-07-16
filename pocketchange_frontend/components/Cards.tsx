@@ -7,8 +7,8 @@ export function BusinessCardSm({ name, address, pocket, imageURL }: { name: stri
   return (
     <View style={styles.card}>
       <Text style={styles.name}>{name}</Text>
-      <Text style={styles.name}>{address}</Text>
-      <Text style={styles.name}>{pocket}</Text>
+      <Text style={styles.address}>{address}</Text>
+      <Text style={styles.pocket}>{pocket}</Text>
     </View>
   )
 }
@@ -18,24 +18,25 @@ const styles = StyleSheet.create({
   card: {
     //flex: 1,
     marginBottom: 15,
-    alignItems: 'left',
     backgroundColor: colors.card,
-    borderColor: colors.subtle,
+    borderColor: colors.light,
     borderWidth: 2,
     borderRadius: 10,
     padding: 15,
   },
   name: {
-    fontSize: 18,
+    fontSize: 24,
     fontFamily: 'metropolis black',
     color: colors.dark,
   },
   address: {
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'metropolis medium',
     color: colors.medium,
   },
   pocket: {
-
+    fontSize: 18,
+    fontFamily: 'metropolis bold italic',
+    color: colors.subtle,
   }
 })
