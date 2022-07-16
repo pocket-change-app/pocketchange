@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "./databases/graphql/index.js",
+  "main": "./graphql/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./databases/graphql/index.js"
+    "start": "node ./graphql/index.js"
   },
   "keywords": [],
   "author": "",
