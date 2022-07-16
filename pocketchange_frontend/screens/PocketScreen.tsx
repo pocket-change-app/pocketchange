@@ -6,7 +6,7 @@ import { Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
 import { RootTabScreenProps } from '../types';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets'>) {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.card}>
