@@ -4,7 +4,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
 
-export default function TabThreeScreen() {
+export default function WalletScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Three</Text>

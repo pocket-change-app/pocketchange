@@ -13,6 +13,14 @@ export function BusinessCardSm({ name, address, pocket, imageURL }: { name: stri
   )
 }
 
+export function PocketCardSm({ name, imageURL }: { name: string, imageURL?: string }) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.name}>{name}</Text>
+    </View>
+  )
+}
+
 
 const styles = StyleSheet.create({
   card: {
