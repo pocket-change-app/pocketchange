@@ -1,5 +1,3 @@
-db = connect('mongodb://localhost/pocketchange')
-
 db.mongousers.insertMany( [
    {
       userID: '1c',
