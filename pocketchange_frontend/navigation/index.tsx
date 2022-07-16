@@ -16,8 +16,8 @@ import Colors, { colors } from '../constants/Colors';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketScreen from '../screens/PocketScreen';
-import MerchantScreen from '../screens/MerchantScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
+import MerchantsScreen from '../screens/MerchantsScreen';
+import TabThreeScreen from '../screens/WalletScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -75,35 +75,36 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
           title: 'Pockets',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
+          // headerRight: () => (
+            // <Pressable
+            //   onPress={() => navigation.navigate('Modal')}
+            //   style={({ pressed }) => ({
+            //     opacity: pressed ? 0.5 : 1,
+            //   })}>
+            //   <FontAwesome
+            //     name="info-circle"
+            //     size={25}
+            //     color={Colors[colorScheme].text}
+            //     style={{ marginRight: 15 }}
+            //   />
+            // </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
         name="Merchants"
-        component={MerchantScreen}
+        component={MerchantsScreen}
         options={{
-          title: 'Merchants',
+          title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
+        name="Wallet"
         component={TabThreeScreen}
         options={{
-          title: 'Tab Three',
+          title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
         }}
       />

@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 import { BusinessCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 
-export default function MerchantScreen() {
+export default function MerchantsScreen() {
   return (
     <ScrollView style={styles.container}>
       <BusinessCardSm

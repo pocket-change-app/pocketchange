@@ -1,6 +1,7 @@
 import { ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 
+import { PocketCardSm } from "../components/Cards";
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
@@ -9,21 +10,15 @@ import { RootTabScreenProps } from '../types';
 export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets'>) {
   return (
     <ScrollView style={styles.scrollView}>
-      <View style={styles.card}>
-        <Text style={styles.title}>HEADER TEXT</Text>
-        {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-        <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.title}>HEADER TEXT</Text>
-        {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-        <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.title}>HEADER TEXT</Text>
-        {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-        <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      </View>
+      <PocketCardSm
+        name="Riverside"
+      />
+      <PocketCardSm
+        name="Leslieville"
+      />
+      <PocketCardSm
+        name="UPtown Yonge"
+      />
     </ScrollView>
   );
 }

@@ -22,12 +22,12 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           Merchants: {
             screens: {
-              MerchantScreen: 'two',
+              MerchantsScreen: 'two',
             },
           },
-          TabThree: {
+          Wallet: {
             screens: {
-              TabThreeScreen: 'three',
+              WalletScreen: 'three',
             },
           },
         },
