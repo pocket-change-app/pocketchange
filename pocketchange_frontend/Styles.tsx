@@ -1,3 +1,4 @@
+import { visitWithTypeInfo } from 'graphql';
 import { StyleSheet } from 'react-native';
 import { colors } from './constants/Colors';
 
@@ -11,13 +12,36 @@ export const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: colors.card,
         borderColor: colors.light,
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 10,
         //padding: 15,
     },
     
+    businessListItemCard: {
+        flexDirection: 'row', // makes the image and text next to each other
+        height: 100,
+    },
+
+    pocketChangeBalanceCard: {
+        alignItems: "center",
+        padding: 15,
+    },
+
+    idCard: {
+        width: "100%",
+        aspectRatio: 1.63,
+    },
+
+    cardTitle: {
+        textTransform: 'uppercase',
+        fontSize: 18,
+        marginBottom:10,
+        color: colors.subtle,
+        fontFamily: 'metropolis regular',
+    },
+
     name: {
-        fontSize: 24,
+        fontSize: 20,
         lineHeight: 26,
         fontFamily: 'metropolis black',
         color: colors.dark,
@@ -25,27 +49,48 @@ export const styles = StyleSheet.create({
     
     address: {
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 20,
         fontFamily: 'metropolis medium',
         color: colors.medium,
     },
     
+
+
+
     pocket: {
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 20,
         fontFamily: 'metropolis bold italic',
         color: colors.subtle,
     },
 
+   
+
+
+    pocketBig: {
+        //textTransform: 'uppercase',
+        fontSize: 20,
+        lineHeight: 30,
+        fontFamily: 'metropolis black italic',
+        color: colors.subtle,
+    },
+
+    changeBig: {
+        fontSize: 30,
+        fontFamily: 'metropolis black italic',
+        color: colors.gold,
+    },
+
+
     container: {
         padding: 15,
     },
 
-    imageContainer: {
+    businessHeaderImageContainer: {
         width: '100%',
-        height: 200,
+        height: 125,
         
     },
 
@@ -57,7 +102,50 @@ export const styles = StyleSheet.create({
         borderTopRightRadius: 8,
     },
 
-    businessInfo: {
+    businessListImageContainer: {
+        //width: "25%",
+        height: "100%",
+        aspectRatio: 1,
+        margin: 0,
+        marginRight: 0,
+    },
+
+    businessListImage: {
+        flex:1 , 
+        width: undefined, 
+        height: undefined,
+        //borderRadius: 8,
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
+
+    },
+
+    businessModalInfo: {
         margin: 15,
+    },
+
+    businessListInfo: {
+        justifyContent: 'center',
+        margin: 15,
+    },
+
+    payButton: {
+        borderRadius: 8,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
+        height: 40,
+        backgroundColor: colors.gold,
+        
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    payButtonText: {
+        fontFamily: 'metropolis black italic',
+        fontSize: 18,
+        color: colors.bg,
     }
+
+
 })

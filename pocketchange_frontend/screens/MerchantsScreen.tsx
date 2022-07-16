@@ -10,18 +10,21 @@ export default function MerchantsScreen({ navigation }) {
   
   const businesses = [
     {
+      "busId": "001",
       "name": "Avling",
       "address": "1042 QUEEN ST E",
       "pocket": "Leslieville",
       "imageURL": require("../assets/images/avling.jpg"),
     },
     {
+      "busId": "002",
       "name": "La Paella",
       "address": "1146 QUEEN ST E",
       "pocket": "Leslieville",
       "imageURL": require("../assets/images/la-paella.jpg"),
     },
     {
+      "busId": "003",
       "name": "Wvrst",
       "address": "Somewhere",
       "pocket": "Pocket",
@@ -33,8 +36,9 @@ export default function MerchantsScreen({ navigation }) {
     <ScrollView style={styles.container}>
 
       {R.map(
-        ({ name, address, pocket, imageURL }) => (
+        ({ busId, name, address, pocket, imageURL }) => (
             <BusinessCardSm 
+              key = { busId }
               navigation = { navigation }
               name = { name }
               address = { address }
@@ -43,7 +47,7 @@ export default function MerchantsScreen({ navigation }) {
             />
       ), businesses
       )}
-      
+
     </ScrollView>
   );
 }
