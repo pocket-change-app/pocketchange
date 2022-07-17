@@ -47,6 +47,7 @@ const app = express();
 const server = new ApolloServer({ typeDefs, resolvers, context });
 server.start().then(res => {
     server.applyMiddleware({ app }) 
+    console.log("RES", res)
 })
 
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
