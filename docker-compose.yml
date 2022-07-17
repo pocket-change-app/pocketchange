@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:latest
+    restart: unless-stopped
+    env_file: ./.env
+    healthcheck:
+              test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+              timeout: 2s
+              retries: 3
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    env_file: ./.env
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/pocketchange --quiet
+      interval: 10s
+      timeout: 2s
+      retries: 3
+      start_period: 10s
+    environment:
+      - MONGO_INITDB_DATABASE=$MONGODB_DBNAME
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_ROOT_PASSWORD
+    ports:
+      - $MONGODB_DOCKER_PORT:$MONGODB_DOCKER_PORT
+    volumes:
+      - ./backend/databases/mongoSchema/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+  pocketchange:
+    depends_on:
+      mysql:
+       condition: service_healthy
+      mongodb:
+       condition: service_healthy
+    build: ./
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+    stdin_open: true
+    tty: true
