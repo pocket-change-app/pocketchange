@@ -42,12 +42,32 @@ export function PocketCardSm({ name, imageURL }: { name: string, imageURL?: stri
   )
 }
 
-export function IdCard({ name, imageURL, lifetimeChange, dateOfBirth }: { name: string, imageURL?: string, lifetimeChange: number, dateOfBirth: string }) {
+export function IdCard(
+  { name, imageURL, lifetimeChange, dateOfBirth }:
+    {
+      name: { [key: string]: string },
+      imageURL?: string,
+      lifetimeChange: number,
+      dateOfBirth: string
+    }) {
   return (
     <View style={[styles.card, styles.idCard]}>
-      <Text style={styles.businessNameSm}>{name}</Text>
-      <Text style={styles.businessNameSm}>{lifetimeChange}</Text>
-      <Text style={styles.businessNameSm}>{dateOfBirth}</Text>
+      <View style={styles.idHeader}>
+        <Text style={styles.idAppName}>pocketchange</Text>
+        <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
+      </View>
+      <Text style={styles.idLastName}>{name.last}</Text>
+      <Text style={styles.idFirstName}>{name.first + ' ' + name.middle}</Text>
+      <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
+      <Text style={styles.idDateOfBirth}>{dateOfBirth}</Text>
     </View>
   )
+}
+
+
+function pad(n: number, size: number) {
+  let num = n.toString();
+  while (num.length < size)
+    num = "0" + num;
+  return num;
 }
