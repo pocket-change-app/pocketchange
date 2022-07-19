@@ -12,6 +12,7 @@ export const colors = {
   medium: '#7F7F7F',
   dark: '#4C4C4C',
   card: '#fff',
+  imageBorder: 'rgba(0,0,0,0.1)',
 }
 
 export default {

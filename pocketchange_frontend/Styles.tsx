@@ -14,6 +14,13 @@ export const styles = StyleSheet.create({
     borderColor: colors.light,
     borderWidth: 2,
     borderRadius: 10,
+    // padding: 15,
+  },
+
+  transparentCard: {
+    //flex: 1,
+    marginBottom: 15,
+    backgroundColor: 'rgba(0,0,0,0)',
     //padding: 15,
   },
 
@@ -40,9 +47,16 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis regular',
   },
 
-  name: {
+  businessNameSm: {
     fontSize: 20,
-    lineHeight: 26,
+    //lineHeight: 20,
+    fontFamily: 'metropolis black',
+    color: colors.dark,
+  },
+
+  businessNameLg: {
+    fontSize: 26,
+    //lineHeight: 20,
     fontFamily: 'metropolis black',
     color: colors.dark,
   },
@@ -106,15 +120,17 @@ export const styles = StyleSheet.create({
     //width: "25%",
     height: "100%",
     aspectRatio: 1,
-    margin: 0,
-    marginRight: 0,
+    // margin: 0,
+    // marginRight: 0,
   },
 
   businessListImage: {
     flex: 1,
     width: undefined,
     height: undefined,
-    //borderRadius: 8,
+    // borderRadius: 8,
+    // borderWidth: 2,
+    // borderColor: colors.imageBorder,
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
 
