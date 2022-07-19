@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, Image, Pressable } from 'react-native';
+import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -11,7 +11,7 @@ export default function BusinessModalScreen({ route, navigation }: { route: any,
   const { name, address, pocket, imageURL } = route.params;
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
 
       <View style={styles.card}>
         <View style={styles.businessHeaderImageContainer}>
@@ -24,10 +24,11 @@ export default function BusinessModalScreen({ route, navigation }: { route: any,
           <Text style={styles.businessNameLg}>{name}</Text>
           <Text style={styles.address}>{address}</Text>
           <Text style={styles.pocket}>{pocket}</Text>
+
+          <Pressable style={styles.payButton} >
+            <Text style={styles.payButtonText}>PAY</Text>
+          </Pressable>
         </View>
-        <Pressable style={styles.payButton} >
-          <Text style={styles.payButtonText}>PAY</Text>
-        </Pressable>
       </View>
 
       <View style={[styles.card, styles.pocketChangeBalanceCard]}>
@@ -37,7 +38,7 @@ export default function BusinessModalScreen({ route, navigation }: { route: any,
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+    </ScrollView>
   );
 }
 

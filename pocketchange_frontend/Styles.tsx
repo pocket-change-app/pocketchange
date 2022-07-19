@@ -146,10 +146,8 @@ export const styles = StyleSheet.create({
   },
 
   payButton: {
-    borderRadius: 8,
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 15,
+    borderRadius: 10,
+    marginTop: 15,
     height: 40,
     backgroundColor: colors.gold,
 
