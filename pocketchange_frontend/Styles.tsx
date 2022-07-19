@@ -3,149 +3,149 @@ import { StyleSheet } from 'react-native';
 import { colors } from './constants/Colors';
 
 export const styles = StyleSheet.create({
-    scrollView: {
-        padding: 15,
-    },
+  scrollView: {
+    padding: 15,
+  },
 
-    card: {
-        //flex: 1,
-        marginBottom: 15,
-        backgroundColor: colors.card,
-        borderColor: colors.light,
-        borderWidth: 1,
-        borderRadius: 10,
-        //padding: 15,
-    },
-    
-    businessListItemCard: {
-        flexDirection: 'row', // makes the image and text next to each other
-        height: 100,
-    },
+  card: {
+    //flex: 1,
+    marginBottom: 15,
+    backgroundColor: colors.card,
+    borderColor: colors.light,
+    borderWidth: 2,
+    borderRadius: 10,
+    //padding: 15,
+  },
 
-    pocketChangeBalanceCard: {
-        alignItems: "center",
-        padding: 15,
-    },
+  businessListItemCard: {
+    flexDirection: 'row', // makes the image and text next to each other
+    height: 100,
+  },
 
-    idCard: {
-        width: "100%",
-        aspectRatio: 1.63,
-    },
+  pocketChangeBalanceCard: {
+    alignItems: "center",
+    padding: 15,
+  },
 
-    cardTitle: {
-        textTransform: 'uppercase',
-        fontSize: 18,
-        marginBottom:10,
-        color: colors.subtle,
-        fontFamily: 'metropolis regular',
-    },
+  idCard: {
+    width: "100%",
+    aspectRatio: 1.63,
+  },
 
-    name: {
-        fontSize: 20,
-        lineHeight: 26,
-        fontFamily: 'metropolis black',
-        color: colors.dark,
-    },
-    
-    address: {
-        textTransform: 'uppercase',
-        fontSize: 14,
-        lineHeight: 20,
-        fontFamily: 'metropolis medium',
-        color: colors.medium,
-    },
-    
+  cardTitle: {
+    textTransform: 'uppercase',
+    fontSize: 18,
+    marginBottom: 10,
+    color: colors.subtle,
+    fontFamily: 'metropolis regular',
+  },
 
+  name: {
+    fontSize: 20,
+    lineHeight: 26,
+    fontFamily: 'metropolis black',
+    color: colors.dark,
+  },
+
+  address: {
+    textTransform: 'uppercase',
+    fontSize: 14,
+    lineHeight: 20,
+    fontFamily: 'metropolis medium',
+    color: colors.medium,
+  },
 
 
-    pocket: {
-        textTransform: 'uppercase',
-        fontSize: 14,
-        lineHeight: 20,
-        fontFamily: 'metropolis bold italic',
-        color: colors.subtle,
-    },
-
-   
 
 
-    pocketBig: {
-        //textTransform: 'uppercase',
-        fontSize: 20,
-        lineHeight: 30,
-        fontFamily: 'metropolis black italic',
-        color: colors.subtle,
-    },
-
-    changeBig: {
-        fontSize: 30,
-        fontFamily: 'metropolis black italic',
-        color: colors.gold,
-    },
+  pocket: {
+    textTransform: 'uppercase',
+    fontSize: 14,
+    lineHeight: 20,
+    fontFamily: 'metropolis bold italic',
+    color: colors.subtle,
+  },
 
 
-    container: {
-        padding: 15,
-    },
 
-    businessHeaderImageContainer: {
-        width: '100%',
-        height: 125,
-        
-    },
 
-    businessHeaderImage: {
-        flex:1 , 
-        width: undefined, 
-        height: undefined,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-    },
+  pocketBig: {
+    //textTransform: 'uppercase',
+    fontSize: 20,
+    lineHeight: 30,
+    fontFamily: 'metropolis black italic',
+    color: colors.subtle,
+  },
 
-    businessListImageContainer: {
-        //width: "25%",
-        height: "100%",
-        aspectRatio: 1,
-        margin: 0,
-        marginRight: 0,
-    },
+  changeBig: {
+    fontSize: 30,
+    fontFamily: 'metropolis black italic',
+    color: colors.gold,
+  },
 
-    businessListImage: {
-        flex:1 , 
-        width: undefined, 
-        height: undefined,
-        //borderRadius: 8,
-        borderTopLeftRadius: 8,
-        borderBottomLeftRadius: 8,
 
-    },
+  container: {
+    padding: 15,
+  },
 
-    businessModalInfo: {
-        margin: 15,
-    },
+  businessHeaderImageContainer: {
+    width: '100%',
+    height: 125,
 
-    businessListInfo: {
-        justifyContent: 'center',
-        margin: 15,
-    },
+  },
 
-    payButton: {
-        borderRadius: 8,
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 15,
-        height: 40,
-        backgroundColor: colors.gold,
-        
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+  businessHeaderImage: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
 
-    payButtonText: {
-        fontFamily: 'metropolis black italic',
-        fontSize: 18,
-        color: colors.bg,
-    }
+  businessListImageContainer: {
+    //width: "25%",
+    height: "100%",
+    aspectRatio: 1,
+    margin: 0,
+    marginRight: 0,
+  },
+
+  businessListImage: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    //borderRadius: 8,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+
+  },
+
+  businessModalInfo: {
+    margin: 15,
+  },
+
+  businessListInfo: {
+    justifyContent: 'center',
+    margin: 15,
+  },
+
+  payButton: {
+    borderRadius: 8,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
+    height: 40,
+    backgroundColor: colors.gold,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  payButtonText: {
+    fontFamily: 'metropolis black italic',
+    fontSize: 18,
+    color: colors.bg,
+  }
 
 
 })
