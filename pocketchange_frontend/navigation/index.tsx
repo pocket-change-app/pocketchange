@@ -43,10 +43,10 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal',  headerTitleStyle: styles.headerTitleModal }}>
-        <Stack.Screen 
-          name="BusinessModal" 
-          component={BusinessModalScreen} 
+      <Stack.Group screenOptions={{ presentation: 'modal', headerTitleStyle: styles.headerTitleModal }}>
+        <Stack.Screen
+          name="BusinessModal"
+          component={BusinessModalScreen}
           options={({ route }) => ({ title: route.params.name })}
         />
       </Stack.Group>
@@ -81,17 +81,17 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
           // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
           headerRight: () => (
-             <Pressable
-               onPress={() => navigation.navigate('BusinessModal')}
-               style={({ pressed }) => ({
-                 opacity: pressed ? 0.5 : 1,
-               })}>
-               <FontAwesome
-                 name="info-circle"
-                 size={25}
-                 color={Colors[colorScheme].text}
-                 style={{ marginRight: 15 }}
-               />
+            <Pressable
+              onPress={() => navigation.navigate('BusinessModal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="info-circle"
+                size={25}
+                color={Colors[colorScheme].text}
+                style={{ marginRight: 15 }}
+              />
             </Pressable>
           ),
         })}
