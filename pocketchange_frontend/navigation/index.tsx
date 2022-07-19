@@ -43,11 +43,17 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal', headerTitleStyle: styles.headerTitleModal }}>
+      <Stack.Group screenOptions={{
+        presentation: 'modal',
+        // headerTitleStyle: styles.headerTitleModal
+      }}
+      >
         <Stack.Screen
           name="BusinessModal"
           component={BusinessModalScreen}
-          options={({ route }) => ({ title: route.params.name })}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>
@@ -71,7 +77,9 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: colors.dark,
         tabBarInactiveTintColor: colors.subtle,
         tabBarShowLabel: false,
-        headerTitleStyle: styles.headerTitle
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
       }}>
       <BottomTab.Screen
         name="Pockets"
@@ -129,21 +137,29 @@ function TabBarIcon(props: {
 
 
 const styles = StyleSheet.create({
-  tabBar: {
+  navigationHeader: {
     height: 100,
+    backgroundColor: colors.bg,
+    borderBottomWidth: 2,
   },
-  tabLabel: {
-    fontSize: 12,
-    fontFamily: 'metropolis medium',
-  },
-  headerTitle: {
+  navigationHeaderTitle: {
     fontSize: 30,
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
   },
-  headerTitleModal: {
-    fontSize: 20,
-    fontFamily: 'metropolis medium',
-    color: colors.subtle,
-  }
+  tabBar: {
+    height: 100,
+    backgroundColor: colors.bg,
+    borderTopWidth: 2,
+    borderColor: colors.light,
+  },
+  // tabLabel: {
+  //   fontSize: 12,
+  //   fontFamily: 'metropolis medium',
+  // },
+  // headerTitleModal: {
+  //   fontSize: 20,
+  //   fontFamily: 'metropolis medium',
+  //   color: colors.subtle,
+  // }
 })

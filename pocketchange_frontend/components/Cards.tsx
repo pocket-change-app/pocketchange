@@ -7,7 +7,6 @@ export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: 
   return (
     <Pressable
       onPress={() => navigation.navigate('BusinessModal', {
-
         name: name,
         address: address,
         pocket: pocket,
