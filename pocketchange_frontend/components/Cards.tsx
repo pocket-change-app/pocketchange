@@ -1,6 +1,7 @@
 import { Pressable, Image } from 'react-native';
 import { Text, View } from './Themed';
 import { styles } from '../Styles';
+import { user } from '../dummy';
 
 
 export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string }) {
@@ -56,10 +57,21 @@ export function IdCard(
         <Text style={styles.idAppName}>pocketchange</Text>
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
-      <Text style={styles.idLastName}>{name.last}</Text>
-      <Text style={styles.idFirstName}>{name.first + ' ' + name.middle}</Text>
-      <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
-      <Text style={styles.idDateOfBirth}>{dateOfBirth}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Image
+          style={styles.idImage}
+          source={imageURL}
+        />
+        <View style={styles.idContent}>
+          <Text style={styles.idLastName}>{name.last}</Text>
+          <Text style={styles.idFirstName}>{name.first + ' ' + name.middle}</Text>
+          <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
+        </View>
+      </View>
+      <View style={[styles.idHeader, {}]}>
+        <Text style={styles.idText}>USER ID</Text>
+        <Text style={[styles.idDateOfBirth, styles.alignRight]}>{user.dateOfBirth}</Text>
+      </View>
     </View>
   )
 }

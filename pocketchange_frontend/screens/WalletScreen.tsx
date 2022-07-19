@@ -13,6 +13,7 @@ export default function WalletScreen() {
         name={user.name}
         lifetimeChange={user.lifetimeChange}
         dateOfBirth={user.dateOfBirth}
+        imageURL={require('../assets/images/wvrst.jpg')}
       />
     </ScrollView>
   );

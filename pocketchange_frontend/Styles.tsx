@@ -164,13 +164,35 @@ export const styles = StyleSheet.create({
     width: "100%",
     aspectRatio: 1.64,
     padding: 15,
+    justifyContent: 'space-between',
+  },
+
+  idImageContainer: {
+    height: "100%",
+    aspectRatio: 1,
+  },
+
+  idImage: {
+    aspectRatio: 1,
+    width: 106,
+    height: 106,
+    borderRadius: 60,
+    marginLeft: 25,
+    // borderWidth: 2,
+    // borderColor: colors.imageBorder,
   },
 
   idHeader: {
+    height: 20,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+
+  idContent: {
+    justifyContent: 'center',
+    padding: 15
   },
 
   idFirstName: {
