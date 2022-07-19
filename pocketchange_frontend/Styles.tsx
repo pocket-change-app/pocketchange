@@ -24,6 +24,10 @@ export const styles = StyleSheet.create({
     //padding: 15,
   },
 
+  alignRight: {
+    textAlign: 'right'
+  },
+
   businessListItemCard: {
     flexDirection: 'row', // makes the image and text next to each other
     height: 100,
@@ -32,11 +36,6 @@ export const styles = StyleSheet.create({
   pocketChangeBalanceCard: {
     alignItems: "center",
     padding: 15,
-  },
-
-  idCard: {
-    width: "100%",
-    aspectRatio: 1.63,
   },
 
   cardTitle: {
@@ -159,7 +158,58 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis black italic',
     fontSize: 18,
     color: colors.bg,
-  }
+  },
+
+  idCard: {
+    width: "100%",
+    aspectRatio: 1.64,
+    padding: 15,
+  },
+
+  idHeader: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+
+  idFirstName: {
+    textTransform: 'uppercase',
+    fontFamily: 'metropolis bold',
+    fontSize: 14,
+    color: colors.medium,
+  },
+
+  idLastName: {
+    textTransform: 'uppercase',
+    fontFamily: 'metropolis bold',
+    fontSize: 18,
+    color: colors.gold,
+  },
+
+  idLifeTimeChange: {
+    fontFamily: 'metropolis medium',
+    fontSize: 14,
+    color: colors.subtle,
+  },
+
+  idDateOfBirth: {
+    fontFamily: 'metropolis medium',
+    fontSize: 11,
+    color: colors.medium,
+  },
+
+  idAppName: {
+    fontFamily: 'metropolis black italic',
+    fontSize: 18,
+    color: colors.subtle,
+  },
+
+  idText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 11,
+    color: colors.subtle,
+  },
 
 
 })
