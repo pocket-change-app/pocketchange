@@ -20,3 +20,11 @@ export const user = {
     },
   },
 };
+
+export const pockets = {
+  Avling: {
+    name: 'Avling',
+    owner: 'Max',
+    bio: "asdfjkl;"
+  }
+}
