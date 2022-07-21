@@ -2,11 +2,13 @@ import { SafeAreaView, FlatList, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import { styles } from '../Styles';
-import { PocketCardList } from "../components/Cards";
+import { PocketListCard } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 const R = require('ramda');
+
+
 
 
 
@@ -16,27 +18,27 @@ export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets
     {
       pocketID: '01',
       name: 'Leslieville',
-      imageURL: require('../assets/images/wvrst.jpg'),
+      imageURL: require('../assets/images/leslieville.jpg'),
     },
     {
       pocketID: '02',
       name: 'Riverside',
-      imageURL: require('../assets/images/wvrst.jpg'),
+      imageURL: require('../assets/images/riverside.jpg'),
     },
     {
       pocketID: '03',
       name: 'Uptown Yonge',
-      imageURL: require('../assets/images/wvrst.jpg'),
+      imageURL: require('../assets/images/uptown_yonge.jpg'),
     },
     {
       pocketID: '04',
       name: 'Chinatown',
-      imageURL: require('../assets/images/wvrst.jpg'),
+      imageURL: require('../assets/images/chinatown.jpg'),
     },
     {
       pocketID: '05',
       name: 'Little Italy',
-      imageURL: require('../assets/images/wvrst.jpg'),
+      imageURL: require('../assets/images/little_italy.jpg'),
     },
   ];
 
@@ -51,7 +53,7 @@ export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets
 
       data={pockets}
       renderItem={({ item, index, separators }) => (
-        <PocketCardList
+        <PocketListCard
           key={item.pocketID}
           navigation={navigation}
           name={item.name}
