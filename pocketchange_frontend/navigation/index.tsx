@@ -88,20 +88,20 @@ function BottomTabNavigator() {
           title: 'Pockets',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
           // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('BusinessModal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate('BusinessModal')}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}>
+          //     <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen

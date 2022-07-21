@@ -72,39 +72,38 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
   // )
 
   return (
-    // <FlatList
-    //   style={styles.container}
-
-    //   data={businesses}
-    //   renderItem={renderBusinessCard}
-    // // {R.map(
-    // //   ({ busId, name, address, pocket, imageURL }) => (
-    // //     <BusinessCardSm
-    // //       key={busId}
-    // //       navigation={navigation}
-    // //       name={name}
-    // //       address={address}
-    // //       pocket={pocket}
-    // //       imageURL={imageURL}
-    // //     />
-    // //   ), businesses
-    // // )}
-    // />
-    <ScrollView
+    <FlatList
       style={styles.container}
-    >
-      {R.map(
-        ({ busID, name, address, pocket, imageURL }) => (
-          <BusinessCardSm
-            key={busID}
-            navigation={navigation}
-            name={name}
-            address={address}
-            pocket={pocket}
-            imageURL={imageURL}
-          />
-        ), businesses
+
+      data={businesses}
+      renderItem={({ item, index, separators }) => (
+        <BusinessCardSm
+          key={item.busID}
+          navigation={navigation}
+          name={item.name}
+          address={item.address}
+          pocket={item.pocket}
+          imageURL={item.imageURL}
+        />
       )}
-    </ScrollView>
-  );
+    />
+
+    //   <ScrollView
+    //     style={styles.container}
+    //   >
+    //     {R.map(
+    //       ({ busID, name, address, pocket, imageURL }) => (
+    //         <BusinessCardSm
+    //           key={busID}
+    //           navigation={navigation}
+    //           name={name}
+    //           address={address}
+    //           pocket={pocket}
+    //           imageURL={imageURL}
+    //         />
+    //       ), businesses
+    //     )}
+    //   </ScrollView>
+    // );
+  )
 }

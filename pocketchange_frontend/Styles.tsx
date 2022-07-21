@@ -237,5 +237,26 @@ export const styles = StyleSheet.create({
     width: 345,
     height: 540,
     marginRight: 15,
+    // justifyContent: 'space-between'
+  },
+
+  pocketNameList: {
+    fontFamily: 'metropolis black italic',
+    fontSize: 46,
+    textAlign: 'center',
+  },
+
+  pocketListImageContainer: {
+    aspectRatio: 3 / 4,
+    height: 100,
+  },
+
+  pocketListImage: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
 })
