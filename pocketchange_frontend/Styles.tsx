@@ -234,10 +234,15 @@ export const styles = StyleSheet.create({
   },
 
   pocketListCard: {
-    width: Dimensions.get('window').width - 30,
-    height: 540,
-    marginRight: 15,
+    flex: 1,
+
+    // marginRight: 15,
     justifyContent: 'space-between',
+  },
+
+  pocketListCardContainer: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 200,
   },
 
   pocketListName: {
