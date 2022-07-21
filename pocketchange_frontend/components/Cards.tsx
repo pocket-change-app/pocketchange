@@ -42,19 +42,24 @@ export function PocketListCard({ navigation, name, imageURL }: { navigation: any
     // </Pressable>
     // 
     // Enable above after making individual pocket screen
+    <View>
+      <View style={[styles.pocketListCardContainer, styles.container]}>
+        <View style={[styles.card, styles.pocketListCard, styles.container]}>
+          <View style={styles.pocketListNameContainer}>
+            <Text style={styles.pocketListName}>{name}</Text>
+          </View>
 
-    <View style={[styles.card, styles.pocketListCard, styles.container]}>
-      <View style={styles.pocketListNameContainer}>
-        <Text style={styles.pocketListName}>{name}</Text>
+          <View style={styles.pocketListImageContainer}>
+            <Image
+              style={styles.pocketListImage}
+              source={imageURL}
+            />
+          </View>
+        </View>
       </View>
 
-      <View style={styles.pocketListImageContainer}>
-        <Image
-          style={styles.pocketListImage}
-          source={imageURL}
-        />
-      </View>
     </View>
+
   )
 }
 

@@ -1,4 +1,4 @@
-import { SafeAreaView, FlatList, ScrollView } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 import { styles } from '../Styles';
@@ -44,12 +44,17 @@ export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets
 
   return (
     <FlatList
-      style={styles.scrollView}
-      horizontal={true}
+      // style={styles.scrollView}
+      // horizontal
+      // pagingEnabled={true}
+      // contentInsetAdjustmentBehavior="never"
+      // decelerationRate='fast'
+      // snapToAlignment='center'
+
+      horizontal
       pagingEnabled={true}
-      contentInsetAdjustmentBehavior="never"
-      decelerationRate='fast'
-      snapToAlignment='center'
+      showsHorizontalScrollIndicator={false}
+      legacyImplementation={false}
 
       data={pockets}
       renderItem={({ item, index, separators }) => (
