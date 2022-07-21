@@ -35,7 +35,7 @@ export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: 
   )
 }
 
-export function PocketCardList({ navigation, name, imageURL }: { navigation: any, name: string, imageURL?: string }) {
+export function PocketCardList({ navigation, name, imageURL }: { navigation: any, name: string, imageURL: string }) {
   return (
     // <Pressable>
     //   onPress={() => navigation.navigate('Pocket')}
@@ -43,12 +43,14 @@ export function PocketCardList({ navigation, name, imageURL }: { navigation: any
     // 
     // Enable above after making individual pocket screen
 
-    <View style={[styles.card, styles.pocketCardList]}>
-      <Text style={styles.businessNameSm}>{name}</Text>
-      {/* <Image
-        styles={styles.businessListImage}
-        source={imageURL}
-      /> */}
+    <View style={[styles.card, styles.pocketCardList, styles.container]}>
+      <Text style={styles.pocketNameList}>{name}</Text>
+      <View style={styles.pocketListImageContainer}>
+        <Image
+          styles={styles.pocketListImage}
+          source={imageURL}
+        />
+      </View>
     </View>
   )
 }

@@ -15,23 +15,28 @@ export default function PocketScreen({ navigation }: RootTabScreenProps<'Pockets
   const pockets = [
     {
       pocketID: '01',
-      name: 'Riverside',
-      imageURL: '../assets/images/wvrst.jpg',
+      name: 'Leslieville',
+      imageURL: require('../assets/images/wvrst.jpg'),
     },
     {
       pocketID: '02',
       name: 'Riverside',
-      imageURL: '../assets/images/wvrst.jpg',
+      imageURL: require('../assets/images/wvrst.jpg'),
     },
     {
       pocketID: '03',
-      name: 'Riverside',
-      imageURL: '../assets/images/wvrst.jpg',
+      name: 'Uptown Yonge',
+      imageURL: require('../assets/images/wvrst.jpg'),
     },
     {
       pocketID: '04',
-      name: 'Riverside',
-      imageURL: '../assets/images/wvrst.jpg',
+      name: 'Chinatown',
+      imageURL: require('../assets/images/wvrst.jpg'),
+    },
+    {
+      pocketID: '05',
+      name: 'Little Italy',
+      imageURL: require('../assets/images/wvrst.jpg'),
     },
   ];
 
