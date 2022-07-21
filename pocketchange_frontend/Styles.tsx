@@ -1,5 +1,7 @@
+import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import { visitWithTypeInfo } from 'graphql';
 import { StyleSheet } from 'react-native';
+import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
 export const styles = StyleSheet.create({
@@ -17,11 +19,9 @@ export const styles = StyleSheet.create({
     // padding: 15,
   },
 
-  transparentCard: {
-    //flex: 1,
-    marginBottom: 15,
+  transparent: {
     backgroundColor: 'rgba(0,0,0,0)',
-    //padding: 15,
+    borderColor: 'rgba(0,0,0,0)',
   },
 
   alignRight: {
@@ -233,5 +233,9 @@ export const styles = StyleSheet.create({
     color: colors.subtle,
   },
 
-
+  pocketCardList: {
+    width: 345,
+    height: 540,
+    marginRight: 15,
+  },
 })
