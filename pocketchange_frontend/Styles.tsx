@@ -1,6 +1,6 @@
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import { visitWithTypeInfo } from 'graphql';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
@@ -233,30 +233,38 @@ export const styles = StyleSheet.create({
     color: colors.subtle,
   },
 
-  pocketCardList: {
-    width: 345,
+  pocketListCard: {
+    width: Dimensions.get('window').width - 30,
     height: 540,
     marginRight: 15,
-    // justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
-  pocketNameList: {
+  pocketListName: {
     fontFamily: 'metropolis black italic',
     fontSize: 46,
     textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+
+  pocketListNameContainer: {
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    flex: 1,
+    justifyContent: 'center',
+    marginBottom: 15,
   },
 
   pocketListImageContainer: {
-    aspectRatio: 3 / 4,
-    height: 100,
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    aspectRatio: 4 / 5,
+    //flex: 1,
   },
 
   pocketListImage: {
-    flex: 1,
+    flex: 4,
     width: undefined,
     height: undefined,
 
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
+    borderRadius: 10,
   },
 })
