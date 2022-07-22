@@ -1,11 +1,11 @@
-import { Pressable, Image } from 'react-native';
+import { Pressable, Image, TabBarIOSItem } from 'react-native';
 import { Text, View } from './Themed';
 import { styles } from '../Styles';
 import { user } from '../dummy';
 
 const R = require('ramda');
 
-export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string }) {
+export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bio, people }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string, bio: string, people: [{ [key: string]: string }] }) {
   return (
     <Pressable
       onPress={() => navigation.navigate('BusinessModal', {
@@ -13,6 +13,8 @@ export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: 
         address: address,
         pocket: pocket,
         imageURL: imageURL,
+        bio: bio,
+        people: people
       })}
     >
       <View style={[styles.card, styles.businessListItemCard]}>

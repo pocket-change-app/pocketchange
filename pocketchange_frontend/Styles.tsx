@@ -1,4 +1,4 @@
-import { color, ScreenHeight, ScreenWidth } from '@rneui/base';
+import { color, fonts, ScreenHeight, ScreenWidth } from '@rneui/base';
 import { visitWithTypeInfo } from 'graphql';
 import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
@@ -183,13 +183,36 @@ export const styles = StyleSheet.create({
 
   },
 
+  businessListInfo: {
+    justifyContent: 'center',
+    margin: 15,
+  },
+
   businessModalInfo: {
     margin: 15,
   },
 
-  businessListInfo: {
-    justifyContent: 'center',
-    margin: 15,
+  businessBioText: {
+    fontFamily: 'metropolis regular',
+    fontSize: 14,
+    lineHeight: 17,
+    color: colors.dark,
+    textAlign: 'justify',
+    marginBottom: 15
+  },
+
+  signatureImage: {
+    aspectRatio: 1,
+    width: 40,
+    borderWidth: 2,
+    borderRadius: 100,
+    borderColor: colors.imageBorder,
+    marginRight: 5,
+  },
+
+  signatureText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 14
   },
 
   payButton: {
