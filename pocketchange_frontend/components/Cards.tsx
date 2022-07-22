@@ -105,7 +105,7 @@ export function IdCard(
 export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string, topPockets: any }) {
   return (
     <View style={[styles.card, styles.balanceCard]}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', height: '100%' }}>
 
         <View style={styles.balanceCardColumn}>
           <CardHeader
@@ -156,7 +156,7 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
 
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
-    <View style={{ marginBottom: 8 }}>
+    <View style={{ flex: 1 }}>
       <Text style={styles.pocket}>{pocket}</Text>
       <Text style={styles.changeSm}>{change}</Text>
     </View >
@@ -181,9 +181,9 @@ function HorizontalLine() {
   )
 }
 
-function VerticalLine({ style }: { style: any }) {
+function VerticalLine() {
   return (
-    <View style={[styles.verticalLine, style]}>
+    <View style={styles.verticalLine}>
     </View>
   )
 }
