@@ -1,4 +1,4 @@
-import { ScreenHeight, ScreenWidth } from '@rneui/base';
+import { color, ScreenHeight, ScreenWidth } from '@rneui/base';
 import { visitWithTypeInfo } from 'graphql';
 import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
@@ -17,6 +17,52 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     // padding: 15,
+  },
+
+  cardHeader: {
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    height: 45,
+    // alignContent: 'center',
+    // justifyContent: 'center',
+  },
+
+  cardHeaderText: {
+    textTransform: 'uppercase',
+    fontFamily: 'metropolis medium',
+    fontSize: 21,
+    textAlign: 'center',
+    color: colors.subtle,
+  },
+
+  cardHeaderTextContainer: {
+    justifyContent: 'center',
+    flex: 1,
+  },
+
+  horizontalLine: {
+    backgroundColor: colors.light,
+    height: 2,
+    marginHorizontal: 8,
+    borderRadius: 1
+  },
+
+  verticalLine: {
+    backgroundColor: colors.light,
+    width: 2,
+    marginVertical: 8,
+    borderRadius: 1
+  },
+
+  changeLg: {
+    fontFamily: 'metropolis extrabold',
+    fontSize: 34,
+    color: colors.gold
+  },
+
+  changeSm: {
+    fontFamily: 'metropolis extrabold',
+    fontSize: 18,
+    color: colors.gold
   },
 
   transparent: {
@@ -178,8 +224,8 @@ export const styles = StyleSheet.create({
     height: 106,
     borderRadius: 60,
     marginLeft: 25,
-    // borderWidth: 2,
-    // borderColor: colors.imageBorder,
+    borderWidth: 2,
+    borderColor: colors.imageBorder,
   },
 
   idHeader: {
@@ -231,6 +277,29 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis medium',
     fontSize: 11,
     color: colors.subtle,
+  },
+
+  balanceCard: {
+    width: "100%",
+    aspectRatio: 1.64,
+    // justifyContent: 'space-between',
+  },
+
+  balanceCardColumn: {
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    flex: 1,
+    // height: '100%',
+    justifyContent: 'space-between',
+  },
+
+  balanceCardContent: {
+    // backgroundColor: 'rgba(0,0,0,0.2)',
+    margin: 15,
+    justifyContent: 'space-between',
+  },
+
+  flexFill: {
+    flex: 100,
   },
 
   pocketListCard: {

@@ -3,28 +3,25 @@
 export const user = {
   name: {
     first: 'Elias',
-    middle: '',
+    middle: 'Stone',
     last: 'Williams',
   },
+  imageURL: require('./assets/images/Elias.jpeg'),
   dateOfBirth: '12/16/1998',
   lifetimeChange: 2308,      // total cents spent in Change. Displayted under name on ID card
-  pockets: {
-    Riverside: {
-      change: 263,
+  changeTotal: '$4.79',
+  topPockets: [
+    {
+      pocket: 'Riverside',
+      change: '$2.63',
     },
-    Kensington: {
-      change: 102,
+    {
+      pocket: 'Kensington',
+      change: '$1.02',
     },
-    Leslieville: {
-      change: 66,
+    {
+      pocket: 'Leslieville',
+      change: '$0.66',
     },
-  },
+  ],
 };
-
-export const pockets = {
-  Avling: {
-    name: 'Avling',
-    owner: 'Max',
-    bio: "asdfjkl;"
-  }
-}
