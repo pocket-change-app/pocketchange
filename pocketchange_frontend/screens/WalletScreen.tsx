@@ -3,8 +3,8 @@ import { ScrollView } from 'react-native';
 import { styles } from '../Styles';
 import { Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
-import { IdCard } from '../components/Cards';
-import { user } from '../dummy.tsx';
+import { BalancesCard, IdCard } from '../components/Cards';
+import { user } from '../dummy';
 
 export default function WalletScreen() {
   return (
@@ -13,7 +13,11 @@ export default function WalletScreen() {
         name={user.name}
         lifetimeChange={user.lifetimeChange}
         dateOfBirth={user.dateOfBirth}
-        imageURL={require('../assets/images/wvrst.jpg')}
+        imageURL={user.imageURL}
+      />
+      <BalancesCard
+        changeTotal={user.changeTotal}
+        topPockets={user.topPockets}
       />
     </ScrollView>
   );

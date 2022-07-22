@@ -3,6 +3,7 @@ import { Text, View } from './Themed';
 import { styles } from '../Styles';
 import { user } from '../dummy';
 
+const R = require('ramda');
 
 export function BusinessCardSm({ navigation, name, address, pocket, imageURL }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string }) {
   return (
@@ -74,7 +75,7 @@ export function IdCard(
   return (
     <View style={[styles.card, styles.idCard]}>
       <View style={styles.idHeader}>
-        <Text style={styles.idAppName}>pocketchange</Text>
+        <Text style={styles.idAppName}> pocketchange</Text>
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
       <View style={{ flexDirection: 'row' }}>
@@ -85,6 +86,11 @@ export function IdCard(
         <View style={styles.idContent}>
           <Text style={styles.idLastName}>{name.last}</Text>
           <Text style={styles.idFirstName}>{name.first + ' ' + name.middle}</Text>
+          <View style={[styles.horizontalLine, {
+            width: 130,
+            marginHorizontal: 0,
+            marginVertical: 5,
+          }]} />
           <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
         </View>
       </View>
@@ -96,6 +102,91 @@ export function IdCard(
   )
 }
 
+export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string, topPockets: any }) {
+  return (
+    <View style={[styles.card, styles.balanceCard]}>
+      <View style={{ flexDirection: 'row' }}>
+
+        <View style={styles.balanceCardColumn}>
+          <CardHeader
+            text='All Change'
+          />
+          <View style={styles.balanceCardContent}>
+            <Text style={[styles.changeLg, { textAlign: 'center' }]}>{changeTotal}</Text>
+          </View>
+          <View style={styles.flexFill}>
+          </View>
+        </View>
+
+        <VerticalLine />
+
+        <View style={styles.balanceCardColumn}>
+          <CardHeader
+            text='Top Pockets'
+          />
+          <View style={styles.balanceCardContent}>
+            {R.map(
+              ({ pocket, change }) => (
+                <TopPocket
+                  pocket={pocket}
+                  change={change}
+                />
+              ), topPockets
+            )}
+            {/* <TopPocket
+              pocket={topPockets[0].pocket}
+              change={topPockets[0].change}
+            />
+            <TopPocket
+              pocket={topPockets[1].pocket}
+              change={topPockets[1].change}
+            />
+            <TopPocket
+              pocket={topPockets[2].pocket}
+              change={topPockets[2].change}
+            /> */}
+          </View>
+
+        </View>
+
+      </View>
+    </View >
+  )
+}
+
+function TopPocket({ pocket, change }: { pocket: string, change: string }) {
+  return (
+    <View style={{ marginBottom: 8 }}>
+      <Text style={styles.pocket}>{pocket}</Text>
+      <Text style={styles.changeSm}>{change}</Text>
+    </View >
+  )
+}
+
+function CardHeader({ text }: { text: string }) {
+  return (
+    <View style={styles.cardHeader}>
+      <View style={styles.cardHeaderTextContainer}>
+        <Text style={styles.cardHeaderText}>{text}</Text>
+      </View>
+      <HorizontalLine />
+    </View>
+  )
+}
+
+function HorizontalLine() {
+  return (
+    <View style={[styles.horizontalLine]}>
+    </View>
+  )
+}
+
+function VerticalLine({ style }: { style: any }) {
+  return (
+    <View style={[styles.verticalLine, style]}>
+    </View>
+  )
+}
 
 function pad(n: number, size: number) {
   let num = n.toString();
