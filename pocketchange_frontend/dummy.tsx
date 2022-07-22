@@ -12,14 +12,17 @@ export const user = {
   changeTotal: '$4.79',
   topPockets: [
     {
+      key: '01',
       pocket: 'Riverside',
       change: '$2.63',
     },
     {
+      key: '02',
       pocket: 'Kensington',
       change: '$1.02',
     },
     {
+      key: '03',
       pocket: 'Leslieville',
       change: '$0.66',
     },

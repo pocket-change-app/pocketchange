@@ -286,16 +286,17 @@ export const styles = StyleSheet.create({
   },
 
   balanceCardColumn: {
-    // backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.1)',
     flex: 1,
     // height: '100%',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
 
   balanceCardContent: {
-    // backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.1)',
     margin: 15,
-    justifyContent: 'space-between',
+    flex: 1,
+    // justifyContent: 'space-evenly',
   },
 
   flexFill: {
