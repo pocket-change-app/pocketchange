@@ -126,7 +126,7 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
           />
           <View style={styles.balanceCardContent}>
             {R.map(
-              ({ pocket, change }) => (
+              ({ key, pocket, change }: { key: string, pocket: string, change: string }) => (
                 <TopPocket
                   pocket={pocket}
                   change={change}
