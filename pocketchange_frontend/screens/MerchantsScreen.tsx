@@ -15,6 +15,14 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
       address: "1042 QUEEN ST E",
       pocket: "Leslieville",
       imageURL: require("../assets/images/avling.jpg"),
+      bio: "We offer the best products and service around. I have no idea what to write for this because I can't remember what Avling does :)",
+      people: [
+        {
+          name: 'Max',
+          position: 'Owner',
+          imageURL: require('../assets/images/max.png')
+        }
+      ]
     },
     {
       busID: "002",
@@ -22,6 +30,14 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
       address: "1146 QUEEN ST E",
       pocket: "Leslieville",
       imageURL: require("../assets/images/la-paella.jpg"),
+      bio: "Best paella in the biz'.",
+      people: [
+        {
+          name: 'Mike',
+          position: 'Owner',
+          imageURL: require('../assets/images/mike.png')
+        }
+      ]
     },
     {
       busID: "003",
@@ -29,35 +45,15 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
       address: "Somewhere",
       pocket: 'Pckt',
       imageURL: require("../assets/images/wvrst.jpg"),
+      bio: "We have the meats. Lol can I get in trouble for saying that?",
+      people: [
+        {
+          name: 'Miguel',
+          position: 'Manager',
+          imageURL: require('../assets/images/miguel.png')
+        }
+      ]
     },
-    {
-      busID: "004",
-      name: "Avling",
-      address: "1042 QUEEN ST E",
-      pocket: "Leslieville",
-      imageURL: require("../assets/images/avling.jpg"),
-    },
-    {
-      busID: "005",
-      name: "La Paella",
-      address: "1146 QUEEN ST E",
-      pocket: "Leslieville",
-      imageURL: require("../assets/images/la-paella.jpg"),
-    },
-    {
-      busID: "006",
-      name: "Wvrst",
-      address: "Somewhere",
-      pocket: 'Pckt',
-      imageURL: require("../assets/images/wvrst.jpg"),
-    },
-    {
-      busID: "007",
-      name: "Wvrst",
-      address: "Somewhere",
-      pocket: 'Pckt',
-      imageURL: require("../assets/images/wvrst.jpg"),
-    }
   ]
 
   // const renderBusinessCard = (busId: string, name: string, address: string, pocket: string, imageURL: string) => (
@@ -84,6 +80,8 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
           address={item.address}
           pocket={item.pocket}
           imageURL={item.imageURL}
+          bio={item.bio}
+          people={item.people}
         />
       )}
     />
