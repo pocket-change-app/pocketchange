@@ -5,7 +5,7 @@ import { user } from '../dummy';
 
 const R = require('ramda');
 
-export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bio, people }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string, bio: string, people: [{ [key: string]: string }] }) {
+export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bio, people }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string, bio: string, people: any }) {
   return (
     <Pressable
       onPress={() => navigation.navigate('BusinessModal', {
@@ -130,6 +130,7 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
             {R.map(
               ({ key, pocket, change }: { key: string, pocket: string, change: string }) => (
                 <TopPocket
+                  key={key}
                   pocket={pocket}
                   change={change}
                 />
