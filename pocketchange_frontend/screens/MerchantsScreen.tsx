@@ -45,7 +45,7 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
       address: "Somewhere",
       pocket: 'Pckt',
       imageURL: require("../assets/images/wvrst.jpg"),
-      bio: "We have the meats. Lol can I get in trouble for saying that?",
+      bio: "We have the meats.",
       people: [
         {
           name: 'Miguel',
