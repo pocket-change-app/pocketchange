@@ -6,10 +6,10 @@ module.exports = {
         if (changeID === '') {
           return null;
         }
-        const changeInfo = await Change.findOne({ where : {ID: changeID}});
+        const changeInfo = await Change.findOne({ where : {changeID: changeID}});
         if (changeInfo) {
           return {
-            "changeID": changeInfo.dataValues.ID,
+            "changeID": changeInfo.dataValues.changeID,
             "pocketID": changeInfo.pocketID,
             "value": Math.round((changeInfo.dataValues.value + Number.EPSILON) * 100) / 100 ,
             "customerID":changeInfo.customerID,
@@ -27,7 +27,7 @@ module.exports = {
         })
         if (userChange){
           return{
-            "changeID": userChange.dataValues.ID,
+            "changeID": userChange.dataValues.changeID,
             "pocketID": userChange.pocketID,
             "value": Math.round((userChange.dataValues.value + Number.EPSILON) * 100) / 100,
             "userID":userChange.userID,
@@ -35,7 +35,7 @@ module.exports = {
           }
         }
         else {
-          throw new ApolloError(`business username:${busname} doesn't exist in SQL` );
+          throw new ApolloError(`user:${userID} doesn't have change in this pocket` );
         }
     },
   },
@@ -86,7 +86,7 @@ module.exports = {
                 pocketID: pocketID, value: Math.round((currentChange+ Number.EPSILON) * 100) / 100, expiryDate: expiryDate})
             }
             return{
-              "changeID": userChange.dataValues.ID,
+              "changeID": userChange.dataValues.changeID,
               "pocketID": userChange.pocketID,
               "value": userChange.value,
               "userID":userChange.userID,
