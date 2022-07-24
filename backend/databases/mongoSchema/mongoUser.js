@@ -7,9 +7,11 @@ const mongoUserSchema = new mongoose.Schema({
     birthDate: { type: mongoose.Schema.Types.Date },
     password: { type: mongoose.Schema.Types.String },
     totalChange: { type: mongoose.Schema.Types.Decimal128 },
-    emailAddress: { type: mongoose.Schema.Types.String }
+    emailAddress: { type: mongoose.Schema.Types.String },
+    home: {type: mongoose.Schema.Types.String}
   })
   
 const mongoUser = mongoose.model('mongoUser', mongoUserSchema)
 
 module.exports ={mongoUser}
+
