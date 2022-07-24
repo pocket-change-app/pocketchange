@@ -1,82 +1,77 @@
 const { gql, ApolloError } = require('apollo-server');
+const { IsIn, WorksAt } = require('../../../databases/SQLSchema/db');
 const obfuscate = require('../helpers/obfuscate')
 const validate = require('../helpers/validate')
 
 module.exports = {
   Query: {
-    business: async (parent, { busID }, { Business, mongoBusiness}) => {
-      //change to make sure nonempty busID was given
-        if (busID === '') {
+    business: async (parent, { businessID }, { Business, mongoBusiness}) => {
+      //change to make sure nonempty businessID was given
+        if (businessID === '') {
           return null;
         }
-        //get the relevant business info from SQL and mongo
-        const businessInfo = await Business.findOne({ where : {ID: busID}});
-        const mongoBusInfo = await mongoBusiness.findOne({ busID});
+        //get the relevant business info from mongo, ensuring SQL exists
+        const businessInfo = await Business.findOne({ where : {businessID: businessID}});
+        const mongoBusInfo = await mongoBusiness.findOne({ businessID});
         //if the schemas return with relevant info for both mongo and SQl proceed
         if(businessInfo && mongoBusInfo){
             return {
               //return values described for business
-              "busID": businessInfo.dataValues.ID,
-              "pocketID": businessInfo.dataValues.pocketID,
-              "busname": mongoBusInfo.busname,
-              "dateEstablished": mongoBusInfo.dateEstablished,
-              "emailAddress": mongoBusInfo.emailAddress,
-              "role": mongoBusInfo.role
+              mongoBusInfo
             }
   
         }
         else {
-          throw new ApolloError(`businessID:${busID} doesn't exist`);
+          throw new ApolloError(`businessID:${businessID} doesn't exist`);
           return {};
         }
-    },
-    loginBus: async (parent, { busname, password }, { mongoBusiness, Business}) => {
-        const bus = await mongoBusiness.findOne({ busname })
-        //check to make sure business with that username actually exists
-        if (bus){
-          //check to make sure the business exists in SQL too
-          const busTable = await Business.findOne({where: {ID: bus.busID}})
-          if(busTable){
-            //see if the password passed in matches the password saved in the databases
-            const validated = validate(password, bus.password, busTable.dataValues.salt)
-            if(validated){
-              return bus
-            }
-            else{
-              throw new ApolloError(`password incorrect`);
-            }
-          }
-          else {
-            throw new ApolloError(`business username:${busname} doesn't exist in SQL` );
-          }
-        }
-        else {
-          throw new ApolloError(`business username:${busname} doesn't exist in MongoDB`);
-        }
-      },
+    }
   },
 
   Mutation: {
-    registerBus: async (parent, { busname, password, pocketID }, { Business, mongoBusiness, mongoPocketManager, mongoUser }) => {
+    registerBus: async (parent, { 
+      userID,
+      businessName, 
+      dateEstablished, 
+      emailAddress, 
+      phoneNumber, 
+      website, 
+      businessType,
+      businessSubtype,
+      pocketID }, { Business, mongoBusiness, IsIn, WorksAt}) => {
         //immediately encrypt the business users password
         const encryptpass = obfuscate(password);
-        //check to see the username they want isnt taken by another user or a business or pm
-        const existing = await mongoBusiness.findOne({ busname: busname })
-        const userExisting = await mongoUser.findOne({ username: busname })
-        const managerExisting = await mongoPocketManager.findOne({ managername: busname })
-        if (!existing && !userExisting && !managerExisting) {
+        //check to see the business name they want isn't taken by another business
+        const existing = await mongoBusiness.findOne({ businessName: businessName })
+        if (!existing) {
           //create a new business in Mongo and SQL
-          const newBus = await Business.create({ salt: encryptpass.salt, pocketID: pocketID});
+          const newBus = await Business.create({});
           const newMongoBus = await mongoBusiness.create({ 
-            busID: newBus.ID, 
+            businessID: newBus.ID, 
+            businessName: businessName,
+            dateEstablished: dateEstablished,
+            emailAddress: emailAddress,
+            phoneNumber: phoneNumber,
+            website: website,
+            businessType: businessType,
+            businessSubtype,
             busname: busname, 
-            password: encryptpass.hash,
-            pocketID: newBus.pocketID
+          })
+          //create the relationship where the business is part of a pocket
+          await IsIn.create({
+            businessID: newBus.ID,
+            pocketID: pocketID
+          })
+          //create the relationship where the user who made the business is the owner of the business
+          await WorksAt.create({
+            userID: userID,
+            businessID: newBus.ID,
+            role: 'owner'
           })
           newMongoBus.save()
           return newMongoBus
         } else {
-          throw new ApolloError('Business already exists, or username taken')
+          throw new ApolloError('Business already exists')
         }
       },  
   }

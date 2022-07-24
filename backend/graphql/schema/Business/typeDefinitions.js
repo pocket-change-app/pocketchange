@@ -5,27 +5,25 @@ module.exports = gql`
     Business, associated with a Pocket
     """
     type Business {
-        busID: ID 
-        pocketID: ID
-        busname: String
-        dateEstablished: Date
-        emailAddress: String
-        role: String
+      businessID: ID
+      businessName: String
+      dateEstablished: Date
+      emailAddress: String
+      phoneNumber: String
+      website: String
+      businessType: String
+      businessSubtype: String
     }
     type Query {
         """
         Query a specific business from it's ID
         """
-        business(busID: ID): Business
-        """
-        Login as a business owner to the business side of the app
-        """
-        loginBus(busname:String, password:String):Business
+        business(businessID: ID): Business
       }
       type Mutation {
         """
         Create a new business profile for a business on pocketchange
         """
-        registerBus(busname: String, password: String, pocketID:String): Business
+        registerBus(userID: ID, businessName: String, dateEstablished: String, emailAddress String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID) : Business
       }
 `

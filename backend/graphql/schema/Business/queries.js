@@ -2,23 +2,19 @@ import gql from 'graphql-tag'
 
 export default {
     Business: gql`
-        query Business($busID: ID){
-            business(busID: $busID) {
-              busID
-              pocketID
-              busname
+        query Business($businessID: ID){
+            business(businessID: $businessID) {
+              businessID
+              businessName
               dateEstablished
               emailAddress
-              role
+              phoneNumber
+              website
+              businessType
+              businessSubtype
             }
         }
-`,
-    LoginBus: gql`query loginBus($busname:String, $password: String){
-        loginBus(busname:$busname, password: $password) {
-          busID
-          pocketID
-          busname
-        }
-      }
-      `
+`
+//getBusinessPockets
+//getBusinessEmployees
 }
