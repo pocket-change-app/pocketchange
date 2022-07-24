@@ -7,8 +7,6 @@ const mongoUserSchema = new mongoose.Schema({
     birthDate: { type: mongoose.Schema.Types.Date },
     password: { type: mongoose.Schema.Types.String },
     totalChange: { type: mongoose.Schema.Types.Decimal128 },
-    pockets:  [mongoose.Schema.Types.String],
-    favouriteBusiness: [mongoose.Schema.Types.String],
     emailAddress: { type: mongoose.Schema.Types.String }
   })
   
