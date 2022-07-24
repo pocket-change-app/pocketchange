@@ -5,14 +5,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
-        },
-        pocketID: {
-            type: Sequelize.UUID,
-            allowNull: false
-        },
-        salt: {
-            type: Sequelize.UUID,
-            allowNull: false
         }
     });
   
