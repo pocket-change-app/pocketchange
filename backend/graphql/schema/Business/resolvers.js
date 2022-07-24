@@ -47,7 +47,7 @@ module.exports = {
           //create a new business in Mongo and SQL
           const newBus = await Business.create({});
           const newMongoBus = await mongoBusiness.create({ 
-            businessID: newBus.ID, 
+            businessID: newBus.businessID, 
             businessName: businessName,
             dateEstablished: dateEstablished,
             emailAddress: emailAddress,
@@ -59,13 +59,13 @@ module.exports = {
           })
           //create the relationship where the business is part of a pocket
           await IsIn.create({
-            businessID: newBus.ID,
+            businessID: newBus.businessID,
             pocketID: pocketID
           })
           //create the relationship where the user who made the business is the owner of the business
           await WorksAt.create({
             userID: userID,
-            businessID: newBus.ID,
+            businessID: newBus.businessID,
             role: 'owner'
           })
           newMongoBus.save()
