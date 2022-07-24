@@ -1,15 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
     const Pocket = sequelize.define("pocket", {
-        ID: {
+        pocketID: {
             type: Sequelize.UUID,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
-        },
-        pocketManagerID: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            primaryKey: false
         },
         circulatingChange: {
             type: Sequelize.DECIMAL(10,2),
