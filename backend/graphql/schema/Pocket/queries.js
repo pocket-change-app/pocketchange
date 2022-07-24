@@ -6,11 +6,13 @@ export default {
             pocket(pocketID:$pocketID) {
                 pocketID
                 pocketName
-                customers
-                businesses
                 changeRate
+                region
                 circulatingChange
             }
         }
 `
+//getAllPocketBusinesses
+//getAllPocketCustomers
+//getPocketWorkers
 }

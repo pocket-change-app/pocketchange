@@ -6,10 +6,9 @@ export default {
             calculatePocketChange(pocketID: $pocketID) {
                 pocketID
                 pocketName
-                customers
-                businesses
                 changeRate
                 circulatingChange
+                region
             }
         }
     

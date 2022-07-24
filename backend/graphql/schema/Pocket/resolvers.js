@@ -3,18 +3,19 @@ const { gql, ApolloError } = require('apollo-server');
 module.exports = {
     Query: {
         pocket: async (parent, { pocketID }, { Pocket, mongoPocket}) => {
+            //check pocketID is not null
             if (pocketID === '') {
               return null;
             }
-            const pocketInfo = await Pocket.findOne({ where : {ID: pocketID}});
+            //check mongo and SQL
+            const pocketInfo = await Pocket.findOne({ where : {pocketID: pocketID}});
             const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
             if(pocketInfo && mongoPocketInfo ){
                 return {
                   "pocketID": pocketInfo.dataValues.ID,
                   "circulatingChange": pocketInfo.dataValues.circulatingChange,
                   "changeRate": pocketInfo.dataValues.changeRate,
-                  "customers": mongoPocketInfo.customers,
-                  "businesses": mongoPocketInfo.businesses,
+                  "region": mongoPocketInfo.region,
                   "pocketName" : mongoPocketInfo.pocketname
                 }
       
@@ -54,7 +55,7 @@ module.exports = {
                 const currentChange = totalChangeEarned - totalChangeRedeemed
                //console.log("CUR CHANGE", currentChange)
                 //update the Pocket circulating change
-                const pocketChange = await Pocket.findOne({ where: {ID: pocketID}})
+                const pocketChange = await Pocket.findOne({ where: {pocketID: pocketID}})
                 const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
                 if (pocketChange && mongoPocketInfo){
                   await pocketChange.update({circulatingChange: currentChange})
@@ -62,8 +63,7 @@ module.exports = {
                     "pocketID": pocketChange.dataValues.ID,
                     "circulatingChange": (pocketChange.dataValues.circulatingChange).toFixed(2),
                     "changeRate": pocketChange.dataValues.changeRate,
-                    "customers": mongoPocketInfo.customers,
-                    "businesses": mongoPocketInfo.businesses,
+                    "region": mongoPocketInfo.region,
                     "pocketName" : mongoPocketInfo.pocketname
                   }
                 }

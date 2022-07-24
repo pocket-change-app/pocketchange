@@ -7,8 +7,7 @@ module.exports = gql`
     type Pocket {
       pocketID: ID 
       pocketName: String
-      customers: [ID]
-      businesses: [ID]
+      region: String
       changeRate: Decimal
       circulatingChange: Decimal
     }
