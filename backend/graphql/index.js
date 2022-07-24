@@ -4,40 +4,53 @@ const path = require('path');
 const express = require("express");
 const { MongoClient } = require ('mongodb');
 
+//get SQL data
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
+//entities
 const User = database.User
 const Business = database.Business
 const Pocket = database.Pocket
-const PocketManager = database.PocketManager
 const Change = database.Change
 const Transaction = database.Transaction
+//relationships
+const IsIn = database.IsIn
+const IsMember = database.IsMember
+const Loves = database.Loves
+const WorksAt = database.WorksAt
 
-
+//get Mongo Data
 const mongodatabase = require('../databases/mongoSchema/mongodb')
 const mongoose = mongodatabase.mongoose
 const mongoUser = mongoose.model('mongoUser')
 const mongoBusiness = mongoose.model('mongoBusiness')
 const mongoPocket = mongoose.model('mongoPocket')
-const mongoPocketManager = mongoose.model('mongoPocketManager')
 
+//get type definitions and resolvers
 const typeDefs = require('./typeDefinitions.js')
 const resolvers = require('./resolvers.js')
 
 const context = async ({ req }) => {
   return {
     req,
+    //entity schema SQL
     User,
     Business,
     Pocket,
-    PocketManager,
     Change,
     Transaction,
+    //relationship schema SQL
+    IsIn,
+    IsMember,
+    Loves,
+    WorksAt,
+    //sequelize connection for functions
+    sequelizeConnection,
+    //schema Mongo
     mongoUser,
     mongoBusiness,
-    mongoPocket, 
-    mongoPocketManager,
-    sequelizeConnection
+    mongoPocket
+
   }
 }
 
