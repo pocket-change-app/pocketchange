@@ -19,7 +19,7 @@ const updateChangeAcross = async(Change, Pocket, pocketID, userID, updatedChange
     await Pocket.update({
         circulatingChange: updatedChangeCirculating
       }, {
-        where: { ID: pocketID }
+        where: { pocketID: pocketID }
       })
 }
 
@@ -29,10 +29,10 @@ module.exports = {
             if (transactionID === '') {
               return null;
             }
-            const transactionInfo = await Transaction.findOne({ where : {ID: transactionID}});
+            const transactionInfo = await Transaction.findOne({ where : {transactionID: transactionID}});
             if(transactionInfo ){
                 return {
-                  "transactionID": transactionInfo.dataValues.ID,
+                  "transactionID": transactionInfo.dataValues.transactionID,
                   "userID": transactionInfo.dataValues.userID,
                   "value": transactionInfo.dataValues.value,
                   "date": transactionInfo.dataValues.Date,
@@ -48,15 +48,15 @@ module.exports = {
               return {};
             }
         },
-        getAllTransactionsByBus: async (parent, { busID, startDate, endDate }, { Transaction}) => {
-          if (busID === '') {
+        getAllTransactionsByBus: async (parent, { businessID, startDate, endDate }, { Transaction}) => {
+          if (businessID === '') {
             return null;
           }
           if(startDate && endDate){
             //get transactions between dates
             //assume start date and end date in yyyy-mm-dd format as that is the Date format specified
             //SELECT `transaction`.* FROM `transactions` AS `transaction` WHERE `transaction`.`businessID` = '2b' AND (DATE(`transaction`.`date`) BETWEEN '2010-01-30' AND '2030-09-29') ORDER BY `date`;
-            const where = { businessID: busID,
+            const where = { businessID: businessID,
                 date: {
                   [Op.between]: [startDate, endDate]
                 }
@@ -65,15 +65,17 @@ module.exports = {
               where: where
             })
             //need to rename the ID to transactionID and businessID to busID
-            const finalTransactionObject = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionsByBusInDates))
-            return finalTransactionObject
+            //const finalTransactionObject = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionsByBusInDates))
+            //return finalTransactionObject
+            return transactionsByBusInDates
           }
           //else get all Transactions
           else{
-            const transactionInfo = await Transaction.findAll({ where : {businessID: busID}});
+            const transactionInfo = await Transaction.findAll({ where : {businessID: businessID}});
             if(transactionInfo ){
-              const transactionObj = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionInfo))
-              return transactionObj
+              //const transactionObj = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionInfo))
+              //return transactionObj
+              return transactionInfo
     
             }
           }
@@ -81,24 +83,24 @@ module.exports = {
     },
   
     Mutation: {
-        processTransaction: async (parent, {userID, busID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, Change}) => {
-            if(userID, busID, pocketID, value){
-                //write this resolver TO-DO
+        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, Change, IsIn, IsMemberOf}) => {
+            if(userID, businessID, pocketID, value){
+                //update this resolver TO-DO: people can use and earn change, just not earn change on the change they used
                 //check to make sure user is in pocket
                 const changeUsing = Math.round((Number(changeUsed) + Number.EPSILON) * 100) / 100
                 const mongoUserInfo = await mongoUser.findOne({ userID })
                 if(mongoUserInfo){
-                    const pockets = mongoUserInfo.pockets
-                    const exists = pockets.includes(pocketID)
+                    //get IsMemberOf relationship table to check that the user is in the pocket
+                    const exists = await IsMemberOf.findOne({where:{userID: userID, pocketID: pocketID}})
                     //the user is in this pocket so now find out if the business is in this pocket
                     if(exists){
-                        //check to make sure business is in pocket
-                        const businessInfo = await Business.findOne({ where : {ID: busID}});
-                        const businessPocket = businessInfo.dataValues.pocketID
+                        //check to make sure business is in pocket, get IsIn relationship table to check 
+                        const businessPocket = await IsIn.findOne({where:{businessID:businessID, pocketID:pocketID }})
+                        //get the pocketID of the business
                         var changeEarned = 0
-                        if(businessPocket == pocketID){
+                        if(businessPocket){
                             //get pocket Info
-                            const pocketInfo = await Pocket.findOne({where:{ID:pocketID}})
+                            const pocketInfo = await Pocket.findOne({where:{pocketID:pocketID}})
                             //get change info
                             const userChangeInfo = await Change.findOne({where:{
                                 userID: userID,
@@ -146,7 +148,7 @@ module.exports = {
                                 changeEarned: changeEarned
                             })
                             return {
-                                "transactionID": newTransaction.dataValues.ID,
+                                "transactionID": newTransaction.dataValues.transactionID,
                                 "userID": newTransaction.dataValues.userID,
                                 "value": newTransaction.dataValues.value,
                                 "date": newTransaction.dataValues.date,
@@ -157,7 +159,7 @@ module.exports = {
                               }
                         }
                         else {
-                            throw new ApolloError(`Business:${busID} is not in Pocket: ${pocketID}`);
+                            throw new ApolloError(`Business:${businessID} is not in Pocket: ${pocketID}`);
                         }
                     }
                     else {
@@ -169,7 +171,7 @@ module.exports = {
                 }
             }
             else {
-              throw new ApolloError(`Not enough information about userID, busID, pocketID` );
+              throw new ApolloError(`Not enough information about userID, businessID, pocketID` );
             }
         },
     }

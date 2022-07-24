@@ -8,19 +8,19 @@ export default {
                 userID
                 value
                 date
-                busID
+                businessID
                 pocketID
                 changeRedeemed
                 changeEarned
             }
         }
-    query getAllTransactionsByBus($busID:ID, $startDate: Date, $endDate: Date){
-        getAllTransactionsByBus(busID:$busID, startDate: $startDate, endDate: $endDate){
+    query getAllTransactionsByBus($businessID:ID, $startDate: Date, $endDate: Date){
+        getAllTransactionsByBus(businessID:$busID, startDate: $startDate, endDate: $endDate){
             transactionID
             userID
             value
             date
-            busID
+            businessID
             pocketID
             changeRedeemed
             changeEarned
