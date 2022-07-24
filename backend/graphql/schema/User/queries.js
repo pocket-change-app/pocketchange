@@ -6,12 +6,11 @@ export default {
             user(userID: $userID) {
                 userID
                 username
+                home
                 name
                 birthDate
                 totalChange
                 emailAddress
-                favouriteBusiness
-                pockets
             }
         }
 `,
@@ -19,6 +18,14 @@ export default {
         query loginUser($username:String, $password: String){
             loginUser(username:$username, password: $password) {
                 userID
+                username
+                home
+                name
+                birthDate
+                totalChange
+                emailAddress
             }
         }`
+        //getUsersFavouriteBusinesses
+        //getUsersPockets
 }

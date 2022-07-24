@@ -8,11 +8,10 @@ module.exports = gql`
         userID: ID 
         username: String
         name: String
+        home: String
         birthDate: Date
         totalChange: Decimal
         emailAddress: String
-        favouriteBusiness: [String]
-        pockets: [String]
     }
 
     type Query {

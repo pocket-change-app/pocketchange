@@ -5,21 +5,16 @@ const validate = require('../helpers/validate')
 module.exports = {
     Query: {
         user: async (parent, { userID }, { User, mongoUser }) => {
+          //check to make sure userID was given
             if (userID === '') {
               return null;
             }
-            const userInfo = await User.findOne({ where : {ID: userID}});
+            //find the mongo and SQL user
+            const userInfo = await User.findOne({ where : {userID: userID}});
             const mongoUserInfo = await mongoUser.findOne({ userID});
             if (userInfo && mongoUserInfo) {
               return {
-                "userID": userInfo.dataValues.ID,
-                "username": mongoUserInfo.username,
-                "name": mongoUserInfo.name,
-                "birthDate": mongoUserInfo.birthDate,
-                "totalChange":mongoUserInfo.username,
-                "emailAddress": mongoUserInfo.emailAddress,
-                "pockets":mongoUserInfo.pockets,
-                "favouriteBusiness": mongoUserInfo.favouriteBusiness,
+                mongoUserInfo
               }
             } else {
               throw new ApolloError(`userID:${userID} doesn't exist`);
@@ -29,7 +24,7 @@ module.exports = {
           loginUser: async (parent, { username, password }, { mongoUser, User}) => {
             const user = await mongoUser.findOne({ username })
             if (user){
-              const userTable = await User.findOne({where:{ID: user.userID}})
+              const userTable = await User.findOne({where:{userID: user.userID}})
               if(userTable){
                 //console.log(userTable.dataValues.salt)
                 //console.log(userTable.dataValues.createdAt)
@@ -42,7 +37,7 @@ module.exports = {
                 }
               }
               else {
-                throw new ApolloError(`username:${username} doesn't exist in SQL`);
+                throw new ApolloError(`username:${user.userID} doesn't exist in SQL`);
               }
             }
             else {
@@ -52,14 +47,30 @@ module.exports = {
     },
   
     Mutation: {
-        registerUser: async (parent, { username, password }, { User, mongoUser,mongoPocketManager, mongoBusiness }) => {
+        registerUser: async (parent, { 
+          username, 
+          password,
+          username,
+          name,
+          home,
+          birthDate,
+          password,
+          emailAddress
+        }, { User, mongoUser }) => {
             const encryptpass = obfuscate(password);
             const existing = await mongoUser.findOne({ username })
-            const busExisting = await mongoBusiness.findOne({ busname: username })
-            const managerExisting = await mongoPocketManager.findOne({ managername: username })
-            if (!existing && !busExisting && !managerExisting) {
+            if (!existing) {
               const newUser = await User.create({ salt: encryptpass.salt});
-              const newMongoUser = await mongoUser.create({ userID: newUser.ID, username:username, password: encryptpass.hash})
+              const newMongoUser = await mongoUser.create({ 
+                userID: newUser.userID, 
+                username:username, 
+                password: encryptpass.hash, 
+                name: name,
+                home: home,
+                birthDate: birthDate,
+                totalChange: Math.round((Number.EPSILON) * 100) / 100 ,
+                emailAddress: emailAddress
+              })
               newMongoUser.save()
               return newMongoUser
             } else {
