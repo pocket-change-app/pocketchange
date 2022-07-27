@@ -16,6 +16,7 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - ./backend/databases/dummySQLData/dummySQLData.sql:/dummySQLData.sql
+      - ./data/mysql:/var/lib/mysql
   mongodb:
     image: mongo:latest
     restart: unless-stopped
@@ -27,7 +28,6 @@ services:
       retries: 3
       start_period: 10s
     environment:
-      - MONGO_INITDB_DATABASE=$MONGODB_DBNAME
       - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_ROOT_PASSWORD
     ports:
@@ -35,6 +35,7 @@ services:
     volumes:
       - ./backend/databases/mongoSchema/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
       - ./backend/databases/dummyMongoData/dummyMongoData.js:/dummyMongoData.js
+      - ./data/mongodb:/data/db
   pocketchange:
     depends_on:
       mysql:
@@ -46,10 +47,15 @@ services:
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    volumes:
+      - ./backend:/pocketchange/backend
     environment:
       - DB_HOST=mysql
       - DB_USER=$MYSQLDB_USER
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
+      - CHOKIDAR_USEPOLLING=true
     stdin_open: true
     tty: true
+
+
