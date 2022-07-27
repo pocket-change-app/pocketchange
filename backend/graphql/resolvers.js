@@ -4,7 +4,6 @@ const {mergeResolvers} = require('merge-graphql-schemas')
 const BusinessResolver = require('./schema/Business/resolvers')
 const ChangeResolver = require('./schema/Change/resolvers')
 const PocketResolver = require('./schema/Pocket/resolvers')
-const PocketManagerResolver = require('./schema/PocketManager/resolvers')
 const TransactionResolver = require('./schema/Transaction/resolvers')
 const UserResolver = require('./schema/User/resolvers')
 
@@ -13,7 +12,6 @@ module.exports = mergeResolvers([
   BusinessResolver,
   ChangeResolver,
   PocketResolver,
-  PocketManagerResolver,
   TransactionResolver,
   UserResolver
 ])

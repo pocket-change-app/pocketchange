@@ -49,8 +49,6 @@ module.exports = {
     Mutation: {
         registerUser: async (parent, { 
           username, 
-          password,
-          username,
           name,
           home,
           birthDate,

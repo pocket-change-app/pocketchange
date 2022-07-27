@@ -24,6 +24,6 @@ module.exports = gql`
         """
         Create a new business profile for a business on pocketchange
         """
-        registerBus(userID: ID, businessName: String, dateEstablished: String, emailAddress String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID) : Business
+        registerBus(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID) : Business
       }
 `

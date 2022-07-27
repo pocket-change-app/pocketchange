@@ -4,19 +4,24 @@ query User($userID: ID){
     user(userID: $userID) {
       userID
       username
+      home
+      name
+      birthDate
+      totalChange
       emailAddress
-      favouriteBusiness
-      pockets
     }
 }
 
 query Business($busID: ID){
     business(busID: $busID) {
-      busID
-      pocketID
-      busname
+      businessID
+      businessName
+      dateEstablished
       emailAddress
-      role
+      phoneNumber
+      website
+      businessType
+      businessSubtype
     }
   }
 
@@ -46,30 +51,6 @@ query loginUser($username:String, $password: String){
     userID
   }
 }
-
-query pocketManager($managerID: ID){
-          pocketManager(managerID: $managerID) {
-            managerID
-            name
-            managername
-            pocketID
-            emailAddress
-          }
-      }
-
-query loginBus($busname:String, $password: String){
-  loginBus(busname:$busname, password: $password) {
-    busID
-    pocketID
-    busname
-  }
-}
-
-query loginUser($username:String, $password: String){
-  loginUser(username:$username, password: $password) {
-    userID
-  }
-}
   
 query getAllTransactionsByBus($busID:ID, $startDate: Date, $endDate: Date){
         getAllTransactionsByBus(busID:$busID, startDate: $startDate, endDate: $endDate){
@@ -84,26 +65,15 @@ query getAllTransactionsByBus($busID:ID, $startDate: Date, $endDate: Date){
         }
     }
 
-query PocketManager($managerID: ID){
-    pocketManager(managerID: $managerID) {
-      managerID
-      name
-      managername
-      pocketID
-      emailAddress
-    }
-}
 
 Example Query Variables:
 {
-  "userID": "1c",
-  "busID": "1b",
-  "managerID":"1PM",
-  "startDate": "2022-07-04",
+  "userID":"1c",
+  "businessID": "2b",
+  "password": "okay",
+  "startDate": "2011-07-04",
   "endDate":"2023-03-04",
-  "username" : "beans",
-  "password": "cool",
   "pocketID":"1p",
-  "busname": "business businessy",
-  "changeID": "1change"
+  "value": 20.00,
+  "changeUsed": 0.00,
 }
