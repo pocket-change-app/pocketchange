@@ -6,16 +6,24 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
+        userID: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'userID'
+            }
+        },
         pocketID: {
             type: Sequelize.UUID,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Pocket,
+                key: 'pocketID'
+            }
         },
         value: {
             type: Sequelize.DECIMAL(10,2),
-            allowNull: false
-        },
-        userID: {
-            type: Sequelize.UUID,
             allowNull: false
         },
         expiryDate: {
