@@ -1,17 +1,17 @@
 Input the following mutations into playground to test:
 
-mutation RegisterUser($username:String, $password: String){
-  registerUser(username:$username, password: $password) {
-    userID
-  }
-}
 
-mutation RegisterBus($busname:String, $password: String, $pocketID: String){
-  registerBus(busname:$busname, password: $password, pocketID:$pocketID) {
-    busID
-    pocketID
+ mutation RegisterUser($username: String, $name: String, $home: String, $birthDate: Date, $password: String, $emailAddress: String){
+  registerUser(username:$username, name: $name, home: $home, birthDate: $birthDate, emailAddress: $emailAddress, password: $password) {
+      userID
+      home
+      username
+      name
+      birthDate
+      password
+      totalChange
+      emailAddress
   }
-}
 
 mutation calculateUserChange($userID: ID, $pocketID: ID){
     calculateUserChange(userID: $userID, pocketID: $pocketID) {
@@ -27,8 +27,7 @@ mutation calculatePocketChange($pocketID: ID){
     calculatePocketChange(pocketID: $pocketID) {
       pocketID
       pocketName
-      customers
-      businesses
+      region
       changeRate
       circulatingChange
     }
@@ -36,8 +35,11 @@ mutation calculatePocketChange($pocketID: ID){
 
 Example Mutation Variables:
 {
-  "username" : "beans",
-  "password": "cool",
+  "username" : "",
+  "name" : "Mica Consens"
+  "birthDate" : "1999-05-27",
+  "home":"Toronto",
+  "emailAddress": "micasemail@gmail.com"
+  "password": "securemicapass",
   "pocketID":"1p",
-  "busname": "business businessy"
 }

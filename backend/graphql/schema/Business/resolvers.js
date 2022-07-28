@@ -15,9 +15,18 @@ module.exports = {
         const mongoBusInfo = await mongoBusiness.findOne({ businessID});
         //if the schemas return with relevant info for both mongo and SQl proceed
         if(businessInfo && mongoBusInfo){
+            //subset fields needed which are businessID, businessName, 
+            //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
             return {
               //return values described for business
-              mongoBusInfo
+              businessID: mongoBusInfo.businessID, 
+              businessName: mongoBusInfo.businessName,
+              dateEstablished: mongoBusInfo.dateEstablished,
+              emailAddress: mongoBusInfo.emailAddress,
+              phoneNumber: mongoBusInfo.phoneNumber,
+              website: mongoBusInfo.website,
+              businessType: mongoBusInfo.businessType,
+              businessSubtype: mongoBusInfo.businessSubtype,
             }
   
         }
@@ -38,7 +47,8 @@ module.exports = {
       website, 
       businessType,
       businessSubtype,
-      pocketID }, { Business, mongoBusiness, IsIn, WorksAt}) => {
+      pocketID 
+    }, { Business, mongoBusiness, IsIn, WorksAt}) => {
         //immediately encrypt the business users password
         const encryptpass = obfuscate(password);
         //check to see the business name they want isn't taken by another business
@@ -69,7 +79,16 @@ module.exports = {
             role: 'owner'
           })
           newMongoBus.save()
-          return newMongoBus
+          return {
+            businessID: newMongoBus.businessID, 
+            businessName: newMongoBus.businessName,
+            dateEstablished: newMongoBus.dateEstablished,
+            emailAddress: newMongoBus.emailAddress,
+            phoneNumber: newMongoBus.phoneNumber,
+            website: newMongoBus.website,
+            businessType: newMongoBus.businessType,
+            businessSubtype: newMongoBus.businessSubtype,
+          }
         } else {
           throw new ApolloError('Business already exists')
         }

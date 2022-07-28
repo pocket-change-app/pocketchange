@@ -14,9 +14,17 @@ module.exports = {
             const mongoUserInfo = await mongoUser.findOne({ userID});
             if (userInfo && mongoUserInfo) {
               return {
-                mongoUserInfo
+                userID: mongoUserInfo.userID,
+                username: mongoUserInfo.username,
+                name: mongoUserInfo.name,
+                home: mongoUserInfo.home,
+                birthDate: mongoUserInfo.birthDate,
+                totalChange: Math.round((Number(mongoUserInfo.totalChange) + Number.EPSILON) * 100) / 100,
+                emailAddress: mongoUserInfo.emailAddress
               }
-            } else {
+
+              }
+            else {
               throw new ApolloError(`userID:${userID} doesn't exist`);
               return {};
             }
@@ -70,7 +78,15 @@ module.exports = {
                 emailAddress: emailAddress
               })
               newMongoUser.save()
-              return newMongoUser
+              return {
+                userID: newMongoUser.userID,
+                username: newMongoUser.username,
+                name: newMongoUser.name,
+                home: newMongoUser.home,
+                birthDate: newMongoUser.birthDate,
+                totalChange: Math.round((Number(newMongoUser.totalChange) + Number.EPSILON) * 100) / 100,
+                emailAddress: newMongoUser.emailAddress
+              }
             } else {
               throw new ApolloError('User already exists, or username taken')
             }

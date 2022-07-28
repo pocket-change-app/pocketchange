@@ -29,7 +29,8 @@ db.IsMember = require("./IsMember.model.js")(sequelize, Sequelize);
 db.Loves = require("./Loves.model.js")(sequelize, Sequelize);
 db.WorksAt = require("./WorksAt.model.js")(sequelize, Sequelize);
 
-sequelize.sync({force: true})
+//do not drop databases, do not set force to true
+sequelize.sync({})
 .then(() => {
     console.log("\n\n\nDatabase is up and running!\n\n\n");
 })

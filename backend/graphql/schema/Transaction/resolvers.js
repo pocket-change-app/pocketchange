@@ -32,14 +32,14 @@ module.exports = {
             const transactionInfo = await Transaction.findOne({ where : {transactionID: transactionID}});
             if(transactionInfo ){
                 return {
-                  "transactionID": transactionInfo.dataValues.transactionID,
-                  "userID": transactionInfo.dataValues.userID,
-                  "value": transactionInfo.dataValues.value,
-                  "date": transactionInfo.dataValues.Date,
-                  "busID": transactionInfo.dataValues.businessID,
-                  "pocketID": transactionInfo.dataValues.pocketID,
-                  "changeRedeemed": transactionInfo.dataValues.changeRedeemed,
-                  "changeEarned": transactionInfo.dataValues.changeEarned,
+                  transactionID: transactionInfo.dataValues.transactionID,
+                  userID: transactionInfo.dataValues.userID,
+                  value: transactionInfo.dataValues.value,
+                  date: transactionInfo.dataValues.Date,
+                  businessID: transactionInfo.dataValues.businessID,
+                  pocketID: transactionInfo.dataValues.pocketID,
+                  changeRedeemed: transactionInfo.dataValues.changeRedeemed,
+                  changeEarned: transactionInfo.dataValues.changeEarned,
                 }
       
             }
@@ -148,14 +148,14 @@ module.exports = {
                                 changeEarned: changeEarned
                             })
                             return {
-                                "transactionID": newTransaction.dataValues.transactionID,
-                                "userID": newTransaction.dataValues.userID,
-                                "value": newTransaction.dataValues.value,
-                                "date": newTransaction.dataValues.date,
-                                "busID": newTransaction.dataValues.businessID,
-                                "pocketID": newTransaction.dataValues.pocketID,
-                                "changeRedeemed": newTransaction.dataValues.changeRedeemed,
-                                "changeEarned": newTransaction.dataValues.changeEarned,
+                                transactionID: newTransaction.dataValues.transactionID,
+                                userID: newTransaction.dataValues.userID,
+                                value: newTransaction.dataValues.value,
+                                date: newTransaction.dataValues.date,
+                                businessID: newTransaction.dataValues.businessID,
+                                pocketID: newTransaction.dataValues.pocketID,
+                                changeRedeemed: newTransaction.dataValues.changeRedeemed,
+                                changeEarned: newTransaction.dataValues.changeEarned,
                               }
                         }
                         else {

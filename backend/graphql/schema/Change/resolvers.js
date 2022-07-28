@@ -9,11 +9,11 @@ module.exports = {
         const changeInfo = await Change.findOne({ where : {changeID: changeID}});
         if (changeInfo) {
           return {
-            "changeID": changeInfo.dataValues.changeID,
-            "pocketID": changeInfo.pocketID,
-            "value": Math.round((changeInfo.dataValues.value + Number.EPSILON) * 100) / 100 ,
-            "customerID":changeInfo.customerID,
-            "expiryDate": changeInfo.expiryDate,
+            changeID: changeInfo.dataValues.changeID,
+            pocketID: changeInfo.pocketID,
+            value: Math.round((changeInfo.dataValues.value + Number.EPSILON) * 100) / 100 ,
+            customerID:changeInfo.customerID,
+            expiryDate: changeInfo.expiryDate,
           }
         } else {
           throw new ApolloError(`changeID:${changeID} doesn't exist`);
@@ -27,11 +27,11 @@ module.exports = {
         })
         if (userChange){
           return{
-            "changeID": userChange.dataValues.changeID,
-            "pocketID": userChange.pocketID,
-            "value": Math.round((userChange.dataValues.value + Number.EPSILON) * 100) / 100,
-            "userID":userChange.userID,
-            "expiryDate": userChange.expiryDate,
+            changeID: userChange.dataValues.changeID,
+            pocketID: userChange.pocketID,
+            value: Math.round((userChange.dataValues.value + Number.EPSILON) * 100) / 100,
+            userID:userChange.userID,
+            expiryDate: userChange.expiryDate,
           }
         }
         else {
@@ -86,11 +86,11 @@ module.exports = {
                 pocketID: pocketID, value: Math.round((currentChange+ Number.EPSILON) * 100) / 100, expiryDate: expiryDate})
             }
             return{
-              "changeID": userChange.dataValues.changeID,
-              "pocketID": userChange.pocketID,
-              "value": userChange.value,
-              "userID":userChange.userID,
-              "expiryDate": userChange.expiryDate,
+              changeID: userChange.dataValues.changeID,
+              pocketID: userChange.pocketID,
+              value: userChange.value,
+              userID:userChange.userID,
+              expiryDate: userChange.expiryDate,
             }
           }
         }

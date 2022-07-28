@@ -67,7 +67,6 @@ server.start().then(res => {
 const port = process.env.PORT || 4000;
 mongoose.once('open', () => {
   console.log('Database connection open')
-  // DROP DATABASES
   sequelizeConnection.authenticate().then(() => {
     console.log('mySQL database connection established successfully')
         app.listen(port, () => {

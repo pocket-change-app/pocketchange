@@ -12,11 +12,11 @@ module.exports = {
             const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
             if(pocketInfo && mongoPocketInfo ){
                 return {
-                  "pocketID": pocketInfo.dataValues.pocketID,
-                  "circulatingChange": pocketInfo.dataValues.circulatingChange,
-                  "changeRate": pocketInfo.dataValues.changeRate,
-                  "region": mongoPocketInfo.region,
-                  "pocketName" : mongoPocketInfo.pocketname
+                  pocketID: pocketInfo.dataValues.pocketID,
+                  circulatingChange: pocketInfo.dataValues.circulatingChange,
+                  changeRate: pocketInfo.dataValues.changeRate,
+                  region: mongoPocketInfo.region,
+                  pocketName: mongoPocketInfo.pocketName
                 }
       
             }
@@ -60,11 +60,11 @@ module.exports = {
                 if (pocketChange && mongoPocketInfo){
                   await pocketChange.update({circulatingChange: currentChange})
                   return{
-                    "pocketID": pocketChange.dataValues.pocketID,
-                    "circulatingChange": (pocketChange.dataValues.circulatingChange).toFixed(2),
-                    "changeRate": pocketChange.dataValues.changeRate,
-                    "region": mongoPocketInfo.region,
-                    "pocketName" : mongoPocketInfo.pocketname
+                    pocketID: pocketChange.dataValues.pocketID,
+                    circulatingChange: (pocketChange.dataValues.circulatingChange).toFixed(2),
+                    changeRate: pocketChange.dataValues.changeRate,
+                    region: mongoPocketInfo.region,
+                    pocketName: mongoPocketInfo.pocketName
                   }
                 }
               }
