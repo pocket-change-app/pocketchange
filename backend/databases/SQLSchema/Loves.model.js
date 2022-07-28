@@ -1,8 +1,8 @@
-db.Business = require("./Business.model.js")(sequelize, Sequelize);
-db.User = require("./User.model.js")(sequelize, Sequelize);
 
 //specifies relationship that user has favourited a business
 module.exports = (sequelize, Sequelize) => {
+    Business = require("./Business.model.js")(sequelize, Sequelize);
+    User = require("./User.model.js")(sequelize, Sequelize);
     const Loves = sequelize.define("loves", {
         userID: {
             type: Sequelize.UUID,

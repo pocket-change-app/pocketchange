@@ -39,8 +39,7 @@ query Pocket($pocketID:ID){
   pocket(pocketID:$pocketID) {
     pocketID
     pocketName
-    customers
-    businesses
+    region
     changeRate
     circulatingChange
   }

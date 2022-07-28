@@ -1,8 +1,9 @@
-db.User = require("./User.model.js")(sequelize, Sequelize);
-db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+
 
 //specifies relationship that user is part of the pocket (either as a customer or in some management position)
 module.exports = (sequelize, Sequelize) => {
+    User = require("./User.model.js")(sequelize, Sequelize);
+    Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
     const IsMember = sequelize.define("isMember", {
         userID: {
             type: Sequelize.UUID,

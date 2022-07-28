@@ -7,13 +7,19 @@ module.exports = {
           return null;
         }
         const changeInfo = await Change.findOne({ where : {changeID: changeID}});
+        const {value} = changeInfo
+        console.log(value)
+        console.log(typeof(value))
+        console.log(changeInfo.dataValues)
+        console.log(Math.round((value + Number.EPSILON) * 100) / 100 )
+        console.log(typeof(Math.round((value + Number.EPSILON) * 100) / 100 ))
         if (changeInfo) {
           return {
             changeID: changeInfo.dataValues.changeID,
-            pocketID: changeInfo.pocketID,
-            value: Math.round((changeInfo.dataValues.value + Number.EPSILON) * 100) / 100 ,
-            customerID:changeInfo.customerID,
-            expiryDate: changeInfo.expiryDate,
+            pocketID: changeInfo.dataValues.pocketID,
+            value: Math.round((value + Number.EPSILON) * 100) / 100 ,
+            userID:changeInfo.dataValues.userID,
+            expiryDate: changeInfo.dataValues.expiryDate,
           }
         } else {
           throw new ApolloError(`changeID:${changeID} doesn't exist`);

@@ -1,8 +1,9 @@
-db.Business = require("./Business.model.js")(sequelize, Sequelize);
-db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+
 
 //specifies relationship that business is in the relevant pocket
 module.exports = (sequelize, Sequelize) => {
+    Business = require("./Business.model.js")(sequelize, Sequelize);
+    Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
     const IsIn = sequelize.define("isIn", {
         businessID: {
             type: Sequelize.UUID,

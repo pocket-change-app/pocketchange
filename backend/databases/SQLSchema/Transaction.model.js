@@ -1,8 +1,9 @@
-db.Business = require("./Business.model.js")(sequelize, Sequelize);
-db.User = require("./User.model.js")(sequelize, Sequelize);
-db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+
 
 module.exports = (sequelize, Sequelize) => {
+    Business = require("./Business.model.js")(sequelize, Sequelize);
+    User = require("./User.model.js")(sequelize, Sequelize);
+    Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
     const Transaction = sequelize.define("transaction", {
         transactionID: {
             type: Sequelize.UUID,

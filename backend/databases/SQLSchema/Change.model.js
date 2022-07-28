@@ -1,4 +1,8 @@
+
+
 module.exports = (sequelize, Sequelize) => {
+    User = require("./User.model.js")(sequelize, Sequelize);
+    Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
     const Change = sequelize.define("change", {
         changeID: {
             type: Sequelize.UUID,
