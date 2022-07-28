@@ -1,3 +1,7 @@
+db.Business = require("./Business.model.js")(sequelize, Sequelize);
+db.User = require("./User.model.js")(sequelize, Sequelize);
+db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
+
 module.exports = (sequelize, Sequelize) => {
     const Transaction = sequelize.define("transaction", {
         transactionID: {
@@ -8,7 +12,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         userID: {
             type: Sequelize.UUID,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'userID'
+            }
         },
         value:{
             type: Sequelize.DECIMAL(10,2),
@@ -20,11 +28,19 @@ module.exports = (sequelize, Sequelize) => {
         },
         businessID: {
             type: Sequelize.UUID,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Business,
+                key: 'businessID'
+            }
         },
         pocketID: {
             type: Sequelize.UUID,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Pocket,
+                key: 'pocketID'
+            }
         },
         changeRedeemed: {
             type: Sequelize.DECIMAL(10,2),

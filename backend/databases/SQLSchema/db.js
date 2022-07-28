@@ -29,6 +29,22 @@ db.IsMember = require("./IsMember.model.js")(sequelize, Sequelize);
 db.Loves = require("./Loves.model.js")(sequelize, Sequelize);
 db.WorksAt = require("./WorksAt.model.js")(sequelize, Sequelize);
 
+//a business belongs to one pocket ( we have businessId as unique in IsIn ), a pocket has many businesses
+db.Business.belongsToMany(db.Pocket, { through : db.IsIn });
+db.Pocket.belongsToMany(db.Business, { through : db.IsIn });
+
+//users can belong to many pockets, pockets can have many users
+db.User.belongsToMany(db.Pocket, { through : db.IsMember });
+db.Pocket.belongsToMany(db.User, { through : db.IsMember });
+
+//users can love many businesses, a business can be loved by many users
+db.User.belongsToMany(db.Business, { through : db.Loves });
+db.Business.belongsToMany(db.User, { through : db.Loves });
+
+//users can work at many businesses, a business can have many workers
+db.User.belongsToMany(db.Business, { through : db.WorksAt });
+db.User.belongsToMany(db.Business, { through : db.WorksAt });
+
 //do not drop databases, do not set force to true
 sequelize.sync({})
 .then(() => {
