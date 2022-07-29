@@ -15,11 +15,12 @@ import Colors, { colors } from '../constants/Colors';
 // import useColorScheme from '../hooks/useColorScheme';
 import BusinessModalScreen from '../screens/BusinessModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import PocketScreen from '../screens/PocketScreen';
-import MerchantsScreen from '../screens/MerchantsScreen';
+import PocketTabScreen from '../screens/PocketTabScreen';
+import PayTabScreen from '../screens/PayTabScreen';
 import WalletScreen from '../screens/WalletScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { BORDER_WIDTH } from '../Styles';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -71,7 +72,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Merchants"
+      initialRouteName='Pay'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
@@ -83,7 +84,7 @@ function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="Pockets"
-        component={PocketScreen}
+        component={PocketTabScreen}
         options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
           title: 'Pockets',
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
@@ -105,8 +106,8 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="Merchants"
-        component={MerchantsScreen}
+        name="Pay"
+        component={PayTabScreen}
         options={{
           title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
@@ -140,7 +141,8 @@ const styles = StyleSheet.create({
   navigationHeader: {
     height: 100,
     backgroundColor: colors.bg,
-    borderBottomWidth: 0,
+    // borderBottomWidth: 2,
+    borderWidth: 0
   },
   navigationHeaderTitle: {
     fontSize: 30,
@@ -150,7 +152,8 @@ const styles = StyleSheet.create({
   tabBar: {
     height: 100,
     backgroundColor: colors.bg,
-    borderTopWidth: 2,
+    // borderTopWidth: BORDER_WIDTH,
+    borderWidth: 0,
     borderColor: colors.light,
   },
   // tabLabel: {

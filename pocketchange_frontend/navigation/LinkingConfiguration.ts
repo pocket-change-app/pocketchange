@@ -17,12 +17,12 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Pockets: {
             screens: {
-              PocketScreen: 'one',
+              PocketTabScreen: 'one',
             },
           },
-          Merchants: {
+          Pay: {
             screens: {
-              MerchantsScreen: 'two',
+              PayTabScreen: 'two',
             },
           },
           Wallet: {
@@ -32,7 +32,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
-      Business: 'modal',
+      BusinessModal: 'modal',
       NotFound: '*',
     },
   },

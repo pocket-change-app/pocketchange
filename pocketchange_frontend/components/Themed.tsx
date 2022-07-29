@@ -3,6 +3,8 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
+import { styles } from '../Styles';
+
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '../constants/Colors';
@@ -42,4 +44,8 @@ export function View(props: ViewProps) {
   const backgroundColor = 'rgba(0,0,0,0)'; //useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export function ScreenContainer(props: DefaultView['props']) {
+  return <View style={styles.screenContainer} {...props} />
 }
