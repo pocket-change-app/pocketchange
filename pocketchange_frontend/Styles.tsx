@@ -12,6 +12,14 @@ export const BORDER_WIDTH = 2
 
 export const styles = StyleSheet.create({
 
+  screenContainer: {
+    flex: 1,
+    backgroundColor: colors.bg,
+    borderTopWidth: BORDER_WIDTH,
+    borderBottomWidth: BORDER_WIDTH,
+    borderColor: colors.light,
+  },
+
   searchBarContainer: {
     height: 60,
     paddingHorizontal: MARGIN,
@@ -19,7 +27,8 @@ export const styles = StyleSheet.create({
     borderTopColor: colors.light,
     borderBottomColor: colors.light,
     borderTopWidth: 0,
-    borderBottomWidth: 2,
+    borderBottomWidth: 0,
+    // borderWidth: 0,
     justifyContent: 'center',
   },
 
@@ -353,6 +362,11 @@ export const styles = StyleSheet.create({
     flex: 100,
   },
 
+  pocketFlatList: {
+    padding: MARGIN,
+    margin: 0,
+  },
+
   pocketListCardContainer: {
     width: Dimensions.get('window').width - 4 * MARGIN,
     height: '100%', //Dimensions.get('window').height - 200,
@@ -360,6 +374,7 @@ export const styles = StyleSheet.create({
 
   pocketListCard: {
     flex: 1,
+    height: '100%',
     // marginRight: 15,
     justifyContent: 'space-between',
   },
