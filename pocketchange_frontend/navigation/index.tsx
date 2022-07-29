@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   navigationHeader: {
     height: 100,
     backgroundColor: colors.bg,
-    borderBottomWidth: 2,
+    borderBottomWidth: 0,
   },
   navigationHeaderTitle: {
     fontSize: 30,

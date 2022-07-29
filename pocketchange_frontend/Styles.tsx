@@ -1,21 +1,47 @@
 import { color, fonts, ScreenHeight, ScreenWidth } from '@rneui/base';
+import { getBackgroundColorAsync } from 'expo-system-ui';
 import { visitWithTypeInfo } from 'graphql';
 import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
+export const MARGIN = 15
+export const MARGIN_SM = 8
+export const CARD_RADIUS = 10
+export const BORDER_WIDTH = 2
+
 export const styles = StyleSheet.create({
-  scrollView: {
-    padding: 15,
+
+  searchBarContainer: {
+    height: 60,
+    paddingHorizontal: MARGIN,
+    backgroundColor: colors.bg,
+    borderTopColor: colors.light,
+    borderBottomColor: colors.light,
+    borderTopWidth: 0,
+    borderBottomWidth: 2,
+    justifyContent: 'center',
+  },
+
+  searchBarInputContainer: {
+    height: '100%',
+    backgroundColor: colors.imageBorder,
+    borderRadius: CARD_RADIUS,
+  },
+
+  searchBarInput: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.subtle,
   },
 
   card: {
     //flex: 1,
-    marginBottom: 15,
+    marginBottom: MARGIN,
     backgroundColor: colors.card,
     borderColor: colors.light,
-    borderWidth: 2,
-    borderRadius: 10,
+    borderWidth: BORDER_WIDTH,
+    borderRadius: CARD_RADIUS,
     // padding: 15,
   },
 
@@ -41,15 +67,15 @@ export const styles = StyleSheet.create({
 
   horizontalLine: {
     backgroundColor: colors.light,
-    height: 2,
-    marginHorizontal: 8,
+    height: BORDER_WIDTH,
+    marginHorizontal: MARGIN_SM,
     borderRadius: 1
   },
 
   verticalLine: {
     backgroundColor: colors.light,
-    width: 2,
-    marginVertical: 8,
+    width: BORDER_WIDTH,
+    marginVertical: MARGIN_SM,
     borderRadius: 1
   },
 
@@ -83,7 +109,7 @@ export const styles = StyleSheet.create({
 
   pocketChangeBalanceCard: {
     alignItems: "center",
-    padding: 15,
+    padding: MARGIN,
   },
 
   cardTitle: {
@@ -116,9 +142,6 @@ export const styles = StyleSheet.create({
     color: colors.medium,
   },
 
-
-
-
   pocket: {
     textTransform: 'uppercase',
     fontSize: 14,
@@ -126,9 +149,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis bold italic',
     color: colors.subtle,
   },
-
-
-
 
   pocketBig: {
     //textTransform: 'uppercase',
@@ -146,7 +166,12 @@ export const styles = StyleSheet.create({
 
 
   container: {
-    padding: 15,
+    padding: MARGIN,
+  },
+
+  businessFlatList: {
+    padding: MARGIN,
+    paddingBottom: 0,
   },
 
   businessHeaderImageContainer: {
@@ -159,8 +184,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: CARD_RADIUS - BORDER_WIDTH,
+    borderTopRightRadius: CARD_RADIUS - BORDER_WIDTH,
   },
 
   businessListImageContainer: {
@@ -178,18 +203,18 @@ export const styles = StyleSheet.create({
     // borderRadius: 8,
     // borderWidth: 2,
     // borderColor: colors.imageBorder,
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
+    borderTopLeftRadius: CARD_RADIUS - BORDER_WIDTH,
+    borderBottomLeftRadius: CARD_RADIUS - BORDER_WIDTH,
 
   },
 
   businessListInfo: {
     justifyContent: 'center',
-    margin: 15,
+    margin: MARGIN,
   },
 
   businessModalInfo: {
-    margin: 15,
+    margin: MARGIN,
   },
 
   businessBioText: {
@@ -198,16 +223,16 @@ export const styles = StyleSheet.create({
     lineHeight: 17,
     color: colors.dark,
     textAlign: 'justify',
-    marginBottom: 15
+    marginBottom: MARGIN
   },
 
   signatureImage: {
     aspectRatio: 1,
     width: 40,
-    borderWidth: 2,
+    borderWidth: BORDER_WIDTH,
     borderRadius: 100,
     borderColor: colors.imageBorder,
-    marginRight: 5,
+    marginRight: MARGIN_SM,
   },
 
   signatureText: {
@@ -216,8 +241,8 @@ export const styles = StyleSheet.create({
   },
 
   payButton: {
-    borderRadius: 10,
-    marginTop: 15,
+    borderRadius: CARD_RADIUS,
+    marginTop: MARGIN,
     height: 40,
     backgroundColor: colors.gold,
 
@@ -234,7 +259,7 @@ export const styles = StyleSheet.create({
   idCard: {
     width: "100%",
     aspectRatio: 1.64,
-    padding: 15,
+    padding: MARGIN,
     justifyContent: 'space-between',
   },
 
@@ -249,7 +274,7 @@ export const styles = StyleSheet.create({
     height: 106,
     borderRadius: 60,
     marginLeft: 25,
-    borderWidth: 2,
+    borderWidth: BORDER_WIDTH,
     borderColor: colors.imageBorder,
   },
 
@@ -263,7 +288,7 @@ export const styles = StyleSheet.create({
 
   idContent: {
     justifyContent: 'center',
-    padding: 15
+    padding: MARGIN
   },
 
   idFirstName: {
@@ -319,7 +344,7 @@ export const styles = StyleSheet.create({
 
   balanceCardContent: {
     // backgroundColor: 'rgba(0,0,0,0.1)',
-    margin: 15,
+    margin: MARGIN,
     flex: 1,
     // justifyContent: 'space-evenly',
   },
@@ -328,16 +353,15 @@ export const styles = StyleSheet.create({
     flex: 100,
   },
 
-  pocketListCard: {
-    flex: 1,
-
-    // marginRight: 15,
-    justifyContent: 'space-between',
+  pocketListCardContainer: {
+    width: Dimensions.get('window').width - 4 * MARGIN,
+    height: '100%', //Dimensions.get('window').height - 200,
   },
 
-  pocketListCardContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 200,
+  pocketListCard: {
+    flex: 1,
+    // marginRight: 15,
+    justifyContent: 'space-between',
   },
 
   pocketListName: {
@@ -351,7 +375,7 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'rgba(0,0,0,0.2)',
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 15,
+    marginBottom: MARGIN,
   },
 
   pocketListImageContainer: {
@@ -365,6 +389,6 @@ export const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
 
-    borderRadius: 10,
+    borderRadius: CARD_RADIUS,
   },
 })
