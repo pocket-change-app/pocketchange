@@ -21,6 +21,7 @@ import WalletScreen from '../screens/WalletScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { BORDER_WIDTH } from '../Styles';
+import PocketScreen from '../screens/PocketScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -57,6 +58,11 @@ function RootNavigator() {
           }}
         />
       </Stack.Group>
+      <Stack.Screen
+        name="PocketScreen"
+        component={PocketScreen}
+        options={{ title: '[pocket name here]' }}
+      />
     </Stack.Navigator>
   );
 }

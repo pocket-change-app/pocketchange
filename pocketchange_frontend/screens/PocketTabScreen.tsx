@@ -15,7 +15,7 @@ const R = require('ramda');
 
 
 
-export default class PocketScreen extends Component {
+export default class PocketTabScreen extends Component {
   state = {
     search: '',
   }
@@ -41,7 +41,7 @@ export default class PocketScreen extends Component {
         />
         <ScreenContainer>
           <FlatList
-            style={{ paddingBottom: 0 }}
+            style={styles.pocketFlatList}
             // horizontal
             // pagingEnabled={true}
             // contentInsetAdjustmentBehavior="never"

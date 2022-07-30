@@ -363,7 +363,7 @@ export const styles = StyleSheet.create({
   },
 
   pocketFlatList: {
-    padding: MARGIN,
+    // padding: MARGIN,
     margin: 0,
   },
 

@@ -16,7 +16,7 @@ export default class MerchantsScreen extends Component {
   }
 
 
-  renderBusinessCard = ({ item, index, separators }) => (
+  renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
     <BusinessCardSm
       key={item.busID}
