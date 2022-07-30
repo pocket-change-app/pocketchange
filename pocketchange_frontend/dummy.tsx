@@ -124,7 +124,7 @@ export const businesses = [
     address: "1010 QUEEN ST E",
     pocket: "Somewhere",
     imageURL: require("./assets/images/cats.jpg"),
-    bio: "Cat stuff. retty self explanatory.",
+    bio: "Cat stuff. Pretty self explanatory.",
     people: [
       {
         name: 'Margaret',
@@ -139,7 +139,7 @@ export const businesses = [
     address: "1042 QUEEN ST E",
     pocket: "Somewhere",
     imageURL: require("./assets/images/cheese.jpg"),
-    bio: "Cheese stuff. retty self explanatory.",
+    bio: "Cheese stuff. Pretty self explanatory.",
     people: [
       {
         name: 'Max',
