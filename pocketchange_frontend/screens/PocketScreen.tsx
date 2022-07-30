@@ -14,6 +14,7 @@ export default class PocketScreen extends Component {
 
   // props: route, navigation
 
+
   state = {
     search: '',
   }
@@ -38,6 +39,7 @@ export default class PocketScreen extends Component {
   };
 
   render() {
+    // const {pocketname}  = this.props
     const { search } = this.state;
 
     return (
