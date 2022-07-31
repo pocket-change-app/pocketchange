@@ -160,8 +160,16 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
   )
 }
 
+export function Setting({ settingText }: { settingText: string }) {
+  return (
+    <View style={styles.setting}>
+      <Text style={styles.settingText}>{settingText}</Text>
+    </View>
+  )
+}
+
 // to use for merchant side
-export function SettingsCard(navigation: any) {
+export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
     <ButtonWithText text={Settings}>
 

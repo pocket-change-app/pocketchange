@@ -406,4 +406,14 @@ export const styles = StyleSheet.create({
 
     borderRadius: CARD_RADIUS,
   },
+
+  setting: {
+    height: 45,
+  },
+
+  settingText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.medium,
+  }
 })
