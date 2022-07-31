@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList } from 'react-native';
 import { Text, View } from './Themed';
 import { styles } from '../Styles';
 import { user } from '../dummy';
@@ -168,6 +168,38 @@ export function Setting({ settingText }: { settingText: string }) {
   )
 }
 
+export function TransactionHistoryCard({ navigation, transactions }: { navigation: any, transactions: { [key: string]: any }[] }) {
+
+  const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+    <TransactionListed
+      key={item.key}
+      navigation={navigation}
+      transactionData={item}
+    />
+  )
+
+  return (
+    <View style={[styles.card, styles.container]}>
+      <FlatList
+        // contentContainerStyle={styles.businessFlatList}
+        nestedScrollEnabled={false}
+        data={transactions}
+        renderItem={renderTransactions}
+      />
+    </View>
+  )
+}
+
+function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: any } }) {
+  return (
+    // TODO: make pressable and navigatte to its own page
+    <View>
+      <Text>{transactionData.merchant}</Text>
+      <Text>{transactionData.amount}</Text>
+    </View>
+  )
+}
+
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
@@ -219,6 +251,7 @@ function TopPocket({ pocket, change }: { pocket: string, change: string }) {
     </View >
   )
 }
+
 
 function CardHeader({ text }: { text: string }) {
   return (
