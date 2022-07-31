@@ -189,6 +189,28 @@ export function ButtonWithText(navigation: any, onPressFunction: any, text: stri
   </Pressable>
 }
 
+export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
+  return (
+    <Pressable
+      onPress={() => navigation.navigate('TransactionModal', {
+        transaction
+      })}
+    >
+      <View style={[styles.card, styles.businessListItemCard]}>
+
+        <View style={styles.businessListInfo}>
+          <Text style={styles.businessNameSm}>{transaction.userID}</Text>
+          <Text style={styles.address}>{transaction.value}</Text>
+          <Text style={styles.pocket}>{transaction.date}</Text>
+        </View>
+
+      </View>
+
+    </Pressable>
+  )
+}
+
+
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
     <View style={{ flex: 1 }}>

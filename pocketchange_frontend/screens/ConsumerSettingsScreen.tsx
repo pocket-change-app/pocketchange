@@ -1,11 +1,17 @@
 
-import { Component } from "react";
-import { ScrollView } from "react-native";
+import { Component, useState } from "react";
+import { Pressable, ScrollView, Button } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { Setting } from "../components/Cards";
 
-export default function ConsumerSettingsScreen() {
+import {useAuth} from '../contexts/Auth';
 
+
+export default function ConsumerSettingsScreen() {
+  const auth = useAuth();
+  const signOut = async () => {
+    await auth.signOut();
+  };
   return (
     <ScreenContainer>
       <ScrollView>
@@ -18,6 +24,9 @@ export default function ConsumerSettingsScreen() {
         <Setting
           settingText={"Setting 3"}
         />
+
+        <Button title="Sign Out" onPress={signOut} />
+        
       </ScrollView>
     </ScreenContainer >
   )
