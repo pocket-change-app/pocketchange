@@ -33,6 +33,7 @@ export const user = {
       timestamp: '2022-05-05-04-20-23', // yyyy-mm-dd-hh-mm-ss
       amount: 3.60,
       merchant: "Jimmy's Coffee",
+      pocket: 'Riverside',
       changeUsed: 0.50,
       changeEarned: 0.31,
     },
@@ -41,6 +42,7 @@ export const user = {
       timestamp: '2022-05-03-06-09-12',
       amount: 52.50,
       merchant: "Wvrst",
+      pocket: 'Somewhere',
       changeUsed: 3.00,
       changeEarned: 4.95,
     },
