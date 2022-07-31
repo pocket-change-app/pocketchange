@@ -415,5 +415,23 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
+  },
+
+  transactionListed: {
+    height: 45,
+    margin: MARGIN,
+    marginBottom: 0,
+  },
+
+  transactionListedMerchantText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.dark,
+  },
+
+  transactionListedAmountText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.medium,
   }
 })
