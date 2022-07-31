@@ -125,6 +125,20 @@ function BottomTabNavigator() {
         options={{
           title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('ComsumerSettings')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="gear"
+                size={25}
+                color={colors.medium}
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
         }}
       />
     </BottomTab.Navigator>
