@@ -46,6 +46,24 @@ export const user = {
       changeUsed: 3.00,
       changeEarned: 4.95,
     },
+    {
+      key: '003',
+      timestamp: '2022-05-02-16-09-12',
+      amount: 12.50,
+      merchant: "Cat Land",
+      pocket: 'Somewhere',
+      changeUsed: 0,
+      changeEarned: 1.25,
+    },
+    {
+      key: '004',
+      timestamp: '2022-05-02-06-09-12',
+      amount: 20.20,
+      merchant: "Wvrst",
+      pocket: 'Somewhere',
+      changeUsed: 0,
+      changeEarned: 2.02,
+    },
   ]
 };
 
