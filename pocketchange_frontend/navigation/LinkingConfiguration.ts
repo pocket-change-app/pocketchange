@@ -31,10 +31,21 @@ const linking: LinkingOptions<RootStackParamList> = {
               WalletScreen: 'wallet tab',
             },
           },
+          Analytics: {
+            screens: {
+              AnalyticsDashboardScreen: 'analytics',
+            },
+          },
+          Transactions: {
+            screens: {
+              TransactionHistoryScreen: 'transactions',
+            },
+          },
         },
       },
       ConsumerSettings: 'modal',
       BusinessModal: 'modal',
+      TransactionModal: 'modal',
       NotFound: '*',
     },
   },

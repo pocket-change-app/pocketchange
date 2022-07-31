@@ -2,38 +2,33 @@ import { ScrollView, FlatList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses } from '../dummy';
+import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { BusinessCardSm } from '../components/Cards';
+import { TranactionCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 import { Component } from 'react';
 
 const R = require('ramda');
 
-export default function PayTabScreen({ navigation }: { navigation: any }) {
+export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
   const state = {
     search: '',
   }
 
 
-  const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+  const renderTransactionCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
-    <BusinessCardSm
-      key={item.busID}
+    <TranactionCardSm
+      key={item.transactionID}
       navigation={navigation}
-      name={item.name}
-      address={item.address}
-      pocket={item.pocket}
-      imageURL={item.imageURL}
-      bio={item.bio}
-      people={item.people}
+      transaction={item}
     />
 
   )
 
   const updateSearch = (search: string) => {
-    state.search = search
+    state.search = search;
   };
 
   const { search } = state;
@@ -52,9 +47,8 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
       <ScreenContainer>
         <FlatList
           contentContainerStyle={styles.businessFlatList}
-
-          data={businesses}
-          renderItem={renderBusinessCard}
+          data={transactions}
+          renderItem={renderTransactionCard}
         />
       </ScreenContainer>
     </>

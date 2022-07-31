@@ -6,6 +6,7 @@ export const user = {
     middle: 'Stone',
     last: 'Williams',
   },
+  type: "merchant",
   imageURL: require('./assets/images/Elias.jpeg'),
   dateOfBirth: '12/16/1998',
   lifetimeChange: 2308,      // total cents spent in Change. Displayted under name on ID card
@@ -147,5 +148,38 @@ export const businesses = [
         imageURL: require('./assets/images/max.png')
       }
     ]
+  },
+]
+
+export const transactions = [
+  {
+    transactionID: "001",
+    userID: "Elias",
+    value: "10.43",
+    date: "2022-06-04 09:22:11",
+    busID: "002", 
+    pocketID: "001",
+    changeRedeemed: "3.40",
+    changeEarned: "1.00",
+  },
+  {
+    transactionID: "002",
+    userID: "Micas",
+    value: "13.02",
+    date: "2022-06-04 09:22:11",
+    busID: "001", 
+    pocketID: "002",
+    changeRedeemed: "0.40",
+    changeEarned: "2.30",
+  },
+  {
+    transactionID: "003",
+    userID: "Siku",
+    value: "5.20",
+    date: "2022-06-04 09:22:11",
+    busID: "003", 
+    pocketID: "001",
+    changeRedeemed: "3.40",
+    changeEarned: "1.00",
   },
 ]

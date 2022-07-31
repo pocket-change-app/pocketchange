@@ -20,6 +20,7 @@ export type RootStackParamList = {
   BusinessModal: undefined;
   PocketScreen: undefined;
   NotFound: undefined;
+  TransactionModal: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -31,6 +32,8 @@ export type RootTabParamList = {
   Pockets: undefined;
   Pay: undefined;
   Wallet: undefined;
+  Analytics: undefined;
+  Transactions: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
