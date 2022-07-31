@@ -16,9 +16,7 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
     search: '',
   }
 
-
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-
     <BusinessCardSm
       key={item.busID}
       navigation={navigation}
@@ -29,7 +27,6 @@ export default function MerchantsScreen({ navigation }: { navigation: any }) {
       bio={item.bio}
       people={item.people}
     />
-
   )
 
   const updateSearch = (search: string) => {
