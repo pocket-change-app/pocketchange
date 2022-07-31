@@ -7,11 +7,11 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         circulatingChange: {
-            type: Sequelize.DECIMAL(10,2),
+            type: Sequelize.DECIMAL(19,4),
             allowNull: false
         },
         changeRate: {
-            type: Sequelize.DECIMAL(10,2), 
+            type: Sequelize.DECIMAL(19,4), 
             allowNull: false
         }
     });

@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         value: {
-            type: Sequelize.DECIMAL(10,2),
+            type: Sequelize.DECIMAL(19,4),
             allowNull: false
         },
         expiryDate: {
