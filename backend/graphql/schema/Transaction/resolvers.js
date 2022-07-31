@@ -2,22 +2,29 @@ const { gql, ApolloError } = require('apollo-server');
 const R = require('ramda');
 const { Business } = require('../../../databases/SQLSchema/db');
 const {Op} = require('sequelize');
-const {renameNestedKeys} = require('../../utils')
+const {decimalNested} = require('../../utils')
+
+
+//standard for dealing with monetary values in the backend is convert your value to a float, 
+//calculate, and then round and store again as a decimal in the backend
+//https://stackoverflow.com/questions/224462/storing-money-in-a-decimal-column-what-precision-and-scale
+
 
 const updateChangeAcross = async(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
     transactionDate = new Date(dateOfTransaction)
     var expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
     //store expiry date in yyyy-mm-dd format
     expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
+    //update all change assuming values are floats and cast them to 4 decimal place strings
     await Change.update({
-        value: updatedChange,
+        value: updatedChange.toFixed(4),
         expiryDate: expiryDate
       }, {
         where: { pocketID: pocketID, userID:userID }
       })
     //update pocket circulating change
     await Pocket.update({
-        circulatingChange: updatedChangeCirculating
+        circulatingChange: updatedChangeCirculating.toFixed(4)
       }, {
         where: { pocketID: pocketID }
       })
@@ -31,10 +38,12 @@ module.exports = {
             }
             const transactionInfo = await Transaction.findOne({ where : {transactionID: transactionID}});
             if(transactionInfo ){
+                //convert value String to float and then round to 2 decimal places and send to frontend
+                const decimalValue = (parseFloat(transactionInfo.dataValues.value).toFixed(2));
                 return {
                   transactionID: transactionInfo.dataValues.transactionID,
                   userID: transactionInfo.dataValues.userID,
-                  value: transactionInfo.dataValues.value,
+                  value: decimalValue,
                   date: transactionInfo.dataValues.Date,
                   businessID: transactionInfo.dataValues.businessID,
                   pocketID: transactionInfo.dataValues.pocketID,
@@ -67,7 +76,8 @@ module.exports = {
             //need to rename the ID to transactionID and businessID to busID
             //const finalTransactionObject = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionsByBusInDates))
             //return finalTransactionObject
-            return transactionsByBusInDates
+            const finalTransactionObject = decimalNested(transactionsByBusInDates,'value', 'dataValues' )
+            return finalTransactionObject
           }
           //else get all Transactions
           else{
@@ -75,7 +85,8 @@ module.exports = {
             if(transactionInfo ){
               //const transactionObj = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionInfo))
               //return transactionObj
-              return transactionInfo
+              const finalTransactionObject = decimalNested(transactionInfo,'value', 'dataValues' )
+              return finalTransactionObject
     
             }
           }
@@ -87,7 +98,8 @@ module.exports = {
             if(userID, businessID, pocketID, value){
                 //update this resolver TO-DO: people can use and earn change, just not earn change on the change they used
                 //check to make sure user is in pocket
-                const changeUsing = Math.round((Number(changeUsed) + Number.EPSILON) * 100) / 100
+                //turn changeUsed into a float
+                const changeUsing = parseFloat(changeUsed)
                 const mongoUserInfo = await mongoUser.findOne({ userID })
                 if(mongoUserInfo){
                     //get IsMemberOf relationship table to check that the user is in the pocket
@@ -112,13 +124,16 @@ module.exports = {
                             if(changeUsing >0.00){
                                 //subtract change from users change in SQL and from pockets circulating change
                                 //check to make sure user has enough change
-                                const availableChange = Number(userChangeInfo.dataValues.value)
+                                //turn availableCHange into a float for calculations
+                                const availableChange = parseFloat(userChangeInfo.dataValues.value)
                                 if(changeUsing <= availableChange){
                                     //user has enough change, subtract the change
                                     var changeRedeemed = changeUsing
                                     const updatedChange = availableChange - changeUsing
                                     //update the change in Change and Pocket
-                                    const oldChangeCirculating = pocketInfo.dataValues.circulatingChange
+                                    //change the circulating change into a float
+                                    const oldChangeCirculating = parseFloat(pocketInfo.dataValues.circulatingChange)
+                                    //updated change circulating is a float
                                     const updatedChangeCirculating = oldChangeCirculating - changeRedeemed
                                     await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                                 }
@@ -129,18 +144,20 @@ module.exports = {
                             else{
                                 //get pocket info to calculate rate of change, change is earned
                                 var changeRedeemed = 0
-                                const changeRate = pocketInfo.dataValues.changeRate
-                                changeEarned = Math.round((value*(changeRate)+ Number.EPSILON) * 100) / 100 
-                                const currChange = Math.round((Number(userChangeInfo.dataValues.value) + Number.EPSILON) * 100) / 100 
-                                const updatedChange = Math.round(((currChange  + changeEarned)+ Number.EPSILON) * 100) / 100 
-                                const oldChangeCirculating =  Math.round((Number(pocketInfo.dataValues.circulatingChange) + Number.EPSILON) * 100) / 100
+                                const changeRate = parseFloat(pocketInfo.dataValues.changeRate)
+                                changeEarned = value*(changeRate)
+                                const currChange = parseFloat(userChangeInfo.dataValues.value)
+                                //updatedChange is a float
+                                const updatedChange = (currChange  + changeEarned)
+                                const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
+                                //updatedChangeCirculating is a float
                                 const updatedChangeCirculating = oldChangeCirculating + changeEarned
                                 await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                             }
                             //change is updated across
                             const newTransaction = await Transaction.create({
                                 userID: userID,
-                                value: value,
+                                value: value.toFixed(2),
                                 businessID: busID,
                                 date: dateOfTransaction,
                                 pocketID: pocketID,
@@ -150,7 +167,7 @@ module.exports = {
                             return {
                                 transactionID: newTransaction.dataValues.transactionID,
                                 userID: newTransaction.dataValues.userID,
-                                value: newTransaction.dataValues.value,
+                                value: (newTransaction.dataValues.value).toFixed(2),
                                 date: newTransaction.dataValues.date,
                                 businessID: newTransaction.dataValues.businessID,
                                 pocketID: newTransaction.dataValues.pocketID,

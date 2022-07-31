@@ -9,7 +9,7 @@ module.exports = gql`
       userID: ID
       value: Decimal
       date: Date
-      busID: ID
+      buinessID: ID
       pocketID: ID
       changeRedeemed: Decimal
       changeEarned: Decimal
@@ -23,13 +23,13 @@ module.exports = gql`
         """
         Query all Transactions given a businessID, between certain dates
         """
-        getAllTransactionsByBus(busID:ID, startDate: Date, endDate: Date):[Transaction]
+        getAllTransactionsByBus(businessID:ID, startDate: Date, endDate: Date):[Transaction]
     }
 
     type Mutation {
         """
         Process a new transaction, where a user is either using up the change they have or earning change
         """
-        processTransaction(userID: ID, busID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal):Transaction
+        processTransaction(userID: ID, businessID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal):Transaction
     }
 `

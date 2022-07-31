@@ -15,7 +15,7 @@ export default {
             }
         }
     query getAllTransactionsByBus($businessID:ID, $startDate: Date, $endDate: Date){
-        getAllTransactionsByBus(businessID:$busID, startDate: $startDate, endDate: $endDate){
+        getAllTransactionsByBus(businessID:$businessID, startDate: $startDate, endDate: $endDate){
             transactionID
             userID
             value

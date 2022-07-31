@@ -1,5 +1,9 @@
 const { gql, ApolloError } = require('apollo-server');
 
+//standard for dealing with monetary values in the backend is convert your value to a float, 
+//calculate, and then round and store again as a decimal in the backend
+//https://stackoverflow.com/questions/224462/storing-money-in-a-decimal-column-what-precision-and-scale
+
 module.exports = {
   Query: {
     change: async (parent, { changeID }, { Change }) => {
@@ -7,17 +11,15 @@ module.exports = {
           return null;
         }
         const changeInfo = await Change.findOne({ where : {changeID: changeID}});
+        //comes as a string from backend due to storage of decimal places
         const {value} = changeInfo
-        console.log(value)
-        console.log(typeof(value))
-        console.log(changeInfo.dataValues)
-        console.log(Math.round((value + Number.EPSILON) * 100) / 100 )
-        console.log(typeof(Math.round((value + Number.EPSILON) * 100) / 100 ))
+        //convert value String to float and then round to 2 decimal places and send to frontend
+        const decimalValue = (parseFloat(changeInfo.dataValues.value).toFixed(2));
         if (changeInfo) {
           return {
             changeID: changeInfo.dataValues.changeID,
             pocketID: changeInfo.dataValues.pocketID,
-            value: Math.round((value + Number.EPSILON) * 100) / 100 ,
+            value: decimalValue,
             userID:changeInfo.dataValues.userID,
             expiryDate: changeInfo.dataValues.expiryDate,
           }
@@ -32,10 +34,12 @@ module.exports = {
           pocketID: pocketID}
         })
         if (userChange){
+          //convert value String to float and then round to 2 decimal places and send to frontend
+          const decimalValue = (parseFloat(userChange.dataValues.value).toFixed(2));
           return{
             changeID: userChange.dataValues.changeID,
             pocketID: userChange.pocketID,
-            value: Math.round((userChange.dataValues.value + Number.EPSILON) * 100) / 100,
+            value: decimalValue,
             userID:userChange.userID,
             expiryDate: userChange.expiryDate,
           }
@@ -56,8 +60,10 @@ module.exports = {
           group: ["userID", "pocketID"],
           where: {userID: userID, pocketID: pocketID}
         })
+        //if the user has made transactions in the pocket earning change
         if (changeEarnedPerUserPerPocket[0]){
-          const totalChangeEarned = changeEarnedPerUserPerPocket[0].dataValues.totalChangeEarned
+          //convert total change earned into a float for calculations
+          const totalChangeEarned = parseFloat(changeEarnedPerUserPerPocket[0].dataValues.totalChangeEarned)
           //SELECT `userID`, `pocketID`, SUM(`changeRedeemed`) AS `totalChangeRedeemed` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
           const changeRedeemedPerUserPerPocket = await Transaction.findAll({ 
             attributes: ["userID", "pocketID", 
@@ -66,15 +72,19 @@ module.exports = {
             group: ["userID", "pocketID"],
             where: {userID: userID, pocketID: pocketID}
           })
+          //if the user has made transactions in the pocket redeeming change
           if (changeRedeemedPerUserPerPocket[0]){
-            const totalChangeRedeemed =  changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed
+            //convert total change redeemed into a float for calculations
+            const totalChangeRedeemed =  parseFloat(changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed)
+            //currentChange is a float
             const currentChange = totalChangeEarned - totalChangeRedeemed
             //update the User change, if the users change for this pocket exists
             var userChange = await Change.findOne({ where: {userID: userID,
               pocketID: pocketID}
             })
             if (userChange){
-              await userChange.update({value: Math.round((currentChange+ Number.EPSILON) * 100) / 100 })
+              //round currentChange to 4 decimal places and change to string for precision in the backend
+              await userChange.update({value: (currentChange).toFixed(4) })
             }
             else{
               //create new userChange object since the users change for this pocket has not been calculated
@@ -89,12 +99,13 @@ module.exports = {
               //store expiry date in yyyy-mm-dd format
               expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
               userChange = await Change.create({userID: userID,
-                pocketID: pocketID, value: Math.round((currentChange+ Number.EPSILON) * 100) / 100, expiryDate: expiryDate})
+                pocketID: pocketID, value: (currentChange).toFixed(4), expiryDate: expiryDate})
             }
             return{
               changeID: userChange.dataValues.changeID,
               pocketID: userChange.pocketID,
-              value: userChange.value,
+              //return currentChange to 2 decimal places for front end
+              value: (currentChange).toFixed(2),
               userID:userChange.userID,
               expiryDate: userChange.expiryDate,
             }
