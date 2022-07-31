@@ -42,6 +42,7 @@ export function PocketListCard({ navigation, name, imageURL }: { navigation: any
   return (
     <Pressable
       onPress={() => navigation.navigate('PocketScreen', {
+        navigation: navigation,
         pocketName: name,
         imageURL: imageURL,
       })}
