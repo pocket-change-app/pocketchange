@@ -180,6 +180,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 
   return (
     <View style={[styles.card]}>
+      <CardHeader text='Transaction History' />
       <FlatList
         // contentContainerStyle={styles.businessFlatList}
         nestedScrollEnabled={false}
@@ -263,12 +264,14 @@ function TopPocket({ pocket, change }: { pocket: string, change: string }) {
 
 function CardHeader({ text }: { text: string }) {
   return (
-    <View style={styles.cardHeader}>
-      <View style={styles.cardHeaderTextContainer}>
-        <Text style={styles.cardHeaderText}>{text}</Text>
+    <>
+      <View style={styles.cardHeader}>
+        <View style={styles.cardHeaderTextContainer}>
+          <Text style={styles.cardHeaderText}>{text}</Text>
+        </View>
       </View>
       <HorizontalLine />
-    </View>
+    </>
   )
 }
 
