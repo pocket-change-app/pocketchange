@@ -28,6 +28,24 @@ export const user = {
       change: '$0.66',
     },
   ],
+  transactions: [
+    {
+      key: '001',
+      timestamp: '2022-05-05-04-20-23', // yyyy-mm-dd-hh-mm-ss
+      amount: 3.60,
+      merchant: "Jimmy's Coffee",
+      changeUsed: 0.50,
+      changeEarned: 0.31,
+    },
+    {
+      key: '002',
+      timestamp: '2022-05-03-06-09-12',
+      amount: 52.50,
+      merchant: "Wvrst",
+      changeUsed: 3.00,
+      changeEarned: 4.95,
+    },
+  ]
 };
 
 export const pockets = [
