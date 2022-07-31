@@ -159,6 +159,27 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
   )
 }
 
+// to use for merchant side
+export function SettingsCard(navigation: any) {
+  <View style={styles.card}>
+    <ButtonWithText text={Settings}>
+
+    </ButtonWithText>
+    <ButtonWithText text={Account}>
+
+    </ButtonWithText>
+  </View>
+}
+
+export function ButtonWithText(navigation: any, onPressFunction: any, text: string) {
+  <Pressable
+    onPress={onPressFunction}>
+    <View style={styles.card}>
+      <Text style={styles.cardHeader}>{text}</Text>
+    </View>
+  </Pressable>
+}
+
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
     <View style={{ flex: 1 }}>
