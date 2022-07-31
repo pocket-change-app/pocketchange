@@ -56,15 +56,16 @@ export const styles = StyleSheet.create({
 
   cardHeader: {
     // backgroundColor: 'rgba(0,0,0,0.2)',
-    height: 45,
+    marginTop: 5,
+    height: 40,
     // alignContent: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
 
   cardHeaderText: {
     textTransform: 'uppercase',
     fontFamily: 'metropolis medium',
-    fontSize: 21,
+    fontSize: 18,
     textAlign: 'center',
     color: colors.subtle,
   },
