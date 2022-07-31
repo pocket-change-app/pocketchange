@@ -22,6 +22,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import { BORDER_WIDTH } from '../Styles';
 import PocketScreen from '../screens/PocketScreen';
+import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -42,12 +43,20 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        // tabBarStyle: styles.tabBar,
+        // tabBarActiveTintColor: colors.dark,
+        // tabBarInactiveTintColor: colors.subtle,
+        // tabBarShowLabel: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
+      }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{
         presentation: 'modal',
-        // headerTitleStyle: styles.headerTitleModal
       }}
       >
         <Stack.Screen
@@ -58,10 +67,23 @@ function RootNavigator() {
           }}
         />
       </Stack.Group>
+      <Stack.Group screenOptions={{
+        presentation: 'modal',
+      }}
+      >
+        <Stack.Screen
+          name="ConsumerSettings"
+          component={ConsumerSettingsScreen}
+          options={{
+            title: 'Settings',
+            // headerShown: true,
+          }}
+        />
+      </Stack.Group>
       <Stack.Screen
         name="PocketScreen"
         component={PocketScreen}
-        options={{ title: '[pocket name here]' }}
+      // options={{ title: '[pocket name here]' }}
       />
     </Stack.Navigator>
   );
@@ -114,20 +136,20 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Pay"
         component={PayTabScreen}
-        options={{
+        options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
           title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
-        }}
+        })}
       />
       <BottomTab.Screen
         name="Wallet"
         component={WalletScreen}
-        options={{
+        options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
           title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('ComsumerSettings')}
+              onPress={() => navigation.navigate('ConsumerSettings')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
@@ -139,7 +161,7 @@ function BottomTabNavigator() {
               />
             </Pressable>
           ),
-        }}
+        })}
       />
     </BottomTab.Navigator>
   );
