@@ -179,10 +179,11 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
   )
 
   return (
-    <View style={[styles.card, styles.container]}>
+    <View style={[styles.card]}>
       <FlatList
         // contentContainerStyle={styles.businessFlatList}
         nestedScrollEnabled={false}
+        ItemSeparatorComponent={HorizontalLine}
         data={transactions}
         renderItem={renderTransactions}
       />
@@ -190,13 +191,20 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
   )
 }
 
-function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: any } }) {
+function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: string } }) {
   return (
     // TODO: make pressable and navigatte to its own page
-    <View>
-      <Text>{transactionData.merchant}</Text>
-      <Text>{transactionData.amount}</Text>
-    </View>
+    <>
+      <View style={styles.transactionListed}>
+        <Text style={styles.transactionListedMerchantText}>
+          {transactionData.merchant}
+        </Text>
+        <Text style={styles.transactionListedAmountText}>
+          {transactionData.amount}
+        </Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </>
   )
 }
 
@@ -264,7 +272,7 @@ function CardHeader({ text }: { text: string }) {
   )
 }
 
-function HorizontalLine() {
+export function HorizontalLine() {
   return (
     <View style={[styles.horizontalLine]}>
     </View>
