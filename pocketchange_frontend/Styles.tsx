@@ -438,7 +438,9 @@ export const styles = StyleSheet.create({
   },
 
   transactionListed: {
-    height: 45,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 30,
     margin: MARGIN,
     marginBottom: 0,
   },
