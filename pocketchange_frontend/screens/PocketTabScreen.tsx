@@ -15,59 +15,58 @@ const R = require('ramda');
 
 
 
-export default class PocketTabScreen extends Component {
-  state = {
+export default function PocketTabScreen({ navigation, route }: { navigation: any }) {
+  const state = {
     search: '',
   }
 
-  updateSearch = (search: string) => {
-    this.setState({ search });
+  const updateSearch = (search: string) => {
+    state.search = search;
   };
 
-  render() {
 
-    const { search } = this.state
+  const { search } = state
 
-    return (
-      <>
-        <SearchBar
-          containerStyle={styles.searchBarContainer}
-          inputContainerStyle={styles.searchBarInputContainer}
-          inputStyle={styles.searchBarInput}
-          round
-          placeholder="Search Pockets"
-          onChangeText={this.updateSearch}
-          value={search}
+  return (
+    <>
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+        inputStyle={styles.searchBarInput}
+        round
+        placeholder="Search Pockets"
+        onChangeText={updateSearch}
+        value={search}
+      />
+      <ScreenContainer>
+        <FlatList
+          style={styles.pocketFlatList}
+          // horizontal
+          // pagingEnabled={true}
+          // contentInsetAdjustmentBehavior="never"
+          decelerationRate={0}
+          // snapToAlignment='center'
+
+          horizontal
+          // pagingEnabled = {true}
+          showsHorizontalScrollIndicator={false}
+          // legacyImplementation={false}
+          snapToInterval={Dimensions.get('window').width - 4 * MARGIN}
+
+          data={pockets}
+          renderItem={({ item, index, separators }) => (
+            <PocketListCard
+              key={item.pocketID}
+              navigation={navigation}
+              name={item.name}
+              imageURL={item.imageURL}
+            />
+          )
+          }
         />
-        <ScreenContainer>
-          <FlatList
-            style={styles.pocketFlatList}
-            // horizontal
-            // pagingEnabled={true}
-            // contentInsetAdjustmentBehavior="never"
-            decelerationRate={0}
-            // snapToAlignment='center'
+      </ScreenContainer>
+    </>
+  )
 
-            horizontal
-            // pagingEnabled = {true}
-            showsHorizontalScrollIndicator={false}
-            // legacyImplementation={false}
-            snapToInterval={Dimensions.get('window').width - 4 * MARGIN}
-
-            data={pockets}
-            renderItem={({ item, index, separators }) => (
-              <PocketListCard
-                key={item.pocketID}
-                navigation={this.props.navigation}
-                name={item.name}
-                imageURL={item.imageURL}
-              />
-            )
-            }
-          />
-        </ScreenContainer>
-      </>
-    )
-  }
 }
 

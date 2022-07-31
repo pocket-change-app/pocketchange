@@ -10,20 +10,17 @@ import { Component } from 'react';
 
 const R = require('ramda');
 
-export default class PocketScreen extends Component {
+export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
 
-  // props: route, navigation
-
-
-  state = {
+  const state = {
     search: '',
   }
 
-  renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+  const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
     <BusinessCardSm
       key={item.busID}
-      navigation={this.props.navigation}
+      navigation={navigation}
       name={item.name}
       address={item.address}
       pocket={item.pocket}
@@ -34,52 +31,50 @@ export default class PocketScreen extends Component {
 
   )
 
-  updateSearch = (search: string) => {
-    this.setState({ search });
+  const updateSearch = (search: string) => {
+    state.search = search;
   };
 
-  render() {
-    // const {pocketname}  = this.props
-    const { search } = this.state;
+  // const {pocketname}  = this.props
+  const { search } = state;
 
-    return (
-      <>
-        <SearchBar
-          containerStyle={styles.searchBarContainer}
-          inputContainerStyle={styles.searchBarInputContainer}
-          inputStyle={styles.searchBarInput}
-          round
-          placeholder="Search Merchants"
-          onChangeText={this.updateSearch}
-          value={search}
+  return (
+    <>
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+        inputStyle={styles.searchBarInput}
+        round
+        placeholder="Search Merchants"
+        onChangeText={updateSearch}
+        value={search}
+      />
+      <ScreenContainer>
+        <FlatList
+          contentContainerStyle={styles.businessFlatList}
+
+          data={businesses}
+          renderItem={renderBusinessCard}
         />
-        <ScreenContainer>
-          <FlatList
-            contentContainerStyle={styles.businessFlatList}
+      </ScreenContainer>
+    </>
 
-            data={businesses}
-            renderItem={this.renderBusinessCard}
-          />
-        </ScreenContainer>
-      </>
-
-      //   <ScrollView
-      //     style={styles.container}
-      //   >
-      //     {R.map(
-      //       ({ busID, name, address, pocket, imageURL }) => (
-      //         <BusinessCardSm
-      //           key={busID}
-      //           navigation={navigation}
-      //           name={name}
-      //           address={address}
-      //           pocket={pocket}
-      //           imageURL={imageURL}
-      //         />
-      //       ), businesses
-      //     )}
-      //   </ScrollView>
-      // );
-    )
-  }
+    //   <ScrollView
+    //     style={styles.container}
+    //   >
+    //     {R.map(
+    //       ({ busID, name, address, pocket, imageURL }) => (
+    //         <BusinessCardSm
+    //           key={busID}
+    //           navigation={navigation}
+    //           name={name}
+    //           address={address}
+    //           pocket={pocket}
+    //           imageURL={imageURL}
+    //         />
+    //       ), businesses
+    //     )}
+    //   </ScrollView>
+    // );
+  )
 }
