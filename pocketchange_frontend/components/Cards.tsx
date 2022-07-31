@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList } from 'react-native';
 import { Text, View } from './Themed';
 import { styles } from '../Styles';
 import { user } from '../dummy';
@@ -168,6 +168,47 @@ export function Setting({ settingText }: { settingText: string }) {
   )
 }
 
+export function TransactionHistoryCard({ navigation, transactions }: { navigation: any, transactions: { [key: string]: any }[] }) {
+
+  const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+    <TransactionListed
+      key={item.key}
+      navigation={navigation}
+      transactionData={item}
+    />
+  )
+
+  return (
+    <View style={[styles.card]}>
+      <CardHeader text='Transaction History' />
+      <FlatList
+        // contentContainerStyle={styles.businessFlatList}
+        nestedScrollEnabled={false}
+        ItemSeparatorComponent={HorizontalLine}
+        data={transactions}
+        renderItem={renderTransactions}
+      />
+    </View>
+  )
+}
+
+function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: string } }) {
+  return (
+    // TODO: make pressable and navigatte to its own page
+    <>
+      <View style={styles.transactionListed}>
+        <Text style={styles.transactionListedMerchantText}>
+          {transactionData.merchant}
+        </Text>
+        <Text style={styles.transactionListedAmountText}>
+          {transactionData.amount}
+        </Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </>
+  )
+}
+
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
@@ -222,16 +263,18 @@ function TopPocket({ pocket, change }: { pocket: string, change: string }) {
 
 function CardHeader({ text }: { text: string }) {
   return (
-    <View style={styles.cardHeader}>
-      <View style={styles.cardHeaderTextContainer}>
-        <Text style={styles.cardHeaderText}>{text}</Text>
+    <>
+      <View style={styles.cardHeader}>
+        <View style={styles.cardHeaderTextContainer}>
+          <Text style={styles.cardHeaderText}>{text}</Text>
+        </View>
       </View>
       <HorizontalLine />
-    </View>
+    </>
   )
 }
 
-function HorizontalLine() {
+export function HorizontalLine() {
   return (
     <View style={[styles.horizontalLine]}>
     </View>

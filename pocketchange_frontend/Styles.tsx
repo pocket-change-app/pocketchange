@@ -75,15 +75,16 @@ export const styles = StyleSheet.create({
 
   cardHeader: {
     // backgroundColor: 'rgba(0,0,0,0.2)',
-    height: 45,
+    marginTop: 5,
+    height: 40,
     // alignContent: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
 
   cardHeaderText: {
     textTransform: 'uppercase',
     fontFamily: 'metropolis medium',
-    fontSize: 21,
+    fontSize: 18,
     textAlign: 'center',
     color: colors.subtle,
   },
@@ -431,6 +432,26 @@ export const styles = StyleSheet.create({
   },
 
   settingText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.medium,
+  },
+
+  transactionListed: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 30,
+    margin: MARGIN,
+    marginBottom: 0,
+  },
+
+  transactionListedMerchantText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    color: colors.dark,
+  },
+
+  transactionListedAmountText: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
