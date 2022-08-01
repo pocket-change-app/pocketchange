@@ -117,7 +117,7 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
             text='All Change'
           />
           <View style={styles.balanceCardContent}>
-            <Text style={[styles.changeLg, { textAlign: 'center' }]}>{changeTotal}</Text>
+            <Text style={[styles.changeLg, { textAlign: 'center' }]}>${changeTotal}</Text>
           </View>
           <View style={styles.flexFill}>
           </View>
@@ -201,7 +201,7 @@ function TransactionListed({ navigation, transactionData }: { navigation: any, t
           {transactionData.merchant}
         </Text>
         <Text style={styles.transactionListedAmountText}>
-          {transactionData.amount}
+          ${transactionData.amount}
         </Text>
       </View>
       {/* <HorizontalLine /> */}
@@ -256,7 +256,7 @@ function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
     <View style={{ flex: 1 }}>
       <Text style={styles.pocket}>{pocket}</Text>
-      <Text style={styles.changeSm}>{change}</Text>
+      <Text style={styles.changeSm}>${change}</Text>
     </View >
   )
 }
