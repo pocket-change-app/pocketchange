@@ -23,139 +23,133 @@ import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const ConsumerStack = () => {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                // tabBarStyle: styles.tabBar,
-                // tabBarActiveTintColor: colors.dark,
-                // tabBarInactiveTintColor: colors.subtle,
-                // tabBarShowLabel: false,
-                headerTitleStyle: styles.navigationHeaderTitle,
-                headerStyle: styles.navigationHeader,
-                //headerShadowVisible: false,
-            }}
-        >
-            <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
-            <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-            <Stack.Group screenOptions={{
-                presentation: 'modal',
-                }}
-            >
-            <Stack.Screen
-                name="BusinessModal"
-                component={BusinessModalScreen}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            </Stack.Group>
-            <Stack.Group screenOptions={{
-                presentation: 'modal',
-                }}
-            >
-            <Stack.Screen
-                name="ConsumerSettings"
-                component={ConsumerSettingsScreen}
-                options={{
-                    title: 'Settings',
-                    // headerShown: true,
-                }}
-            />
-            </Stack.Group>
-            <Stack.Screen
-                name="PocketScreen"
-                component={PocketScreen}
-            // options={{ title: '[pocket name here]' }}
-            />
-        </Stack.Navigator>
-   );
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        // tabBarStyle: styles.tabBar,
+        // tabBarActiveTintColor: colors.dark,
+        // tabBarInactiveTintColor: colors.subtle,
+        // tabBarShowLabel: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
+      }}
+    >
+      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Group screenOptions={{
+        presentation: 'modal',
+      }}
+      >
+        <Stack.Screen
+          name="BusinessModal"
+          component={BusinessModalScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Group>
+      <Stack.Screen
+        name="ConsumerSettings"
+        component={ConsumerSettingsScreen}
+        options={{
+          title: 'Settings',
+        }}
+      />
+      <Stack.Screen
+        name="PocketScreen"
+        component={PocketScreen}
+      // options={{ title: '[pocket name here]' }}
+      />
+    </Stack.Navigator>
+  );
 }
- 
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
- 
+
 const BottomTabConsumer = () => {
-    const colorScheme = 'light'; //useColorScheme();
- 
-    return (
-        <BottomTab.Navigator
-            initialRouteName='Pay'
-            screenOptions={{
-                tabBarStyle: styles.tabBar,
-                tabBarActiveTintColor: colors.dark,
-                tabBarInactiveTintColor: colors.subtle,
-                tabBarShowLabel: false,
-                headerTitleStyle: styles.navigationHeaderTitle,
-                headerStyle: styles.navigationHeader,
-                //headerShadowVisible: false,
-                }}
-        >
-            <BottomTab.Screen
-                name="Pockets"
-                component={PocketTabScreen}
-                options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
-                title: 'Pockets',
-                tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
-                // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
-                // headerRight: () => (
-                //   <Pressable
-                //     onPress={() => navigation.navigate('BusinessModal')}
-                //     style={({ pressed }) => ({
-                //       opacity: pressed ? 0.5 : 1,
-                //     })}>
-                //     <FontAwesome
-                //       name="info-circle"
-                //       size={25}
-                //       color={Colors[colorScheme].text}
-                //       style={{ marginRight: 15 }}
-                //     />
-                //   </Pressable>
-                // ),
-                })}
-            />
-            <BottomTab.Screen
-                name="Pay"
-                component={PayTabScreen}
-                options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
-                title: 'Pay',
-                tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
-                })}
-            />
-            <BottomTab.Screen
-                name="Wallet"
-                component={WalletScreen}
-                options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
-                title: 'Wallet',
-                tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
-                headerRight: () => (
-                    <Pressable
-                    onPress={() => navigation.navigate('ConsumerSettings')}
-                    style={({ pressed }) => ({
-                        opacity: pressed ? 0.5 : 1,
-                    })}>
-                    <FontAwesome
-                        name="gear"
-                        size={25}
-                        color={colors.medium}
-                        style={{ marginRight: 15 }}
-                    />
-                    </Pressable>
-                ),
-                })}
-            />
-        </BottomTab.Navigator>
-    );
+  const colorScheme = 'light'; //useColorScheme();
+
+  return (
+    <BottomTab.Navigator
+      initialRouteName='Pay'
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: colors.dark,
+        tabBarInactiveTintColor: colors.subtle,
+        tabBarShowLabel: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
+      }}
+    >
+      <BottomTab.Screen
+        name="Pockets"
+        component={PocketTabScreen}
+        options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
+          title: 'Pockets',
+          tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
+          // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate('BusinessModal')}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}>
+          //     <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Pay"
+        component={PayTabScreen}
+        options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
+          title: 'Pay',
+          tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
+        })}
+      />
+      <BottomTab.Screen
+        name="Wallet"
+        component={WalletScreen}
+        options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
+          title: 'Wallet',
+          tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('ConsumerSettings')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="gear"
+                size={25}
+                color={colors.medium}
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+        })}
+      />
+    </BottomTab.Navigator>
+  );
 }
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
- function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>['name'];
-    color: string;
-  }) {
-    return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-  }
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+}) {
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+}
