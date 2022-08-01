@@ -1,8 +1,8 @@
 export type AuthData = {
-    token: string;
-    email: string;
-    name: string;
-    type: string;
+  token: string;
+  email: string;
+  name: string;
+  type: string;
 };
 
 const signIn = (email: string, _password: string): Promise<AuthData> => {
