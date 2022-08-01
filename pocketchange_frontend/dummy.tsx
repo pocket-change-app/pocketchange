@@ -13,22 +13,22 @@ export const user = {
   imageURL: require('./assets/images/Elias.jpeg'),
   dateOfBirth: '12/16/1998',
   lifetimeChange: 2308,      // total cents spent in Change. Displayted under name on ID card
-  changeTotal: '$4.79',
+  changeTotal: '4.79',
   topPockets: [
     {
       key: '01',
       pocket: 'Riverside',
-      change: '$2.63',
+      change: '2.63',
     },
     {
       key: '02',
       pocket: 'Kensington',
-      change: '$1.02',
+      change: '1.02',
     },
     {
       key: '03',
       pocket: 'Leslieville',
-      change: '$0.66',
+      change: '0.66',
     },
   ],
   transactions: [
