@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, Button, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Button, Text, View } from 'react-native';
 
-import {styles} from '../Styles';
-import {useAuth} from '../contexts/Auth';
+import { styles } from '../Styles';
+import { useAuth } from '../contexts/Auth';
 
 export const SignInScreen = () => {
   const [loading, isLoading] = useState(false);
