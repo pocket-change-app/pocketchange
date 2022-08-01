@@ -1,4 +1,7 @@
-// Dummy Data
+//// Dummy Data ////
+
+
+//// FOR CONSUMER SIDE ////
 
 export const user = {
   name: {
@@ -189,13 +192,16 @@ export const businesses = [
   },
 ]
 
+
+//// FOR MERCHANT SIDE ////
+
 export const transactions = [
   {
     transactionID: "001",
     userID: "Elias",
     value: "10.43",
     date: "2022-06-04 09:22:11",
-    busID: "002", 
+    busID: "002",
     pocketID: "001",
     changeRedeemed: "3.40",
     changeEarned: "1.00",
@@ -205,7 +211,7 @@ export const transactions = [
     userID: "Micas",
     value: "13.02",
     date: "2022-06-04 09:22:11",
-    busID: "001", 
+    busID: "001",
     pocketID: "002",
     changeRedeemed: "0.40",
     changeEarned: "2.30",
@@ -215,7 +221,7 @@ export const transactions = [
     userID: "Siku",
     value: "5.20",
     date: "2022-06-04 09:22:11",
-    busID: "003", 
+    busID: "003",
     pocketID: "001",
     changeRedeemed: "3.40",
     changeEarned: "1.00",
