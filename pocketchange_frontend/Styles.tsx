@@ -458,5 +458,15 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
+  },
+
+  buttonNegative: {
+    padding: MARGIN,
+    backgroundColor: colors.subtle,
+    borderRadius: CARD_RADIUS,
+  },
+
+  buttonNegativeText: {
+    color: colors.card,
   }
 })
