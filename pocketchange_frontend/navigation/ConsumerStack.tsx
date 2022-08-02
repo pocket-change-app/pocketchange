@@ -19,6 +19,7 @@ import WalletScreen from '../screens/WalletScreen';
 import PocketScreen from '../screens/PocketScreen';
 import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
 import ConsumerTransactionScreen from '../screens/ConsumerTransactionScreen';
+import PayAmountScreen from '../screens/PayAmountScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -47,14 +48,18 @@ export const ConsumerStack = () => {
           name="BusinessModal"
           component={BusinessModalScreen}
           options={{
-            // headerShown: false,
           }}
         />
         <Stack.Screen
           name="ConsumerTransaction"
           component={ConsumerTransactionScreen}
           options={{
-            // headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="PayAmount"
+          component={PayAmountScreen}
+          options={{
           }}
         />
       </Stack.Group>
