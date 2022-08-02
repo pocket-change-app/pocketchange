@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
 
