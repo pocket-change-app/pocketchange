@@ -230,13 +230,15 @@ export function SettingsCard({ navigation }: { navigation: any }) {
   </View>
 }
 
-export function ButtonWithText(navigation: any, onPressFunction: any, text: string) {
-  <Pressable
-    onPress={onPressFunction}>
-    <View style={styles.card}>
-      <Text style={styles.cardHeader}>{text}</Text>
-    </View>
-  </Pressable>
+export function ButtonWithText({ text, onPress }: { text: string, onPress: any }) {
+  return (
+    <Pressable
+      onPress={onPress}>
+      <View style={styles.buttonNegative}>
+        <Text style={[styles.cardHeaderText, styles.buttonNegativeText]}>{text}</Text>
+      </View>
+    </Pressable>
+  )
 }
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
@@ -257,6 +259,31 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
       </View>
 
     </Pressable>
+  )
+}
+
+export function PayAmountCard({ name, address, pocket, imageURL, navigation }) {
+
+  // const { name, address, pocket, imageURL } = route.params;
+
+  return (
+    <View style={styles.card}>
+      <CardHeader text='Pay' />
+
+      <View style={{ flexDirection: 'row' }}>
+        <View style={styles.businessListInfo}>
+          <Text style={styles.businessNameSm}>{name}</Text>
+          <Text style={styles.address}>{address}</Text>
+          <Text style={styles.pocket}>{pocket}</Text>
+        </View>
+      </View>
+
+      <HorizontalLine />
+
+      <View style={styles.container}>
+        <Text>$ dollar amt editable</Text>
+      </View>
+    </View>
   )
 }
 
