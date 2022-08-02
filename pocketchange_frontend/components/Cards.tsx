@@ -201,7 +201,10 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: string } }) {
   return (
     // TODO: make pressable and navigatte to its own page
-    <>
+    <Pressable
+      onPress={() => (navigation.navigate("ConsumerTransaction", {
+        transactionData
+      }))}>
       <View style={styles.transactionListed}>
         <Text style={styles.transactionListedMerchantText}>
           {transactionData.merchant}
@@ -211,7 +214,7 @@ function TransactionListed({ navigation, transactionData }: { navigation: any, t
         </Text>
       </View>
       {/* <HorizontalLine /> */}
-    </>
+    </Pressable>
   )
 }
 
