@@ -7,7 +7,7 @@ import { Setting } from "../components/Cards";
 import {useAuth} from '../contexts/Auth';
 
 
-export default function ConsumerSettingsScreen() {
+export default function MerchantSettingsScreen() {
   const auth = useAuth();
   const signOut = async () => {
     await auth.signOut();
@@ -31,7 +31,7 @@ export default function ConsumerSettingsScreen() {
           settingText={"Setting 3"}
         />
 
-        <Button title="Switch to Merchant Account" onPress={switchAccount} />
+        <Button title="Switch to Consumer Account" onPress={switchAccount} />
 
         <Button title="Sign Out" onPress={signOut} />
         

@@ -18,7 +18,7 @@ import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
 import TransactionsTabScreen from '../screens/TransactionsTabScreen';
 import WalletScreen from '../screens/WalletScreen';
 import PocketScreen from '../screens/PocketScreen';
-import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
+import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -54,14 +54,7 @@ export const MerchantStack = () => {
                 presentation: 'modal',
                 }}
             >
-            <Stack.Screen
-                name="ConsumerSettings"
-                component={ConsumerSettingsScreen}
-                options={{
-                    title: 'Settings',
-                    // headerShown: true,
-                }}
-            />
+            
             </Stack.Group>
             <Stack.Screen
                 name="PocketScreen"
@@ -111,26 +104,12 @@ const BottomTabMerchant = () => {
                 })}
             />
             <BottomTab.Screen
-                name="Wallet"
-                component={WalletScreen}
-                options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
-                title: 'Wallet',
-                tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
-                headerRight: () => (
-                    <Pressable
-                    onPress={() => navigation.navigate('ConsumerSettings')}
-                    style={({ pressed }) => ({
-                        opacity: pressed ? 0.5 : 1,
-                    })}>
-                    <FontAwesome
-                        name="gear"
-                        size={25}
-                        color={colors.medium}
-                        style={{ marginRight: 15 }}
-                    />
-                    </Pressable>
-                ),
-                })}
+                name="MerchantSettings"
+                component={MerchantSettingsScreen}
+                options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
+                    title: 'Settings',
+                    tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+                    })}
             />
         </BottomTab.Navigator>
     );
