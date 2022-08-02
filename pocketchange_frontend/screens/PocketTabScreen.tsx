@@ -12,10 +12,7 @@ import { Component } from 'react';
 const R = require('ramda');
 
 
-
-
-
-export default function PocketTabScreen({ navigation, route }: { navigation: any }) {
+export default function PocketTabScreen({ navigation, route }: { navigation: any, route: any }) {
   const state = {
     search: '',
   }
@@ -49,9 +46,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
           horizontal
           // pagingEnabled = {true}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
           // legacyImplementation={false}
           snapToInterval={Dimensions.get('window').width - 4 * MARGIN}
+          snapToAlignment="center"
 
           data={pockets}
           renderItem={({ item, index, separators }) => (

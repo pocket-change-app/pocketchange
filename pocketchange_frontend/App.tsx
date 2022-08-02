@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+
 import { Router } from './navigation/Router';
 import { SplashScreen } from './screens/SplashScreen';
 
@@ -19,6 +20,8 @@ export default function App() {
   } else {
     return (
       <AuthProvider>
+        {/* Use a light status bar on iOS to account for the black space above the modal */}
+        <StatusBar style={Platform.OS === 'ios' ? 'dark' : 'auto'} />
         <Router />
       </AuthProvider>
     );

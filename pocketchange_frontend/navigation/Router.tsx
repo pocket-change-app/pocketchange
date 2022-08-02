@@ -13,7 +13,6 @@ export const Router = () => {
     const {authData, loading} = useAuth();
 
     if (loading) {
-        console.log("LOADING");
         return <SplashScreen />;
     }
 
@@ -26,7 +25,6 @@ export const Router = () => {
             stack = <ConsumerStack />;
         }
     } else {
-        console.log("AUTH")
         stack = <AuthStack />;
     }  
 
