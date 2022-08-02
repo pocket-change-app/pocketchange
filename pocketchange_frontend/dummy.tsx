@@ -97,6 +97,21 @@ export const pockets = [
     name: 'Little Italy',
     imageURL: require('./assets/images/little_italy.jpg'),
   },
+  {
+    pocketID: '06',
+    name: 'Test Pocket 01',
+    imageURL: require('./assets/images/cats.jpg'),
+  },
+  {
+    pocketID: '07',
+    name: 'Test Pocket 02',
+    imageURL: require('./assets/images/cats.jpg'),
+  },
+  {
+    pocketID: '08',
+    name: 'Test Pocket 03',
+    imageURL: require('./assets/images/cats.jpg'),
+  },
 ];
 
 export const businesses = [
