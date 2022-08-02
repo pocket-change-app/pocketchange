@@ -1,6 +1,6 @@
 import { Pressable, Image, TabBarIOSItem, FlatList } from 'react-native';
 import { Text, View } from './Themed';
-import { styles } from '../Styles';
+import { styles, MARGIN } from '../Styles';
 import { user } from '../dummy';
 
 const R = require('ramda');
@@ -48,7 +48,7 @@ export function PocketListCard({ navigation, name, imageURL }: { navigation: any
       })}
     >
       {/* <View> */}
-      <View style={[styles.pocketListCardContainer, styles.container]}>
+      <View style={[styles.pocketListCardContainer]}>
         <View style={[styles.card, styles.pocketListCard, styles.container]}>
           <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{name}</Text>
@@ -66,6 +66,12 @@ export function PocketListCard({ navigation, name, imageURL }: { navigation: any
       {/* </View> */}
     </Pressable>
 
+  )
+}
+
+export function PocketListSeparator() {
+  return (
+    <View style={{ width: MARGIN }} />
   )
 }
 
