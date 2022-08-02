@@ -4,9 +4,11 @@ import {AuthData, authService} from '../services/authService';
 
 type AuthContextData = {
   authData?: AuthData;
+  signedInAs: string; // if account type is merchant, then this is merchant or consumer, if account type is consumer then its only consumer
   loading: boolean;
   signIn(): Promise<void>;
   signOut(): void;
+  switchAccount(): void;
 };
 
 //Create the Auth Context with the data type specified
@@ -20,7 +22,10 @@ const AuthProvider: React.FC = ({children}) => {
   //and stay like this, until the data be load from Async Storage
   const [loading, setLoading] = useState(true);
 
+  const [signedInAs, setSignedInAs] = useState("consumer");
+
   useEffect(() => {
+    //AsyncStorage.clear();
     //Every time the App is opened, this provider is rendered
     //and call de loadStorage function.
     loadStorageData();
@@ -34,6 +39,16 @@ const AuthProvider: React.FC = ({children}) => {
         //If there are data, it's converted to an Object and the state is updated.
         const _authData: AuthData = JSON.parse(authDataSerialized);
         setAuthData(_authData);
+
+      }
+      const signedInAsSerialized = await AsyncStorage.getItem('@SignedInAs');
+      if (signedInAsSerialized) {
+        const _signedInAs: string = JSON.parse(signedInAsSerialized);
+        console.log("LOADING FROM STORE")
+        console.log(_signedInAs)
+        console.log("____________")
+
+        setSignedInAs(_signedInAs);
       }
     } catch (error) {
     } finally {
@@ -41,6 +56,7 @@ const AuthProvider: React.FC = ({children}) => {
       setLoading(false);
     }
   }
+
 
   const signIn = async () => {
     //call the service passing credential (email and password).
@@ -53,10 +69,12 @@ const AuthProvider: React.FC = ({children}) => {
     //Set the data in the context, so the App can be notified
     //and send the user to the AuthStack
     setAuthData(_authData);
+    setSignedInAs(_authData.type);
 
     //Persist the data in the Async Storage
     //to be recovered in the next user session.
     AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
+    AsyncStorage.setItem('@SignedInAs', JSON.stringify(signedInAs));
   };
 
   const signOut = async () => {
@@ -69,10 +87,20 @@ const AuthProvider: React.FC = ({children}) => {
     await AsyncStorage.removeItem('@AuthData');
   };
 
+  const switchAccount = async () => {
+    if (authData.type === "merchant") {
+      if (signedInAs === "merchant") {
+        setSignedInAs("consumer");
+      } else {
+        setSignedInAs("merchant");
+      }
+    }
+  }
+
   return (
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
-    <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
+    <AuthContext.Provider value={{authData, signedInAs, loading, signIn, signOut, switchAccount}}>
       {children}
     </AuthContext.Provider>
   );

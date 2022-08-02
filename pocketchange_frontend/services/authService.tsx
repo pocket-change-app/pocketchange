@@ -16,7 +16,7 @@ const signIn = (email: string, _password: string): Promise<AuthData> => {
         token: JWTTokenMock,
         email: email,
         name: 'Lucas Garcez',
-        type: 'consumer',
+        type: 'merchant',
       });
     }, 1000);
   });

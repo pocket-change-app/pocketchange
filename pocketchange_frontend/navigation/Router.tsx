@@ -10,18 +10,18 @@ import { MerchantStack } from './MerchantStack';
 
 export const Router = () => {
 
-    const {authData, loading} = useAuth();
+    const {authData, loading, signedInAs} = useAuth();
 
     if (loading) {
         return <SplashScreen />;
     }
 
-    console.log(authData);
+    console.log(signedInAs);
     var stack;
     if (authData) {
-        if (authData.type === "merchant") {
+        if (signedInAs === "merchant") {
             stack = <MerchantStack />;
-        } else if (authData.type === "consumer") {
+        } else if (signedInAs === "consumer") {
             stack = <ConsumerStack />;
         }
     } else {
