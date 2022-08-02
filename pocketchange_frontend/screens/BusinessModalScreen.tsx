@@ -7,7 +7,7 @@ import { colors } from '../constants/Colors';
 
 export default function BusinessModalScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { name, address, pocket, imageURL, bio, people } = route.params;
+  const { busID, name, address, pocket, imageURL, bio, people } = route.params;
 
   return (
     <ScrollView style={styles.container}>
@@ -27,7 +27,15 @@ export default function BusinessModalScreen({ route, navigation }: { route: any,
           <Text style={styles.address}>{address}</Text>
           <Text style={styles.pocket}>{pocket}</Text>
 
-          <Pressable style={styles.payButton} >
+          <Pressable style={styles.payButton}
+            onPress={() => (navigation.navigate('PayAmount', {
+              busID: busID,
+              name: name,
+              address: address,
+              pocket: pocket,
+              imageURL: imageURL,
+            }))}
+          >
             <Text style={styles.payButtonText}>PAY</Text>
           </Pressable>
         </View>
