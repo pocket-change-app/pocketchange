@@ -383,13 +383,16 @@ export const styles = StyleSheet.create({
   },
 
   pocketFlatList: {
-    // padding: MARGIN,
-    margin: 0,
+    paddingVertical: MARGIN,
+    paddingHorizontal: 2 * MARGIN,
+    // margin: 15,
+    backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
   pocketListCardContainer: {
-    width: Dimensions.get('window').width - 4 * MARGIN,
+    width: Dimensions.get('window').width - (4 * MARGIN),
     height: '100%', //Dimensions.get('window').height - 200,
+    // marginVertical: MARGIN,
   },
 
   pocketListCard: {

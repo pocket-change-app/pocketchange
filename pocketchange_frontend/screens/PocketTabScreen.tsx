@@ -3,7 +3,7 @@ import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN } from '../Styles';
 import { pockets } from '../dummy';
-import { PocketListCard } from "../components/Cards";
+import { PocketListCard, PocketListSeparator } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
@@ -38,18 +38,14 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       <ScreenContainer>
         <FlatList
           style={styles.pocketFlatList}
-          // horizontal
-          // pagingEnabled={true}
-          // contentInsetAdjustmentBehavior="never"
-          decelerationRate={0}
-          // snapToAlignment='center'
-
           horizontal
-          // pagingEnabled = {true}
+          decelerationRate={0}
           showsHorizontalScrollIndicator={true}
-          // legacyImplementation={false}
-          snapToInterval={Dimensions.get('window').width - 4 * MARGIN}
-          snapToAlignment="center"
+          snapToAlignment='start'
+          snapToInterval={Dimensions.get('window').width - 3 * MARGIN}
+
+
+          ItemSeparatorComponent={PocketListSeparator}
 
           data={pockets}
           renderItem={({ item, index, separators }) => (
