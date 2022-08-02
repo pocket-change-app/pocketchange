@@ -8,7 +8,7 @@ import { colors } from './constants/Colors';
 export const MARGIN = 15
 export const MARGIN_SM = 8
 export const CARD_RADIUS = 10
-export const BORDER_WIDTH = 2
+export const BORDER_WIDTH = 1
 
 export const styles = StyleSheet.create({
 
