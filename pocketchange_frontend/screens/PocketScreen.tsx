@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { FlatList, Image } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -10,6 +10,8 @@ import { Text, View } from '../components/Themed';
 const R = require('ramda');
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const { pocketName, imageURL } = route.params;
 
   const state = {
     search: '',
@@ -39,16 +41,24 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   return (
     <>
+      <View style={styles.pocketHeaderImageContainer}>
+        <Image
+          style={styles.pocketHeaderImage}
+          source={imageURL}
+        />
+      </View>
+
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
         round
-        placeholder="Search Merchants"
+        placeholder="Search Businesses"
         onChangeText={updateSearch}
         value={search}
       />
       <ScreenContainer>
+      
         <FlatList
           contentContainerStyle={styles.businessFlatList}
 

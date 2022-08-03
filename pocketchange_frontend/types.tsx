@@ -38,8 +38,7 @@ export type RootTabParamList = {
   Wallet: undefined;
   Analytics: undefined;
   Transactions: undefined;
-  MerchantSettings: undefined;
-
+  Settings: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

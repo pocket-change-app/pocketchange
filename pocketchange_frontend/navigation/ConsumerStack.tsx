@@ -36,6 +36,7 @@ export const ConsumerStack = () => {
         // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
+        headerTintColor: colors.dark,
         //headerShadowVisible: false,
       }}
     >
@@ -87,7 +88,10 @@ export const ConsumerStack = () => {
       <Stack.Screen
         name="PocketScreen"
         component={PocketScreen}
-      // options={{ title: '[pocket name here]' }}
+        options={
+          ({ route }) => ({ title: route.params.pocketName, headerTitleStyle: styles.navigationHeaderPocketTitle })
+          
+        }
       />
     </Stack.Navigator>
   );

@@ -41,10 +41,15 @@ const linking: LinkingOptions<RootStackParamList> = {
               TransactionHistoryScreen: 'transactions',
             },
           },
+          Settings: {
+            screens: {
+              MerchantSettings: 'settings',
+            }
+          }
         },
       },
       ConsumerSettings: 'settings',
-      MerchantSettings: 'settings',
+      
       BusinessModal: 'modal',
       TransactionModal: 'modal',
       NotFound: '*',
