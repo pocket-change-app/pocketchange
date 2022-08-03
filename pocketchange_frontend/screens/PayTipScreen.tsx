@@ -1,27 +1,39 @@
 import { styles } from "../Styles";
 import { View, Text } from '../components/Themed'
-import { ButtonWithText, PayAmountCard } from '../components/Cards'
+import { ButtonWithText, PayAmountCardSm, PayTipCard } from '../components/Cards'
+import { TimePickerAndroid } from "react-native";
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const { busID, name, address, pocket, imageURL, amount } = route.params;
 
+  const tip = 6.20
+
   return (
     <View style={styles.container}>
-      <PayAmountCard
+      <PayAmountCardSm
         name={name}
         address={address}
         pocket={pocket}
         imageURL={imageURL}
-        navigation={navigation}
+        amount={amount}
       />
 
-      <Text>{amount}</Text>
+      <PayTipCard
+        amount={amount}
+      />
 
       <ButtonWithText
         text={'Next'}
-        onPress={() => navigation.navigate("PayTip", {
-          navigation: navigation,
+        onPress={() => navigation.navigate("PaySummary", {
+          // navigation: navigation,
+          busID: busID,
+          name: name,
+          address: address,
+          pocket: pocket,
+          imageURL: imageURL,
+          amount: amount,
+          tip: tip,
         })}
       />
     </View>
