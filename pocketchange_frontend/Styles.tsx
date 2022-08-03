@@ -32,9 +32,9 @@ export const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.bg,
-    borderTopWidth: BORDER_WIDTH,
-    borderBottomWidth: BORDER_WIDTH,
-    borderColor: colors.light,
+    borderTopWidth: 0,
+    // borderBottomWidth: BORDER_WIDTH,
+    borderTopColor: 'transparent',
   },
 
   searchBarContainer: {
