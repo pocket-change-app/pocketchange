@@ -6,7 +6,6 @@ import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { TranactionCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
-import { Component } from 'react';
 
 const R = require('ramda');
 
