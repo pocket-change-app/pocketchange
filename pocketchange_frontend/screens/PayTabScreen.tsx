@@ -47,7 +47,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
       <ScreenContainer>
         <FlatList
           contentContainerStyle={styles.businessFlatList}
-
           data={businesses}
           renderItem={renderBusinessCard}
         />
