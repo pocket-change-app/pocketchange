@@ -9,6 +9,12 @@ const mongoBusinessSchema = new mongoose.Schema({
     website:  {type: mongoose.Schema.Types.String },
     businessType:  {type: mongoose.Schema.Types.String }, //restaurant, clothing
     businessSubtype:  {type: mongoose.Schema.Types.String },//cafe, kids clothing
+    address: {type: mongoose.Schema.Types.Object },
+    latitude:  {type: mongoose.Schema.Types.String },
+    longitude:  {type: mongoose.Schema.Types.String },
+    tags: {type: mongoose.Schema.Types.String }, //women-owned business, sustainable, etc.
+    stripeID: {type: mongoose.Schema.Types.String }, //ID for stripe account
+    description:{type: mongoose.Schema.Types.String} //
   })
   
 const mongoBusiness = mongoose.model('mongoBusiness', mongoBusinessSchema)
