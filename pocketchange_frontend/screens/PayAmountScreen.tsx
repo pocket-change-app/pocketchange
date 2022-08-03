@@ -27,7 +27,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
           address: address,
           pocket: pocket,
           imageURL: imageURL,
-          amount: amount
+          amount: amount,
         })}
       />
     </View>
