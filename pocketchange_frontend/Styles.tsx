@@ -141,6 +141,11 @@ export const styles = StyleSheet.create({
     height: 100,
   },
 
+  businessLgListItemCard: {
+    flexDirection: 'row', // makes the image and text next to each other
+    height: 150,
+  },
+
   pocketChangeBalanceCard: {
     alignItems: "center",
     padding: MARGIN,

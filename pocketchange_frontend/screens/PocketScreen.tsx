@@ -4,7 +4,9 @@ import { SearchBar } from '@rneui/base';
 import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
+import { BusinessCard } from '../components/Cards';
 import { BusinessCardSm } from '../components/Cards';
+
 import { Text, View } from '../components/Themed';
 
 const R = require('ramda');
@@ -22,12 +24,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     <BusinessCardSm
       key={item.busID}
       navigation={navigation}
-      name={item.name}
-      address={item.address}
-      pocket={item.pocket}
-      imageURL={item.imageURL}
-      bio={item.bio}
-      people={item.people}
+      business={item}
     />
 
   )

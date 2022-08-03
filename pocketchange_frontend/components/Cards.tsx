@@ -6,16 +6,44 @@ import { user } from '../dummy';
 
 const R = require('ramda');
 
-export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bio, people }: { navigation: any, name: string, address: string, pocket: string, imageURL?: string, bio: string, people: any }) {
+
+export function BusinessCard({ navigation, business }: { navigation: any, business: any }) {
+  return (
+    <View style={styles.card}>
+      <View style={styles.businessHeaderImageContainer}>
+        <Image
+          style={styles.businessHeaderImage}
+          source={business.imageURL}
+        />
+      </View>
+      <View style={styles.businessModalInfo}>
+        <Text style={styles.businessNameLg}>{business.name}</Text>
+        <Text style={styles.address}>{business.address}</Text>
+        <Text style={styles.pocket}>{business.pocket}</Text>
+
+        <Pressable style={styles.payButton}
+          onPress={() => (navigation.navigate('PayAmount', {
+            busID: business.busID,
+            name: business.name,
+            address: business.address,
+            pocket: business.pocket,
+            imageURL: business.imageURL,
+          }))}
+        >
+          <Text style={styles.payButtonText}>PAY</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+
+          }
+
+export function BusinessCardSm({ navigation, business }: { navigation: any,  business: any}) {
+
   return (
     <Pressable
       onPress={() => navigation.navigate('BusinessModal', {
-        name: name,
-        address: address,
-        pocket: pocket,
-        imageURL: imageURL,
-        bio: bio,
-        people: people
+        business: business
       })}
     >
       <View style={[styles.card, styles.businessListItemCard]}>
@@ -23,14 +51,14 @@ export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bi
         <View style={styles.businessListImageContainer}>
           <Image
             style={styles.businessListImage}
-            source={imageURL}
+            source={business.imageURL}
           />
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
+          <Text style={styles.businessNameSm}>{business.name}</Text>
+          <Text style={styles.address}>{business.address}</Text>
+          <Text style={styles.pocket}>{business.pocket}</Text>
         </View>
 
       </View>
@@ -38,6 +66,7 @@ export function BusinessCardSm({ navigation, name, address, pocket, imageURL, bi
     </Pressable>
   )
 }
+
 
 export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (

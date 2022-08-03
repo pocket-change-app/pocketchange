@@ -5,6 +5,8 @@ import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { BusinessCardSm } from '../components/Cards';
+import { BusinessCard } from '../components/Cards';
+
 import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
 
@@ -15,15 +17,10 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
   let search = '';
 
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <BusinessCardSm
+    <BusinessCard
       key={item.busID}
       navigation={navigation}
-      name={item.name}
-      address={item.address}
-      pocket={item.pocket}
-      imageURL={item.imageURL}
-      bio={item.bio}
-      people={item.people}
+      business={item}
     />
   )
 
