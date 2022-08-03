@@ -8,7 +8,7 @@ import { colors } from './constants/Colors';
 export const MARGIN = 15
 export const MARGIN_SM = 8
 export const CARD_RADIUS = 10
-export const BORDER_WIDTH = 1
+export const BORDER_WIDTH = 2
 
 export const styles = StyleSheet.create({
 
@@ -386,7 +386,7 @@ export const styles = StyleSheet.create({
     paddingVertical: MARGIN,
     paddingHorizontal: 2 * MARGIN,
     // margin: 15,
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
   pocketListCardContainer: {
