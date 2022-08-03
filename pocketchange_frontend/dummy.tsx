@@ -94,6 +94,7 @@ export const pockets = [
     pocketID: '04',
     name: 'Chinatown',
     imageURL: require('./assets/images/chinatown.jpg'),
+    bannerURL: require('./assets/images/chinatown-banner.png'),
   },
   {
     pocketID: '05',
