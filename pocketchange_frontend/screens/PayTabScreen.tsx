@@ -1,4 +1,4 @@
-import { ScrollView, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -6,7 +6,6 @@ import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { BusinessCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
-import { Component } from 'react';
 
 const R = require('ramda');
 

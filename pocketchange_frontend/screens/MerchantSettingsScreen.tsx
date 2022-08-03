@@ -1,10 +1,9 @@
 
-import { Component, useState } from "react";
 import { Pressable, ScrollView, Button } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { Setting } from "../components/Cards";
 
-import {useAuth} from '../contexts/Auth';
+import { useAuth } from '../contexts/Auth';
 
 
 export default function MerchantSettingsScreen() {
@@ -34,7 +33,7 @@ export default function MerchantSettingsScreen() {
         <Button title="Switch to Consumer Account" onPress={switchAccount} />
 
         <Button title="Sign Out" onPress={signOut} />
-        
+
       </ScrollView>
     </ScreenContainer >
   )

@@ -7,7 +7,6 @@ import { PocketListCard, PocketListSeparator } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
-import { Component } from 'react';
 
 const R = require('ramda');
 
