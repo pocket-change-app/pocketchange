@@ -9,6 +9,7 @@ import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import { HorizontalLine } from './Cards';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -47,5 +48,11 @@ export function View(props: ViewProps) {
 }
 
 export function ScreenContainer(props: DefaultView['props']) {
-  return <View style={styles.screenContainer} {...props} />
+  return (
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+      <HorizontalLine />
+      <View style={{ flex: 1 }} {...props} />
+      <HorizontalLine />
+    </View>
+  )
 }
