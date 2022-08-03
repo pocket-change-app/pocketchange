@@ -9,7 +9,7 @@ import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import { HorizontalLine } from './Cards';
+import { HorizontalLine } from './Lines';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
