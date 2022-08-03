@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
   navigationHeader: {
     height: 100,
     backgroundColor: colors.bg,
-    // borderBottomWidth: 2,
-    borderWidth: 0
+    borderBottomWidth: 0,
+    // borderWidth: 0,
   },
   navigationHeaderTitle: {
     fontSize: 30,
@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
   tabBar: {
     height: 100,
     backgroundColor: colors.bg,
-    // borderTopWidth: BORDER_WIDTH,
-    borderWidth: 0,
+    borderTopWidth: 0,
+    // borderWidth: 0,
     borderColor: colors.light,
   },
 
