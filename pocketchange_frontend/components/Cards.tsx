@@ -1,5 +1,6 @@
 import { Pressable, Image, TabBarIOSItem, FlatList } from 'react-native';
 import { Text, View } from './Themed';
+import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
 import { user } from '../dummy';
 
@@ -398,20 +399,6 @@ export function CardHeader({ text }: { text: string }) {
       </View>
       <HorizontalLine />
     </>
-  )
-}
-
-export function HorizontalLine() {
-  return (
-    <View style={styles.horizontalLine}>
-    </View>
-  )
-}
-
-function VerticalLine() {
-  return (
-    <View style={styles.verticalLine}>
-    </View>
   )
 }
 
