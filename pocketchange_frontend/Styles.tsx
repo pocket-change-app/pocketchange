@@ -8,15 +8,13 @@ import { colors } from './constants/Colors';
 export const MARGIN = 16
 export const MARGIN_SM = MARGIN / 2
 export const CARD_RADIUS = 10
-export const BORDER_WIDTH = 2
+export const BORDER_WIDTH = 1
 
 export const styles = StyleSheet.create({
 
   navigationHeader: {
     height: 100,
     backgroundColor: colors.bg,
-    borderBottomWidth: 0,
-    // borderWidth: 0,
   },
   navigationHeaderTitle: {
     fontSize: 30,
@@ -41,20 +39,20 @@ export const styles = StyleSheet.create({
 
   searchBarContainer: {
     height: 60,
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent',
     paddingHorizontal: MARGIN,
+    // paddingVertical: MARGIN,
     backgroundColor: colors.bg,
-    borderTopColor: colors.light,
-    borderBottomColor: colors.light,
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    // borderWidth: 0,
     justifyContent: 'center',
   },
 
   searchBarInputContainer: {
     height: '100%',
-    backgroundColor: colors.imageBorder,
+    backgroundColor: colors.bg,
     borderRadius: CARD_RADIUS,
+    borderColor: colors.light,
+    borderWidth: BORDER_WIDTH,
   },
 
   searchBarInput: {
