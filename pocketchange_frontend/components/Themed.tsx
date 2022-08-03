@@ -49,7 +49,7 @@ export function View(props: ViewProps) {
 
 export function ScreenContainer(props: DefaultView['props']) {
   return (
-    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+    <View style={styles.screenContainer}>
       <HorizontalLine />
       <View style={{ flex: 1 }} {...props} />
       <HorizontalLine />
