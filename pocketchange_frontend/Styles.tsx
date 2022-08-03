@@ -5,8 +5,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
-export const MARGIN = 15
-export const MARGIN_SM = 8
+export const MARGIN = 16
+export const MARGIN_SM = MARGIN / 2
 export const CARD_RADIUS = 10
 export const BORDER_WIDTH = 2
 
