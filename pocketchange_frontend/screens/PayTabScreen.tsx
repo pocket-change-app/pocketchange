@@ -5,15 +5,14 @@ import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { BusinessCardSm } from '../components/Cards';
+import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
 
 const R = require('ramda');
 
 export default function PayTabScreen({ navigation }: { navigation: any }) {
 
-  const state = {
-    search: '',
-  }
+  let search = '';
 
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <BusinessCardSm
@@ -29,19 +28,19 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
   )
 
   const updateSearch = (search: string) => {
-    state.search = search
+    search = search
   };
-
-  const { search } = state;
 
   return (
     <>
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
+
         inputStyle={styles.searchBarInput}
-        round
         placeholder="Search Merchants"
+        placeholderTextColor={colors.subtle}
+
         onChangeText={updateSearch}
         value={search}
       />
