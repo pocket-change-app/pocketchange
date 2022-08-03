@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -17,11 +17,17 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
   let search = '';
 
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <BusinessCard
-      key={item.busID}
-      navigation={navigation}
-      business={item}
-    />
+    <Pressable
+      onPress={() => navigation.navigate('BusinessModal', {
+        business: item
+    })}
+    >
+      <BusinessCardSm
+        key={item.busID}
+        navigation={navigation}
+        business={item}
+      />
+    </Pressable>
   )
 
   const updateSearch = (search: string) => {
@@ -46,6 +52,27 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
           contentContainerStyle={styles.businessFlatList}
           data={businesses}
           renderItem={renderBusinessCard}
+          ListHeaderComponent={
+            <>
+            <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Suggested</Text></View>
+            <Pressable
+              onPress={() => navigation.navigate('BusinessModal', {
+                business: businesses[0]
+              })}
+            >
+              
+              <BusinessCard
+                key={businesses[0].busID}
+                navigation={navigation}
+                business={businesses[0]}
+              />
+            </Pressable>
+            <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Loved</Text></View>
+            </>
+            
+            
+
+          }
         />
       </ScreenContainer>
     </>
