@@ -25,7 +25,7 @@ const AuthProvider: React.FC = ({children}) => {
   const [signedInAs, setSignedInAs] = useState("consumer");
 
   useEffect(() => {
-    //AsyncStorage.clear();
+    AsyncStorage.clear();
     //Every time the App is opened, this provider is rendered
     //and call de loadStorage function.
     loadStorageData();
