@@ -24,103 +24,103 @@ import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const MerchantStack = () => {
-    return (
-        <Stack.Navigator
-            screenOptions={{
-                // tabBarStyle: styles.tabBar,
-                // tabBarActiveTintColor: colors.dark,
-                // tabBarInactiveTintColor: colors.subtle,
-                // tabBarShowLabel: false,
-                headerTitleStyle: styles.navigationHeaderTitle,
-                headerStyle: styles.navigationHeader,
-                //headerShadowVisible: false,
-            }}
-        >
-            <Stack.Screen name="Root" component={BottomTabMerchant} options={{ headerShown: false }} />
-            <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-            <Stack.Group screenOptions={{
-                presentation: 'modal',
-                }}
-            >
-            <Stack.Screen
-                name="TransactionModal"
-                component={TransactionModalScreen}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            </Stack.Group>
-            <Stack.Group screenOptions={{
-                presentation: 'modal',
-                }}
-            >
-            
-            </Stack.Group>
-            <Stack.Screen
-                name="PocketScreen"
-                component={PocketScreen}
-            // options={{ title: '[pocket name here]' }}
-            />
-        </Stack.Navigator>
-   );
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        // tabBarStyle: styles.tabBar,
+        // tabBarActiveTintColor: colors.dark,
+        // tabBarInactiveTintColor: colors.subtle,
+        // tabBarShowLabel: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
+      }}
+    >
+      <Stack.Screen name="Root" component={BottomTabMerchant} options={{ headerShown: false }} />
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Group screenOptions={{
+        presentation: 'modal',
+      }}
+      >
+        <Stack.Screen
+          name="TransactionModal"
+          component={TransactionModalScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{
+        presentation: 'modal',
+      }}
+      >
+
+      </Stack.Group>
+      <Stack.Screen
+        name="PocketScreen"
+        component={PocketScreen}
+      // options={{ title: '[pocket name here]' }}
+      />
+    </Stack.Navigator>
+  );
 }
- 
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
- 
+
 const BottomTabMerchant = () => {
-    const colorScheme = 'light'; //useColorScheme();
- 
-    return (
-        <BottomTab.Navigator
-            initialRouteName='Analytics'
-            screenOptions={{
-                tabBarStyle: styles.tabBar,
-                tabBarActiveTintColor: colors.dark,
-                tabBarInactiveTintColor: colors.subtle,
-                tabBarShowLabel: false,
-                headerTitleStyle: styles.navigationHeaderTitle,
-                headerStyle: styles.navigationHeader,
-                //headerShadowVisible: false,
-                }}
-        >
-            <BottomTab.Screen
-                name="Transactions"
-                component={TransactionsTabScreen}
-                options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
-                title: 'Transactions',
-                tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
-                })}
-            />
-            <BottomTab.Screen
-                name="Analytics"
-                component={AnalyticsDashboardScreen}
-                options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
-                title: 'Analytics',
-                tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
-                })}
-            />
-            <BottomTab.Screen
-                name="MerchantSettings"
-                component={MerchantSettingsScreen}
-                options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
-                    title: 'Settings',
-                    tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
-                    })}
-            />
-        </BottomTab.Navigator>
-    );
+  const colorScheme = 'light'; //useColorScheme();
+
+  return (
+    <BottomTab.Navigator
+      initialRouteName='Analytics'
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: colors.dark,
+        tabBarInactiveTintColor: colors.subtle,
+        tabBarShowLabel: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        //headerShadowVisible: false,
+      }}
+    >
+      <BottomTab.Screen
+        name="Transactions"
+        component={TransactionsTabScreen}
+        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
+          title: 'Transactions',
+          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
+        })}
+      />
+      <BottomTab.Screen
+        name="Analytics"
+        component={AnalyticsDashboardScreen}
+        options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
+          title: 'Analytics',
+          tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
+        })}
+      />
+      <BottomTab.Screen
+        name="MerchantSettings"
+        component={MerchantSettingsScreen}
+        options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+        })}
+      />
+    </BottomTab.Navigator>
+  );
 }
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
- function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>['name'];
-    color: string;
-  }) {
-    return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-  }
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+}) {
+  return <FontAwesome size={30} {...props} />;
+}
