@@ -199,12 +199,16 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 }
 
 function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: string } }) {
+
+
+
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
-      onPress={() => (navigation.navigate("ConsumerTransaction", {
-        transactionData
-      }))}>
+    // onPress={() => (navigation.navigate("ConsumerTransaction", {
+    //   transactionData
+    // }))}
+    >
       <View style={styles.transactionListed}>
         <Text style={styles.transactionListedMerchantText}>
           {transactionData.merchant}
@@ -214,7 +218,7 @@ function TransactionListed({ navigation, transactionData }: { navigation: any, t
         </Text>
       </View>
       {/* <HorizontalLine /> */}
-    </Pressable>
+    </Pressable >
   )
 }
 
@@ -282,6 +286,93 @@ export function PayAmountCard({ name, address, pocket, imageURL, navigation }) {
 
       <View style={styles.container}>
         <Text>$ dollar amt editable</Text>
+      </View>
+    </View>
+  )
+}
+
+export function PayAmountCardSm({ name, address, pocket, imageURL, amount }: any) {
+
+  // const { name, address, pocket, imageURL } = route.params;
+
+  return (
+    <View style={styles.card}>
+      {/* <CardHeader text='Pay' /> */}
+
+      <View style={{ flexDirection: 'row' }}>
+        <View style={styles.businessListInfo}>
+          <Text style={styles.businessNameSm}>{name}</Text>
+          <Text style={styles.address}>{address}</Text>
+          <Text style={styles.pocket}>{pocket}</Text>
+        </View>
+      </View>
+
+      <HorizontalLine />
+
+      <View style={styles.container}>
+        <Text style={[styles.changeSm, { textAlign: 'center' }]}>${amount}</Text>
+      </View>
+    </View>
+  )
+}
+
+export function PayTipCard({ amount }: { amount: any }) {
+
+  // const { name, address, pocket, imageURL } = route.params;
+
+  return (
+    <View style={styles.card}>
+      <CardHeader text='Tip' />
+
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={styles.container}>
+          <Text style={[styles.changeSm, { textAlign: 'center' }]}>10%</Text>
+        </View>
+        <View style={styles.container}>
+          <Text style={[styles.changeSm, { textAlign: 'center' }]}>$6.20</Text>
+        </View>
+      </View>
+
+      {/* <HorizontalLine /> */}
+    </View>
+  )
+}
+
+export function PaySummaryCard({ name, address, pocket, imageURL, amount, tip }: any) {
+
+  // const { name, address, pocket, imageURL } = route.params;
+
+  return (
+    <View style={styles.card}>
+      <CardHeader text='Summary' />
+
+      <View style={{ flexDirection: 'row' }}>
+        <View style={styles.businessListInfo}>
+          <Text style={styles.businessNameSm}>{name}</Text>
+          <Text style={styles.address}>{address}</Text>
+          <Text style={styles.pocket}>{pocket}</Text>
+        </View>
+      </View>
+
+      <HorizontalLine />
+
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ textAlign: 'left' }}>Subtotal</Text>
+          <Text style={{ textAlign: 'right' }}>${'12.50'}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ textAlign: 'left' }}>Tip</Text>
+          <Text style={{ textAlign: 'right' }}>${'2.00'}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ textAlign: 'left' }}>Change Used</Text>
+          <Text style={{ textAlign: 'right' }}>-${'2.63'}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ textAlign: 'left' }}>Total</Text>
+          <Text style={{ textAlign: 'right' }}>${'11.87'}</Text>
+        </View>
       </View>
     </View>
   )
