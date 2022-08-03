@@ -7,7 +7,7 @@ import { colors } from '../constants/Colors';
 
 export default function ConsumerTransactionScreen({ route }: { route: any }) {
 
-  const { transaction } = route.params;
+  const { timestamp, amount, merchant, pocket, changeUsed, changeEarned } = route.params;
 
   return (
     <ScrollView style={styles.container}>
@@ -20,9 +20,9 @@ export default function ConsumerTransactionScreen({ route }: { route: any }) {
       <View style={styles.card}>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{transaction.merchant}</Text>
-          <Text style={styles.address}>{transaction.amount}</Text>
-          <Text style={styles.pocket}>{transaction.pocket}</Text>
+          <Text style={styles.businessNameSm}>{merchant}</Text>
+          <Text style={styles.address}>${amount}</Text>
+          <Text style={styles.pocket}>{pocket}</Text>
         </View>
 
       </View>
