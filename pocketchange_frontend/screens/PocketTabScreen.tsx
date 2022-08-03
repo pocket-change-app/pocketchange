@@ -51,8 +51,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
             <PocketListCard
               key={item.pocketID}
               navigation={navigation}
-              name={item.name}
-              imageURL={item.imageURL}
+              pocket={item}
             />
           )
           }
