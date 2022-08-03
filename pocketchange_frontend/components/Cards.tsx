@@ -388,7 +388,7 @@ function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   )
 }
 
-function CardHeader({ text }: { text: string }) {
+export function CardHeader({ text }: { text: string }) {
   return (
     <>
       <View style={styles.cardHeader}>
@@ -403,7 +403,7 @@ function CardHeader({ text }: { text: string }) {
 
 export function HorizontalLine() {
   return (
-    <View style={[styles.horizontalLine]}>
+    <View style={styles.horizontalLine}>
     </View>
   )
 }
