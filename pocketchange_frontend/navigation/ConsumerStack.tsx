@@ -21,6 +21,7 @@ import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
 import ConsumerTransactionScreen from '../screens/ConsumerTransactionScreen';
 import PayAmountScreen from '../screens/PayAmountScreen';
 import PayTipScreen from '../screens/PayTipScreen';
+import PaySummaryScreen from '../screens/PaySummaryScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +67,12 @@ export const ConsumerStack = () => {
         <Stack.Screen
           name="PayTip"
           component={PayTipScreen}
+          options={{
+          }}
+        />
+        <Stack.Screen
+          name="PaySummary"
+          component={PaySummaryScreen}
           options={{
           }}
         />
