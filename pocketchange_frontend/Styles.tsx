@@ -21,6 +21,13 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
   },
+
+  navigationHeaderPocketTitle: {
+    fontSize: 20,
+    fontFamily: 'metropolis black italic',
+    color: colors.subtle,
+  },
+
   tabBar: {
     height: 100,
     backgroundColor: colors.bg,
@@ -213,6 +220,19 @@ export const styles = StyleSheet.create({
     height: undefined,
     borderTopLeftRadius: CARD_RADIUS - BORDER_WIDTH,
     borderTopRightRadius: CARD_RADIUS - BORDER_WIDTH,
+  },
+
+  pocketHeaderImageContainer: {
+    width: '100%',
+    height: 150,
+
+  },
+
+  pocketHeaderImage: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+
   },
 
   businessListImageContainer: {

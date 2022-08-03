@@ -38,7 +38,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
         inputContainerStyle={styles.searchBarInputContainer}
 
         inputStyle={styles.searchBarInput}
-        placeholder="Search Merchants"
+        placeholder="Search Businesses"
         placeholderTextColor={colors.subtle}
 
         onChangeText={updateSearch}
