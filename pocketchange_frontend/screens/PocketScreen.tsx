@@ -11,7 +11,7 @@ const R = require('ramda');
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
 
-  const { pocketName, imageURL } = route.params;
+  const pocket = route.params.pocket;
 
   const state = {
     search: '',
@@ -44,7 +44,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       <View style={styles.pocketHeaderImageContainer}>
         <Image
           style={styles.pocketHeaderImage}
-          source={imageURL}
+          source={pocket.bannerURL}
         />
       </View>
 

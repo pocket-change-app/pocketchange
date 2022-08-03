@@ -76,16 +76,19 @@ export const pockets = [
     pocketID: '01',
     name: 'Leslieville',
     imageURL: require('./assets/images/leslieville.jpg'),
+    bannerURL: require('./assets/images/leslieville-logo.jpg'),
   },
   {
     pocketID: '02',
     name: 'Riverside',
     imageURL: require('./assets/images/riverside.jpg'),
+    bannerURL: require('./assets/images/riverside-banner.jpg'),
   },
   {
     pocketID: '03',
     name: 'Uptown Yonge',
     imageURL: require('./assets/images/uptown_yonge.jpg'),
+    bannerURL: require('./assets/images/uptown-yonge-logo.png'),
   },
   {
     pocketID: '04',

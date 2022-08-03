@@ -89,7 +89,7 @@ export const ConsumerStack = () => {
         name="PocketScreen"
         component={PocketScreen}
         options={
-          ({ route }) => ({ title: route.params.pocketName, headerTitleStyle: styles.navigationHeaderPocketTitle })
+          ({ route }) => ({ title: route.params.pocket.name, headerTitleStyle: styles.navigationHeaderPocketTitle })
           
         }
       />
