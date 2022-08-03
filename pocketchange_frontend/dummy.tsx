@@ -77,12 +77,14 @@ export const pockets = [
     name: 'Leslieville',
     imageURL: require('./assets/images/leslieville.jpg'),
     bannerURL: require('./assets/images/leslieville-logo.jpg'),
+    description: "Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit. "
   },
   {
     pocketID: '02',
     name: 'Riverside',
     imageURL: require('./assets/images/riverside.jpg'),
     bannerURL: require('./assets/images/riverside-banner.jpg'),
+    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions – just across the bridge from Toronto’s downtown core along Queen Street East."
   },
   {
     pocketID: '03',

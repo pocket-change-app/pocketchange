@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
@@ -32,6 +32,27 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
         >
           <Text style={styles.payButtonText}>PAY</Text>
         </Pressable>
+
+        <Pressable style={styles.payButton}
+          onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
+        <Text style={styles.payButtonText}>[CALL]</Text>
+        </Pressable>
+
+        <Pressable style={styles.payButton}
+          onPress={() => 
+            {
+              const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+              const latLng = `${business.latitude},${business.longitude}`;
+              const label = business.name;
+              const url = Platform.select({
+                ios: `${scheme}${label}@${latLng}`,
+                android: `${scheme}${latLng}(${label})`
+              });
+              Linking.openURL(`tel:${business.phoneNumber}`)
+            }
+          }>
+        <Text style={styles.payButtonText}>[DIRECTIONS]</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -58,7 +79,9 @@ export function BusinessCardSm({ navigation, business }: { navigation: any,  bus
         <View style={styles.businessListInfo}>
           <Text style={styles.businessNameSm}>{business.name}</Text>
           <Text style={styles.address}>{business.address}</Text>
-          <Text style={styles.pocket}>{business.pocket}</Text>
+          {
+            //<Text style={styles.pocket}>{business.pocket}</Text>
+          }
         </View>
 
       </View>
@@ -96,6 +119,31 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
     </Pressable>
 
   )
+}
+
+export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+  return (
+    <View> 
+      <View style={styles.pocketHeaderImageContainer}>
+        <Image
+          style={styles.pocketHeaderImage}
+          source={pocket.bannerURL}
+        />
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.signatureText}>
+          {pocket.description}
+        </Text>
+      </View>
+      <View style={[styles.card, styles.pocketChangeBalanceCard]}>
+      <Text style={styles.pocketBig}>{pocket.name} Change</Text>
+      <Text style={styles.changeLg}>$8.94</Text>
+    </View>
+    </View>
+    
+
+
+  );
 }
 
 export function PocketListSeparator() {
