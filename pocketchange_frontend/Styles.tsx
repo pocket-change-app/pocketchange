@@ -138,12 +138,7 @@ export const styles = StyleSheet.create({
 
   businessListItemCard: {
     flexDirection: 'row', // makes the image and text next to each other
-    height: 100,
-  },
-
-  businessLgListItemCard: {
-    flexDirection: 'row', // makes the image and text next to each other
-    height: 150,
+    height: 80,
   },
 
   pocketChangeBalanceCard: {
@@ -230,14 +225,14 @@ export const styles = StyleSheet.create({
   pocketHeaderImageContainer: {
     width: '100%',
     height: 150,
-
+    
   },
 
   pocketHeaderImage: {
     flex: 1,
     width: undefined,
     height: undefined,
-
+    borderRadius: CARD_RADIUS
   },
 
   businessListImageContainer: {
