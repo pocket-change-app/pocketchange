@@ -7,7 +7,7 @@ import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
 
-export default function BusinessModalScreen({ route, navigation }: { route: any, navigation: any }) {
+export default function MerchantScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const { business } = route.params;
 
@@ -17,7 +17,7 @@ export default function BusinessModalScreen({ route, navigation }: { route: any,
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
-      <BusinessCard 
+      <BusinessCard
         business={business}
       />
 
