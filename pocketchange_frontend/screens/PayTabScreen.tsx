@@ -17,7 +17,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
   let search = '';
 
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <BusinessCard
+    <BusinessCardSm
       key={item.busID}
       navigation={navigation}
       business={item}
