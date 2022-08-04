@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
-import { Text, View } from '../components/Themed';
+import { ScreenContainer, Text, View } from '../components/Themed';
 import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
@@ -13,30 +13,29 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   const { business } = route.params;
 
   return (
-    <ScrollView style={styles.container}>
+    <ScreenContainer>
+      <ScrollView style={styles.container}>
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+        {/* Use a light status bar on iOS to account for the black space above the modal */}
+        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
-      <BusinessCard
-        navigation={navigation}
-        business={business}
-      />
+        <BusinessCard
+          navigation={navigation}
+          business={business}
+        />
 
-      <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-        <Text style={styles.pocketBig}>{business.pocket} Change</Text>
-        <Text style={styles.changeLg}>$8.94</Text>
-      </View>
+        <View style={[styles.card, styles.pocketChangeBalanceCard]}>
+          <Text style={styles.pocketBig}>{business.pocket} Change</Text>
+          <Text style={styles.changeLg}>$8.94</Text>
+        </View>
 
-      <View style={[styles.card, styles.container]}>
-        <Text style={styles.businessBioText}>{business.bio}</Text>
-        <Signature name={business.people[0].name} position={business.people[0].position} imageURL={business.people[0].imageURL} />
-      </View>
+        <View style={[styles.card, styles.container]}>
+          <Text style={styles.businessBioText}>{business.bio}</Text>
+          <Signature name={business.people[0].name} position={business.people[0].position} imageURL={business.people[0].imageURL} />
+        </View>
 
-
-
-
-    </ScrollView>
+      </ScrollView>
+    </ScreenContainer>
   );
 }
 
