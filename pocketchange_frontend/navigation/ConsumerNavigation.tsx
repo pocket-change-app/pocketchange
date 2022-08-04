@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Modal, Pressable, StyleSheet } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -258,6 +258,14 @@ function WalletStack() {
       <Stack.Screen
         name="ConsumerSettings"
         component={ConsumerSettingsScreen}
+      />
+      <Stack.Screen
+        name="ConsumerTransaction"
+        component={ConsumerTransactionScreen}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   )

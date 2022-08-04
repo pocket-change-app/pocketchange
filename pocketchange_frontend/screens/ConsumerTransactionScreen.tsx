@@ -5,7 +5,7 @@ import { styles } from '../Styles';
 import { Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
 
-export default function ConsumerTransactionScreen({ route }: { route: any }) {
+export default function ConsumerTransactionScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const { timestamp, amount, merchant, pocket, changeUsed, changeEarned } = route.params;
 
