@@ -54,20 +54,20 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
           renderItem={renderBusinessCard}
           ListHeaderComponent={
             <>
-            <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Suggested</Text></View>
-            <Pressable
-              onPress={() => navigation.navigate('BusinessModal', {
-                business: businesses[0]
-              })}
-            >
-              
-              <BusinessCard
-                key={businesses[0].busID}
-                navigation={navigation}
-                business={businesses[0]}
-              />
-            </Pressable>
-            <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Loved</Text></View>
+              <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Suggested</Text></View>
+              <Pressable
+                onPress={() => navigation.navigate('Merchant', {
+                  business: businesses[0]
+                })}
+              >
+
+                <BusinessCard
+                  key={businesses[0].busID}
+                  navigation={navigation}
+                  business={businesses[0]}
+                />
+              </Pressable>
+              <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Loved</Text></View>
             </>
             
             
