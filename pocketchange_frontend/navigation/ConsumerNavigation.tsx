@@ -11,7 +11,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import BusinessModalScreen from '../screens/BusinessModalScreen';
+import MerchantScreen from '../screens/MerchantScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketTabScreen from '../screens/PocketTabScreen';
 import PayTabScreen from '../screens/PayTabScreen';
@@ -26,7 +26,7 @@ import PaySummaryScreen from '../screens/PaySummaryScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export const ConsumerStack = () => {
+export const ConsumerNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -47,12 +47,6 @@ export const ConsumerStack = () => {
         headerShown: false,
       }}
       >
-        <Stack.Screen
-          name="BusinessModal"
-          component={BusinessModalScreen}
-          options={{
-          }}
-        />
         <Stack.Screen
           name="ConsumerTransaction"
           component={ConsumerTransactionScreen}
@@ -92,10 +86,83 @@ export const ConsumerStack = () => {
           ({ route }) => ({ title: route.params.pocket.name, headerTitleStyle: styles.navigationHeaderPocketTitle })
         }
       />
+      <Stack.Screen
+        name="Merchant"
+        component={MerchantScreen}
+        options={
+          { headerTitle: '' }
+          //({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
+        }
+      />
     </Stack.Navigator>
   );
 }
 
+function PocketStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="PocketSearch"
+        component={PocketTabScreen}
+      />
+      <Stack.Screen
+        name="MerchantStack"
+        component={MerchantScreen}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function PayStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='Pay'>
+      <Stack.Screen
+        name="Pay"
+        component={PayTabScreen}
+        screenOptions={{ headerShown: false }}
+      />
+      {/* <Stack.Screen
+        name="MerchantStack"
+        component={MerchantStack}
+        options={{} }
+      /> */}
+      <Stack.Screen
+        name="Merchant"
+        component={MerchantScreen}
+        options={
+          // { headerTitle: '' }
+          ({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
+        }
+      />
+      <Stack.Screen
+        name="PayAmount"
+        component={PayAmountScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PayTip"
+        component={PayTipScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PaySummary"
+        component={PaySummaryScreen}
+        options={{}}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function MerchantStack() {
+  <Stack.Navigator
+    initialRouteName="Merchant"
+  >
+    <Stack.Screen
+      name="Merchant"
+    />
+  </Stack.Navigator>
+}
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -107,7 +174,7 @@ const BottomTabConsumer = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='Pay'
+      initialRouteName='PayTab'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
@@ -120,9 +187,10 @@ const BottomTabConsumer = () => {
     >
       <BottomTab.Screen
         name="Pockets"
-        component={PocketTabScreen}
+        component={PocketStack}
         options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
-          title: 'Pockets',
+          // title: 'Pockets',
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
           // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
           // headerRight: () => (
@@ -142,13 +210,15 @@ const BottomTabConsumer = () => {
         })}
       />
       <BottomTab.Screen
-        name="Pay"
-        component={PayTabScreen}
+        name="PayTab"
+        component={PayStack}
         options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
-          title: 'Pay',
+          headerShown: false,
+          // title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
         })}
       />
+
       <BottomTab.Screen
         name="Wallet"
         component={WalletScreen}
