@@ -50,7 +50,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
             <>
               <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Suggested</Text></View>
               <Pressable
-                onPress={() => navigation.navigate('BusinessModal', {
+                onPress={() => navigation.navigate('Merchant', {
                   business: businesses[0]
                 })}
               >
