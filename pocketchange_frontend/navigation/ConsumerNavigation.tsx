@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -118,35 +119,66 @@ function PocketStack() {
       <Stack.Screen
         name="Pocket"
         component={PocketScreen}
-        options={({ route }) => ({ title: route.params.pocket.name })}
+        options={({ route }) => ({
+          title: route.params.pocket.name
+        })}
       />
 
       <Stack.Screen
         name="Business"
         component={BusinessScreen}
-        options={({ route }) => ({ title: route.params.business.name })}
+        options={({ route }) => ({
+          title: route.params.business.name
+        })}
       />
       <Stack.Screen
-        name="PayAmount"
-        component={PayAmountScreen}
-        options={{}}
+        name="PaymentModalStack"
+        component={PaymentModalStack}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
       />
-      <Stack.Screen
-        name="PayTip"
-        component={PayTipScreen}
-        options={{}}
-      />
-      <Stack.Screen
-        name="PaySummary"
-        component={PaySummaryScreen}
-        options={{}}
-      />
-
       {/* <Stack.Screen
         name="BusinessStack"
         component={BusinessStack}
       /> */}
     </Stack.Navigator>
+  )
+}
+
+function BusinessGroup() {
+  return (
+    <Stack.Group>
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
+        options={({ route }) => ({
+          title: route.params.business.name
+        })}
+      />
+      <Stack.Screen
+        name="PayAmount"
+        component={PayAmountScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PayTip"
+        component={PayTipScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PaySummary"
+        component={PaySummaryScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Group>
   )
 }
 
@@ -168,31 +200,72 @@ function PayStack() {
       <Stack.Screen
         name="Business"
         component={BusinessScreen}
-        options={({ route }) => ({ title: route.params.business.name })}
+        options={({ route }) => ({
+          title: route.params.business.name
+        })}
       />
       <Stack.Screen
+        name="PaymentModalStack"
+        component={PaymentModalStack}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      {/* <Stack.Screen
         name="PayAmount"
         component={PayAmountScreen}
-        options={{}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="PayTip"
         component={PayTipScreen}
-        options={{}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="PaySummary"
         component={PaySummaryScreen}
-        options={{}}
-      />
-      {/* <Stack.Screen
-        name="BusinessStack"
-        component={BusinessStack}
-        options={
-          // { headerTitle: '' }
-          ({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
-        }
+        options={{
+          headerShown: false,
+        }}
       /> */}
+    </Stack.Navigator>
+  )
+}
+
+function PaymentModalStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='PayAmount'
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="PayAmount"
+        component={PayAmountScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PayTip"
+        component={PayTipScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PaySummary"
+        component={PaySummaryScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   )
 }
