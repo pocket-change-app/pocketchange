@@ -7,8 +7,9 @@ import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
 
-export default function MerchantScreen({ route, navigation }: { route: any, navigation: any }) {
+export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
 
+  // console.log(route)
   const { business } = route.params;
 
   return (
@@ -18,6 +19,7 @@ export default function MerchantScreen({ route, navigation }: { route: any, navi
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
       <BusinessCard
+        navigation={navigation}
         business={business}
       />
 
