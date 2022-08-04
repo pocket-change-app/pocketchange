@@ -35,35 +35,34 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
 
         <Pressable style={styles.payButton}
           onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
-        <Text style={styles.payButtonText}>[CALL]</Text>
+          <Text style={styles.payButtonText}>[CALL]</Text>
         </Pressable>
 
         <Pressable style={styles.payButton}
-          onPress={() => 
-            {
-              const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
-              const latLng = `${business.latitude},${business.longitude}`;
-              const label = business.name;
-              const url = Platform.select({
-                ios: `${scheme}${label}@${latLng}`,
-                android: `${scheme}${latLng}(${label})`
-              });
-              Linking.openURL(`tel:${business.phoneNumber}`)
-            }
+          onPress={() => {
+            const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+            const latLng = `${business.latitude},${business.longitude}`;
+            const label = business.name;
+            const url = Platform.select({
+              ios: `${scheme}${label}@${latLng}`,
+              android: `${scheme}${latLng}(${label})`
+            });
+            Linking.openURL(`tel:${business.phoneNumber}`)
+          }
           }>
-        <Text style={styles.payButtonText}>[DIRECTIONS]</Text>
+          <Text style={styles.payButtonText}>[DIRECTIONS]</Text>
         </Pressable>
       </View>
     </View>
   );
 
-          }
+}
 
-export function BusinessCardSm({ navigation, business }: { navigation: any,  business: any}) {
+export function BusinessCardSm({ navigation, business }: { navigation: any, business: any }) {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('BusinessModal', {
+      onPress={() => navigation.navigate('Merchant', {
         business: business
       })}
     >
@@ -123,7 +122,7 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
 
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
-    <View> 
+    <View>
       <View style={styles.pocketHeaderImageContainer}>
         <Image
           style={styles.pocketHeaderImage}
@@ -136,11 +135,11 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
         </Text>
       </View>
       <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-      <Text style={styles.pocketBig}>{pocket.name} Change</Text>
-      <Text style={styles.changeLg}>$8.94</Text>
+        <Text style={styles.pocketBig}>{pocket.name} Change</Text>
+        <Text style={styles.changeLg}>$8.94</Text>
+      </View>
     </View>
-    </View>
-    
+
 
 
   );
