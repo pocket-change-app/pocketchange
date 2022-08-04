@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
@@ -15,9 +14,6 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   return (
     <ScreenContainer>
       <ScrollView style={styles.container}>
-
-        {/* Use a light status bar on iOS to account for the black space above the modal */}
-        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
         <BusinessCard
           navigation={navigation}
