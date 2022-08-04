@@ -22,8 +22,12 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
         <Text style={styles.pocket}>{business.pocket}</Text>
 
         <Pressable style={styles.payButton}
-          onPress={() => (navigation.navigate('PayAmount', {
-            business: business,
+          onPress={() => (navigation.navigate('PaymentModalStack', {
+            screen: "PayAmount",
+            params: {
+              navigation: navigation,
+              business: business,
+            }
             // busID: business.busID,
             // name: business.name,
             // address: business.address,
