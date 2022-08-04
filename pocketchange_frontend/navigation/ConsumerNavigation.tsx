@@ -11,7 +11,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import MerchantScreen from '../screens/MerchantScreen';
+import BusinessScreen from '../screens/BusinessScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketTabScreen from '../screens/PocketTabScreen';
 import PayTabScreen from '../screens/PayTabScreen';
@@ -100,15 +100,48 @@ export const ConsumerNavigation = () => {
 
 function PocketStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName='PocketSearch'
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+      }}
+    >
       <Stack.Screen
         name="PocketSearch"
         component={PocketTabScreen}
       />
+
       <Stack.Screen
-        name="MerchantStack"
-        component={MerchantScreen}
+        name="Pocket"
+        component={PocketScreen}
       />
+
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
+      />
+      <Stack.Screen
+        name="PayAmount"
+        component={PayAmountScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PayTip"
+        component={PayTipScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PaySummary"
+        component={PaySummaryScreen}
+        options={{}}
+      />
+
+      {/* <Stack.Screen
+        name="BusinessStack"
+        component={BusinessStack}
+      /> */}
     </Stack.Navigator>
   )
 }
@@ -116,24 +149,62 @@ function PocketStack() {
 function PayStack() {
   return (
     <Stack.Navigator
-      initialRouteName='Pay'>
+      initialRouteName='Pay'
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+      }}
+    >
       <Stack.Screen
         name="Pay"
         component={PayTabScreen}
       // screenOptions={{ headerShown: false }}
       />
-      {/* <Stack.Screen
-        name="MerchantStack"
-        component={MerchantStack}
-        options={{} }
-      /> */}
       <Stack.Screen
-        name="Merchant"
-        component={MerchantScreen}
+        name="Business"
+        component={BusinessScreen}
+      />
+      <Stack.Screen
+        name="PayAmount"
+        component={PayAmountScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PayTip"
+        component={PayTipScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="PaySummary"
+        component={PaySummaryScreen}
+        options={{}}
+      />
+      {/* <Stack.Screen
+        name="BusinessStack"
+        component={BusinessStack}
         options={
           // { headerTitle: '' }
           ({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
         }
+      /> */}
+    </Stack.Navigator>
+  )
+}
+
+function BusinessStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Business"
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+      }}
+    >
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
       />
       <Stack.Screen
         name="PayAmount"
@@ -154,27 +225,39 @@ function PayStack() {
   )
 }
 
-function MerchantStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Merchant"
-    >
-      <Stack.Screen
-        name="Merchant"
-        component={MerchantScreen}
-      />
-    </Stack.Navigator>
-  )
-}
-
 function WalletStack() {
   return (
     <Stack.Navigator
       initialRouteName="Wallet"
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+      }}
     >
       <Stack.Screen
         name="Wallet"
         component={WalletScreen}
+        options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('ConsumerSettings')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="gear"
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="ConsumerSettings"
+        component={ConsumerSettingsScreen}
       />
     </Stack.Navigator>
   )
@@ -190,42 +273,42 @@ const BottomTabConsumer = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='PayTab'
+      initialRouteName='PayStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
         tabBarInactiveTintColor: colors.subtle,
         tabBarShowLabel: false,
-        headerTitleStyle: styles.navigationHeaderTitle,
-        headerStyle: styles.navigationHeader,
-        headerShadowVisible: false,
+        // headerTitleStyle: styles.navigationHeaderTitle,
+        // headerStyle: styles.navigationHeader,
+        // headerShadowVisible: false,
         headerShown: false
       }}
     >
       <BottomTab.Screen
-        name="PocketTab"
+        name="PocketStack"
         component={PocketStack}
-        options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
+        options={{
           // title: 'Pockets',
           // headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
-          // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
-        })}
+          // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
+        }}
       />
       <BottomTab.Screen
-        name="PayTab"
+        name="PayStack"
         component={PayStack}
-        options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
+        options={{
           // headerShown: false,
           // title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
-        })}
+        }}
       />
 
       <BottomTab.Screen
-        name="WalletTab"
+        name="WalletStack"
         component={WalletStack}
-        options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
+        options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
           headerRight: () => (
