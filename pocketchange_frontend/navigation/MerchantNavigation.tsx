@@ -23,7 +23,7 @@ import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export const MerchantStack = () => {
+export const MerchantNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
