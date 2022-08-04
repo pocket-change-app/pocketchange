@@ -91,7 +91,7 @@ export const ConsumerNavigation = () => {
         component={MerchantScreen}
         options={
           { headerTitle: '' }
-          //({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
+          ({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
         }
       /> */}
     </Stack.Navigator>
@@ -106,21 +106,25 @@ function PocketStack() {
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
+        // headerTitle: 'Pockets',
       }}
     >
       <Stack.Screen
         name="PocketSearch"
         component={PocketTabScreen}
+        options={{ title: 'Pockets' }}
       />
 
       <Stack.Screen
         name="Pocket"
         component={PocketScreen}
+        options={({ route }) => ({ title: route.params.pocket.name })}
       />
 
       <Stack.Screen
         name="Business"
         component={BusinessScreen}
+        options={({ route }) => ({ title: route.params.business.name })}
       />
       <Stack.Screen
         name="PayAmount"
@@ -164,6 +168,7 @@ function PayStack() {
       <Stack.Screen
         name="Business"
         component={BusinessScreen}
+        options={({ route }) => ({ title: route.params.business.name })}
       />
       <Stack.Screen
         name="PayAmount"
@@ -258,6 +263,9 @@ function WalletStack() {
       <Stack.Screen
         name="ConsumerSettings"
         component={ConsumerSettingsScreen}
+        options={{
+          title: 'Settings'
+        }}
       />
       <Stack.Screen
         name="ConsumerTransaction"
