@@ -4,33 +4,33 @@ import { useAuth } from '../contexts/Auth';
 
 import { SplashScreen } from '../screens/SplashScreen';
 import { AuthStack } from './AuthStack';
-import { ConsumerStack } from './ConsumerStack';
-import { MerchantStack } from './MerchantStack';
+import { ConsumerNavigation } from './ConsumerNavigation';
+import { MerchantNavigation } from './MerchantNavigation';
 
 
 export const Router = () => {
 
-    const {authData, loading, signedInAs} = useAuth();
+  const { authData, loading, signedInAs } = useAuth();
 
-    if (loading) {
-        return <SplashScreen />;
+  if (loading) {
+    return <SplashScreen />;
+  }
+
+  console.log(signedInAs);
+  var stack;
+  if (authData) {
+    if (signedInAs === "merchant") {
+      stack = <MerchantNavigation />;
+    } else if (signedInAs === "consumer") {
+      stack = <ConsumerNavigation />;
     }
+  } else {
+    stack = <AuthStack />;
+  }
 
-    console.log(signedInAs);
-    var stack;
-    if (authData) {
-        if (signedInAs === "merchant") {
-            stack = <MerchantStack />;
-        } else if (signedInAs === "consumer") {
-            stack = <ConsumerStack />;
-        }
-    } else {
-        stack = <AuthStack />;
-    }  
-
-    return (
-        <NavigationContainer>
-            { stack }
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      {stack}
+    </NavigationContainer>
+  );
 };
