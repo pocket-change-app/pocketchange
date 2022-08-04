@@ -23,11 +23,12 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
 
         <Pressable style={styles.payButton}
           onPress={() => (navigation.navigate('PayAmount', {
-            busID: business.busID,
-            name: business.name,
-            address: business.address,
-            pocket: business.pocket,
-            imageURL: business.imageURL,
+            business: business,
+            // busID: business.busID,
+            // name: business.name,
+            // address: business.address,
+            // pocket: business.pocket,
+            // imageURL: business.imageURL,
           }))}
         >
           <Text style={styles.payButtonText}>PAY</Text>
@@ -62,8 +63,9 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Merchant', {
-        business: business
+      onPress={() => navigation.navigate('Business', {
+        navigation: navigation,
+        business: business,
       })}
     >
       <View style={[styles.card, styles.businessListItemCard]}>
@@ -93,7 +95,7 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
 export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
     <Pressable
-      onPress={() => navigation.navigate('PocketScreen', {
+      onPress={() => navigation.navigate('Pocket', {
         navigation: navigation,
         pocket: pocket
       })}
