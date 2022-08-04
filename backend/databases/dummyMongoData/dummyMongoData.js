@@ -1,30 +1,30 @@
 db.mongousers.insertMany( [
    {
       userID: '1c',
-      username: 'ilovelocal',
+      username: 'hugo',
       name: 'Hugo Hale',
       birthDate: '1997-03-11',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '65481dfacc69adb7c1c2e37489e1d1891f9c47f974478687bdbe9d1dad2e4475a8a76d2c3cb4558081367fdbe51026044d8bc0486d15aae262261b21b953cd7f',
       totalChange: 30.00,
       emailAddress:'ilovelocal@gmail.com',
       home: 'Riverside'
    },
    {
       userID: '2c',
-      username: 'localrules',
+      username: 'eli',
       name: 'Elias Williams',
       birthDate: '1998-12-16',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '5d22e4fd3af173a0ec89747f21d5c8e6cbd4b821e4b973890681977b7840b0991e015fbed6761e52ab76585bf01b1810e2048c8b679ef3deaaf452853fca4f63',
       totalChange: 40.50,
       emailAddress:'localrules@gmail.com',
       home: 'Beaches',
    },
    {
       userID: '3c',
-      username: 'shop123',
+      username: 'dewmi',
       name: 'Dewmi Seneviratna',
       birthDate: '1999-03-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: 'ae18d41b88502293d3682dba3843e9898475014cccc771abeb9f7661cd551d04f13fcb7292400619e09090a60eaa12a01088e2edeae0840c17fb2592e4e3743f',
       totalChange: 14.30,
       emailAddress:'shop123@gmail.com',
       home: 'North York'
@@ -34,7 +34,7 @@ db.mongousers.insertMany( [
       username: 'loyalshop',
       name: 'Cole Charboneau',
       birthDate: '1999-05-16',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '1e96eaf215231957eee6c984e78586c9f8df7e43be812b16a292a2993ee67648ffb5cbb20a010068768d8e33f009acd6452af6175028aab434d09a196cc3b3a9',
       totalChange: 10.15,
       emailAddress:'loyalshop@gmail.com',
       home: 'Outside Toronto'
@@ -44,7 +44,7 @@ db.mongousers.insertMany( [
       username: 'mmrewards',
       name: 'Dianna McAllister',
       birthDate: '1999-09-09',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: 'eee4bd00e422a6bcd307481f511775cd1f817e15fe863846b816d5f478c175d632728ab512e2255eeea93450aaf15219a2dc3cd9c3d40d99600cbc0f000dc762',
       totalChange: 8.50,
       favouriteBusiness: ['3b'],
       emailAddress:'mmrewards@gmail.com',
@@ -55,7 +55,7 @@ db.mongousers.insertMany( [
       username: 'avlingOwner',
       name: 'Avling Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalavling@gmail.com',
       home: 'Leslieville'
@@ -65,7 +65,7 @@ db.mongousers.insertMany( [
       username: 'paellaOwner',
       name: 'Paella Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalpaella@gmail.com',
       home: 'Leslieville'
@@ -75,7 +75,7 @@ db.mongousers.insertMany( [
       username: 'mercuryOwner',
       name: 'Mercury Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalmercury@gmail.com',
       home: 'Leslieville'
@@ -85,7 +85,7 @@ db.mongousers.insertMany( [
       username: 'slowhandsOwner',
       name: 'Slowhands Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalslowhands@gmail.com',
       home: 'Leslieville'
@@ -95,7 +95,7 @@ db.mongousers.insertMany( [
       username: 'demelloOwner',
       name: 'De Mello Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personaldemello@gmail.com',
       home: 'Uptown Yonge'
@@ -105,7 +105,7 @@ db.mongousers.insertMany( [
       username: 'himalayanOwner',
       name: 'Himalayan Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalhimalayanjava@gmail.com',
       home: 'Uptown Yonge'
@@ -115,7 +115,7 @@ db.mongousers.insertMany( [
       username: 'isaanOwner',
       name: 'Isaan Der Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalisaander@gmail.com',
       home: 'Uptown Yonge'
@@ -125,7 +125,7 @@ db.mongousers.insertMany( [
       username: 'juicyOwner',
       name: 'Juicy Dumplings Owner',
       birthDate: '1980-01-01',
-      password: 'c10b97b87be603d21bd842681f24b644a76d00fc44f1437cb6cdee20ecec74781f24ede27c25071f9bd811dab63df19ca3f64eb4b2f0ccc95bc25619adc2f5ba',
+      password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personaljuicydumpling@gmail.com',
       home: 'Uptown Yonge'
