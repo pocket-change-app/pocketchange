@@ -5,7 +5,9 @@ import { TimePickerAndroid } from "react-native";
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { busID, name, address, pocket, imageURL, amount } = route.params;
+  const { business, amount } = route.params;
+
+  const { busID, name, address, pocket, imageURL } = business;
 
   const tip = 6.20
 
