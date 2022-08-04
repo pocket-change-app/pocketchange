@@ -4,6 +4,8 @@ import { CardHeader, ButtonWithText, PayAmountCard } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
 import { TextInput } from "react-native";
 import { useState } from "react";
+import { StatusBar } from 'expo-status-bar';
+
 
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -15,6 +17,9 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   return (
     <View style={styles.container}>
+
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+
       {/* <PayAmountCard
         name={name}
         address={address}
@@ -49,13 +54,8 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
       <ButtonWithText
         text={'Next'}
         onPress={() => navigation.navigate("PayTip", {
-          // navigation: navigation,
-          busID: busID,
-          name: name,
-          address: address,
-          pocket: pocket,
-          imageURL: imageURL,
-          amount: amount,
+          navigation: navigation,
+          business: business,
         })}
       />
     </View >
