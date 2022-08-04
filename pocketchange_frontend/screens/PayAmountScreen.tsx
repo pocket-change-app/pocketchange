@@ -1,12 +1,15 @@
 import { styles } from "../Styles";
 import { View, Text } from '../components/Themed'
-import { CardHeader, HorizontalLine, ButtonWithText, PayAmountCard } from '../components/Cards'
+import { CardHeader, ButtonWithText, PayAmountCard } from '../components/Cards'
+import { HorizontalLine } from "../components/Lines";
 import { TextInput } from "react-native";
 import { useState } from "react";
 
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { busID, name, address, pocket, imageURL } = route.params;
+  const { business } = route.params;
+
+  const { busID, name, address, pocket, imageURL } = business;
 
   const [amount, onChangeAmount] = useState(null)
 
