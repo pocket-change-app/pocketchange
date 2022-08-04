@@ -11,8 +11,9 @@ const sequelizeConnection = database.sequelize
 const User = database.User
 const Business = database.Business
 const Pocket = database.Pocket
-const Change = database.Change
+const ChangeBalance = database.ChangeBalance
 const Transaction = database.Transaction
+const Geolocation = database.Geolocation
 //relationships
 const IsIn = database.IsIn
 const IsMember = database.IsMember
@@ -37,8 +38,9 @@ const context = async ({ req }) => {
     User,
     Business,
     Pocket,
-    Change,
+    ChangeBalance,
     Transaction,
+    Geolocation,
     //relationship schema SQL
     IsIn,
     IsMember,

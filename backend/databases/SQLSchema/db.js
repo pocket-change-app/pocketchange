@@ -20,8 +20,9 @@ db.sequelize = sequelize;
 db.Business = require("./Business.model.js")(sequelize, Sequelize);
 db.User = require("./User.model.js")(sequelize, Sequelize);
 db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
-db.Change = require("./Change.model.js")(sequelize, Sequelize);
+db.ChangeBalance = require("./ChangeBalance.model.js")(sequelize, Sequelize);
 db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
+db.Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
 
 //relationships
 db.IsIn = require("./IsIn.model.js")(sequelize, Sequelize);

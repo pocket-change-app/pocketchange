@@ -10,13 +10,13 @@ const {decimalNested} = require('../../utils')
 //https://stackoverflow.com/questions/224462/storing-money-in-a-decimal-column-what-precision-and-scale
 
 
-const updateChangeAcross = async(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
+const updateChangeAcross = async(ChangeBalance, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
     transactionDate = new Date(dateOfTransaction)
     var expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
     //store expiry date in yyyy-mm-dd format
     expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
     //update all change assuming values are floats and cast them to 4 decimal place strings
-    await Change.update({
+    await ChangeBalance.update({
         value: updatedChange.toFixed(4),
         expiryDate: expiryDate
       }, {
@@ -94,7 +94,7 @@ module.exports = {
     },
   
     Mutation: {
-        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, Change, IsIn, IsMemberOf}) => {
+        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
             if(userID, businessID, pocketID, value){
                 //update this resolver TO-DO: people can use and earn change, just not earn change on the change they used
                 //check to make sure user is in pocket
@@ -114,7 +114,7 @@ module.exports = {
                             //get pocket Info
                             const pocketInfo = await Pocket.findOne({where:{pocketID:pocketID}})
                             //get change info
-                            const userChangeInfo = await Change.findOne({where:{
+                            const userChangeInfo = await ChangeBalance.findOne({where:{
                                 userID: userID,
                                 pocketID: pocketID}
                               })

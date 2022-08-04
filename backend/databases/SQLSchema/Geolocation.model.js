@@ -10,22 +10,20 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'userID'
             }
         },
-        pocketID:{
-            type: Sequelize.UUID,
+        timestamp:{
+            type: Sequelize.timestamp,
             allowNull: false,
             primaryKey: true,
-            references: {
-                model: Pocket,
-                key: 'pocketID'
-            }
         },
-        role:{
-            type: Sequelize.STRING, 
+        latitude:{
+            type: Sequelize.DECIMAL(9,6),
             allowNull: false,
-            primaryKey: true,
-            validate: {
-                isIn: [['customer', 'viewer', 'manager']] //customer of Pocket, viewer of Pocket-level data, manager of Pocket
-            }
+            primaryKey: false,
+        },
+        longitude:{
+            type: Sequelize.DECIMAL(9,6), 
+            allowNull: false,
+            primaryKey: false,
         }
     });
   
