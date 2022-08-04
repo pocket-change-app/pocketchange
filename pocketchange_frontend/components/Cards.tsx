@@ -258,7 +258,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
     <TransactionListed
       key={item.key}
       navigation={navigation}
-      transactionData={item}
+      transaction={item}
     />
   )
 
@@ -276,23 +276,24 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
   )
 }
 
-function TransactionListed({ navigation, transactionData }: { navigation: any, transactionData: { [key: string]: string } }) {
+function TransactionListed({ navigation, transaction }: { navigation: any, transaction: { [key: string]: string } }) {
 
 
 
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
-    // onPress={() => (navigation.navigate("ConsumerTransaction", {
-    //   transactionData
-    // }))}
+      onPress={() => (navigation.navigate("ConsumerTransaction", {
+        navigation: navigation,
+        transaction: transaction
+      }))}
     >
       <View style={styles.transactionListed}>
         <Text style={styles.transactionListedMerchantText}>
-          {transactionData.merchant}
+          {transaction.merchant}
         </Text>
         <Text style={styles.transactionListedAmountText}>
-          ${transactionData.amount}
+          ${transaction.amount}
         </Text>
       </View>
       {/* <HorizontalLine /> */}
