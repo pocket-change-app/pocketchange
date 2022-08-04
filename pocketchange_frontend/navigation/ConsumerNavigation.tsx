@@ -42,7 +42,7 @@ export const ConsumerNavigation = () => {
     >
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{
+      {/* <Stack.Group screenOptions={{
         presentation: 'modal',
         headerShown: false,
       }}
@@ -78,8 +78,8 @@ export const ConsumerNavigation = () => {
         options={{
           title: 'Settings',
         }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="PocketScreen"
         component={PocketScreen}
         options={
@@ -93,7 +93,7 @@ export const ConsumerNavigation = () => {
           { headerTitle: '' }
           //({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
         }
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
@@ -120,7 +120,7 @@ function PayStack() {
       <Stack.Screen
         name="Pay"
         component={PayTabScreen}
-        screenOptions={{ headerShown: false }}
+      // screenOptions={{ headerShown: false }}
       />
       {/* <Stack.Screen
         name="MerchantStack"
@@ -155,13 +155,29 @@ function PayStack() {
 }
 
 function MerchantStack() {
-  <Stack.Navigator
-    initialRouteName="Merchant"
-  >
-    <Stack.Screen
-      name="Merchant"
-    />
-  </Stack.Navigator>
+  return (
+    <Stack.Navigator
+      initialRouteName="Merchant"
+    >
+      <Stack.Screen
+        name="Merchant"
+        component={MerchantScreen}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function WalletStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Wallet"
+    >
+      <Stack.Screen
+        name="Wallet"
+        component={WalletScreen}
+      />
+    </Stack.Navigator>
+  )
 }
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -182,48 +198,35 @@ const BottomTabConsumer = () => {
         tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
-        //headerShadowVisible: false,
+        headerShadowVisible: false,
+        headerShown: false
       }}
     >
       <BottomTab.Screen
-        name="Pockets"
+        name="PocketTab"
         component={PocketStack}
         options={({ navigation }: RootTabScreenProps<'Pockets'>) => ({
           // title: 'Pockets',
-          headerShown: false,
+          // headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
           // MAYBE WE CAN MAKE THIS LITTLE BUTTON PULL UP A MAP MODAL
-          // headerRight: () => (
-          //   <Pressable
-          //     onPress={() => navigation.navigate('BusinessModal')}
-          //     style={({ pressed }) => ({
-          //       opacity: pressed ? 0.5 : 1,
-          //     })}>
-          //     <FontAwesome
-          //       name="info-circle"
-          //       size={25}
-          //       color={Colors[colorScheme].text}
-          //       style={{ marginRight: 15 }}
-          //     />
-          //   </Pressable>
-          // ),
         })}
       />
       <BottomTab.Screen
         name="PayTab"
         component={PayStack}
         options={({ navigation }: RootTabScreenProps<'Pay'>) => ({
-          headerShown: false,
+          // headerShown: false,
           // title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
         })}
       />
 
       <BottomTab.Screen
-        name="Wallet"
-        component={WalletScreen}
+        name="WalletTab"
+        component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
-          title: 'Wallet',
+          // title: 'Wallet',
           tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
           headerRight: () => (
             <Pressable
