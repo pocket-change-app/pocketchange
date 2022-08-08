@@ -60,6 +60,7 @@ export const styles = StyleSheet.create({
     borderRadius: CARD_RADIUS,
     borderColor: colors.light,
     borderWidth: BORDER_WIDTH,
+    borderBottomWidth: BORDER_WIDTH,
   },
 
   searchBarInput: {
@@ -78,6 +79,20 @@ export const styles = StyleSheet.create({
     // padding: 15,
   },
 
+  divHeader: {
+    paddingBottom: MARGIN_SM,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+
+  divHeaderTextContainer: {
+    borderColor: colors.light,
+    // borderBottomWidth: BORDER_WIDTH,
+    // borderRadius: CARD_RADIUS,
+    paddingVertical: MARGIN / 4,
+    paddingHorizontal: MARGIN / 2,
+  },
+
   cardHeader: {
     // backgroundColor: 'rgba(0,0,0,0.2)',
     marginTop: 5,
@@ -88,7 +103,7 @@ export const styles = StyleSheet.create({
 
   cardHeaderText: {
     textTransform: 'uppercase',
-    fontFamily: 'metropolis medium',
+    fontFamily: 'metropolis regular',
     fontSize: 18,
     textAlign: 'center',
     color: colors.subtle,
@@ -225,7 +240,7 @@ export const styles = StyleSheet.create({
   pocketHeaderImageContainer: {
     width: '100%',
     height: 150,
-    
+
   },
 
   pocketHeaderImage: {
