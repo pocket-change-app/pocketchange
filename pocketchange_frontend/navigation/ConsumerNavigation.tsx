@@ -195,6 +195,7 @@ function PayStack() {
       <Stack.Screen
         name="Pay"
         component={PayTabScreen}
+        options={{ title: ' Pay ' }}
       // screenOptions={{ headerShown: false }}
       />
       <Stack.Screen
