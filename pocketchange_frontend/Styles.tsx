@@ -39,8 +39,6 @@ export const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.bg,
-    borderTopWidth: 0,
-    // borderBottomWidth: BORDER_WIDTH,
     borderTopColor: 'transparent',
   },
 
@@ -133,7 +131,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis extrabold',
     fontSize: 34,
     color: colors.gold,
-    height: 34
+    // height: 34
   },
 
   changeSm: {
@@ -341,10 +339,10 @@ export const styles = StyleSheet.create({
   },
 
   idHeader: {
+    // backgroundColor: 'rgba(0,0,0,0.1)',
     height: 20,
     width: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between'
   },
 
@@ -416,21 +414,25 @@ export const styles = StyleSheet.create({
   },
 
   pocketFlatList: {
-    paddingVertical: MARGIN,
+    paddingVertical: 0,
     paddingHorizontal: 2 * MARGIN,
     // margin: 15,
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
   pocketListCardContainer: {
+    // aspectRatio: 1 / 1.64,
     width: Dimensions.get('window').width - (4 * MARGIN),
-    height: '100%', //Dimensions.get('window').height - 200,
-    // marginVertical: MARGIN,
+    height: '100%',
+    marginTop: MARGIN,
+    paddingBottom: MARGIN,
+    justifyContent: 'center',
   },
 
   pocketListCard: {
-    flex: 1,
-    height: '100%',
+    aspectRatio: 1 / 1.64,
+    width: Dimensions.get('window').width - (4 * MARGIN),
+    // flexGrow: 1,
     // marginRight: 15,
     justifyContent: 'space-between',
   },
