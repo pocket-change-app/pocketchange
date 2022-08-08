@@ -9,7 +9,10 @@ import { user } from '../dummy';
 export default function WalletScreen({ navigation }: { navigation: any }) {
   return (
     <ScreenContainer>
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        nestedScrollEnabled={false}
+      >
         <IdCard
           name={user.name}
           lifetimeChange={user.lifetimeChange}

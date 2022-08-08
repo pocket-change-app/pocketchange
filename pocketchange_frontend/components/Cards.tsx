@@ -327,7 +327,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
       <CardHeader text='Transaction History' />
       <FlatList
         // contentContainerStyle={styles.businessFlatList}
-        nestedScrollEnabled={false}
+        scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
         data={transactions}
         renderItem={renderTransactions}
@@ -336,9 +336,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
   )
 }
 
-function TransactionListed({ navigation, transaction }: { navigation: any, transaction: { [key: string]: string } }) {
-
-
+export function TransactionListed({ navigation, transaction }: { navigation: any, transaction: { [key: string]: string } }) {
 
   return (
     // TODO: make pressable and navigatte to its own page
