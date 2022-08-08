@@ -17,7 +17,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
         />
       </View>
       <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{business.name}</Text>
+        {/* <Text style={styles.businessNameLg}>{business.name}</Text> */}
         <Text style={styles.address}>{business.address}</Text>
         <Text style={styles.pocket}>{business.pocket}</Text>
 
