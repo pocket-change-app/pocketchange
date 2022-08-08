@@ -2,7 +2,6 @@ import { ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
-import gold from '../constants/Colors';
 import { BalancesCard, IdCard, TransactionHistoryCard } from '../components/Cards';
 import { user } from '../dummy';
 
