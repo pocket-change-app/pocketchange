@@ -3,6 +3,8 @@ import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
 import { user } from '../dummy';
+import React from 'react';
+import Hyphenated from 'react-hyphen';
 
 const R = require('ramda');
 
@@ -161,8 +163,8 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
       })}
     >
       {/* <View> */}
-      <View style={[styles.pocketListCardContainer]}>
-        <View style={[styles.card, styles.pocketListCard, styles.container]}>
+      <View style={styles.pocketListCardContainer}>
+        <View style={[styles.card, styles.pocketListCard, styles.container, { marginTop: MARGIN, marginBottom: MARGIN }]}>
           <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{pocket.name}</Text>
           </View>
@@ -174,6 +176,21 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
             />
           </View>
         </View>
+
+        {/* <View style={{ height: MARGIN }} /> */}
+
+        <View style={[styles.card, styles.container, { flexShrink: 1 }]}>
+          <Hyphenated>
+            <Text
+              style={styles.prose}
+              numberOfLines={100}
+              ellipsizeMode='tail'
+            >
+              {pocket.description}
+            </Text>
+          </Hyphenated>
+        </View>
+
       </View>
 
       {/* </View> */}
@@ -192,9 +209,11 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
         />
       </View>
       <View style={styles.container}>
-        <Text style={styles.signatureText}>
-          {pocket.description}
-        </Text>
+        <Hyphenated>
+          <Text style={styles.prose}>
+            {pocket.description}
+          </Text>
+        </Hyphenated>
       </View>
       <View style={[styles.card, styles.pocketChangeBalanceCard]}>
         <Text style={styles.pocketBig}>{pocket.name} Change</Text>
