@@ -484,6 +484,18 @@ export function CardHeader({ text }: { text: string }) {
   )
 }
 
+export function DivHeader({ text }: { text: string }) {
+  return (
+    <View style={styles.divHeader}>
+      <View style={styles.divHeaderTextContainer}>
+        <Text style={styles.cardHeaderText}>
+          {text}
+        </Text>
+      </View>
+    </View>
+  )
+}
+
 function pad(n: number, size: number) {
   let num = n.toString();
   while (num.length < size)
