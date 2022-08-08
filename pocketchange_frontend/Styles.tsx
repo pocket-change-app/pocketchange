@@ -10,10 +10,19 @@ export const MARGIN_SM = MARGIN / 2
 export const CARD_RADIUS = 10
 export const BORDER_WIDTH = 1
 const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
-const POCKET_CARD_ASPECT_RATIO = 2 / 3 // 1 / CREDIT_CARD_ASPECT_RATIO
+const POCKET_CARD_ASPECT_RATIO = 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
 export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
+
+  prose: {
+    fontFamily: 'metropolis regular',
+    fontSize: 14,
+    lineHeight: 17,
+    color: colors.dark,
+    textAlign: 'justify',
+
+  },
 
   navigationHeader: {
     height: 100,
@@ -23,6 +32,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
+    width: '100%',
   },
 
   navigationHeaderPocketTitle: {
@@ -424,12 +434,13 @@ export const styles = StyleSheet.create({
   },
 
   pocketListCardContainer: {
+    // backgroundColor: 'rgba(0,0,0,0.1)',
     // aspectRatio: 1 / 1.618,
     width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     height: '100%',
-    marginTop: MARGIN,
-    paddingBottom: MARGIN,
-    justifyContent: 'center',
+    // marginTop: MARGIN,
+    // paddingBottom: MARGIN,
+    justifyContent: 'flex-start',
   },
 
   pocketListCard: {
@@ -437,6 +448,7 @@ export const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     // flexGrow: 1,
     // marginRight: 15,
+    marginBottom: 0,
     justifyContent: 'space-between',
   },
 
@@ -456,8 +468,8 @@ export const styles = StyleSheet.create({
 
   pocketListImageContainer: {
     // backgroundColor: 'rgba(0,0,0,0.2)',
-    aspectRatio: 4 / 5,
-    //flex: 1,
+    aspectRatio: 1,
+    // flex: 4,
   },
 
   pocketListImage: {
