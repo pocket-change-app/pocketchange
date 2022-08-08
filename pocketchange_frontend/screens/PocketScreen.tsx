@@ -4,7 +4,7 @@ import { SearchBar } from '@rneui/base';
 import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { BusinessCard, BusinessCardSm, PocketDetailCard } from '../components/Cards';
+import { BusinessCard, BusinessCardSm, DivHeader, PocketDetailCard } from '../components/Cards';
 
 import { Text, View } from '../components/Themed';
 
@@ -47,15 +47,17 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
         value={search}
       />
       <ScreenContainer>
-      
+
         <FlatList
           ListHeaderComponent={
             <>
-              <PocketDetailCard 
+              <PocketDetailCard
+                navigation={navigation}
                 pocket={pocket}
               />
-              <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Businesses</Text></View>
-            </>}
+              <DivHeader text='Businesses' />
+            </>
+          }
           contentContainerStyle={styles.businessFlatList}
           data={businesses}
           renderItem={renderBusinessCard}
