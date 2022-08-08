@@ -4,7 +4,7 @@ import { SearchBar } from '@rneui/base';
 import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { BusinessCardSm, DivHeader } from '../components/Cards';
+import { BusinessCardSm, BusinessCardSuggested, DivHeader } from '../components/Cards';
 import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
@@ -44,7 +44,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                 })}
               >
 
-                <BusinessCard
+                <BusinessCardSuggested
                   key={businesses[0].busID}
                   navigation={navigation}
                   business={businesses[0]}
