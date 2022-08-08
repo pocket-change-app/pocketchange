@@ -9,6 +9,9 @@ export const MARGIN = 16
 export const MARGIN_SM = MARGIN / 2
 export const CARD_RADIUS = 10
 export const BORDER_WIDTH = 1
+const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
+const POCKET_CARD_ASPECT_RATIO = 2 / 3 // 1 / CREDIT_CARD_ASPECT_RATIO
+export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
 
@@ -318,7 +321,7 @@ export const styles = StyleSheet.create({
 
   idCard: {
     width: "100%",
-    aspectRatio: 1.64,
+    aspectRatio: CREDIT_CARD_ASPECT_RATIO,
     padding: MARGIN,
     justifyContent: 'space-between',
   },
@@ -391,7 +394,7 @@ export const styles = StyleSheet.create({
 
   balanceCard: {
     width: "100%",
-    aspectRatio: 1.64,
+    aspectRatio: CREDIT_CARD_ASPECT_RATIO,
     // justifyContent: 'space-between',
   },
 
@@ -415,14 +418,14 @@ export const styles = StyleSheet.create({
 
   pocketFlatList: {
     paddingVertical: 0,
-    paddingHorizontal: 2 * MARGIN,
+    paddingHorizontal: POCKET_CARD_SCREEN_MARGIN,
     // margin: 15,
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
   pocketListCardContainer: {
-    // aspectRatio: 1 / 1.64,
-    width: Dimensions.get('window').width - (4 * MARGIN),
+    // aspectRatio: 1 / 1.618,
+    width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     height: '100%',
     marginTop: MARGIN,
     paddingBottom: MARGIN,
@@ -430,8 +433,8 @@ export const styles = StyleSheet.create({
   },
 
   pocketListCard: {
-    aspectRatio: 1 / 1.64,
-    width: Dimensions.get('window').width - (4 * MARGIN),
+    aspectRatio: POCKET_CARD_ASPECT_RATIO,
+    width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     // flexGrow: 1,
     // marginRight: 15,
     justifyContent: 'space-between',
@@ -439,7 +442,7 @@ export const styles = StyleSheet.create({
 
   pocketListName: {
     fontFamily: 'metropolis black italic',
-    fontSize: 46,
+    fontSize: 30,
     textAlign: 'center',
     textAlignVertical: 'center'
   },

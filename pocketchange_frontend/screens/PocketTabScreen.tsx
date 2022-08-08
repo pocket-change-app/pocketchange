@@ -1,7 +1,7 @@
 import { SafeAreaView, FlatList, ScrollView, Dimensions } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
 import { pockets } from '../dummy';
 import { PocketListCard, PocketListSeparator } from "../components/Cards";
 import { Text, View } from '../components/Themed';
@@ -33,7 +33,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           decelerationRate={0}
           showsHorizontalScrollIndicator={false}
           snapToAlignment='start'
-          snapToInterval={Dimensions.get('window').width - 3 * MARGIN}
+          snapToInterval={Dimensions.get('window').width - (2 * POCKET_CARD_SCREEN_MARGIN - MARGIN)}
 
           ItemSeparatorComponent={PocketListSeparator}
 
