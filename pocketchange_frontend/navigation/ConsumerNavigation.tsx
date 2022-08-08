@@ -37,64 +37,13 @@ export const ConsumerNavigation = () => {
         // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
-        // headerTintColor: colors.dark,
+        headerTintColor: colors.dark,
         //headerShadowVisible: false,
       }}
     >
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      {/* <Stack.Group screenOptions={{
-        presentation: 'modal',
-        headerShown: false,
-      }}
-      >
-        <Stack.Screen
-          name="ConsumerTransaction"
-          component={ConsumerTransactionScreen}
-          options={{
-          }}
-        />
-        <Stack.Screen
-          name="PayAmount"
-          component={PayAmountScreen}
-          options={{
-          }}
-        />
-        <Stack.Screen
-          name="PayTip"
-          component={PayTipScreen}
-          options={{
-          }}
-        />
-        <Stack.Screen
-          name="PaySummary"
-          component={PaySummaryScreen}
-          options={{
-          }}
-        />
-      </Stack.Group>
-      <Stack.Screen
-        name="ConsumerSettings"
-        component={ConsumerSettingsScreen}
-        options={{
-          title: 'Settings',
-        }}
-      /> */}
-      {/* <Stack.Screen
-        name="PocketScreen"
-        component={PocketScreen}
-        options={
-          ({ route }) => ({ title: route.params.pocket.name, headerTitleStyle: styles.navigationHeaderPocketTitle })
-        }
-      />
-      <Stack.Screen
-        name="Merchant"
-        component={MerchantScreen}
-        options={
-          { headerTitle: '' }
-          ({ route }) => ({ title: route.params.business.name, headerTitleStyle: styles.navigationHeaderTitle })
-        }
-      /> */}
+
     </Stack.Navigator>
   );
 }
@@ -155,7 +104,7 @@ function PayStack() {
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
-        headerShadowVisible: false,
+        headerShadowVisible: false, // finding this was really annoying
       }}
     >
       <Stack.Screen
