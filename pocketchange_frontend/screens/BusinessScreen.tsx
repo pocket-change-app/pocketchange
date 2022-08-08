@@ -1,6 +1,6 @@
 import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
-import { styles } from '../Styles';
+import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { BusinessCard } from '../components/Cards';
 
@@ -29,6 +29,8 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
           <Text style={styles.businessBioText}>{business.bio}</Text>
           <Signature name={business.people[0].name} position={business.people[0].position} imageURL={business.people[0].imageURL} />
         </View>
+
+        <View style={{ height: MARGIN }} />
 
       </ScrollView>
     </ScreenContainer>
