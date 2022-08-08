@@ -1,6 +1,6 @@
 import { ScrollView } from 'react-native';
 
-import { styles } from '../Styles';
+import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { BalancesCard, IdCard, TransactionHistoryCard } from '../components/Cards';
 import { user } from '../dummy';
@@ -26,6 +26,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           navigation={navigation}
           transactions={user.transactions}
         />
+        <View style={{ height: MARGIN }} />
       </ScrollView>
     </ScreenContainer>
   );
