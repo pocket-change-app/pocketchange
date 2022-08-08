@@ -37,7 +37,7 @@ export const ConsumerNavigation = () => {
         // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
-        headerTintColor: colors.dark,
+        // headerTintColor: colors.dark,
         //headerShadowVisible: false,
       }}
     >
@@ -147,40 +147,6 @@ function PocketStack() {
   )
 }
 
-function BusinessGroup() {
-  return (
-    <Stack.Group>
-      <Stack.Screen
-        name="Business"
-        component={BusinessScreen}
-        options={({ route }) => ({
-          title: route.params.business.name
-        })}
-      />
-      <Stack.Screen
-        name="PayAmount"
-        component={PayAmountScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PayTip"
-        component={PayTipScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PaySummary"
-        component={PaySummaryScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Group>
-  )
-}
 
 function PayStack() {
   return (
@@ -271,38 +237,6 @@ function PaymentModalStack() {
   )
 }
 
-function BusinessStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Business"
-      screenOptions={{
-        headerTitleStyle: styles.navigationHeaderTitle,
-        headerStyle: styles.navigationHeader,
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Screen
-        name="Business"
-        component={BusinessScreen}
-      />
-      <Stack.Screen
-        name="PayAmount"
-        component={PayAmountScreen}
-        options={{}}
-      />
-      <Stack.Screen
-        name="PayTip"
-        component={PayTipScreen}
-        options={{}}
-      />
-      <Stack.Screen
-        name="PaySummary"
-        component={PaySummaryScreen}
-        options={{}}
-      />
-    </Stack.Navigator>
-  )
-}
 
 function WalletStack() {
   return (
@@ -372,7 +306,7 @@ const BottomTabConsumer = () => {
         // headerTitleStyle: styles.navigationHeaderTitle,
         // headerStyle: styles.navigationHeader,
         // headerShadowVisible: false,
-        headerShown: false
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
