@@ -4,7 +4,7 @@ import { SearchBar } from '@rneui/base';
 import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { BusinessCardSm } from '../components/Cards';
+import { BusinessCardSm, DivHeader } from '../components/Cards';
 import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
@@ -36,17 +36,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <SearchBar
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Businesses"
-        placeholderTextColor={colors.subtle}
-
-        onChangeText={updateSearch}
-        value={search}
-      />
       <ScreenContainer>
         <FlatList
           contentContainerStyle={styles.businessFlatList}
@@ -54,7 +43,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
           renderItem={renderBusinessCard}
           ListHeaderComponent={
             <>
-              <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Suggested</Text></View>
+              <DivHeader text='Suggested' />
               <Pressable
                 onPress={() => navigation.navigate('Business', {
                   business: businesses[0]
@@ -67,7 +56,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                   business={businesses[0]}
                 />
               </Pressable>
-              <View style={styles.cardHeader}><Text style={styles.cardHeaderText}>Loved</Text></View>
+              <DivHeader text='Loved' />
             </>
             
             
@@ -75,6 +64,17 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
           }
         />
       </ScreenContainer>
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+
+        inputStyle={styles.searchBarInput}
+        placeholder="Search Businesses"
+        placeholderTextColor={colors.subtle}
+
+        onChangeText={updateSearch}
+        value={search}
+      />
     </>
 
     //   <ScrollView
