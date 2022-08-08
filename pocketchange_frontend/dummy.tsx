@@ -156,7 +156,7 @@ export const pockets = [
     name: 'Riverside',
     imageURL: require('./assets/images/riverside.jpg'),
     bannerURL: require('./assets/images/riverside-banner.jpg'),
-    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions – just across the bridge from Toronto’s downtown core along Queen Street East. asdf asdffhg a;sl g g woh e glsj gouhsdlkjasdg kjshd kjhsd glkjasd glkj asdkjghkj hh hglakjs dg kjhasd gks djgh dk skkkkd gkj sdkj gjjg gkj gg. aa a aa aaaaa a aaaa aa a aaaaa a aaaaaa a a a aa a a abba a a a aaaaa a aa a!"
+    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. asdf asdffhg a;sl g g woh e glsj gouhsdlkjasdg kjshd kjhsd glkjasd glkj asdkjghkj hh hglakjs dg kjhasd gks djgh dk skkkkd gkj sdkj gjjg gkj gg. aa a aa aaaaa a aaaa aa a aaaaa a aaaaaa a a a aa a a abba a a a aaaaa a aa a!"
   },
   {
     pocketID: '03',
