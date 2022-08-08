@@ -25,24 +25,15 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   return (
     <>
-      <SearchBar
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-        inputStyle={styles.searchBarInput}
-        round
-        placeholder="Search Pockets"
-        onChangeText={updateSearch}
-        value={search}
-      />
       <ScreenContainer>
         <FlatList
-          style={styles.pocketFlatList}
+          // style={styles.pocketFlatList}
+          contentContainerStyle={styles.pocketFlatList}
           horizontal
           decelerationRate={0}
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           snapToAlignment='start'
           snapToInterval={Dimensions.get('window').width - 3 * MARGIN}
-
 
           ItemSeparatorComponent={PocketListSeparator}
 
@@ -57,6 +48,15 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           }
         />
       </ScreenContainer>
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+        inputStyle={styles.searchBarInput}
+        round
+        placeholder="Search Pockets"
+        onChangeText={updateSearch}
+        value={search}
+      />
     </>
   )
 
