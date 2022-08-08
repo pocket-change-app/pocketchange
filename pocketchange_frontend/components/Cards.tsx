@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
@@ -223,7 +223,7 @@ export function IdCard(
     }) {
   return (
     <View style={[styles.card, styles.idCard]}>
-      <View style={styles.idHeader}>
+      <View style={[styles.idHeader, { alignItems: 'flex-start' }]}>
         <Text style={styles.idAppName}> pocketchange</Text>
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
@@ -243,7 +243,7 @@ export function IdCard(
           <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
         </View>
       </View>
-      <View style={[styles.idHeader, {}]}>
+      <View style={[styles.idHeader, { alignItems: 'flex-end' }]}>
         <Text style={styles.idText}>USER ID</Text>
         <Text style={[styles.idDateOfBirth, styles.alignRight]}>{user.dateOfBirth}</Text>
       </View>
@@ -260,10 +260,21 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
           <CardHeader
             text='All Change'
           />
-          <View style={styles.balanceCardContent}>
+          <View style={{ margin: MARGIN, marginBottom: MARGIN / 3 }}>
             <Text style={[styles.changeLg, { textAlign: 'center' }]}>${changeTotal}</Text>
           </View>
-          <View style={styles.flexFill}>
+
+          <View style={{
+            // backgroundColor: 'rgba(0,0,0,0.1)',
+            flexGrow: 1,
+            marginBottom: MARGIN,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Image
+              style={{ aspectRatio: 1, flex: 1 }}
+              source={require('../assets/images/icon.png')}
+            />
           </View>
         </View>
 
@@ -273,7 +284,7 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
           <CardHeader
             text='Top Pockets'
           />
-          <View style={styles.balanceCardContent}>
+          <View style={{ margin: MARGIN, flex: 1 }}>
             {R.map(
               ({ key, pocket, change }: { key: string, pocket: string, change: string }) => (
                 <TopPocket
@@ -283,18 +294,6 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
                 />
               ), topPockets
             )}
-            {/* <TopPocket
-              pocket={topPockets[0].pocket}
-              change={topPockets[0].change}
-            />
-            <TopPocket
-              pocket={topPockets[1].pocket}
-              change={topPockets[1].change}
-            />
-            <TopPocket
-              pocket={topPockets[2].pocket}
-              change={topPockets[2].change}
-            /> */}
           </View>
 
         </View>
