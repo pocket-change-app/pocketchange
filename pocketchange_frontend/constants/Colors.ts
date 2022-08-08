@@ -6,7 +6,7 @@ const darkDark = '#000';
 
 export const colors = {
   bg: '#F2F2F2',
-  gold: '#D9AE2B',
+  gold: '#D9A300',
   light: '#D9D9D9',
   subtle: '#A8A8A8',
   medium: '#7F7F7F',
