@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 17,
     color: colors.dark,
-    textAlign: 'justify',
+    textAlign: 'left',
 
   },
 
