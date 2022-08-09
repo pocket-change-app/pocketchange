@@ -37,8 +37,8 @@ export const ConsumerNavigation = () => {
         // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
-        headerTintColor: colors.dark,
-        //headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        headerShadowVisible: false,
       }}
     >
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
@@ -56,6 +56,8 @@ function PocketStack() {
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        // headerBackButtonMenuEnabled: true,
         // headerTitle: 'Pockets',
       }}
     >
@@ -105,6 +107,8 @@ function PayStack() {
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false, // finding this was really annoying
+        headerTintColor: colors.gold,
+        // headerBackButtonMenuEnabled: true,
       }}
     >
       <Stack.Screen
@@ -174,28 +178,35 @@ function PaymentModalStack() {
     <Stack.Navigator
       initialRouteName='PayAmount'
       screenOptions={{
-        headerShown: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        // headerBackButtonMenuEnabled: true,
       }}
     >
       <Stack.Screen
         name="PayAmount"
         component={PayAmountScreen}
         options={{
-          headerShown: false,
+          headerTitle: 'Payment',
+          // headerShown: false,
         }}
       />
       <Stack.Screen
         name="PayTip"
         component={PayTipScreen}
         options={{
-          headerShown: false,
+          headerTitle: 'Tip',
+          // headerShown: false,
         }}
       />
       <Stack.Screen
         name="PaySummary"
         component={PaySummaryScreen}
         options={{
-          headerShown: false,
+          headerTitle: 'Summary',
+          // headerShown: false,
         }}
       />
     </Stack.Navigator>
@@ -211,6 +222,7 @@ function WalletStack() {
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
+        headerTintColor: colors.gold,
       }}
     >
       <Stack.Screen
