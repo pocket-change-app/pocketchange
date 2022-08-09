@@ -123,10 +123,26 @@ function PayStack() {
       <Stack.Screen
         name="PaymentModalStack"
         component={PaymentModalStack}
-        options={{
+        options={({ navigation }: any) => ({
           presentation: 'modal',
-          headerShown: false,
-        }}
+          // headerStyle: styles.modalHeader,
+          title: 'Payment',
+          // headerShown: false,
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.goBack()}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name='close'
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+        })}
       />
       {/* <Stack.Screen
         name="PayAmount"
