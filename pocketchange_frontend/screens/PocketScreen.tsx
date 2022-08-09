@@ -18,7 +18,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     search: '',
   }
 
-  const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+  const renderBusinessCard = ({ item, index, separators }: any) => (
 
     <BusinessCardSm
       key={item.busID}
@@ -37,15 +37,6 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   return (
     <>
-      <SearchBar
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-        inputStyle={styles.searchBarInput}
-        round
-        placeholder="Search Businesses"
-        onChangeText={updateSearch}
-        value={search}
-      />
       <ScreenContainer>
 
         <FlatList
@@ -63,6 +54,16 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
           renderItem={renderBusinessCard}
         />
       </ScreenContainer>
+
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+        inputStyle={styles.searchBarInput}
+        placeholder={'Search ' + pocket.name}
+        onChangeText={updateSearch}
+        onClear={{}}
+        value={search}
+      />
     </>
 
     //   <ScrollView
