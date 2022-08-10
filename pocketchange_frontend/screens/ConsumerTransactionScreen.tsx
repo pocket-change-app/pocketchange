@@ -2,41 +2,47 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, Image, Pressable, ScrollView } from 'react-native';
 
 import { styles } from '../Styles';
-import { Text, View } from '../components/Themed';
+import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
 
 export default function ConsumerTransactionScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { timestamp, amount, merchant, pocket, changeUsed, changeEarned } = route.params;
+  const { transaction } = route.params;
+
+  const { timestamp, amount, merchant, pocket, changeUsed, changeEarned } = transaction;
 
   return (
-    <ScrollView style={styles.container}>
+    <ScreenContainer>
+      <View style={styles.container}>
 
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
+        {/* Use a light status bar on iOS to account for the black space above the modal */}
+        {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
 
-      <View style={styles.card}>
+        <View style={[styles.card, styles.container]}>
 
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{merchant}</Text>
-          <Text style={styles.address}>${amount}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Total</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{amount}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>${amount}</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}></Text>
+          </View>
+
         </View>
 
-      </View>
-
-      {/* timestamp: '2022-05-05 04:20:23', // yyyy-mm-dd-hh-mm-ss
+        {/* timestamp: '2022-05-05 04:20:23', // yyyy-mm-dd-hh-mm-ss
       amount: '3.60',
       merchant: "Jimmy's Coffee",
       pocket: 'Riverside',
       changeUsed: '0.50',
       changeEarned: '0.31', */}
 
-
-
-    </ScrollView>
+      </View>
+    </ScreenContainer>
   );
 }
 
