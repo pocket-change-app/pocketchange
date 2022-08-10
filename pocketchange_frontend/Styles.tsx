@@ -5,10 +5,11 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
-export const MARGIN = 16
+export const MARGIN = 12
 export const MARGIN_SM = MARGIN / 2
-export const CARD_RADIUS = 10
+export const CARD_RADIUS = MARGIN
 export const BORDER_WIDTH = 1
+const BUTTON_HEIGHT = 40
 const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
 const POCKET_CARD_ASPECT_RATIO = 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
 export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
@@ -21,7 +22,13 @@ export const styles = StyleSheet.create({
     lineHeight: 17,
     color: colors.dark,
     textAlign: 'left',
+  },
 
+  receipt: {
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    lineHeight: 19,
+    color: colors.dark,
   },
 
   navigationHeader: {
@@ -316,7 +323,7 @@ export const styles = StyleSheet.create({
   payButton: {
     borderRadius: CARD_RADIUS,
     marginTop: MARGIN,
-    height: 40,
+    height: BUTTON_HEIGHT,
     backgroundColor: colors.gold,
 
     justifyContent: 'center',
@@ -327,6 +334,35 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis black italic',
     fontSize: 18,
     color: colors.bg,
+  },
+
+  buttonBordered: {
+    borderWidth: BORDER_WIDTH,
+    borderColor: colors.light,
+    borderRadius: CARD_RADIUS,
+    marginTop: MARGIN,
+    height: BUTTON_HEIGHT,
+    backgroundColor: 'transparent',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  buttonBorderedText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 18,
+    color: colors.subtle,
+  },
+
+  buttonNegative: {
+    height: BUTTON_HEIGHT,
+    padding: MARGIN,
+    backgroundColor: colors.subtle,
+    borderRadius: CARD_RADIUS,
+  },
+
+  buttonNegativeText: {
+    color: colors.card,
   },
 
   idCard: {
@@ -510,13 +546,5 @@ export const styles = StyleSheet.create({
     color: colors.medium,
   },
 
-  buttonNegative: {
-    padding: MARGIN,
-    backgroundColor: colors.subtle,
-    borderRadius: CARD_RADIUS,
-  },
 
-  buttonNegativeText: {
-    color: colors.card,
-  }
 })
