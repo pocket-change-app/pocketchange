@@ -40,12 +40,12 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
           <Text style={styles.payButtonText}>PAY</Text>
         </Pressable>
 
-        <Pressable style={styles.payButton}
+        <Pressable style={styles.buttonBordered}
           onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
-          <Text style={styles.payButtonText}>[CALL]</Text>
+          <Text style={styles.buttonBorderedText}>[CALL]</Text>
         </Pressable>
 
-        <Pressable style={styles.payButton}
+        <Pressable style={styles.buttonBordered}
           onPress={() => {
             const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
             const latLng = `${business.latitude},${business.longitude}`;
@@ -57,7 +57,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
             Linking.openURL(`tel:${business.phoneNumber}`)
           }
           }>
-          <Text style={styles.payButtonText}>[DIRECTIONS]</Text>
+          <Text style={styles.buttonBorderedText}>[DIRECTIONS]</Text>
         </Pressable>
       </View>
     </View>
@@ -360,7 +360,7 @@ export function TransactionListed({ navigation, transaction }: { navigation: any
     // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => (navigation.navigate("ConsumerTransaction", {
-        navigation: navigation,
+        // navigation: navigation,
         transaction: transaction
       }))}
     >
@@ -427,7 +427,7 @@ export function PayAmountCard({ name, address, pocket, imageURL, navigation }) {
 
   return (
     <View style={styles.card}>
-      <CardHeader text='Pay' />
+      {/* <CardHeader text='Pay' /> */}
 
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.businessListInfo}>
@@ -499,7 +499,7 @@ export function PaySummaryCard({ name, address, pocket, imageURL, amount, tip }:
 
   return (
     <View style={styles.card}>
-      <CardHeader text='Summary' />
+      {/* <CardHeader text='Summary' /> */}
 
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.businessListInfo}>
