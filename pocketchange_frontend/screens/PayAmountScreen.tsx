@@ -30,7 +30,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
       /> */}
 
         <View style={styles.card}>
-          <CardHeader text='Pay' />
+          {/* <CardHeader text='Pay' /> */}
 
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.businessListInfo}>
