@@ -130,8 +130,8 @@ function PayStack() {
         options={({ navigation }: any) => ({
           presentation: 'modal',
           // headerStyle: styles.modalHeader,
-          title: 'Payment',
-          // headerShown: false,
+          // title: 'Payment',
+          headerShown: false,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.goBack()}
@@ -176,22 +176,55 @@ function PayStack() {
 function PaymentModalStack() {
   return (
     <Stack.Navigator
+
       initialRouteName='PayAmount'
-      screenOptions={{
+      screenOptions={({ navigation }: any) => ({
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
         headerTintColor: colors.gold,
         // headerBackButtonMenuEnabled: true,
-      }}
+        headerRight: () => (
+          <Pressable
+            onPress={() => {
+              navigation.popToTop()
+              navigation.goBack()
+            }}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}>
+            <FontAwesome
+              name='close'
+              size={25}
+              color={colors.medium}
+            // style={{ marginRight: 15 }}
+            />
+          </Pressable >
+        ),
+      })}
     >
       <Stack.Screen
         name="PayAmount"
         component={PayAmountScreen}
-        options={{
+        options={({ navigation }: any) => ({
           headerTitle: 'Payment',
-          // headerShown: false,
-        }}
+          headerRight: () => (
+            <Pressable
+              onPress={() => {
+                navigation.goBack()
+              }}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name='close'
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable >
+          ),
+        })}
       />
       <Stack.Screen
         name="PayTip"
@@ -209,7 +242,7 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
-    </Stack.Navigator>
+    </Stack.Navigator >
   )
 }
 
@@ -255,10 +288,11 @@ function WalletStack() {
       <Stack.Screen
         name="ConsumerTransaction"
         component={ConsumerTransactionScreen}
-        options={{
+        options={({ navigation }: any) => ({
           presentation: 'modal',
-          headerShown: false,
-        }}
+          // headerShown: false,
+          headerTitle: 'You paid',
+        })}
       />
     </Stack.Navigator>
   )
