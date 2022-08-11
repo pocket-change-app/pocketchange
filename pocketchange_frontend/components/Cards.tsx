@@ -369,7 +369,7 @@ export function TransactionListed({ navigation, transaction }: any) {
           {transaction.merchant}
         </Text>
         <Text style={styles.transactionListedAmountText}>
-          ${transaction.amount}
+          ${transaction.total}
         </Text>
       </View>
       {/* <HorizontalLine /> */}
@@ -396,12 +396,16 @@ export function TransactionSummaryCard({ transaction }: any) {
           </View>
         </View>
 
+        <Text style={[styles.receipt, { textAlign: 'center' }]}>
+          ----------------
+        </Text>
+
         {/* <View style={{ height: MARGIN }} /> */}
         {/* <HorizontalLine /> */}
         <View style={{ marginBottom: MARGIN }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Subtotal</Text>
-            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.amount}</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.subtotal}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Tip</Text>
@@ -411,7 +415,7 @@ export function TransactionSummaryCard({ transaction }: any) {
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Used</Text>
             <Text style={[styles.receipt, { textAlign: 'right' }]}>-{transaction.changeUsed}</Text>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Total</Text>
             <Text style={[styles.receipt, { textAlign: 'right' }]}>${transaction.total}</Text>
           </View>
@@ -423,11 +427,26 @@ export function TransactionSummaryCard({ transaction }: any) {
           </Text>
         </View>
 
-        <View style={{ alignSelf: 'center', aspectRatio: 1, width: '50%' }}>
-          <Image
-            source={require('../assets/images/icon_grayscale.png')}
-            style={{ width: '100%', height: '100%' }}
-          />
+        <Text style={[styles.receipt, { textAlign: 'center' }]}>
+          ----------------
+        </Text>
+
+        <View style={{ alignItems: 'center' }}>
+          <View style={{
+            alignSelf: 'center',
+            aspectRatio: 1,
+            width: 50,
+            margin: MARGIN,
+          }}>
+            <Image
+              source={require('../assets/images/icon_dark.png')}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </View>
+
+          <Text style={[styles.receipt, { textAlign: 'center' }]}>
+            PocketChange Loyalty Inc.
+          </Text>
         </View>
       </View>
     </>
