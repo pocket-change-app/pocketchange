@@ -34,10 +34,10 @@ export const user = {
   transactions: [
     {
       key: '001',
-      timestamp: '2022-05-05 04:20:23', // yyyy-mm-dd-hh-mm-ss
+      timestamp: '2022-05-05 14:20:23', // yyyy-mm-dd-hh-mm-ss
       merchant: "Jimmy's Coffee",
       pocket: 'Riverside',
-      amount: '3.60',
+      subtotal: '3.60',
       tip: '1.00',
       changeUsed: '0.50',
       total: '4.10',
@@ -45,10 +45,10 @@ export const user = {
     },
     {
       key: '002',
-      timestamp: '2022-05-03 06:09:12',
+      timestamp: '2022-05-03 16:09:12',
       merchant: "Wvrst",
       pocket: 'Somewhere',
-      amount: '52.50',
+      subtotal: '52.50',
       tip: '15.00',
       changeUsed: '3.00',
       total: '4.10',
@@ -59,7 +59,7 @@ export const user = {
       timestamp: '2022-05-02 16:09:12',
       merchant: "Cat Land",
       pocket: 'Somewhere',
-      amount: '12.50',
+      subtotal: '12.50',
       tip: '3.00',
       changeUsed: '0.00',
       total: '15.50',
@@ -67,10 +67,10 @@ export const user = {
     },
     {
       key: '004',
-      timestamp: '2022-05-02 06:09:12',
+      timestamp: '2022-05-01 20:19:56',
       merchant: "Wvrst",
       pocket: 'Somewhere',
-      amount: '20.20',
+      subtotal: '20.20',
       tip: '4.00',
       changeUsed: '0.00',
       total: '24.20',
