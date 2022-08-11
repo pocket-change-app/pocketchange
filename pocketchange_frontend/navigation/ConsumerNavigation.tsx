@@ -290,7 +290,7 @@ function WalletStack() {
         component={ConsumerTransactionScreen}
         options={({ navigation }: any) => ({
           presentation: 'modal',
-          // headerShown: false,
+          headerShown: false,
           headerTitle: 'You paid',
         })}
       />
