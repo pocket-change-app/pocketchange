@@ -14,7 +14,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
 
   return (
     <ScreenContainer>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
 
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
@@ -46,7 +46,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
       changeUsed: '0.50',
       changeEarned: '0.31', */}
 
-      </View>
+      </ScrollView>
     </ScreenContainer>
   );
 }
