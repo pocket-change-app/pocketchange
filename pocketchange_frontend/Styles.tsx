@@ -25,9 +25,9 @@ export const styles = StyleSheet.create({
   },
 
   receipt: {
-    fontFamily: 'metropolis medium',
-    fontSize: 16,
-    lineHeight: 19,
+    fontFamily: 'receipt',
+    fontSize: 26,
+    lineHeight: 26,
     color: colors.dark,
   },
 
@@ -370,6 +370,13 @@ export const styles = StyleSheet.create({
     aspectRatio: CREDIT_CARD_ASPECT_RATIO,
     padding: MARGIN,
     justifyContent: 'space-between',
+  },
+
+  idCardContent: {
+    flexDirection: 'row',
+    flex: 5,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
 
   idImageContainer: {
