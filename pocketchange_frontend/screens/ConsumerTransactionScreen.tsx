@@ -4,6 +4,7 @@ import { Platform, Image, Pressable, ScrollView } from 'react-native';
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
+import { PaySummaryCard, TransactionSummaryCard } from '../components/Cards';
 
 export default function ConsumerTransactionScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -20,7 +21,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
         {/* Use a light status bar on iOS to account for the black space above the modal */}
         {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
 
-        <View style={[styles.card, styles.container]}>
+        {/* <View style={[styles.card, styles.container]}>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Total</Text>
@@ -32,7 +33,11 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
             <Text style={[styles.receipt, { textAlign: 'right' }]}></Text>
           </View>
 
-        </View>
+        </View> */}
+
+        <TransactionSummaryCard
+          transaction={transaction}
+        />
 
         {/* timestamp: '2022-05-05 04:20:23', // yyyy-mm-dd-hh-mm-ss
       amount: '3.60',
