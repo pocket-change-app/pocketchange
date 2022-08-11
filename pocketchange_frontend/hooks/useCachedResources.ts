@@ -28,6 +28,7 @@ export default function useCachedResources() {
           'metropolis extrabold italic': require('../assets/fonts/Metropolis-ExtraBoldItalic.otf'),
           'metropolis black': require('../assets/fonts/Metropolis-Black.otf'),
           'metropolis black italic': require('../assets/fonts/Metropolis-BlackItalic.otf'),
+          'receipt': require('../assets/fonts/VT323-Regular.ttf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
