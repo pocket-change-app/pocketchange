@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore } from '
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
-import { user } from '../dummy';
+import { businesses, user } from '../dummy';
 import React from 'react';
 import Hyphenated from 'react-hyphen';
 
@@ -242,11 +242,11 @@ export function IdCard(
     }) {
   return (
     <View style={[styles.card, styles.idCard]}>
-      <View style={[styles.idHeader, { alignItems: 'flex-start' }]}>
+      <View style={[styles.idHeader, { alignItems: 'flex-start', flex: 1 }]}>
         <Text style={styles.idAppName}> pocketchange</Text>
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.idCardContent}>
         <Image
           style={styles.idImage}
           source={imageURL}
@@ -262,7 +262,7 @@ export function IdCard(
           <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
         </View>
       </View>
-      <View style={[styles.idHeader, { alignItems: 'flex-end' }]}>
+      <View style={[styles.idHeader, { alignItems: 'flex-end', flex: 1 }]}>
         <Text style={styles.idText}>USER ID</Text>
         <Text style={[styles.idDateOfBirth, styles.alignRight]}>{user.dateOfBirth}</Text>
       </View>
@@ -354,14 +354,14 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
   )
 }
 
-export function TransactionListed({ navigation, transaction }: { navigation: any, transaction: { [key: string]: string } }) {
+export function TransactionListed({ navigation, transaction }: any) {
 
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => (navigation.navigate("ConsumerTransaction", {
         // navigation: navigation,
-        transaction: transaction
+        transaction: transaction,
       }))}
     >
       <View style={styles.transactionListed}>
@@ -376,6 +376,64 @@ export function TransactionListed({ navigation, transaction }: { navigation: any
     </Pressable >
   )
 }
+
+export function TransactionSummaryCard({ transaction }: any) {
+
+  const business = businesses.find(b => b.name == transaction.merchant)
+
+  // console.log(business)
+
+  return (
+    <>
+      <View style={[styles.card, styles.container]}>
+        {/* <CardHeader text='Summary' /> */}
+
+        <View style={{ flexDirection: 'row', marginBottom: MARGIN }}>
+          <View>
+            <Text style={styles.receipt}>{business.name}</Text>
+            <Text style={styles.receipt}>{business.address}</Text>
+            <Text style={styles.receipt}>{business.pocket}</Text>
+          </View>
+        </View>
+
+        {/* <View style={{ height: MARGIN }} /> */}
+        {/* <HorizontalLine /> */}
+        <View style={{ marginBottom: MARGIN }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Subtotal</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.amount}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Tip</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.tip}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Used</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>-{transaction.changeUsed}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Total</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>${transaction.total}</Text>
+          </View>
+        </View>
+
+        <View style={{ marginBottom: MARGIN }}>
+          <Text style={styles.receipt}>
+            You earned ${transaction.changeEarned} in {transaction.pocket} Change from this purchase.
+          </Text>
+        </View>
+
+        <View style={{ alignSelf: 'center', aspectRatio: 1, width: '50%' }}>
+          <Image
+            source={require('../assets/images/icon_grayscale.png')}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </View>
+      </View>
+    </>
+  )
+}
+
 
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
@@ -532,7 +590,6 @@ export function PaySummaryCard({ name, address, pocket, imageURL, amount, tip }:
     </View>
   )
 }
-
 
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
