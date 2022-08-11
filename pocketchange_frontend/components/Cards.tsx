@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore } from '
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
-import { businesses, user } from '../dummy';
+import { user } from '../dummy';
 import React from 'react';
 import Hyphenated from 'react-hyphen';
 
@@ -242,11 +242,11 @@ export function IdCard(
     }) {
   return (
     <View style={[styles.card, styles.idCard]}>
-      <View style={[styles.idHeader, { alignItems: 'flex-start', flex: 1 }]}>
+      <View style={[styles.idHeader, { alignItems: 'flex-start' }]}>
         <Text style={styles.idAppName}> pocketchange</Text>
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
-      <View style={styles.idCardContent}>
+      <View style={{ flexDirection: 'row' }}>
         <Image
           style={styles.idImage}
           source={imageURL}
@@ -262,7 +262,7 @@ export function IdCard(
           <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
         </View>
       </View>
-      <View style={[styles.idHeader, { alignItems: 'flex-end', flex: 1 }]}>
+      <View style={[styles.idHeader, { alignItems: 'flex-end' }]}>
         <Text style={styles.idText}>USER ID</Text>
         <Text style={[styles.idDateOfBirth, styles.alignRight]}>{user.dateOfBirth}</Text>
       </View>
