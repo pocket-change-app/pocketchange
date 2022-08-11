@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore } from '
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
-import { user } from '../dummy';
+import { user, businesses } from '../dummy';
 import React from 'react';
 import Hyphenated from 'react-hyphen';
 
