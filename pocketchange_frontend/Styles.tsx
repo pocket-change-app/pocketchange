@@ -11,7 +11,7 @@ export const CARD_RADIUS = MARGIN
 export const BORDER_WIDTH = 1
 const BUTTON_HEIGHT = 40
 const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
-const POCKET_CARD_ASPECT_RATIO = 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
+const POCKET_CARD_ASPECT_RATIO = 4 / 7 // 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
 export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
@@ -511,12 +511,12 @@ export const styles = StyleSheet.create({
 
   pocketListImageContainer: {
     // backgroundColor: 'rgba(0,0,0,0.2)',
-    aspectRatio: 1,
-    // flex: 4,
+    // aspectRatio: 1,
+    flex: 7,
   },
 
   pocketListImage: {
-    flex: 4,
+    flex: 1,
     width: undefined,
     height: undefined,
 
