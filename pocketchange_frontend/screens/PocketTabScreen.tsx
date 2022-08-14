@@ -52,7 +52,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
-        round
+        // round
         placeholder="Search Pockets"
         onChangeText={updateSearch}
         value={search}
