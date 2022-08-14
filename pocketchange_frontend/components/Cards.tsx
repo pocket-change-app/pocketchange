@@ -179,7 +179,7 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
 
         {/* <View style={{ height: MARGIN }} /> */}
 
-        <View style={[styles.card, styles.container, { flexShrink: 1 }]}>
+        {/* <View style={[styles.card, styles.container, { flexShrink: 1 }]}>
           <Hyphenated>
             <Text
               style={styles.prose}
@@ -189,7 +189,7 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
               {pocket.description}
             </Text>
           </Hyphenated>
-        </View>
+        </View> */}
 
       </View>
 
