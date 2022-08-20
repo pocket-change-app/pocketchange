@@ -5,6 +5,7 @@ import { styles, MARGIN } from '../Styles';
 import { user, businesses } from '../dummy';
 import React from 'react';
 import Hyphenated from 'react-hyphen';
+import { colors } from '../constants/Colors';
 
 const R = require('ramda');
 
@@ -196,6 +197,22 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
       {/* </View> */}
     </Pressable>
 
+  )
+}
+
+export function PocketSearchResult({ navigation, pocket }: { navigation: any, pocket: any }) {
+  return (
+    <Pressable
+      style={styles.pocketSearchResultContainer}
+      onPress={() => navigation.navigate('Pocket', {
+        navigation: navigation,
+        pocket: pocket,
+      })}
+    >
+      <Text style={[styles.navigationHeaderTitle, { color: colors.medium }]}>
+        {pocket.name}
+      </Text>
+    </Pressable>
   )
 }
 
