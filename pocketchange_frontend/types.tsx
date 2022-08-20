@@ -24,7 +24,7 @@ export type RootStackParamList = {
   NotFound: undefined;
 
   TransactionModal: undefined;
-  ConsumerTransaction: undefined;
+  Receipt: undefined;
 
   PaymentModalStack: undefined;
   Pay: undefined;
