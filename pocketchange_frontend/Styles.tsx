@@ -523,6 +523,15 @@ export const styles = StyleSheet.create({
     borderRadius: CARD_RADIUS,
   },
 
+  pocketSearchResultFlatList: {
+    padding: MARGIN,
+  },
+
+  pocketSearchResultContainer: {
+    marginVertical: MARGIN,
+    marginHorizontal: MARGIN,
+  },
+
   setting: {
     height: 45,
   },
