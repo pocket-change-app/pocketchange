@@ -57,7 +57,7 @@ module.exports = {
               return {};
             }
         },
-        getAllTransactionsByBus: async (parent, { businessID, startDate, endDate }, { Transaction}) => {
+        getAllTransactionsByBusiness: async (parent, { businessID, startDate, endDate }, { Transaction}) => {
           if (businessID === '') {
             return null;
           }

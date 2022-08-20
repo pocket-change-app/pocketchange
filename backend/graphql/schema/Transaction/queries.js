@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export default {
-    Transaction: gql`
+    transaction: gql`
         query transaction($transactionID:ID){
             transaction(transactionID:$transactionID) {
                 transactionID
@@ -14,17 +14,19 @@ export default {
                 changeEarned
             }
         }
-    query getAllTransactionsByBus($businessID:ID, $startDate: Date, $endDate: Date){
-        getAllTransactionsByBus(businessID:$businessID, startDate: $startDate, endDate: $endDate){
-            transactionID
-            userID
-            value
-            date
-            businessID
-            pocketID
-            changeRedeemed
-            changeEarned
+    `,
+    getAllTransactionsByBusiness: gql`
+        query getAllTransactionsByBusiness($businessID:ID, $startDate: Date, $endDate: Date){
+            getAllTransactionsByBusiness(businessID:$businessID, startDate: $startDate, endDate: $endDate){
+                transactionID
+                userID
+                value
+                date
+                businessID
+                pocketID
+                changeRedeemed
+                changeEarned
+            }
         }
-    }
 `
 }

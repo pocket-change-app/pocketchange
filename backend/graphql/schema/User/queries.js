@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export default {
-    User: gql`
+    user: gql`
         query User($userID: ID){
             user(userID: $userID) {
                 userID
@@ -13,8 +13,8 @@ export default {
                 emailAddress
             }
         }
-`,
-    LoginUser: gql`
+    `,
+    loginUser: gql`
         query loginUser($username:String, $password: String){
             loginUser(username:$username, password: $password) {
                 userID
@@ -25,7 +25,8 @@ export default {
                 totalChange
                 emailAddress
             }
-        }`
+        }
+    `
         //getUsersFavouriteBusinesses
         //getUsersPockets
 }

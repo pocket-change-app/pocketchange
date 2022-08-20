@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export default {
-    Change: gql`
+    changeBalance: gql`
         query changeBalance($changeBalanceID: ID){
             changeBalance(changeBalanceID: $changeBalanceID) {
                 changeBalanceID
@@ -11,7 +11,7 @@ export default {
                 expiryDate
             }
         }
-`,
+    `,
     getUserChangeBalance: gql`
         query getUserChangeBalance($userID:ID, $pocketID: ID){
             getUserChangeBalance(userID:$userID, pocketID: $pocketID) {
@@ -22,5 +22,5 @@ export default {
                 expiryDate
             }
         }
-      `
+    `
 }

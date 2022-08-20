@@ -38,7 +38,7 @@ module.exports = {
   },
 
   Mutation: {
-    registerBus: async (parent, { 
+    createBusiness: async (parent, { 
       userID,
       businessName, 
       dateEstablished, 
