@@ -19,7 +19,7 @@ import PayTabScreen from '../screens/PayTabScreen';
 import WalletScreen from '../screens/WalletScreen';
 import PocketScreen from '../screens/PocketScreen';
 import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
-import ConsumerTransactionScreen from '../screens/ConsumerTransactionScreen';
+import ReceiptScreen from '../screens/ReceiptScreen';
 import PayAmountScreen from '../screens/PayAmountScreen';
 import PayTipScreen from '../screens/PayTipScreen';
 import PaySummaryScreen from '../screens/PaySummaryScreen';
@@ -286,8 +286,8 @@ function WalletStack() {
         }}
       />
       <Stack.Screen
-        name="ConsumerTransaction"
-        component={ConsumerTransactionScreen}
+        name="Receipt"
+        component={ReceiptScreen}
         options={({ navigation }: any) => ({
           presentation: 'modal',
           headerShown: false,

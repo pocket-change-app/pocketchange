@@ -36,6 +36,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
         </View> */}
 
         <TransactionSummaryCard
+          navigation={navigation}
           transaction={transaction}
         />
 
@@ -52,17 +53,17 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
 }
 
 
-function Signature({ name, position, imageURL }: { name: string, position: string, imageURL: string }) {
-  return (
-    <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-      <Image
-        style={styles.signatureImage}
-        source={imageURL}
-      />
-      <View style={{ justifyContent: 'center' }}>
-        <Text style={[styles.signatureText, { color: colors.medium }]}>{name}</Text>
-        <Text style={[styles.signatureText, { color: colors.subtle }]}>{position}</Text>
-      </View >
-    </View >
-  )
-}
+// function Signature({ name, position, imageURL }: { name: string, position: string, imageURL: string }) {
+//   return (
+//     <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+//       <Image
+//         style={styles.signatureImage}
+//         source={imageURL}
+//       />
+//       <View style={{ justifyContent: 'center' }}>
+//         <Text style={[styles.signatureText, { color: colors.medium }]}>{name}</Text>
+//         <Text style={[styles.signatureText, { color: colors.subtle }]}>{position}</Text>
+//       </View >
+//     </View >
+//   )
+// }
