@@ -2,31 +2,32 @@ const { gql, ApolloError } = require('apollo-server');
 const { IsIn, WorksAt } = require('../../../databases/SQLSchema/db');
 const obfuscate = require('../helpers/obfuscate')
 const validate = require('../helpers/validate')
+const R = require('ramda')
 
 module.exports = {
   Query: {
     business: async (parent, { businessID }, { Business, mongoBusiness}) => {
-      //change to make sure nonempty businessID was given
+      //check to make sure nonempty businessID was given
         if (businessID === '') {
           return null;
         }
         //get the relevant business info from mongo, ensuring SQL exists
         const businessInfo = await Business.findOne({ where : {businessID: businessID}});
-        const mongoBusInfo = await mongoBusiness.findOne({ businessID});
+        const mongoBusinessInfo = await mongoBusiness.findOne({ businessID});
         //if the schemas return with relevant info for both mongo and SQl proceed
-        if(businessInfo && mongoBusInfo){
+        if(businessInfo && mongoBusinessInfo){
             //subset fields needed which are businessID, businessName, 
             //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
             return {
               //return values described for business
-              businessID: mongoBusInfo.businessID, 
-              businessName: mongoBusInfo.businessName,
-              dateEstablished: mongoBusInfo.dateEstablished,
-              emailAddress: mongoBusInfo.emailAddress,
-              phoneNumber: mongoBusInfo.phoneNumber,
-              website: mongoBusInfo.website,
-              businessType: mongoBusInfo.businessType,
-              businessSubtype: mongoBusInfo.businessSubtype,
+              businessID: mongoBusinessInfo.businessID, 
+              businessName: mongoBusinessInfo.businessName,
+              dateEstablished: mongoBusinessInfo.dateEstablished,
+              emailAddress: mongoBusinessInfo.emailAddress,
+              phoneNumber: mongoBusinessInfo.phoneNumber,
+              website: mongoBusinessInfo.website,
+              businessType: mongoBusinessInfo.businessType,
+              businessSubtype: mongoBusinessInfo.businessSubtype,
             }
   
         }
@@ -34,6 +35,49 @@ module.exports = {
           throw new ApolloError(`businessID:${businessID} doesn't exist`);
           return {};
         }
+    },
+    getAllBusinesses: async (parent, { pocketID, businessType, businessSubtype, businessTag }, { Business, mongoBusiness, IsIn}) => {
+      //create filter obejct to hold filters for mongoose
+      let filterBusiness = []
+      //check to see if type is not null
+      if (businessType != null) {
+        filterBusiness.push({'businessType': businessType})
+      }
+      //check to see if subtype is not null
+      if (businessSubtype != null) {
+        filterBusiness.push({'businessSubtype' : businessSubtype})
+      }
+      //check to see if tag is not null
+      if (businessTag != null) {
+        filterBusiness.push({'businessTag': businessTag})
+      }
+      console.log(filterBusiness)
+
+      let mongoBusinessesInfo;
+      if (filterBusiness.length == 0) {
+        mongoBusinessesInfo = await mongoBusiness.find(); 
+      } else {
+        mongoBusinessesInfo = await mongoBusiness.find({ $and: filterBusiness}); 
+      }
+      //if pocket specified filter all business
+      //check if pocketID is not null
+      if (pocketID != null) {
+        //check the pocket-business relationship SQL table IsIn
+        const isInInfo = await IsIn.findAll({where: {pocketID: pocketID}})
+        //join two object arrays by matching businessIDs
+        const joinByBusinessID = R.innerJoin(
+          (a, b) => a.businessID === b.businessID
+        )
+        return joinByBusinessID(mongoBusinessesInfo, isInInfo)
+      } 
+
+      //return mongoBusinessesInfo, if empty it will return an empty list indicating that no businesses matching this criteria were found
+      console.log(mongoBusinessesInfo)
+      if(mongoBusinessesInfo)
+        return mongoBusinessesInfo
+      else {
+        return []
+      }
     }
   },
 

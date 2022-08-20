@@ -19,9 +19,9 @@ module.exports = gql`
         Query a specific business from it's ID
         """
         business(businessID: ID): Business
-        getAllBusinesses(pocketID: ID, type: String, subtype: String, tag: String): Business
-        getLovedBusinessesByUser(userID: ID): Business
-        getNearbyBusinesses(lat: Float, long: Float, radius: Float): Business
+        getAllBusinesses(pocketID: ID, businessType: String, businessSubtype: String, businessTag: String): [Business]
+        getLovedBusinessesByUser(userID: ID): [Business]
+        getNearbyBusinesses(lat: Float, long: Float, radius: Float): [Business]
 
       }
       type Mutation {

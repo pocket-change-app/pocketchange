@@ -16,8 +16,8 @@ export default {
     }
   `,
   getAllBusinesses: gql`
-    query getAllBusinesses($pocketID: ID, $type: String, $subtype: String, $tag: String) {
-      getAllBusinesses(businessID: $businessID, type: $type, subtype: $subtype, tag: $tag) {
+    query getAllBusinesses($pocketID: ID, $businessType: String, $businessSubtype: String, $businessTag: String) {
+      getAllBusinesses(pocketID: $pocketID, businessType: $businessType, businessSubtype: $businessSubtype, businessTag: $businessTag) {
           businessID
           businessName
           dateEstablished
