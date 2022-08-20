@@ -9,12 +9,23 @@ import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
+import { useState } from 'react';
 
 const R = require('ramda');
 
 export default function PayTabScreen({ navigation }: { navigation: any }) {
 
-  let search = '';
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState(businesses)
+
+  const updateSearch = (text: string) => {
+    setSearchQuery(text)
+    setSearchResults(() => {
+      const formattedQuery = text.toLowerCase().trim()
+      const results = businesses.filter(b => b.name.toLowerCase().includes(formattedQuery))
+      return results
+    })
+  };
 
   const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <Pressable
@@ -30,41 +41,10 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     </Pressable>
   )
 
-  const updateSearch = (search: string) => {
-    search = search
-  };
-
   return (
     <>
-      <ScreenContainer>
-        <FlatList
-          contentContainerStyle={styles.businessFlatList}
-          data={businesses}
-          renderItem={renderBusinessCard}
-          ListHeaderComponent={
-            <>
-              <DivHeader text='Suggested' />
-              <Pressable
-                onPress={() => navigation.navigate('Business', {
-                  business: businesses[0]
-                })}
-              >
-
-                <BusinessCardSuggested
-                  key={businesses[0].busID}
-                  navigation={navigation}
-                  business={businesses[0]}
-                />
-              </Pressable>
-              <DivHeader text='Loved' />
-            </>
-            
-            
-
-          }
-        />
-      </ScreenContainer>
       <SearchBar
+        showCancel={false}
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
 
@@ -73,8 +53,43 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
         placeholderTextColor={colors.subtle}
 
         onChangeText={updateSearch}
-        value={search}
+        onClear={() => null}
+        value={searchQuery}
       />
+      <ScreenContainer>
+        <FlatList
+          contentContainerStyle={styles.businessFlatList}
+          data={searchResults}
+          renderItem={renderBusinessCard}
+          ListHeaderComponent={() => {
+            if (searchQuery == '') {
+              return (
+                <>
+                  <DivHeader text='Suggested' />
+                  <Pressable
+                    onPress={() => navigation.navigate('Business', {
+                      business: businesses[0]
+                    })}
+                  >
+
+                    <BusinessCardSuggested
+                      key={businesses[0].busID}
+                      navigation={navigation}
+                      business={businesses[0]}
+                    />
+                  </Pressable>
+                  <DivHeader text='Loved' />
+                </>
+              )
+            } else {
+              return (null)
+            }
+
+
+          }}
+        />
+      </ScreenContainer>
+
     </>
 
     //   <ScrollView

@@ -3,29 +3,31 @@ import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
 import { pockets } from '../dummy';
-import { PocketListCard, PocketListSeparator } from "../components/Cards";
+import { PocketListCard, PocketListSeparator, PocketSearchResult } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
+import { useState } from 'react';
 
 const R = require('ramda');
 
 
 export default function PocketTabScreen({ navigation, route }: { navigation: any, route: any }) {
-  const state = {
-    search: '',
-  }
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState(pockets)
 
-  const updateSearch = (search: string) => {
-    state.search = search;
+  const updateSearch = (text: string) => {
+    setSearchQuery(text)
+    setSearchResults(() => {
+      const formattedQuery = text.toLowerCase().trim()
+      const results = pockets.filter(p => p.name.toLowerCase().includes(formattedQuery))
+      return results
+    })
   };
 
-
-  const { search } = state
-
-  return (
-    <>
-      <ScreenContainer>
+  function PageContents() {
+    if (searchQuery == '') {
+      return (
         <FlatList
           // style={styles.pocketFlatList}
           contentContainerStyle={styles.pocketFlatList}
@@ -47,7 +49,31 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           )
           }
         />
-      </ScreenContainer>
+      )
+    } else {
+      return (
+        <FlatList
+          // style={styles.pocketFlatList}
+          contentContainerStyle={styles.pocketSearchResultFlatList}
+
+          // ItemSeparatorComponent={PocketListSeparator}
+
+          data={searchResults}
+          renderItem={({ item, index, separators }) => (
+            <PocketSearchResult
+              key={item.pocketID}
+              navigation={navigation}
+              pocket={item}
+            />
+          )
+          }
+        />
+      )
+    }
+  }
+
+  return (
+    <>
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
@@ -55,8 +81,12 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         // round
         placeholder="Search Pockets"
         onChangeText={updateSearch}
-        value={search}
+        value={searchQuery}
       />
+      <ScreenContainer>
+        <PageContents />
+      </ScreenContainer>
+
     </>
   )
 
