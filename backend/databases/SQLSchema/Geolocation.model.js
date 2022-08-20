@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         timestamp:{
-            type: Sequelize.timestamp,
+            type: Sequelize.DATE(6),
             allowNull: false,
             primaryKey: true,
         },
