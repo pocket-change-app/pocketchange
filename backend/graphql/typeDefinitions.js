@@ -5,7 +5,7 @@ const ScalarTypeDefs = require('./schema/scalarTypeDefs')
 
 // TYPE DEFINITIONS
 const BusinessTypeDefs = require('./schema/Business/typeDefinitions')
-const ChangeTypeDefs = require('./schema/Change/typeDefinitions')
+const ChangeBalanceTypeDefs = require('./schema/ChangeBalance/typeDefinitions')
 const PocketTypeDefs = require('./schema/Pocket/typeDefinitions')
 const TransactionTypeDefs = require('./schema/Transaction/typeDefinitions')
 const UserTypeDefs= require('./schema/User/typeDefinitions')
@@ -15,7 +15,7 @@ module.exports = mergeTypes([
   ScalarTypeDefs,
 
   BusinessTypeDefs,
-  ChangeTypeDefs,
+  ChangeBalanceTypeDefs,
   PocketTypeDefs,
   TransactionTypeDefs,
   UserTypeDefs
