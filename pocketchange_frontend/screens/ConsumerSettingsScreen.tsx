@@ -29,8 +29,10 @@ export default function ConsumerSettingsScreen() {
         <Setting
           settingText={"Setting 3"}
         />
-
-        <Button title="Switch to Merchant Account" onPress={switchAccount} />
+        {
+          (auth.authData.type == "merchant") ? <Button title="Switch to Merchant Account" onPress={switchAccount} /> : <></>
+        }
+        
 
         <Button title="Sign Out" onPress={signOut} />
 
