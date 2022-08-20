@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: false
         },
         businessID: {
