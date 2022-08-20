@@ -376,7 +376,7 @@ export function TransactionListed({ navigation, transaction }: any) {
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
-      onPress={() => (navigation.navigate("ConsumerTransaction", {
+      onPress={() => (navigation.navigate("Receipt", {
         // navigation: navigation,
         transaction: transaction,
       }))}
@@ -394,7 +394,7 @@ export function TransactionListed({ navigation, transaction }: any) {
   )
 }
 
-export function TransactionSummaryCard({ transaction }: any) {
+export function TransactionSummaryCard({ navigation, transaction }: any) {
 
   const business = businesses.find(b => b.name == transaction.merchant)
 
@@ -405,15 +405,20 @@ export function TransactionSummaryCard({ transaction }: any) {
       <View style={[styles.card, styles.container]}>
         {/* <CardHeader text='Summary' /> */}
 
-        <View style={{ flexDirection: 'row', marginBottom: MARGIN }}>
-          <View>
+        {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
+        <View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.receipt}>{business.name}</Text>
-            <Text style={styles.receipt}>{business.address}</Text>
-            <Text style={styles.receipt}>{business.pocket}</Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <Text style={styles.receipt}> X</Text>
+            </Pressable>
           </View>
+          <Text style={styles.receipt}>{business.address}</Text>
+          <Text style={styles.receipt}>{business.pocket}</Text>
         </View>
+        {/* </View> */}
 
-        <Text style={[styles.receipt, { textAlign: 'center' }]}>
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
           ----------------
         </Text>
 
@@ -438,13 +443,13 @@ export function TransactionSummaryCard({ transaction }: any) {
           </View>
         </View>
 
-        <View style={{ marginBottom: MARGIN }}>
+        <View>
           <Text style={styles.receipt}>
             You earned ${transaction.changeEarned} in {transaction.pocket} Change from this purchase.
           </Text>
         </View>
 
-        <Text style={[styles.receipt, { textAlign: 'center' }]}>
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
           ----------------
         </Text>
 
