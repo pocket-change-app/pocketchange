@@ -79,7 +79,7 @@ function PocketStack() {
         name="Business"
         component={BusinessScreen}
         options={({ route }) => ({
-          title: route.params.business.name
+          title: '', //route.params.business.name
         })}
       />
       <Stack.Screen
@@ -121,7 +121,7 @@ function PayStack() {
         name="Business"
         component={BusinessScreen}
         options={({ route }) => ({
-          title: route.params.business.name
+          title: '' //route.params.business.name
         })}
       />
       <Stack.Screen
