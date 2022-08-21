@@ -16,12 +16,18 @@ export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
 
+  image: {
+    borderWidth: BORDER_WIDTH,
+    borderColor: colors.imageBorder,
+    borderRadius: CARD_RADIUS - BORDER_WIDTH,
+  },
+
   prose: {
-    fontFamily: 'metropolis regular',
+    fontFamily: 'metropolis medium',
     fontSize: 14,
     lineHeight: 17,
     color: colors.dark,
-    textAlign: 'left',
+    textAlign: 'justify',
   },
 
   receipt: {
@@ -59,7 +65,7 @@ export const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.bg,
-    borderTopColor: 'transparent',
+    // borderTopColor: 'transparent',
   },
 
   searchBarContainer: {
@@ -67,14 +73,14 @@ export const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
     paddingHorizontal: MARGIN,
-    // paddingVertical: MARGIN,
-    backgroundColor: colors.bg,
+    paddingVertical: MARGIN,
+    backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
     justifyContent: 'center',
   },
 
   searchBarInputContainer: {
     height: '100%',
-    backgroundColor: colors.bg,
+    backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
     borderRadius: CARD_RADIUS,
     borderColor: colors.light,
     borderWidth: BORDER_WIDTH,
@@ -84,7 +90,7 @@ export const styles = StyleSheet.create({
   searchBarInput: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
-    color: colors.subtle,
+    color: colors.medium,
   },
 
   card: {
@@ -237,6 +243,7 @@ export const styles = StyleSheet.create({
   },
 
   businessFlatList: {
+    flexGrow: 1,
     padding: MARGIN,
     paddingBottom: 0,
   },
@@ -258,14 +265,17 @@ export const styles = StyleSheet.create({
   pocketHeaderImageContainer: {
     width: '100%',
     height: 150,
-
   },
 
   pocketHeaderImage: {
     flex: 1,
     width: undefined,
     height: undefined,
-    borderRadius: CARD_RADIUS
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
 
   businessListImageContainer: {
@@ -297,14 +307,14 @@ export const styles = StyleSheet.create({
     margin: MARGIN,
   },
 
-  businessBioText: {
-    fontFamily: 'metropolis regular',
-    fontSize: 14,
-    lineHeight: 17,
-    color: colors.dark,
-    textAlign: 'justify',
-    marginBottom: MARGIN
-  },
+  // businessBioText: {
+  //   fontFamily: 'metropolis regular',
+  //   fontSize: 14,
+  //   lineHeight: 17,
+  //   color: colors.dark,
+  //   textAlign: 'justify',
+  //   marginBottom: MARGIN
+  // },
 
   signatureImage: {
     aspectRatio: 1,
