@@ -1,4 +1,4 @@
-import { FlatList, Image } from 'react-native';
+import { FlatList, Image, KeyboardAvoidingView } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -7,6 +7,9 @@ import { ScreenContainer } from '../components/Themed';
 import { BusinessCard, BusinessCardSm, DivHeader, PocketDetailCard } from '../components/Cards';
 
 import { Text, View } from '../components/Themed';
+import { useState } from 'react';
+import { colors } from '../constants/Colors';
+
 
 const R = require('ramda');
 
@@ -14,9 +17,17 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const pocket = route.params.pocket;
 
-  const state = {
-    search: '',
-  }
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState(businesses)
+
+  const updateSearch = (text: string) => {
+    setSearchQuery(text)
+    setSearchResults(() => {
+      const formattedQuery = text.toLowerCase().trim()
+      const results = businesses.filter(b => b.name.toLowerCase().includes(formattedQuery))
+      return results
+    })
+  };
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
@@ -28,29 +39,32 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   )
 
-  const updateSearch = (search: string) => {
-    state.search = search;
-  };
-
-  // const {pocketname}  = this.props
-  const { search } = state;
-
   return (
-    <>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
       <ScreenContainer>
 
         <FlatList
-          ListHeaderComponent={
-            <>
-              <PocketDetailCard
-                navigation={navigation}
-                pocket={pocket}
-              />
-              <DivHeader text='Businesses' />
-            </>
-          }
+          ListHeaderComponent={() => {
+            if (searchQuery == '') {
+              return (
+                <>
+                  <PocketDetailCard
+                    navigation={navigation}
+                    pocket={pocket}
+                  />
+                  <DivHeader text='Businesses' />
+                </>
+              )
+            } else {
+              return (null)
+            }
+          }}
           contentContainerStyle={styles.businessFlatList}
-          data={businesses}
+          data={searchResults}
           renderItem={renderBusinessCard}
         />
       </ScreenContainer>
@@ -60,11 +74,13 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
         placeholder={'Search ' + pocket.name}
+        placeholderTextColor={colors.subtle}
+
         onChangeText={updateSearch}
-        onClear={{}}
-        value={search}
+        onClear={() => null}
+        value={searchQuery}
       />
-    </>
+    </KeyboardAvoidingView>
 
     //   <ScrollView
     //     style={styles.container}

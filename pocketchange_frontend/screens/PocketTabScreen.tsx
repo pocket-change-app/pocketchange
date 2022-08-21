@@ -1,4 +1,4 @@
-import { SafeAreaView, FlatList, ScrollView, Dimensions } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
@@ -8,6 +8,7 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
 import { useState } from 'react';
+import { colors } from '../constants/Colors';
 
 const R = require('ramda');
 
@@ -73,21 +74,29 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   }
 
   return (
-    <>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
+
+      <ScreenContainer>
+        <PageContents />
+      </ScreenContainer>
+
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
         // round
         placeholder="Search Pockets"
+        placeholderTextColor={colors.subtle}
+
         onChangeText={updateSearch}
         value={searchQuery}
       />
-      <ScreenContainer>
-        <PageContents />
-      </ScreenContainer>
 
-    </>
+    </KeyboardAvoidingView>
   )
 
 }
