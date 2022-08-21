@@ -13,7 +13,9 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
 
   return (
     <ScreenContainer>
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+      >
 
         <BusinessCard
           navigation={navigation}
@@ -26,7 +28,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
         </View>
 
         <View style={[styles.card, styles.container]}>
-          <Text style={styles.businessBioText}>{business.bio}</Text>
+          <Text style={[styles.prose, { marginBottom: MARGIN }]}>{business.bio}</Text>
           <Signature name={business.people[0].name} position={business.people[0].position} imageURL={business.people[0].imageURL} />
         </View>
 
