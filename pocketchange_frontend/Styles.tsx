@@ -16,6 +16,29 @@ export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
 
+  inputContainer: {
+    padding: MARGIN,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
+  paymentInputText: {
+    fontFamily: 'metropolis bold',
+    fontSize: 30,
+    color: colors.medium,
+  },
+
+  paymentSummaryText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 18,
+    lineHeight: 21,
+    color: colors.medium,
+  },
+
+  container: {
+    padding: MARGIN,
+  },
+
   image: {
     borderWidth: BORDER_WIDTH,
     borderColor: colors.imageBorder,
@@ -238,9 +261,7 @@ export const styles = StyleSheet.create({
   },
 
 
-  container: {
-    padding: MARGIN,
-  },
+
 
   businessFlatList: {
     flexGrow: 1,
