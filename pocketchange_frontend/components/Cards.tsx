@@ -166,9 +166,9 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
       {/* <View> */}
       <View style={styles.pocketListCardContainer}>
         <View style={[styles.card, styles.pocketListCard, styles.container, { marginTop: MARGIN, marginBottom: MARGIN }]}>
-          <View style={styles.pocketListNameContainer}>
+          {/* <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{pocket.name}</Text>
-          </View>
+          </View> */}
 
           <View style={styles.pocketListImageContainer}>
             <Image
@@ -218,28 +218,28 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
 
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
-    <View>
-      <View style={styles.pocketHeaderImageContainer}>
-        <Image
-          style={styles.pocketHeaderImage}
-          source={pocket.bannerURL}
-        />
+    <>
+      <View style={styles.card}>
+        <View style={[styles.pocketHeaderImageContainer]}>
+          <Image
+            style={[styles.image, styles.pocketHeaderImage]}
+            source={pocket.bannerURL}
+          />
+        </View>
+        <View style={styles.container}>
+          <Hyphenated>
+            <Text style={styles.prose}>
+              {pocket.description}
+            </Text>
+          </Hyphenated>
+        </View>
       </View>
-      <View style={styles.container}>
-        <Hyphenated>
-          <Text style={styles.prose}>
-            {pocket.description}
-          </Text>
-        </Hyphenated>
-      </View>
+
       <View style={[styles.card, styles.pocketChangeBalanceCard]}>
         <Text style={styles.pocketBig}>{pocket.name} Change</Text>
         <Text style={styles.changeLg}>$8.94</Text>
       </View>
-    </View>
-
-
-
+    </>
   );
 }
 
