@@ -1,4 +1,4 @@
-import { FlatList, Pressable } from 'react-native';
+import { FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, Pressable, TextInput } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -10,6 +10,7 @@ import { BusinessCard } from '../components/Cards';
 import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
+import { HorizontalLine } from '../components/Lines';
 
 const R = require('ramda');
 
@@ -36,23 +37,33 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
   )
 
   return (
-    <>
-      <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
 
-        inputStyle={styles.searchBarInput}
+      {/* <TextInput
+        // showCancel={false}
+        // containerStyle={styles.searchBarContainer}
+        // inputContainerStyle={styles.searchBarInputContainer}
+
+        // inputStyle={styles.searchBarInput}
         placeholder="Search Businesses"
         placeholderTextColor={colors.subtle}
 
         onChangeText={updateSearch}
-        onClear={() => null}
+        // onClear={() => null}
         value={searchQuery}
-      />
+      /> */}
+
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       <ScreenContainer>
+
+        {/* <View style={{ flexGrow: 1 }}> */}
+        {/* <HorizontalLine /> */}
         <FlatList
-          contentContainerStyle={styles.businessFlatList}
+          contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
           data={searchResults}
           renderItem={renderBusinessCard}
           ListHeaderComponent={() => {
@@ -78,13 +89,29 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
             } else {
               return (null)
             }
-
-
           }}
         />
-      </ScreenContainer>
+        {/* <HorizontalLine /> */}
+        {/* </View> */}
 
-    </>
+      </ScreenContainer>
+      {/* </TouchableWithoutFeedback> */}
+
+      <SearchBar
+        showCancel={false}
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
+
+        inputStyle={styles.searchBarInput}
+        placeholder="Search Businesses"
+        placeholderTextColor={colors.subtle}
+
+        onChangeText={updateSearch}
+        onClear={() => null}
+        value={searchQuery}
+      />
+
+    </KeyboardAvoidingView>
 
     //   <ScrollView
     //     style={styles.container}
