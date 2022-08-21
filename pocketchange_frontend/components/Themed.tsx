@@ -51,7 +51,7 @@ export function ScreenContainer(props: DefaultView['props']) {
   return (
     <View style={styles.screenContainer}>
       <HorizontalLine />
-      <View style={{ flex: 1 }} {...props} />
+      <DefaultView style={{ flex: 1 }} {...props} />
       <HorizontalLine />
     </View>
   )
