@@ -5,8 +5,8 @@ export const colors = {
   gold: '#D9A300',
   light: '#D9D9D9',
   subtle: '#A8A8A8',
-  medium: '#7F7F7F',
-  dark: '#4C4C4C',
+  medium: '#808080',
+  dark: '#555',
   card: '#fff',
   imageBorder: 'rgba(0,0,0,0.1)',
 }
