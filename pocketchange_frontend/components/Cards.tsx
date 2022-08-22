@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN } from '../Styles';
@@ -41,25 +41,28 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
           <Text style={styles.payButtonText}>PAY</Text>
         </Pressable>
 
-        <Pressable style={styles.buttonBordered}
-          onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
-          <Text style={styles.buttonBorderedText}>[CALL]</Text>
-        </Pressable>
+        <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
 
-        <Pressable style={styles.buttonBordered}
-          onPress={() => {
-            const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
-            const latLng = `${business.latitude},${business.longitude}`;
-            const label = business.name;
-            const url = Platform.select({
-              ios: `${scheme}${label}@${latLng}`,
-              android: `${scheme}${latLng}(${label})`
-            });
-            Linking.openURL(`tel:${business.phoneNumber}`)
-          }
-          }>
-          <Text style={styles.buttonBorderedText}>[DIRECTIONS]</Text>
-        </Pressable>
+          <Pressable style={[styles.buttonBordered, { flex: 1, marginRight: MARGIN }]}
+            onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
+            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>CALL</Text>
+          </Pressable>
+
+          <Pressable style={[styles.buttonBordered, { flex: 1 }]}
+            onPress={() => {
+              const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+              const latLng = `${business.latitude},${business.longitude}`;
+              const label = business.name;
+              const url = Platform.select({
+                ios: `${scheme}${label}@${latLng}`,
+                android: `${scheme}${latLng}(${label})`
+              });
+              Linking.openURL(`tel:${business.phoneNumber}`)
+            }
+            }>
+            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>DIRECTIONS</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -488,15 +491,35 @@ export function SettingsCard({ navigation }: { navigation: any }) {
   </View>
 }
 
-export function ButtonWithText({ text, onPress }: { text: string, onPress: any }) {
-  return (
-    <Pressable
-      onPress={onPress}>
-      <View style={styles.buttonNegative}>
-        <Text style={[styles.cardHeaderText, styles.buttonNegativeText]}>{text}</Text>
-      </View>
-    </Pressable>
-  )
+export function ButtonWithText({
+  text,
+  color = colors.subtle,
+  negativeStyle = false, onPress
+}: {
+  text: string,
+  color: string,
+  negativeStyle: boolean,
+  onPress: any
+}) {
+  if (!negativeStyle) {
+    return (
+      <Pressable
+        onPress={onPress}>
+        <View style={[styles.buttonNegative, { backgroundColor: color }]}>
+          <Text style={[styles.cardHeaderText, styles.buttonNegativeText]}>{text}</Text>
+        </View>
+      </Pressable>
+    )
+  } else {
+    return (
+      <Pressable
+        onPress={onPress}>
+        <View style={[styles.buttonBordered]}>
+          <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>{text}</Text>
+        </View>
+      </Pressable>
+    )
+  }
 }
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
