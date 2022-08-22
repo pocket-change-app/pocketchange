@@ -23,6 +23,7 @@ import ReceiptScreen from '../screens/ReceiptScreen';
 import PayAmountScreen from '../screens/PayAmountScreen';
 import PayTipScreen from '../screens/PayTipScreen';
 import PaySummaryScreen from '../screens/PaySummaryScreen';
+import PayConfirmationScreen from '../screens/PayConfirmationScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +44,16 @@ export const ConsumerNavigation = () => {
     >
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+
+      <Stack.Screen
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          // statusBarHidden: true,
+          headerShown: false,
+        }}
+      />
 
     </Stack.Navigator>
   );
