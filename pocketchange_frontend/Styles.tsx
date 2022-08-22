@@ -9,7 +9,7 @@ export const MARGIN = 12
 export const MARGIN_SM = MARGIN / 2
 export const CARD_RADIUS = MARGIN
 export const BORDER_WIDTH = 1
-const BUTTON_HEIGHT = 40
+export const BUTTON_HEIGHT = 40
 const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
 // const POCKET_CARD_ASPECT_RATIO = 4 / 7 // 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
 export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
@@ -92,27 +92,29 @@ export const styles = StyleSheet.create({
   },
 
   searchBarContainer: {
-    height: 60,
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
     paddingHorizontal: MARGIN,
-    paddingVertical: MARGIN,
+    // paddingVertical: MARGIN,
     backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
     justifyContent: 'center',
   },
 
   searchBarInputContainer: {
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
+    height: 40,
+    backgroundColor: colors.card, //colors.bg,
     borderRadius: CARD_RADIUS,
     borderColor: colors.light,
     borderWidth: BORDER_WIDTH,
     borderBottomWidth: BORDER_WIDTH,
+    justifyContent: 'center',
   },
 
   searchBarInput: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
+    lineHeight: 16,
+    // lineHeight: 25,
     color: colors.medium,
   },
 
@@ -371,7 +373,7 @@ export const styles = StyleSheet.create({
     borderWidth: BORDER_WIDTH,
     borderColor: colors.light,
     borderRadius: CARD_RADIUS,
-    marginTop: MARGIN,
+    // marginTop: MARGIN,
     height: BUTTON_HEIGHT,
     backgroundColor: 'transparent',
 
@@ -380,7 +382,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonBorderedText: {
-    fontFamily: 'metropolis medium',
+    // fontFamily: 'metropolis medium',
     fontSize: 18,
     color: colors.subtle,
   },
@@ -593,5 +595,12 @@ export const styles = StyleSheet.create({
     color: colors.medium,
   },
 
+  logoText: {
+    fontFamily: 'metropolis black italic',
+    fontSize: 34,
+    // lineHeight: 60,
+    color: colors.gold,
+    textAlign: 'center',
+  }
 
 })
