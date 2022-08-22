@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Button, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Dimensions, Text, View } from 'react-native';
 
-import { styles } from '../Styles';
+import { BUTTON_HEIGHT, MARGIN, styles } from '../Styles';
 import { useAuth } from '../contexts/Auth';
+import { ButtonWithText } from '../components/Cards';
+import { colors } from '../constants/Colors';
+import { StatusBar } from 'expo-status-bar';
 
 export const SignInScreen = () => {
   const [loading, isLoading] = useState(false);
@@ -12,14 +15,57 @@ export const SignInScreen = () => {
     await auth.signIn();
   };
 
+  const SCREEN_WIDTH = Dimensions.get('screen').width
+
   return (
-    <View style={styles.container}>
-      <Text>Sign In Screen</Text>
-      {loading ? (
-        <ActivityIndicator color={'#000'} animating={true} size="small" />
-      ) : (
-        <Button title="Sign In" onPress={signIn} />
-      )}
-    </View>
+    <>
+      {/* <StatusBar hidden={true} /> */}
+
+      <View style={{
+        backgroundColor: colors.card,
+        flex: 1,
+        padding: SCREEN_WIDTH / 6,
+        justifyContent: 'center',
+      }}>
+        <View style={{
+          aspectRatio: 1,
+          width: SCREEN_WIDTH / 3,
+          alignSelf: 'center',
+          // marginBottom: SCREEN_WIDTH / 12
+        }}>
+          <Image
+            style={{ width: '100%', height: '100%' }}
+            source={require('../assets/images/icon.png')}
+          />
+        </View>
+        <Text style={[styles.logoText, { marginBottom: MARGIN }]}>pocketchange</Text>
+
+
+        <View style={{ height: BUTTON_HEIGHT, justifyContent: 'center', marginBottom: MARGIN }}>
+          {
+            loading ? (
+
+              <ActivityIndicator
+                color={colors.subtle}
+                animating={true}
+                size="small"
+              />
+
+            ) : (
+              <ButtonWithText
+                text="Sign In"
+                color={colors.gold}
+                onPress={signIn}
+              />
+            )
+          }
+        </View>
+        <ButtonWithText
+          text="Sign Up"
+          negativeStyle={true}
+        />
+
+      </View>
+    </>
   );
 };
