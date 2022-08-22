@@ -595,6 +595,34 @@ export const styles = StyleSheet.create({
     color: colors.medium,
   },
 
+  payConfirmationDetails: {
+    fontFamily: 'metropolis bold',
+    fontSize: 45,
+    color: colors.transluscentWhite,
+    textAlign: 'center',
+  },
+
+  payConfirmationDateTime: {
+    fontFamily: 'metropolis bold',
+    fontSize: 30,
+    color: colors.transluscentWhite,
+    textAlign: 'center',
+  },
+
+  payConfirmationBusiness: {
+    fontFamily: 'metropolis black',
+    fontSize: 60,
+    color: colors.card,
+    textAlign: 'center',
+  },
+
+  payConfirmationTotal: {
+    fontFamily: 'metropolis black',
+    fontSize: 75,
+    color: colors.card,
+    textAlign: 'center',
+  },
+
   logoText: {
     fontFamily: 'metropolis black italic',
     fontSize: 34,
