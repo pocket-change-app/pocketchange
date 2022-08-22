@@ -9,6 +9,7 @@ export const colors = {
   dark: '#555',
   card: '#fff',
   imageBorder: 'rgba(0,0,0,0.1)',
+  transluscentWhite: 'rgba(255,255,255,0.5)'
 }
 
 export default {
