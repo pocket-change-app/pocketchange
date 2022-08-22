@@ -31,6 +31,7 @@ export type RootStackParamList = {
   PayAmount: undefined;
   PayTip: undefined;
   PaySummary: undefined;
+  PayConfirmation: undefined;
 
   Wallet: undefined;
   ConsumerSettings: undefined;
