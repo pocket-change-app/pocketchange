@@ -5,9 +5,15 @@ import { SignInScreen } from '../screens/SignInScreen';
 const Stack = createNativeStackNavigator();
 
 export const AuthStack = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen name="Sign In Screen" component={ SignInScreen } />
-      </Stack.Navigator>
-    );
-  };
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Sign In Screen"
+        component={SignInScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
