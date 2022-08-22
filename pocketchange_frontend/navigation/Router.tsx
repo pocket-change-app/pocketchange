@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 
 import { useAuth } from '../contexts/Auth';
 
@@ -29,7 +29,7 @@ export const Router = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DefaultTheme}>
       {stack}
     </NavigationContainer>
   );
