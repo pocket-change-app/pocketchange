@@ -44,8 +44,8 @@ export default {
     }
   `,
   getNearbyBusinesses: gql`
-    query getNearbyBusinesses($lat: Float, $long: Float, $radius: Float) {
-      getNearbyBusinesses(lat: $lat, long: $long, radius: $radius) {
+    query getNearbyBusinesses($latitude: Float, $longitude: Float, $radius: Float) {
+      getNearbyBusinesses(latitude: $latitude, longitude: $longitude, radius: $radius) {
           businessID
           businessName
           dateEstablished
