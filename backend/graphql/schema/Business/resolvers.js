@@ -101,22 +101,48 @@ module.exports = {
         return []
       }
     },
-    getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness, Loves}) => {
+    getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness}) => {
       //get a list of all businesses
-      mongoBusinessesInfo = await mongoBusiness.find(); 
+      const businessList = await mongoBusiness.find(); 
+      console.log(businessList)
       //check to make sure the distance between the business and the coordinates entered is less than the radius
       
-      nearbyLat = abs(businessLats - consumerLat) < radius
-      nearbyLong = abs(businessLong - consumerLong) < radius
+      const businessLats = (R.pluck('latitude', businessList))
+      const businessLongs = (R.pluck('longitude', businessList))
+      const latOnes = (math.multiply(math.ones(businessLats.length), latitude))
+      const longOnes =  (math.multiply(math.ones(businessLongs.length), longitude))
 
-      nearbyLatAndLong = nearbyLat && nearbyLong
+      const node1 = math.parse('math.abs(math.subtract((businessLats), latOnes)) <= radius')
+      const node2 = math.parse('math.abs(math.subtract((businessLongs), longOnes)) <= radius')
+      const code1 = node1.compile()
+      const code2 = node2.compile()
+      let scope = {
+          math: math,
+          businessLats: businessLats,
+          latOnes: latOnes,
+          radius: radius,
+          longOnes:longOnes,
+          businessLongs: businessLongs,
+      }
+      const nearbyLat = (code1.evaluate(scope))
+      const nearbyLong = (code2.evaluate(scope))
 
-      nearbyBusinessesbusinesses[nearbyBusinessesBool]
+      const node3 = math.parse('nearbyLat and nearbyLong')
+      const code3 = node3.compile()
+      let scope2 = {
+          nearbyLat: nearbyLat,
+          nearbyLong: nearbyLong
+      }
+      const nearbyLatAndLong = (code3.evaluate(scope2))
+      console.log("DATA", nearbyLatAndLong._data)
+      //function to subset list by a list of true and false
+      const f = (as, bs) => as.filter((_, i) => bs[i])
+      const closestBusinesses = (f(businessList, nearbyLatAndLong._data))
+      console.log("CLOSEST BUSINESSES", closestBusinesses)
 
-      //return mongoBusinessesInfo, if empty it will return an empty list indicating that user loves no businesses
-      console.log(mongoBusinessesInfo)
-      if(mongoBusinessesInfo)
-        return mongoBusinessesInfo
+      //return closestBusinesses info, if empty it will return an empty list indicating that there are no close businesses
+      if(closestBusinesses)
+        return closestBusinesses
       else {
         return []
       }
