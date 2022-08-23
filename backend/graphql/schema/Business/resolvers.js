@@ -3,6 +3,8 @@ const { IsIn, WorksAt } = require('../../../databases/SQLSchema/db');
 const obfuscate = require('../helpers/obfuscate')
 const validate = require('../helpers/validate')
 const R = require('ramda')
+const math = require('mathjs')
+
 
 module.exports = {
   Query: {
@@ -70,7 +72,6 @@ module.exports = {
         )
         return joinByBusinessID(mongoBusinessesInfo, isInInfo)
       } 
-
       //return mongoBusinessesInfo, if empty it will return an empty list indicating that no businesses matching this criteria were found
       console.log(mongoBusinessesInfo)
       if(mongoBusinessesInfo)
@@ -78,7 +79,49 @@ module.exports = {
       else {
         return []
       }
-    }
+    },
+    getLovedBusinessesByUser: async (parent, { userID }, { Business, mongoBusiness, Loves}) => {
+      //get a list of all businesses
+      mongoBusinessesInfo = await mongoBusiness.find(); 
+      //get a list of user loved businesses
+      if (userID != null) {
+        //check the user-business relationship SQL table Loves
+        const lovesInfo = await Loves.findAll({where: {userID: userID}})
+        //join two object arrays by matching businessID
+        const joinByBusinessID = R.innerJoin(
+          (a, b) => a.businessID === b.businessID
+        )
+        return joinByBusinessID(mongoBusinessesInfo, lovesInfo)
+      } 
+      //return mongoBusinessesInfo, if empty it will return an empty list indicating that user loves no businesses
+      console.log(mongoBusinessesInfo)
+      if(mongoBusinessesInfo)
+        return mongoBusinessesInfo
+      else {
+        return []
+      }
+    },
+    getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness, Loves}) => {
+      //get a list of all businesses
+      mongoBusinessesInfo = await mongoBusiness.find(); 
+      //check to make sure the distance between the business and the coordinates entered is less than the radius
+      
+      nearbyLat = abs(businessLats - consumerLat) < radius
+      nearbyLong = abs(businessLong - consumerLong) < radius
+
+      nearbyLatAndLong = nearbyLat && nearbyLong
+
+      nearbyBusinessesbusinesses[nearbyBusinessesBool]
+
+      //return mongoBusinessesInfo, if empty it will return an empty list indicating that user loves no businesses
+      console.log(mongoBusinessesInfo)
+      if(mongoBusinessesInfo)
+        return mongoBusinessesInfo
+      else {
+        return []
+      }
+    },
+
   },
 
   Mutation: {
