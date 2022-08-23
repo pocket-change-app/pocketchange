@@ -13,7 +13,22 @@ module.exports = gql`
       website: String
       businessType: String
       businessSubtype: String
+      latitude: Float
+      longitude: Float
+      businessTags: [String]
+      stripeID: ID
+      description: String
     }
+
+    input Address{
+      streetName: String,
+      buildingNumber: Int,
+      unitNumber: Int,
+      city: String,
+      region: String,
+      postalCode: String,
+    }
+
     type Query {
         """
         Query a specific business from it's ID
@@ -28,7 +43,7 @@ module.exports = gql`
         """
         Create a new business profile for a business on pocketchange
         """
-        createBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID): Business
-        updateBusiness(userID: String, businessName: String, dateEstablished:String, emailAddress:String, phoneNumber:String, website:String, businessType: String, businessSubtype: String, pocketID: String): Business
+        createBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
+        updateBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
       }
 `

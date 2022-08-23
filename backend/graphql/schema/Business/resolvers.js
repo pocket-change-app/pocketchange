@@ -155,15 +155,19 @@ module.exports = {
       userID,
       businessName, 
       dateEstablished, 
-      emailAddress, 
       phoneNumber, 
       website, 
       businessType,
       businessSubtype,
-      pocketID 
+      emailAddress, 
+      address,
+      latitude,
+      longitude,
+      businessTags,
+      stripeID,
+      pocketID,
+      description 
     }, { Business, mongoBusiness, IsIn, WorksAt}) => {
-        //immediately encrypt the business users password
-        const encryptpass = obfuscate(password);
         //check to see the business name they want isn't taken by another business
         const existing = await mongoBusiness.findOne({ businessName: businessName })
         if (!existing) {
@@ -177,8 +181,13 @@ module.exports = {
             phoneNumber: phoneNumber,
             website: website,
             businessType: businessType,
-            businessSubtype,
-            busname: busname, 
+            businessSubtype: businessSubtype,
+            address: address,
+            latitude: latitude,
+            longitude: longitude,
+            businessTags: businessTags,
+            stripeID: stripeID,
+            description: description
           })
           //create the relationship where the business is part of a pocket
           await IsIn.create({
@@ -206,5 +215,43 @@ module.exports = {
           throw new ApolloError('Business already exists')
         }
       },  
+      updateBusiness: async (parent, { 
+        userID,
+        businessID,
+        businessName, 
+        dateEstablished, 
+        emailAddress, 
+        phoneNumber, 
+        website, 
+        businessType,
+        businessSubtype,
+      }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+          //check to make sure the userID is the business owner 
+          const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+          if(worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+            //the user is the owner of this business, proceed (or its pocketchange admin)
+            //update the business with specified values
+            const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+              {
+                businessName: businessName == null ? mongoBusinessInfo.dataValues.businessName : businessName,
+                dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dataValues.dateEstablished : dateEstablished ,
+                emailAddress: emailAddress ==null ? mongoBusinessInfo.dataValues.emailAddress : emailAddress ,
+                phoneNumber: phoneNumber ==null ? mongoBusinessInfo.dataValues.phoneNumber : phoneNumber ,
+                website: website ==null ? mongoBusinessInfo.dataValues.website : website ,
+                businessType: businessType ==null ? mongoBusinessInfo.dataValues.businessType : businessType ,
+                businessSubtype: businessSubtype ==null ? mongoBusinessInfo.dataValues.businessSubtype : businessSubtype ,
+                address: address ==null ? mongoBusinessInfo.dataValues.address : address ,
+                latitude: latitude ==null ? mongoBusinessInfo.dataValues.latitude : latitude ,
+                longitude: longitude ==null ? mongoBusinessInfo.dataValues.longitude : longitude ,
+                businessTags: businessTags ==null ? mongoBusinessInfo.dataValues.businessTags : businessTags ,
+                stripeID: stripeID ==null ? mongoBusinessInfo.dataValues.stripeID : stripeID ,
+                description: description ==null ? mongoBusinessInfo.dataValues.description : description ,
+              })
+            return(mongoBusinessInfo)
+          }
+          else {
+            throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+          }
+        },  
   }
 }

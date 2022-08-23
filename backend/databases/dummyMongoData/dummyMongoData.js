@@ -10,6 +10,16 @@ db.mongousers.insertMany( [
       home: 'Riverside'
    },
    {
+      userID: 'pocketchangeAdmin',
+      username: 'pocketchangeAdmin',
+      name: 'Pocketchange Admin',
+      birthDate: '2022-08-11',
+      password: '9740ddec15dc873d687708ba57c58969f37fcbbf824b22b1da22c2544ba488515076c0b95d5bec2cb12af458da109be1cc342061b97b67b48a23c0ba76b8f0c1',
+      totalChange: 0.00,
+      emailAddress:'outreach@pocketchangeapp.ca',
+      home: 'Beaches'
+   },
+   {
       userID: '2c',
       username: 'eli',
       name: 'Elias Williams',

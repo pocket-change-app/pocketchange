@@ -16,8 +16,8 @@ export default {
         }
     `,
     updateBusiness: gql`
-        mutation updateBusiness($userID: String, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: String){
-            updateBusiness(userID: $userID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
+        mutation updateBusiness($userID: String, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: String, $address: Address, $latitude: Float, $longitude: Float, $businessTags: [String], $stripeID: ID, $description: String){
+            updateBusiness(userID: $userID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID, address: $address, latitude: $latitude, longitude: $longitude, businessTags: $businessTags, stripeID: $stripeID, description: $description) {
                 businessID
                 businessName
                 dateEstablished
@@ -26,6 +26,11 @@ export default {
                 website
                 businessType
                 businessSubtype
+                latitude
+                longitude
+                businessTags
+                stripeID
+                description
             }
         }
     `,

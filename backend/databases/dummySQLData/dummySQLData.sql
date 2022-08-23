@@ -15,6 +15,7 @@ INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("10c", "410e97e175
 INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("11c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
 INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("12c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
 INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("13c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("pocketchangeAdmin", "868c90a2e3759f40", "2022-03-04 09:22:11","2022-03-04 20:34:13");
 
 -- insert pockets
 INSERT INTO pockets (pocketID, circulatingChange, changeRate, createdAt, updatedAt) VALUES ("1p", 16.00, 0.80, "2022-02-04 09:22:11","2022-02-04 20:34:13");
