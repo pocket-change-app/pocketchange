@@ -4,7 +4,8 @@ const obfuscate = require('../helpers/obfuscate')
 const validate = require('../helpers/validate')
 const R = require('ramda')
 const math = require('mathjs')
-
+const {Op} = require('sequelize')
+const {decimalNested} = require('../../utils')
 
 module.exports = {
   Query: {
@@ -147,7 +148,55 @@ module.exports = {
         return []
       }
     },
-
+    getSimilarBusinesses: async (parent, { businessID, businessNumber, startDate, endDate }, { Business, mongoBusiness, Transaction, sequelizeConnection}) => {
+      //find the top n (n = businessNumbr) list of all businesses that have customer overlap with the business in question (businessID) within dates if specified
+      if (businessID == null) {
+        return null;
+      }
+      if(startDate && endDate){
+        //get transactions between dates
+        //assume start date and end date in yyyy-mm-dd format as that is the Date format specified
+        //SELECT `transaction`.* FROM `transactions` AS `transaction` WHERE `transaction`.`businessID` = '2b' AND (DATE(`transaction`.`date`) BETWEEN '2010-01-30' AND '2030-09-29') ORDER BY `date`;
+        const whereBusiness = { businessID: businessID,
+            date: {
+              [Op.between]: [startDate, endDate]
+            }
+        };
+        const transactionsByBusInDates = await Transaction.findAll({ 
+          where: whereBusiness
+        })
+        const finalTransactionObject = decimalNested(transactionsByBusInDates,'value', 'dataValues' )
+        console.log(finalTransactionObject)
+        //need to get a list of all the userIDs from the transaction object
+        const userIDs = R.pluck("userID", finalTransactionObject);
+        console.log(userIDs)
+        const whereUser = { userID: { [Op.or]:  userIDs},
+          date: {
+            [Op.between]: [startDate, endDate]
+          }
+        };
+        let transactionsInBusinessesWithCommonUsersBetweenDates = await Transaction.findAll({ 
+          attributes: [
+            'businessID',
+            [sequelizeConnection.fn('COUNT', sequelizeConnection.col('businessID')), "businessCount"],
+            'userID'
+          ],
+          group: ["userID", "businessID"],
+          where: whereUser,
+          order: [ [ sequelizeConnection.fn('COUNT', sequelizeConnection.col('businessID')), 'DESC' ]],
+        })
+        console.log(transactionsInBusinessesWithCommonUsersBetweenDates)
+        transactionsInBusinessesWithCommonUsersBetweenDates = decimalNested(transactionsInBusinessesWithCommonUsersBetweenDates,'value', 'dataValues' )
+        //need to get a list of all the userIDs from the transaction object
+        let businessIDs = R.pluck("businessID", transactionsInBusinessesWithCommonUsersBetweenDates);
+        console.log(businessIDs)
+        if(businessNumber != null){
+          businessIDs = businessIDs.slice(0, businessNumber);
+        }
+        const commonBusinesses = await mongoBusiness.find({ businessID: { $in: businessIDs }  })
+        return commonBusinesses
+      } 
+    },
   },
 
   Mutation: {

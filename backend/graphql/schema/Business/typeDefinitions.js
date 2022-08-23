@@ -37,7 +37,7 @@ module.exports = gql`
         getAllBusinesses(pocketID: ID, businessType: String, businessSubtype: String, businessTag: String): [Business]
         getLovedBusinessesByUser(userID: ID): [Business]
         getNearbyBusinesses(latitude: Float, longitude: Float, radius: Float): [Business]
-
+        getSimilarBusinesses(businessID:ID, businessNumber: Int, startDate: Date, endDate: Date): [Business]
       }
       type Mutation {
         """

@@ -58,7 +58,7 @@ module.exports = {
             }
         },
         getAllTransactionsByBusiness: async (parent, { businessID, startDate, endDate }, { Transaction}) => {
-          if (businessID === '') {
+          if (businessID == null) {
             return null;
           }
           if(startDate && endDate){

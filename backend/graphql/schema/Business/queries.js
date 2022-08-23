@@ -57,5 +57,19 @@ export default {
         }
     }
   `,
+  getSimilarBusinesses: gql`
+    query getSimilarBusinesses($businessID: ID, $businessNumber: Int, $startDate: Date, $endDate: Date) {
+      getSimilarBusinesses(businessID: $businessID, businessNumber: $businessNumber,startDate: $startDate, endDate: $endDate ) {
+          businessID
+          businessName
+          dateEstablished
+          emailAddress
+          phoneNumber
+          website
+          businessType
+          businessSubtype
+        }
+    }
+  `,
 
 }
