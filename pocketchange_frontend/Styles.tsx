@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
 
   searchBarInputContainer: {
     height: 40,
-    backgroundColor: colors.card, //colors.bg,
+    backgroundColor: colors.bgLight, //colors.bg,
     borderRadius: CARD_RADIUS,
     borderColor: colors.light,
     borderWidth: BORDER_WIDTH,
@@ -463,7 +463,7 @@ export const styles = StyleSheet.create({
   idDateOfBirth: {
     fontFamily: 'metropolis medium',
     fontSize: 11,
-    color: colors.medium,
+    color: colors.subtle,
   },
 
   idAppName: {
