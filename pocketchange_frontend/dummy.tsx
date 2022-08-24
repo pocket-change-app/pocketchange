@@ -81,6 +81,13 @@ export const user = {
 
 export const pockets = [
   {
+    pocketID: '04',
+    name: 'Bloor West',
+    imageURL: require('./assets/images/bloor_west.jpg'),
+    bannerURL: require('./assets/images/bloor_west_banner.jpg'),
+    description: "",
+  },
+  {
     pocketID: '01',
     name: 'Leslieville',
     imageURL: require('./assets/images/leslieville.jpg'),
@@ -92,40 +99,16 @@ export const pockets = [
     name: 'Riverside',
     imageURL: require('./assets/images/riverside.jpg'),
     bannerURL: require('./assets/images/riverside-banner.jpg'),
-    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. asdf asdffhg a;sl g g woh e glsj gouhsdlkjasdg kjshd kjhsd glkjasd glkj asdkjghkj hh hglakjs dg kjhasd gks djgh dk skkkkd gkj sdkj gjjg gkj gg. aa a aa aaaaa a aaaa aa a aaaaa a aaaaaa a a a aa a a abba a a a aaaaa a aa a!"
+    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. "
   },
   {
     pocketID: '03',
     name: 'Uptown Yonge',
     imageURL: require('./assets/images/uptown_yonge.jpg'),
     bannerURL: require('./assets/images/uptown-yonge-logo.png'),
+    description: ""
   },
-  {
-    pocketID: '04',
-    name: 'Chinatown',
-    imageURL: require('./assets/images/chinatown.jpg'),
-    bannerURL: require('./assets/images/chinatown-banner.png'),
-  },
-  {
-    pocketID: '05',
-    name: 'Little Italy',
-    imageURL: require('./assets/images/little_italy.jpg'),
-  },
-  {
-    pocketID: '06',
-    name: 'Test Pocket 01',
-    imageURL: require('./assets/images/cats.jpg'),
-  },
-  {
-    pocketID: '07',
-    name: 'Test Pocket 02',
-    imageURL: require('./assets/images/cats.jpg'),
-  },
-  {
-    pocketID: '08',
-    name: 'Test Pocket 03',
-    imageURL: require('./assets/images/cats.jpg'),
-  },
+
 ];
 
 export const businesses = [
