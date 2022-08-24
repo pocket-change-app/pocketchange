@@ -370,6 +370,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonBordered: {
+    justifyContent: 'center',
     borderWidth: BORDER_WIDTH,
     borderColor: colors.light,
     borderRadius: CARD_RADIUS,
@@ -388,6 +389,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonNegative: {
+    justifyContent: 'center',
     height: BUTTON_HEIGHT,
     padding: MARGIN,
     backgroundColor: colors.subtle,
