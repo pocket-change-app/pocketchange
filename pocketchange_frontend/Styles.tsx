@@ -17,15 +17,25 @@ export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 export const styles = StyleSheet.create({
 
   inputContainer: {
+    // width: '',
     padding: MARGIN,
+    // paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'center',
+    // borderBottomWidth: BORDER_WIDTH,
+    borderColor: colors.subtle,
   },
 
   paymentInputText: {
     fontFamily: 'metropolis bold',
     fontSize: 30,
-    color: colors.medium,
+    color: colors.gold,
+  },
+
+  paymentAmountText: {
+    fontFamily: 'metropolis bold',
+    fontSize: 30,
+    color: colors.subtle,
   },
 
   paymentSummaryText: {
@@ -581,20 +591,23 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 30,
-    margin: MARGIN,
-    marginBottom: 0,
+    marginHorizontal: MARGIN,
+    marginVertical: MARGIN / 2,
   },
 
   transactionListedMerchantText: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.dark,
+    alignSelf: 'center',
   },
 
   transactionListedAmountText: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
+    alignSelf: 'center',
+    marginRight: MARGIN / 2,
   },
 
   payConfirmationDetails: {

@@ -19,7 +19,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   return (
     <ScreenContainer>
-      <View style={styles.container}>
+      <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
         <View style={styles.card}>
           {/* <CardHeader text='Summary' /> */}
 
@@ -46,15 +46,20 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Used</Text>
               <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeUsed}</Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Total</Text>
+              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${total}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
+              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>You Pay</Text>
               <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${consumerTotal}</Text>
             </View>
           </View>
         </View>
 
         <ButtonWithText
-          text={'Confirm'}
+          color={colors.gold}
+          text={'Pay ' + name}
           onPress={() => {
 
             const d = new Date()

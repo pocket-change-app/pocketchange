@@ -48,7 +48,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               <HorizontalLine />
 
               <View style={styles.container}>
-                <Text style={[styles.paymentInputText, { textAlign: 'center', color: colors.gold }]}>${amount}</Text>
+                <Text style={[styles.paymentAmountText, { textAlign: 'center' }]}>${amount}</Text>
               </View>
             </View>
 
@@ -69,6 +69,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
                 <Text style={styles.paymentInputText}>$</Text>
                 <TextInput
+                  autoFocus={true}
                   keyboardType='numeric'
                   style={styles.paymentInputText}
                   value={tip.toString()}
