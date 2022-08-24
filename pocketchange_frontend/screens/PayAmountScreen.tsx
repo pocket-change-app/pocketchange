@@ -1,4 +1,4 @@
-import { styles } from "../Styles";
+import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
 import { CardHeader, ButtonWithText, PayAmountCard } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
@@ -55,6 +55,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
               <View style={styles.inputContainer}>
                 <Text style={styles.paymentInputText}>$</Text>
                 <TextInput
+                  autoFocus={true}
                   style={styles.paymentInputText}
                   keyboardType='numeric'
                   value={amount}
@@ -63,6 +64,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                   placeholderTextColor={colors.light}
                 />
               </View>
+
             </View>
 
             <ButtonWithText
