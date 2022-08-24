@@ -2,6 +2,7 @@
 
 export const colors = {
   bg: '#F2F2F2',
+  bgLight: '#f8f8f8',
   gold: '#D9A300',
   light: '#D9D9D9',
   subtle: '#A8A8A8',
