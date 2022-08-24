@@ -22,7 +22,7 @@ const AuthProvider: React.FC = ({ children }) => {
   //and stay like this, until the data be load from Async Storage
   const [loading, setLoading] = useState(true);
 
-  const [signedInAs, setSignedInAs] = useState("consumer");
+  const [signedInAs, setSignedInAs] = useState("merchant");
 
   useEffect(() => {
     AsyncStorage.clear();
