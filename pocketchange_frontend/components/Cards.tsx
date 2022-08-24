@@ -388,9 +388,25 @@ export function TransactionListed({ navigation, transaction }: any) {
         <Text style={styles.transactionListedMerchantText}>
           {transaction.merchant}
         </Text>
-        <Text style={styles.transactionListedAmountText}>
-          ${transaction.total}
-        </Text>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.transactionListedAmountText}>
+            ${transaction.total}
+          </Text>
+          <Pressable
+            style={{ aspectRatio: 1 }}
+            onPress={() => navigation.navigate('PayConfirmation', {
+              businessName: transaction.merchant,
+              total: transaction.total,
+              date: transaction.date,
+              time: transaction.time,
+            })}
+          >
+            <Image
+              style={{ flex: 1, width: undefined, height: undefined }}
+              source={require("../assets/images/icon.png")}
+            />
+          </Pressable>
+        </View>
       </View>
       {/* <HorizontalLine /> */}
     </Pressable >
