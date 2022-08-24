@@ -23,7 +23,6 @@ export type RootStackParamList = {
 
   NotFound: undefined;
 
-  TransactionModal: undefined;
   Receipt: undefined;
 
   PaymentModalStack: undefined;
@@ -35,6 +34,15 @@ export type RootStackParamList = {
 
   Wallet: undefined;
   ConsumerSettings: undefined;
+
+  // Merchant Screens
+  Transactions: undefined
+  TransactionModal: undefined;
+
+  Analytics: undefined
+
+  MerchantSettings: undefined
+
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -50,8 +58,10 @@ export type RootTabParamList = {
   WalletStack: undefined;
   // Wallet: undefined;
 
+  // Merchant Tabs
+  TransactionsStack: undefined;
   Analytics: undefined;
-  Transactions: undefined;
+
   Settings: undefined;
 };
 
