@@ -38,7 +38,7 @@ module.exports = {
       if (userID != null) {
         filterChange.push({'userID': userID})
       }
-      //check to see if subtype is not null
+      //check to see if pocketID is not null
       if (pocketID != null) {
         filterChange.push({'pocketID' : pocketID})
       }
