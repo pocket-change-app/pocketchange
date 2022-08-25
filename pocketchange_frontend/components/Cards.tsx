@@ -28,7 +28,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
           onPress={() => (navigation.navigate('PaymentModalStack', {
             screen: "PayAmount",
             params: {
-              navigation: navigation,
+              // navigation: navigation,
               business: business,
             }
             // busID: business.busID,
@@ -70,7 +70,7 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
-        navigation: navigation,
+        // navigation: navigation,
         business: business,
       })}
     >
@@ -130,7 +130,7 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
   return (
     <Pressable
       onPress={() => navigation.navigate('Pocket', {
-        navigation: navigation,
+        // navigation: navigation,
         pocket: pocket
       })}
     >
@@ -176,7 +176,7 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
     <Pressable
       style={styles.pocketSearchResultContainer}
       onPress={() => navigation.navigate('Pocket', {
-        navigation: navigation,
+        // navigation: navigation,
         pocket: pocket,
       })}
     >
