@@ -12,7 +12,7 @@ const {decimalNested} = require('../../utils')
 
 const updateChangeAcross = async(ChangeBalance, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
     transactionDate = new Date(dateOfTransaction)
-    var expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
+    let expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
     //store expiry date in yyyy-mm-dd format
     expiryDate= new Date(expiryDate).toISOString().slice(0, 10)
     //update all change assuming values are floats and cast them to 4 decimal place strings
@@ -157,7 +157,7 @@ module.exports = {
                             //change is updated across
                             const newTransaction = await Transaction.create({
                                 userID: userID,
-                                value: value.toFixed(2),
+                                value: value.toFixed(4),
                                 businessID: busID,
                                 date: dateOfTransaction,
                                 pocketID: pocketID,

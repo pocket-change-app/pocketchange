@@ -1,11 +1,10 @@
 const { gql, ApolloError } = require('apollo-server');
 const { IsIn, WorksAt } = require('../../../databases/SQLSchema/db');
-const obfuscate = require('../helpers/obfuscate')
-const validate = require('../helpers/validate')
+const {decimalNested} = require('../../utils')
+const returnAllBusinesses = require('../helpers/returnAllBusinesses')
 const R = require('ramda')
 const math = require('mathjs')
 const {Op} = require('sequelize')
-const {decimalNested} = require('../../utils')
 
 module.exports = {
   Query: {
@@ -45,36 +44,11 @@ module.exports = {
           return {};
         }
     },
-    getAllBusinesses: async (parent, { pocketID, businessType, businessSubtype, businessTag }, { Business, mongoBusiness, IsIn}) => {
+    getAllBusinesses: async (parent, { pocketID, businessType, businessSubtype, businessTag }, { mongoBusiness, IsIn}) => {
       //create filter obejct to hold filters for mongoose
-      let filterBusiness = []
-      //check to see if type is not null
-      if (businessType != null) {
-        filterBusiness.push({'businessType': businessType})
-      }
-      //check to see if subtype is not null
-      if (businessSubtype != null) {
-        filterBusiness.push({'businessSubtype' : businessSubtype})
-      }
-      //check to see if tag is not null
-      if (businessTag != null) {
-        filterBusiness.push({'businessTag': businessTag})
-      }
-      //make sure only getting active businesses
-      filterBusiness.push({'deactivated': false})
-      let mongoBusinessesInfo;
-      mongoBusinessesInfo = await mongoBusiness.find({ $and: filterBusiness}); 
-      //if pocket specified filter all business
-      //check if pocketID is not null
-      if (pocketID != null) {
-        //check the pocket-business relationship SQL table IsIn
-        const isInInfo = await IsIn.findAll({where: {pocketID: pocketID}})
-        //join two object arrays by matching businessIDs
-        const joinByBusinessID = R.innerJoin(
-          (a, b) => a.businessID === b.businessID
-        )
-        return joinByBusinessID(mongoBusinessesInfo, isInInfo)
-      } 
+      const mongoBusinessesInfo = await returnAllBusinesses({
+        pocketID: pocketID, businessType: businessType, businessSubtype: businessSubtype, businessTag:businessTag
+      },{IsIn, mongoBusiness}) 
       //return mongoBusinessesInfo, if empty it will return an empty list indicating that no businesses matching this criteria were found
       console.log(mongoBusinessesInfo)
       if(mongoBusinessesInfo)
@@ -85,7 +59,7 @@ module.exports = {
     },
     getLovedBusinessesByUser: async (parent, { userID }, { Business, mongoBusiness, Loves}) => {
       //get a list of all businesses that are active
-      mongoBusinessesInfo = await mongoBusiness.find({ $and: {'deactivated': false}}); 
+      mongoBusinessesInfo = await mongoBusiness.find({'deactivated': false}); 
       //get a list of user loved businesses
       if (userID != null) {
         //check the user-business relationship SQL table Loves
@@ -106,7 +80,7 @@ module.exports = {
     },
     getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness}) => {
       //get a list of all businesses that are active
-      businessList = await mongoBusiness.find({ $and: {'deactivated': false}}); 
+      businessList = await mongoBusiness.find({'deactivated': false}); 
       console.log(businessList)
       //check to make sure the distance between the business and the coordinates entered is less than the radius
       
@@ -137,7 +111,6 @@ module.exports = {
           nearbyLong: nearbyLong
       }
       const nearbyLatAndLong = (code3.evaluate(scope2))
-      console.log("DATA", nearbyLatAndLong._data)
       //function to subset list by a list of true and false
       const f = (as, bs) => as.filter((_, i) => bs[i])
       const closestBusinesses = (f(businessList, nearbyLatAndLong._data))
@@ -195,7 +168,7 @@ module.exports = {
           businessIDs = businessIDs.slice(0, businessNumber);
         }
         //find common businesses that are active
-        const commonBusinesses = await mongoBusiness.find({ $and: {businessID: { $in: businessIDs }, deactivated: false } })
+        const commonBusinesses = await mongoBusiness.find({ $and: [{businessID: { $in: businessIDs }, deactivated: false }] })
         return commonBusinesses
       } 
     },
@@ -217,7 +190,8 @@ module.exports = {
       businessTags,
       stripeID,
       pocketID,
-      description 
+      description, 
+      ownerID,
     }, { Business, mongoBusiness, IsIn, WorksAt}) => {
         //check to see the business name they want isn't taken by another business
         const existing = await mongoBusiness.findOne({ businessName: businessName })
@@ -246,9 +220,10 @@ module.exports = {
             businessID: newBus.businessID,
             pocketID: pocketID
           })
-          //create the relationship where the user who made the business is the owner of the business
+          //create the relationship where the user who made the business is the owner of the business if owner wasn't specified
+          const businessOwner = ownerID? ownerID: userID
           await WorksAt.create({
-            userID: userID,
+            userID: businessOwner,
             businessID: newBus.businessID,
             role: 'owner'
           })
@@ -281,7 +256,7 @@ module.exports = {
       }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
           //check to make sure the userID is the business owner 
           const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
-          if(worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+          if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
             //the user is the owner of this business, proceed (or its pocketchange admin)
             //update the business with specified values
             const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
@@ -305,14 +280,39 @@ module.exports = {
           else {
             throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
           }
-        },  
+        }, 
+        updateBusinessOwner: async (parent, { 
+          userID,
+          ownerID,
+          businessID
+        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+            //check to make sure the userID is the business owner 
+            const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+              //the user is the current owner of this business, proceed (or its pocketchange admin)
+              //update the role of the business
+              const WorksAt = await WorksAt.update(
+                {
+                  userID: ownerID,
+                },
+                {
+                  where: { pocketID: pocketID, role: "owner" },
+                }
+              )
+              const mongoBusinessInfo = await mongoBusiness.find({ businessID: businessID })
+              return(mongoBusinessInfo)
+            }
+            else {
+              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+            }
+          },  
         deactivateBusiness: async (parent, { 
           userID,
           businessID
         }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
             //check to make sure the userID is the business owner 
             const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
-            if(worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
               //the user is the owner of this business, proceed (or its pocketchange admin)
               //deactivate the business
               const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },

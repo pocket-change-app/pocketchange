@@ -10,6 +10,7 @@ module.exports = gql`
       region: String
       changeRate: Decimal
       circulatingChange: Decimal
+      deactivated: Boolean
     }
 
     type Query {
@@ -17,6 +18,7 @@ module.exports = gql`
         Query a specific Pocket from it's ID
         """
         pocket(pocketID:ID):Pocket
+        getAllPockets(userID:ID): [Pocket]
     }
 
     type Mutation {
@@ -24,5 +26,11 @@ module.exports = gql`
         Calculate the circulating change in a pocket
         """
         calculatePocketChange(pocketID: ID):Pocket
+        createPocket(userID:ID , pocketID:ID, pocketName: String, region: String, managerID:ID): Pocket
+        updatePocket(userID:ID , pocketID:ID, pocketName: String, region: String): Pocket
+        updatePocketManager(userID: ID, pocketID: ID, managerID: ID) : Pocket
+        joinPocketAsMember(userID:ID , pocketID:ID): Pocket
+        joinPocketAsBusiness(userID:ID , pocketID:ID, businessID:ID): Pocket
+        deactivatePocket(userID: ID, pocketID: ID): Pocket
     }
 `

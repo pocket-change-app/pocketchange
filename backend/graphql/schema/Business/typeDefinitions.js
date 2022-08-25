@@ -44,8 +44,9 @@ module.exports = gql`
         """
         Create a new business profile for a business on pocketchange
         """
-        createBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
+        createBusiness(userID: ID, ownerID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
         updateBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
+        updateBusinessOwner(userID: ID, businessID: ID, ownerID: ID) : Business
         deactivateBusiness(userID:ID, businessID:ID): Business
       }
 `

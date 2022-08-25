@@ -25,7 +25,10 @@ module.exports = (sequelize, Sequelize) => {
         role:{
             type: Sequelize.STRING, //owner, cashier, manager
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            validate: {
+                isIn: [['owner', 'cashier', 'manager']] 
+            }
         }
     });
   

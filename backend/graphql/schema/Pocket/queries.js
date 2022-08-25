@@ -1,18 +1,29 @@
 import gql from 'graphql-tag'
 
 export default {
-    Pocket: gql`
-        query Pocket($pocketID:ID){
+    pocket: gql`
+        query pocket($pocketID:ID){
             pocket(pocketID:$pocketID) {
                 pocketID
                 pocketName
                 changeRate
                 region
                 circulatingChange
+                deactivated
             }
         }
-`
-//getAllPocketBusinesses
-//getAllPocketCustomers
-//getPocketWorkers
+`,
+    getAllPockets: gql`
+        query getAllPockets($userID:ID){
+            getAllPockets(userID:$userID) {
+                pocketID
+                pocketName
+                changeRate
+                region
+                circulatingChange
+                deactivated
+            }
+        }
+    `
+
 }

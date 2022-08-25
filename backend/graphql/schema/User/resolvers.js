@@ -1,6 +1,5 @@
 const { gql, ApolloError } = require('apollo-server');
-const obfuscate = require('../helpers/obfuscate')
-const validate = require('../helpers/validate')
+const {obfuscate, validate} =require('../../utils')
 
 module.exports = {
     Query: {
