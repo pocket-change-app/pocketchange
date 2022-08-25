@@ -564,7 +564,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-
     borderRadius: CARD_RADIUS,
   },
 
@@ -636,6 +635,7 @@ export const styles = StyleSheet.create({
     fontSize: 75,
     color: colors.card,
     textAlign: 'center',
+    marginTop: MARGIN,
   },
 
   logoText: {
@@ -644,6 +644,13 @@ export const styles = StyleSheet.create({
     // lineHeight: 60,
     color: colors.gold,
     textAlign: 'center',
+  },
+
+  movingBannerText: {
+    fontFamily: 'metropolis black italic',
+    fontSize: 25,
+    // lineHeight: 60,
+    color: colors.transluscentWhite,
   }
 
 })
