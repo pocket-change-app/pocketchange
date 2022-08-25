@@ -84,12 +84,14 @@ module.exports = {
             group: ["userID", "pocketID"],
             where: {userID: userID, pocketID: pocketID}
           })
+          let currentChange = totalChangeEarned
           //if the user has made transactions in the pocket redeeming change
           if (changeRedeemedPerUserPerPocket[0]){
             //convert total change redeemed into a float for calculations
             const totalChangeRedeemed =  parseFloat(changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed)
             //currentChange is a float
-            const currentChange = totalChangeEarned - totalChangeRedeemed
+            currentChange = totalChangeEarned - totalChangeRedeemed
+          }
             //update the User change, if the users change for this pocket exists
             var userChangeBalance = await ChangeBalance.findOne({ where: {userID: userID,
               pocketID: pocketID}
@@ -114,7 +116,7 @@ module.exports = {
                 pocketID: pocketID, value: (currentChange).toFixed(4), expiryDate: expiryDate})
             }
             return{
-              changeBalanceID: userChangeBalance.dataValues.changeID,
+              changeBalanceID: userChangeBalance.dataValues.changeBalanceID,
               pocketID: userChangeBalance.pocketID,
               //return currentChange to 2 decimal places for front end
               value: (currentChange).toFixed(2),
@@ -122,10 +124,9 @@ module.exports = {
               expiryDate: userChangeBalance.expiryDate,
             }
           }
-        }
-        else {
-          throw new ApolloError(`no change for this userID:${userID} and  pocketID:${pocketID}` );
+          else {
+            throw new ApolloError(`no change for this userID:${userID} and  pocketID:${pocketID}` );
+          }
         }
     },  
-  }
 }
