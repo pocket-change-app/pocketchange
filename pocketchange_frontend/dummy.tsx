@@ -36,7 +36,7 @@ export const user = {
       key: '001',
       date: '2022-05-05',
       time: '14:20:23',
-      timestamp: '2022-05-05 14:20:23', // yyyy-mm-dd-hh-mm-ss
+      timestamp: '2022-05-05 14:20:23', // yyyy-mm-dd hh:mm:ss
       merchant: "Jimmy's Coffee",
       pocket: 'Riverside',
       subtotal: '3.60',
