@@ -1,5 +1,6 @@
 const { gql, ApolloError } = require('apollo-server');
 const e = require('express');
+const returnAllChange = require('../helpers/returnAllChange')
 const {decimalNested} = require('../../utils')
 
 //standard for dealing with monetary values in the backend is convert your value to a float, 
@@ -65,30 +66,22 @@ module.exports = {
   Mutation: {
     updateUserChangeBalance: async (parent, { userID, pocketID }, { ChangeBalance, Transaction, sequelizeConnection}) => {
         //SELECT `userID`, `pocketID`, SUM(`changeEarned`) AS `totalChangeEarned` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
-        const changeEarnedPerUserPerPocket = await Transaction.findAll({ 
-          attributes: ["userID", "pocketID", 
-          [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeEarned')), 'totalChangeEarned']
-          ],
-          group: ["userID", "pocketID"],
-          where: {userID: userID, pocketID: pocketID}
-        })
+        let totalChangeEarned = await returnAllChange({
+          pocketID: pocketID, userID: userID, earned:true,
+        },{Transaction, sequelizeConnection}) 
         //if the user has made transactions in the pocket earning change
-        if (changeEarnedPerUserPerPocket[0]){
+        if (totalChangeEarned){
           //convert total change earned into a float for calculations
-          const totalChangeEarned = parseFloat(changeEarnedPerUserPerPocket[0].dataValues.totalChangeEarned)
+          totalChangeEarned = parseFloat(totalChangeEarned)
           //SELECT `userID`, `pocketID`, SUM(`changeRedeemed`) AS `totalChangeRedeemed` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
-          const changeRedeemedPerUserPerPocket = await Transaction.findAll({ 
-            attributes: ["userID", "pocketID", 
-            [sequelizeConnection.fn('SUM', sequelizeConnection.col('changeRedeemed')), 'totalChangeRedeemed']
-            ],
-            group: ["userID", "pocketID"],
-            where: {userID: userID, pocketID: pocketID}
-          })
+          let totalChangeRedeemed = await returnAllChange({
+            pocketID: pocketID, userID: userID, earned:false,
+          },{Transaction, sequelizeConnection}) 
           let currentChange = totalChangeEarned
           //if the user has made transactions in the pocket redeeming change
-          if (changeRedeemedPerUserPerPocket[0]){
+          if (totalChangeRedeemed){
             //convert total change redeemed into a float for calculations
-            const totalChangeRedeemed =  parseFloat(changeRedeemedPerUserPerPocket[0].dataValues.totalChangeRedeemed)
+             totalChangeRedeemed =  parseFloat(totalChangeRedeemed)
             //currentChange is a float
             currentChange = totalChangeEarned - totalChangeRedeemed
           }

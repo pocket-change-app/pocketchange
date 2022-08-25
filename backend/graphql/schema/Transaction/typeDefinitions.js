@@ -9,10 +9,17 @@ module.exports = gql`
       userID: ID
       value: Decimal
       date: Date
-      buinessID: ID
+      businessID: ID
       pocketID: ID
       changeRedeemed: Decimal
       changeEarned: Decimal
+    }
+
+    """
+    Either a summary of change redeemed or earned across dates if specified
+    """
+    type ChangeFlow {
+        value: Decimal
     }
 
     type Query {
@@ -23,7 +30,8 @@ module.exports = gql`
         """
         Query all Transactions given a businessID, between certain dates
         """
-        getAllTransactionsByBusiness(businessID:ID, startDate: Date, endDate: Date): [Transaction]
+        getAllTransactions(businessID:ID, pocketID:ID, userID:ID, startDate: Date, endDate: Date): [Transaction]
+        getAllChange(businessID:ID, userID:ID, pocketID:ID, startDate: Date, endDate: Date, earned: Boolean): ChangeFlow
     }
 
     type Mutation {

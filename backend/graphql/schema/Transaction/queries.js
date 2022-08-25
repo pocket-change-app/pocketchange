@@ -15,9 +15,9 @@ export default {
             }
         }
     `,
-    getAllTransactionsByBusiness: gql`
-        query getAllTransactionsByBusiness($businessID:ID, $startDate: Date, $endDate: Date){
-            getAllTransactionsByBusiness(businessID:$businessID, startDate: $startDate, endDate: $endDate){
+    getAllTransactions: gql`
+        query getAllTransactions($businessID:ID,$pocketID:ID, $userID:ID, $startDate: Date, $endDate: Date){
+            getAllTransactions(businessID:$businessID, pocketID:$pocketID, userID:$userID, startDate: $startDate, endDate: $endDate){
                 transactionID
                 userID
                 value
@@ -28,5 +28,12 @@ export default {
                 changeEarned
             }
         }
-`
+`,
+    getAllChange: gql`
+        query getAllChange($businessID:ID,$pocketID:ID, $userID:ID, $startDate: Date, $endDate: Date, $earned: Boolean){
+            getAllChange(businessID:$businessID, pocketID:$pocketID, userID:$userID, startDate: $startDate, endDate: $endDate, earned: $earned){
+                value
+            }
+        }
+        `,
 }

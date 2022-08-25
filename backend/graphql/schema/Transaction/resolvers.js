@@ -3,6 +3,7 @@ const R = require('ramda');
 const { Business } = require('../../../databases/SQLSchema/db');
 const {Op} = require('sequelize');
 const {decimalNested} = require('../../utils')
+const returnAllChange = require('../helpers/returnAllChange')
 
 
 //standard for dealing with monetary values in the backend is convert your value to a float, 
@@ -57,39 +58,56 @@ module.exports = {
               return {};
             }
         },
-        getAllTransactionsByBusiness: async (parent, { businessID, startDate, endDate }, { Transaction}) => {
-          if (businessID == null) {
-            return null;
-          }
+        getAllTransactions: async (parent, { businessID, pocketID, userID, startDate, endDate }, { Transaction}) => {
+          let filterTransactions = []
           if(startDate && endDate){
-            //get transactions between dates
-            //assume start date and end date in yyyy-mm-dd format as that is the Date format specified
-            //SELECT `transaction`.* FROM `transactions` AS `transaction` WHERE `transaction`.`businessID` = '2b' AND (DATE(`transaction`.`date`) BETWEEN '2010-01-30' AND '2030-09-29') ORDER BY `date`;
-            const where = { businessID: businessID,
-                date: {
-                  [Op.between]: [startDate, endDate]
-                }
-            };
-            const transactionsByBusInDates = await Transaction.findAll({ 
-              where: where
-            })
-            //need to rename the ID to transactionID and businessID to busID
-            //const finalTransactionObject = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionsByBusInDates))
-            //return finalTransactionObject
-            const finalTransactionObject = decimalNested(transactionsByBusInDates,'value', 'dataValues' )
-            return finalTransactionObject
+            filterTransactions.push({date: {
+              [Op.between]: [startDate, endDate]
+            }})
           }
-          //else get all Transactions
-          else{
-            const transactionInfo = await Transaction.findAll({ where : {businessID: businessID}});
-            if(transactionInfo ){
-              //const transactionObj = (renameNestedKeys('dataValues', {'ID': 'transactionID', 'businessID': 'busID'}, transactionInfo))
-              //return transactionObj
+          //check to see if type is not null
+          if (userID != null) {
+            filterTransactions.push({'userID': userID})
+          }
+          //check to see if pocketID is not null
+          if (pocketID != null) {
+            filterTransactions.push({'pocketID' : pocketID})
+          }
+          //check to see if businessID is not null
+          if (businessID != null) {
+            filterTransactions.push({'businessID' : businessID})
+          }
+          let transactionInfo;
+          if (filterTransactions.length == 0) {
+            //no filters specified get all
+            transactionInfo = await Transaction.findAll({})
+            if(transactionInfo){
               const finalTransactionObject = decimalNested(transactionInfo,'value', 'dataValues' )
               return finalTransactionObject
-    
+            }
+            else{
+              return []
+            }
+          } 
+          else {
+            //filters specified
+            transactionInfo = await Transaction.findAll({ 
+              where: filterTransactions,
+            })
+            if(transactionInfo){
+              transactionInfo = decimalNested(transactionInfo,'value', 'dataValues' )
+              return transactionInfo
+            }
+            else{ //no transactions found 
+              return []
             }
           }
+      },
+      getAllChange: async (parent, { businessID, pocketID, userID, startDate, endDate, earned }, { Transaction, sequelizeConnection}) => {
+        const value = await returnAllChange (
+          { userID: userID, pocketID:pocketID, businessID:businessID, startDate:startDate, endDate:endDate, earned: earned }, { Transaction, sequelizeConnection}
+      )
+        return {value: value}
       },
     },
   
