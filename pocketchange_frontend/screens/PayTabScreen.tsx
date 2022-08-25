@@ -43,20 +43,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
       style={{ flex: 1 }}
     >
 
-      {/* <TextInput
-        // showCancel={false}
-        // containerStyle={styles.searchBarContainer}
-        // inputContainerStyle={styles.searchBarInputContainer}
-
-        // inputStyle={styles.searchBarInput}
-        placeholder="Search Businesses"
-        placeholderTextColor={colors.subtle}
-
-        onChangeText={updateSearch}
-        // onClear={() => null}
-        value={searchQuery}
-      /> */}
-
       {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       <ScreenContainer>
 
@@ -71,18 +57,18 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
               return (
                 <>
                   <DivHeader text='Suggested' />
-                  <Pressable
+                  {/* <Pressable
                     onPress={() => navigation.navigate('Business', {
                       business: businesses[0]
                     })}
-                  >
+                  > */}
 
-                    <BusinessCardSuggested
-                      key={businesses[0].busID}
-                      navigation={navigation}
-                      business={businesses[0]}
-                    />
-                  </Pressable>
+                  <BusinessCardSuggested
+                    key={businesses[0].busID}
+                    navigation={navigation}
+                    business={businesses[0]}
+                  />
+                  {/* </Pressable> */}
                   <DivHeader text='Loved' />
                 </>
               )

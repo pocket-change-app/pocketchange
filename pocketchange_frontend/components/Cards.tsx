@@ -68,56 +68,27 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
 
 export function BusinessCardSuggested({ navigation, business }: { navigation: any, business: any }) {
   return (
-    <View style={styles.card}>
-      <View style={styles.businessHeaderImageContainer}>
-        <Image
-          style={styles.businessHeaderImage}
-          source={business.imageURL}
-        />
+    <Pressable
+      onPress={() => navigation.navigate('Business', {
+        navigation: navigation,
+        business: business,
+      })}
+    >
+      <View style={styles.card}>
+        <View style={styles.businessHeaderImageContainer}>
+          <Image
+            style={styles.businessHeaderImage}
+            source={business.imageURL}
+          />
+        </View>
+        <View style={styles.businessModalInfo}>
+          <Text style={styles.businessNameLg}>{business.name}</Text>
+          <Text style={styles.address}>{business.address}</Text>
+          <Text style={styles.pocket}>{business.pocket}</Text>
+
+        </View>
       </View>
-      <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{business.name}</Text>
-        <Text style={styles.address}>{business.address}</Text>
-        <Text style={styles.pocket}>{business.pocket}</Text>
-
-        {/* <Pressable style={styles.payButton}
-          onPress={() => (navigation.navigate('PaymentModalStack', {
-            screen: "PayAmount",
-            params: {
-              navigation: navigation,
-              business: business,
-            }
-            // busID: business.busID,
-            // name: business.name,
-            // address: business.address,
-            // pocket: business.pocket,
-            // imageURL: business.imageURL,
-          }))}
-        >
-          <Text style={styles.payButtonText}>PAY</Text>
-        </Pressable>
-
-        <Pressable style={styles.payButton}
-          onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
-          <Text style={styles.payButtonText}>[CALL]</Text>
-        </Pressable>
-
-        <Pressable style={styles.payButton}
-          onPress={() => {
-            const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
-            const latLng = `${business.latitude},${business.longitude}`;
-            const label = business.name;
-            const url = Platform.select({
-              ios: `${scheme}${label}@${latLng}`,
-              android: `${scheme}${latLng}(${label})`
-            });
-            Linking.openURL(`tel:${business.phoneNumber}`)
-          }
-          }>
-          <Text style={styles.payButtonText}>[DIRECTIONS]</Text>
-        </Pressable> */}
-      </View>
-    </View>
+    </Pressable>
   );
 
 }
@@ -127,7 +98,7 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
-        navigation: navigation,
+        // navigation: navigation,
         business: business,
       })}
     >
