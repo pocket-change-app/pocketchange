@@ -1,10 +1,11 @@
 import { NavigationContainerRefContext } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { TouchableWithoutFeedback } from "react-native";
+import { Dimensions, Easing, SafeAreaView, TouchableWithoutFeedback } from "react-native";
 import { Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { user } from "../dummy";
-import { styles } from "../Styles";
+import { MARGIN, styles } from "../Styles";
+import TextTicker from 'react-native-text-ticker'
 
 
 export default function PayConfirmationScreen({ route, navigation }: any) {
@@ -24,34 +25,71 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
         }}
       >
 
-        <View style={{
+        <SafeAreaView style={{
           flex: 1,
           backgroundColor: colors.gold,
-          justifyContent: "space-around",
+          justifyContent: "space-between",
           alignItems: 'center',
+          // paddingTop: 100,
+          // paddingBottom: MARGIN * 2,
         }}>
 
-          <Text style={styles.payConfirmationDetails}>
-            {user.name.first} paid
-          </Text>
+          <TextTicker
+            style={styles.movingBannerText}
+            duration={50000}
+            // scrollSpeed={1000}
+            animationType={'scroll'}
+            loop
+            repeatSpacer={0}
+            marqueeDelay={0}
+            easing={Easing.linear}
+            isRTL={true}
+          >
+            {'pocketchange  '.repeat(10)}
+          </TextTicker>
 
-          <Text style={styles.payConfirmationBusiness}>
-            {businessName}
-          </Text>
+          <View style={{
+            // height: Dimensions.get('screen').height * 1 / 2,
+            justifyContent: 'space-between'
+          }}>
+            <Text style={styles.payConfirmationDetails}>
+              {user.name.first} paid
+            </Text>
 
-          <Text style={styles.payConfirmationTotal}>
-            ${total}
-          </Text>
+            <View style={{ marginVertical: 2 * MARGIN }}>
+              <Text style={styles.payConfirmationBusiness}>
+                {businessName}
+              </Text>
 
-          <Text style={styles.payConfirmationDateTime}>
-            {date}
-          </Text>
+              <Text style={styles.payConfirmationTotal}>
+                ${total}
+              </Text>
+            </View>
 
-          <Text style={styles.payConfirmationDateTime}>
-            {time}
-          </Text>
+            <Text style={styles.payConfirmationDateTime}>
+              {date}
+            </Text>
 
-        </View>
+            <Text style={styles.payConfirmationDateTime}>
+              {time}
+            </Text>
+          </View>
+
+          <TextTicker
+            style={styles.movingBannerText}
+            duration={50000}
+            // scrollSpeed={1000}
+            animationType={'scroll'}
+            loop
+            repeatSpacer={0}
+            marqueeDelay={0}
+            easing={Easing.linear}
+          // isRTL={true}
+          >
+            {'pocketchange  '.repeat(10)}
+          </TextTicker>
+
+        </SafeAreaView>
       </TouchableWithoutFeedback>
     </>
   )
