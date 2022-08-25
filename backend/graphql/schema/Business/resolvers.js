@@ -63,11 +63,7 @@ module.exports = {
       //make sure only getting active businesses
       filterBusiness.push({'deactivated': false})
       let mongoBusinessesInfo;
-      if (filterBusiness.length == 0) {
-        mongoBusinessesInfo = await mongoBusiness.find(); 
-      } else {
-        mongoBusinessesInfo = await mongoBusiness.find({ $and: filterBusiness}); 
-      }
+      mongoBusinessesInfo = await mongoBusiness.find({ $and: filterBusiness}); 
       //if pocket specified filter all business
       //check if pocketID is not null
       if (pocketID != null) {
