@@ -70,7 +70,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
             <ButtonWithText
               text={'Next'}
               onPress={() => navigation.navigate("PayTip", {
-                navigation: navigation,
+                // navigation: navigation,
                 business: business,
                 amount: parseFloat(amount).toFixed(2),
               })}
