@@ -50,14 +50,11 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
 
           <Pressable style={[styles.buttonBordered, { flex: 1 }]}
             onPress={() => {
-              const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
-              const latLng = `${business.latitude},${business.longitude}`;
-              const label = business.name;
-              const url = Platform.select({
-                ios: `${scheme}${label}@${latLng}`,
-                android: `${scheme}${latLng}(${label})`
-              });
-              Linking.openURL(`tel:${business.phoneNumber}`)
+              const destination = encodeURIComponent(`${business.address}, $Toronto, Canada`);
+              const provider = Platform.OS === 'ios' ? 'apple' : 'google'
+              const link = `http://maps.${provider}.com/?q=${destination}`
+
+              Linking.openURL(link)
             }
             }>
             <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>DIRECTIONS</Text>
