@@ -168,7 +168,7 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
     >
       {/* <View> */}
       <View style={styles.pocketListCardContainer}>
-        <View style={[styles.card, styles.pocketListCard, styles.container, { marginTop: MARGIN, marginBottom: MARGIN }]}>
+        <View style={[styles.card, styles.pocketListCard, { marginTop: MARGIN, marginBottom: MARGIN }]}>
           {/* <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{pocket.name}</Text>
           </View> */}
