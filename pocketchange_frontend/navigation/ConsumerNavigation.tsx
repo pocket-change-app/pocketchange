@@ -45,16 +45,24 @@ export const ConsumerNavigation = () => {
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 
-      <Stack.Screen
-        name="PayConfirmation"
-        component={PayConfirmationScreen}
-        options={{
-          presentation: 'fullScreenModal',
-          // statusBarHidden: true,
-          headerShown: false,
-          autoHideHomeIndicator: true,
+      <Stack.Group
+        screenOptions={{
+          presentation: 'modal',
         }}
-      />
+      >
+        <Stack.Screen
+          name="PayConfirmation"
+          component={PayConfirmationScreen}
+          options={{
+            presentation: 'fullScreenModal',
+            // statusBarHidden: true,
+            headerShown: false,
+            autoHideHomeIndicator: true,
+          }}
+        />
+
+      </Stack.Group>
+
 
     </Stack.Navigator>
   );
