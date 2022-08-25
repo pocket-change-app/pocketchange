@@ -20,12 +20,12 @@ module.exports = gql`
         """
         Query a users changeBalance in a given Pocket
         """
-        getUserChangeBalance(userID: ID, pocketID: ID):ChangeBalance
+        getAllChangeBalances(userID: ID, pocketID: ID): [ChangeBalance]
       }
       type Mutation {
         """
-        Calculate a users changeBalance in a given pocket
+        Calculate a users changeBalance in a given pocket and update the value
         """
-        calculateUserChangeBalance(userID: ID, pocketID: ID):ChangeBalance
+        updateUserChangeBalance(userID: ID, pocketID: ID):ChangeBalance
       }
 `

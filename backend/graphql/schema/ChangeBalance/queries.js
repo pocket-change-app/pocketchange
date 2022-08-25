@@ -13,8 +13,8 @@ export default {
         }
     `,
     getUserChangeBalance: gql`
-        query getUserChangeBalance($userID:ID, $pocketID: ID){
-            getUserChangeBalance(userID:$userID, pocketID: $pocketID) {
+        query getAllChangeBalances($userID:ID, $pocketID: ID){
+            getAllChangeBalances(userID:$userID, pocketID: $pocketID) {
                 changeBalanceID
                 pocketID
                 value

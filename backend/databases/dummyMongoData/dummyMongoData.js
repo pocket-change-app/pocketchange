@@ -7,7 +7,8 @@ db.mongousers.insertMany( [
       password: '65481dfacc69adb7c1c2e37489e1d1891f9c47f974478687bdbe9d1dad2e4475a8a76d2c3cb4558081367fdbe51026044d8bc0486d15aae262261b21b953cd7f',
       totalChange: 30.00,
       emailAddress:'ilovelocal@gmail.com',
-      home: 'Riverside'
+      home: 'Riverside',
+      deactivated: false,
    },
    {
       userID: 'pocketchangeAdmin',
@@ -17,7 +18,8 @@ db.mongousers.insertMany( [
       password: '9740ddec15dc873d687708ba57c58969f37fcbbf824b22b1da22c2544ba488515076c0b95d5bec2cb12af458da109be1cc342061b97b67b48a23c0ba76b8f0c1',
       totalChange: 0.00,
       emailAddress:'outreach@pocketchangeapp.ca',
-      home: 'Beaches'
+      home: 'Beaches',
+      deactivated: false,
    },
    {
       userID: '2c',
@@ -28,6 +30,7 @@ db.mongousers.insertMany( [
       totalChange: 40.50,
       emailAddress:'localrules@gmail.com',
       home: 'Beaches',
+      deactivated: false,
    },
    {
       userID: '3c',
@@ -37,7 +40,8 @@ db.mongousers.insertMany( [
       password: 'ae18d41b88502293d3682dba3843e9898475014cccc771abeb9f7661cd551d04f13fcb7292400619e09090a60eaa12a01088e2edeae0840c17fb2592e4e3743f',
       totalChange: 14.30,
       emailAddress:'shop123@gmail.com',
-      home: 'North York'
+      home: 'North York',
+      deactivated: false,
    },
    {
       userID: '4c',
@@ -47,7 +51,8 @@ db.mongousers.insertMany( [
       password: '1e96eaf215231957eee6c984e78586c9f8df7e43be812b16a292a2993ee67648ffb5cbb20a010068768d8e33f009acd6452af6175028aab434d09a196cc3b3a9',
       totalChange: 10.15,
       emailAddress:'loyalshop@gmail.com',
-      home: 'Outside Toronto'
+      home: 'Outside Toronto',
+      deactivated: false,
    },
    {
       userID: '5c',
@@ -58,7 +63,8 @@ db.mongousers.insertMany( [
       totalChange: 8.50,
       favouriteBusiness: ['3b'],
       emailAddress:'mmrewards@gmail.com',
-      home: 'Outside Toronto'
+      home: 'Outside Toronto',
+      deactivated: false,
    },
    {
       userID: '6c',
@@ -68,7 +74,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalavling@gmail.com',
-      home: 'Leslieville'
+      home: 'Leslieville',
+      deactivated: false,
    },
    {
       userID: '7c',
@@ -78,7 +85,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalpaella@gmail.com',
-      home: 'Leslieville'
+      home: 'Leslieville',
+      deactivated: false,
    },
    {
       userID: '8c',
@@ -88,7 +96,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalmercury@gmail.com',
-      home: 'Leslieville'
+      home: 'Leslieville',
+      deactivated: false,
    },
    {
       userID: '9c',
@@ -98,7 +107,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalslowhands@gmail.com',
-      home: 'Leslieville'
+      home: 'Leslieville',
+      deactivated: false,
    },
    {
       userID: '10c',
@@ -108,7 +118,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personaldemello@gmail.com',
-      home: 'Uptown Yonge'
+      home: 'Uptown Yonge',
+      deactivated: false,
    },
    {
       userID: '11c',
@@ -118,7 +129,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalhimalayanjava@gmail.com',
-      home: 'Uptown Yonge'
+      home: 'Uptown Yonge',
+      deactivated: false,
    },
    {
       userID: '12c',
@@ -128,7 +140,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personalisaander@gmail.com',
-      home: 'Uptown Yonge'
+      home: 'Uptown Yonge',
+      deactivated: false,
    },
    {
       userID: '12c',
@@ -138,7 +151,8 @@ db.mongousers.insertMany( [
       password: '9a6e5671ade035bd1a15459733cd778947043462529628c6b2c8a7d78977a1188bfceda11185653903092dee89968ed281da87db2f2f8bab5c5167b2ad17498e',
       totalChange: 0.00,
       emailAddress:'personaljuicydumpling@gmail.com',
-      home: 'Uptown Yonge'
+      home: 'Uptown Yonge',
+      deactivated: false,
    },
    
 ] )
@@ -166,6 +180,7 @@ db.mongobusinesses.insertMany( [
        businessTags: ['sustainable', 'farm-to-table'],
        stripeID: '1b',
        description: 'Avling is the norwegian word for crop or harvest, and for us, it is all about our kitchen and brewery and farm working as one.',
+       deactivated: false,
     },
     {
         businessID: '2b',
@@ -189,6 +204,7 @@ db.mongobusinesses.insertMany( [
         businessTags: [],
         stripeID: '2b',
         description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
+        deactivated: false,
      },
      {
         businessID: '3b',
@@ -211,7 +227,8 @@ db.mongobusinesses.insertMany( [
         longitude: -79.3435212,
         businessTags:[],
         stripeID: '3b',
-        description: 'Indie multi-roaster cafe serving Leslieville since 2006.'
+        description: 'Indie multi-roaster cafe serving Leslieville since 2006.',
+        deactivated: false,
      },
      {
         businessID: '4b',
@@ -235,6 +252,7 @@ db.mongobusinesses.insertMany( [
         businessTags:['new'],
         stripeID: '4b',
         description: 'At Slowhand we have one obsession: making light, airy, and delicious sourdough pan pizza.Combining our favourite techniques from Italy and Detroit with sourdough culture from the San Francisco gold rush, we create a pizza like you’ve never had before.',
+        deactivated: false,
      },
      {
         businessID: '5b',
@@ -258,6 +276,7 @@ db.mongobusinesses.insertMany( [
         businessTags: [],
         stripeID: '5b',
         description:'Our cafe represents the soul of De Mello—an eclectic and playful gathering space where the local community gathers to share time over a great coffee.Aside from serving and retailing our freshly roasted coffees daily, all of the pastries at our cafe are baked in-house every morning thanks to our expert pastry chefs.',
+        deactivated: false,
      },
      {
         businessID: '6b',
@@ -281,6 +300,7 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '6b',
         description: 'Cozy, brick-walled coffeehouse known for drinks with unique latte art, light bites & pastries.',
+        deactivated: false,
      },
      {
         businessID: '7b',
@@ -304,6 +324,7 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '7b',
         description: 'We are a not so traditional Thai restaurant bringing you flavours from The Isaan region of Thailand to everything in between. Simply Delish!',
+        deactivated: false,
      },
      {
         businessID: '8b',
@@ -327,6 +348,7 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '8b',
         description: 'Best dumpling/ dimsum/ famous Toronto must try. Tasty and cheap.',
+        deactivated: false,
      },
  ] )
 
@@ -336,11 +358,13 @@ db.mongobusinesses.insertMany( [
        pocketName: 'Leslieville',
        region: 'Toronto',
        description: 'Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit.',
+       deactivated: false,
     },
     {
         pocketID: '2p',
         pocketName: 'Uptown Yonge',
         region: 'Toronto',
         description: 'Located in the heart of North Toronto, Uptown Yonge is the perfect combination of local boutiques, fine dining, and quiet parkettes.',
+        deactivated: false,
      }
 ])

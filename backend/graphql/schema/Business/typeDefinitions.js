@@ -18,6 +18,7 @@ module.exports = gql`
       businessTags: [String]
       stripeID: ID
       description: String
+      deactivated: Boolean
     }
 
     input Address{
@@ -45,5 +46,6 @@ module.exports = gql`
         """
         createBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
         updateBusiness(userID: ID, businessName: String, dateEstablished: String, emailAddress: String, phoneNumber: String, website: String, businessType: String, businessSubtype: String, pocketID:ID, address: Address, latitude: Float, longitude: Float, businessTags: [String], stripeID: ID, description: String): Business
+        deactivateBusiness(userID:ID, businessID:ID): Business
       }
 `

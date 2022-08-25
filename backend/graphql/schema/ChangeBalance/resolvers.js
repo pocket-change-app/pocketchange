@@ -1,4 +1,6 @@
 const { gql, ApolloError } = require('apollo-server');
+const e = require('express');
+const {decimalNested} = require('../../utils')
 
 //standard for dealing with monetary values in the backend is convert your value to a float, 
 //calculate, and then round and store again as a decimal in the backend
@@ -28,30 +30,40 @@ module.exports = {
           return {};
         }
     },
-    getUserChangeBalance: async (parent, { userID, pocketID }, { ChangeBalance}) => {
-        const userChangeBalance = await ChangeBalance.findOne({where:{
-          userID: userID,
-          pocketID: pocketID}
+    //get the change a user has in a pocket, or a list of all the change a userID has across many pockets if pocketID is unspecified, 
+    //or a list of all the change that users have in a pocket if a userID is unspecified
+    getAllChangeBalances: async (parent, { userID, pocketID }, { ChangeBalance}) => {
+      let filterChange = []
+      //check to see if type is not null
+      if (userID != null) {
+        filterChange.push({'userID': userID})
+      }
+      //check to see if subtype is not null
+      if (pocketID != null) {
+        filterChange.push({'pocketID' : pocketID})
+      }
+      let changeBalanceInfo;
+      if (filterChange.length == 0) {
+        //no pocket or userID return all changeBalances
+        changeBalanceInfo = await ChangeBalance.findAll({})
+        return changeBalanceInfo
+      } else {
+        changeBalanceInfo = await ChangeBalance.findAll({ 
+          where: filterChange
         })
-        if (userChangeBalance){
-          //convert value String to float and then round to 2 decimal places and send to frontend
-          const decimalValue = (parseFloat(userChangeBalance.dataValues.value).toFixed(2));
-          return{
-            changeBalanceID: userChangeBalance.dataValues.changeBalanceID,
-            pocketID: userChangeBalance.pocketID,
-            value: decimalValue,
-            userID:userChangeBalance.userID,
-            expiryDate: userChangeBalance.expiryDate,
-          }
+        if(changeBalanceInfo){
+          changeBalanceInfo = decimalNested(changeBalanceInfo,'value', 'dataValues' )
+          return changeBalanceInfo
         }
-        else {
-          throw new ApolloError(`user:${userID} doesn't have change in this pocket` );
+        else{ //no change found 
+          return []
         }
+      }
     },
   },
 
   Mutation: {
-    calculateUserChangeBalance: async (parent, { userID, pocketID }, { ChangeBalance, Transaction, sequelizeConnection}) => {
+    updateUserChangeBalance: async (parent, { userID, pocketID }, { ChangeBalance, Transaction, sequelizeConnection}) => {
         //SELECT `userID`, `pocketID`, SUM(`changeEarned`) AS `totalChangeEarned` FROM `transactions` AS `transaction` WHERE `transaction`.`userID` = '2c' AND `transaction`.`pocketID` = '2p' GROUP BY `userID`, `pocketID`;
         const changeEarnedPerUserPerPocket = await Transaction.findAll({ 
           attributes: ["userID", "pocketID", 

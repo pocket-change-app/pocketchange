@@ -12,6 +12,12 @@ export default {
                 website
                 businessType
                 businessSubtype
+                latitude
+                longitude
+                businessTags
+                stripeID
+                description
+                deactivated
             }
         }
     `,
@@ -31,7 +37,38 @@ export default {
                 businessTags
                 stripeID
                 description
+                latitude
+                longitude
+                businessTags
+                stripeID
+                description
+                deactivated
             }
         }
     `,
+    deactivateBusiness: gql`
+    mutation deactivateBusiness($userID: String, $businessID: ID){
+        updateBusiness(userID: $userID, businessID:$businessID) {
+            businessID
+            businessName
+            dateEstablished
+            emailAddress
+            phoneNumber
+            website
+            businessType
+            businessSubtype
+            latitude
+            longitude
+            businessTags
+            stripeID
+            description
+            latitude
+            longitude
+            businessTags
+            stripeID
+            description
+            deactivated
+        }
+    }
+`,
 }

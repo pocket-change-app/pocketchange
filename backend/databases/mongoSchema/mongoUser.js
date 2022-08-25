@@ -8,7 +8,8 @@ const mongoUserSchema = new mongoose.Schema({
     password: { type: mongoose.Schema.Types.String },
     totalChange: { type: mongoose.Schema.Types.Decimal128 },
     emailAddress: { type: mongoose.Schema.Types.String },
-    home: {type: mongoose.Schema.Types.String}
+    home: {type: mongoose.Schema.Types.String},
+    deactivated:{type:mongoose.Schema.Types.Boolean} //if the user is still active
   })
   
 const mongoUser = mongoose.model('mongoUser', mongoUserSchema)

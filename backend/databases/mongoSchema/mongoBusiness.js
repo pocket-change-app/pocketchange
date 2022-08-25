@@ -14,7 +14,8 @@ const mongoBusinessSchema = new mongoose.Schema({
     longitude:  {type: mongoose.Schema.Types.String },
     tags: {type: mongoose.Schema.Types.String }, //women-owned business, sustainable, etc.
     stripeID: {type: mongoose.Schema.Types.String }, //ID for stripe account
-    description:{type: mongoose.Schema.Types.String} //
+    description:{type: mongoose.Schema.Types.String}, //
+    deactivated:{type:mongoose.Schema.Types.Boolean} //if the business is still active
   })
   
 const mongoBusiness = mongoose.model('mongoBusiness', mongoBusinessSchema)

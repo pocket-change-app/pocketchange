@@ -19,6 +19,7 @@ module.exports = {
         const mongoBusinessInfo = await mongoBusiness.findOne({ businessID});
         //if the schemas return with relevant info for both mongo and SQl proceed
         if(businessInfo && mongoBusinessInfo){
+            if(mongoBusinessInfo.deactivated == false){
             //subset fields needed which are businessID, businessName, 
             //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
             return {
@@ -31,8 +32,13 @@ module.exports = {
               website: mongoBusinessInfo.website,
               businessType: mongoBusinessInfo.businessType,
               businessSubtype: mongoBusinessInfo.businessSubtype,
+              deactivated: mongoBusinessInfo.deactivated,
             }
-  
+          }
+          else {
+            throw new ApolloError(`This businessID:${businessID} no longer exists`);
+            return {};
+          }
         }
         else {
           throw new ApolloError(`businessID:${businessID} doesn't exist`);
@@ -54,8 +60,8 @@ module.exports = {
       if (businessTag != null) {
         filterBusiness.push({'businessTag': businessTag})
       }
-      console.log(filterBusiness)
-
+      //make sure only getting active businesses
+      filterBusiness.push({'deactivated': false})
       let mongoBusinessesInfo;
       if (filterBusiness.length == 0) {
         mongoBusinessesInfo = await mongoBusiness.find(); 
@@ -82,8 +88,8 @@ module.exports = {
       }
     },
     getLovedBusinessesByUser: async (parent, { userID }, { Business, mongoBusiness, Loves}) => {
-      //get a list of all businesses
-      mongoBusinessesInfo = await mongoBusiness.find(); 
+      //get a list of all businesses that are active
+      mongoBusinessesInfo = await mongoBusiness.find({ $and: {'deactivated': false}}); 
       //get a list of user loved businesses
       if (userID != null) {
         //check the user-business relationship SQL table Loves
@@ -103,8 +109,8 @@ module.exports = {
       }
     },
     getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness}) => {
-      //get a list of all businesses
-      const businessList = await mongoBusiness.find(); 
+      //get a list of all businesses that are active
+      businessList = await mongoBusiness.find({ $and: {'deactivated': false}}); 
       console.log(businessList)
       //check to make sure the distance between the business and the coordinates entered is less than the radius
       
@@ -139,7 +145,6 @@ module.exports = {
       //function to subset list by a list of true and false
       const f = (as, bs) => as.filter((_, i) => bs[i])
       const closestBusinesses = (f(businessList, nearbyLatAndLong._data))
-      console.log("CLOSEST BUSINESSES", closestBusinesses)
 
       //return closestBusinesses info, if empty it will return an empty list indicating that there are no close businesses
       if(closestBusinesses)
@@ -193,7 +198,8 @@ module.exports = {
         if(businessNumber != null){
           businessIDs = businessIDs.slice(0, businessNumber);
         }
-        const commonBusinesses = await mongoBusiness.find({ businessID: { $in: businessIDs }  })
+        //find common businesses that are active
+        const commonBusinesses = await mongoBusiness.find({ $and: {businessID: { $in: businessIDs }, deactivated: false } })
         return commonBusinesses
       } 
     },
@@ -236,7 +242,8 @@ module.exports = {
             longitude: longitude,
             businessTags: businessTags,
             stripeID: stripeID,
-            description: description
+            description: description,
+            deactivated: false,
           })
           //create the relationship where the business is part of a pocket
           await IsIn.create({
@@ -259,6 +266,7 @@ module.exports = {
             website: newMongoBus.website,
             businessType: newMongoBus.businessType,
             businessSubtype: newMongoBus.businessSubtype,
+            deactivated: newMongoBus.deactivated,
           }
         } else {
           throw new ApolloError('Business already exists')
@@ -302,5 +310,24 @@ module.exports = {
             throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
           }
         },  
+        deactivateBusiness: async (parent, { 
+          userID,
+          businessID
+        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+            //check to make sure the userID is the business owner 
+            const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+            if(worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+              //the user is the owner of this business, proceed (or its pocketchange admin)
+              //deactivate the business
+              const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+                {
+                  deactivated: true,
+                })
+              return(mongoBusinessInfo)
+            }
+            else {
+              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+            }
+          },  
   }
 }

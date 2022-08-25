@@ -54,11 +54,11 @@ INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketI
 ("10t","1c", "10.00", "2022-06-04 09:22:11", "6b", "2p", 00.00, 01.00, "2021-03-10 09:22:11","2021-03-10 20:34:13");
 
 -- insert changes
-INSERT INTO `changes` (changeID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("1change", "1p",  10.40, "1c", "2023-02-04 20:34:13","2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO `changes` (changeID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("2change", "2p",  01.00, "1c", "2023-02-04 20:34:13","2022-02-04 20:34:13","2022-02-04 20:34:13");
-INSERT INTO `changes` (changeID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("3change", "2p",  01.00, "2c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
-INSERT INTO `changes` (changeID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("4change", "1p",  02.00, "3c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
-INSERT INTO `changes` (changeID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("5change", "2p",  02.50, "4c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
+INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("1change", "1p",  10.40, "1c", "2023-02-04 20:34:13","2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("2change", "2p",  01.00, "1c", "2023-02-04 20:34:13","2022-02-04 20:34:13","2022-02-04 20:34:13");
+INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("3change", "2p",  01.00, "2c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
+INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("4change", "1p",  02.00, "3c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
+INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("5change", "2p",  02.50, "4c", "2023-02-04 20:34:13","2023-02-04 20:34:13","2022-02-04 20:34:13");
 
 -- insert IsIns
 INSERT INTO isIns (businessID, pocketID, createdAt, updatedAt)  VALUES ("1b", "1p","2022-02-04 09:22:11","2022-02-04 20:34:13");
