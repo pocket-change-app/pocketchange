@@ -52,6 +52,7 @@ export const ConsumerNavigation = () => {
           presentation: 'fullScreenModal',
           // statusBarHidden: true,
           headerShown: false,
+          autoHideHomeIndicator: true,
         }}
       />
 
