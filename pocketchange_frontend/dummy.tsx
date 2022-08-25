@@ -123,6 +123,7 @@ export const businesses = [
   {
     busID: "001",
     name: "Avling",
+    phoneNumber: "+1 (413) 111-1111",
     address: "1042 QUEEN ST E",
     pocket: "Leslieville",
     imageURL: require("./assets/images/avling.jpg"),
@@ -138,6 +139,7 @@ export const businesses = [
   {
     busID: "002",
     name: "La Paella",
+    phoneNumber: "(413) 111-1111",
     address: "1146 QUEEN ST E",
     pocket: "Leslieville",
     imageURL: require("./assets/images/la-paella.jpg"),
@@ -153,6 +155,7 @@ export const businesses = [
   {
     busID: "003",
     name: "Wvrst",
+    phoneNumber: "(413) 111-1111",
     address: "Somewhere",
     pocket: 'Pckt',
     imageURL: require("./assets/images/wvrst.jpg"),
@@ -168,6 +171,7 @@ export const businesses = [
   {
     busID: "004",
     name: "Jimmy's Coffee",
+    phoneNumber: "(413) 111-1111",
     address: "806 Queen St E",
     pocket: "Riverside",
     imageURL: require("./assets/images/avling.jpg"),
@@ -183,6 +187,7 @@ export const businesses = [
   {
     busID: "005",
     name: "Cat Land",
+    phoneNumber: "(413) 111-1111",
     address: "1010 QUEEN ST E",
     pocket: "Somewhere",
     imageURL: require("./assets/images/cats.jpg"),
@@ -198,6 +203,7 @@ export const businesses = [
   {
     busID: "006",
     name: "Cheese Land",
+    phoneNumber: "(413) 111-1111",
     address: "1042 QUEEN ST E",
     pocket: "Somewhere",
     imageURL: require("./assets/images/cheese.jpg"),
