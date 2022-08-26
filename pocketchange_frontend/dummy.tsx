@@ -253,3 +253,34 @@ export const transactions = [
     changeEarned: "1.00",
   },
 ]
+
+export const analytics = [
+  {
+    title: "Number of Sales via PocketChange",
+    type: "line-chart",
+    content: {
+      x: {
+        data: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        label: "Day"
+      },
+      y: {
+        data: [60, 34, 27, 60, 88, 122, 170],
+        label: "Sales (#)"
+      } 
+    }
+  },
+  {
+    title: "Sales Volume via PocketChange",
+    type: "line-chart",
+    content: {
+      x: {
+        data: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        label: "Day"
+      },
+      y: {
+        data: [804.43, 456.30, 437.23, 806.54, 1122.10, 1366.38, 2505.76],
+        label: "Sales ($)"
+      } 
+    }
+  },
+]
