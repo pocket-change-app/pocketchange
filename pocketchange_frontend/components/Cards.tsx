@@ -3,9 +3,12 @@ import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 import { user, businesses } from '../dummy';
-import React from 'react';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as V from 'victory-native';
 
 const R = require('ramda');
 
@@ -683,4 +686,29 @@ function pad(n: number, size: number) {
   while (num.length < size)
     num = "0" + num;
   return num;
+}
+
+export function AnalyticsCard({ title, type, content }: any) {
+  
+  const data = [
+    { quarter: 1, earnings: 13000 },
+    { quarter: 2, earnings: 16500 },
+    { quarter: 3, earnings: 14250 },
+    { quarter: 4, earnings: 19000 }
+  ];
+
+  return (
+    <View style={[styles.card, styles.businessListItemCard]}>
+
+      <CardHeader text = { title }/>
+      
+        <Text> { type } </Text>
+      
+        <V.VictoryChart width={350} theme={V.VictoryTheme.material}>
+          <V.VictoryBar data={data} x="quarter" y="earnings" />
+        </V.VictoryChart>
+      
+
+    </View>
+  )
 }
