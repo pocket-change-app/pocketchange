@@ -26,6 +26,14 @@ export const styles = StyleSheet.create({
     borderColor: colors.subtle,
   },
 
+  signUpInputText: {
+    borderWidth: BORDER_WIDTH,
+    borderColor: colors.light,
+    borderRadius: CARD_RADIUS,
+    backgroundColor: colors.card,
+    padding: MARGIN / 2,
+  },
+
   paymentInputText: {
     fontFamily: 'metropolis bold',
     fontSize: 30,
