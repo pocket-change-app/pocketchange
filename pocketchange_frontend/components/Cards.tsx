@@ -1,7 +1,7 @@
 import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 import { user, businesses } from '../dummy';
 import React from 'react';
 import Hyphenated from 'react-hyphen';
@@ -57,7 +57,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
               Linking.openURL(link)
             }
             }>
-            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>DIRECTIONS</Text>
+            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>Open Maps</Text>
           </Pressable>
         </View>
       </View>
@@ -478,25 +478,30 @@ export function SettingsCard({ navigation }: { navigation: any }) {
 export function ButtonWithText({
   text,
   color = colors.subtle,
-  negativeStyle = false, onPress
+  negativeStyle = false,
+  // flexing = false,
+  onPress
 }: {
   text: string,
   color: string,
   negativeStyle: boolean,
+  // flexing: boolean,
   onPress: any
 }) {
   if (!negativeStyle) {
     return (
       <Pressable
+        // style={{ flexing } ? { flex: 1 } : {}}
         onPress={onPress}>
         <View style={[styles.buttonNegative, { backgroundColor: color }]}>
           <Text style={[styles.cardHeaderText, styles.buttonNegativeText]}>{text}</Text>
         </View>
-      </Pressable>
+      </Pressable >
     )
   } else {
     return (
       <Pressable
+        // style={{ flexing } ? { flex: 1 } : {}}
         onPress={onPress}>
         <View style={[styles.buttonBordered]}>
           <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>{text}</Text>
