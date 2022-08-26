@@ -28,7 +28,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             // autoFocus={true}
             autoCapitalize='none'
             style={styles.receipt}
-            // keyboardType='numeric'
+            keyboardType='email-address'
             value={email}
             onChangeText={setEmail}
             placeholder={'buy.local@aol.com'}
