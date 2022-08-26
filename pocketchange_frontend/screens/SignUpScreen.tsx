@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
+import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
 
 
 export default function SignUpScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <ScreenContainer>
@@ -24,8 +29,8 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             autoCapitalize='none'
             style={styles.receipt}
             // keyboardType='numeric'
-            // value={}
-            // onChangeText={onChangeAmount}
+            value={email}
+            onChangeText={setEmail}
             placeholder={'buy.local@aol.com'}
             placeholderTextColor={colors.subtle}
           />
@@ -42,12 +47,20 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             autoCapitalize='none'
             style={styles.receipt}
             // keyboardType='numeric'
-            // value={}
-            // onChangeText={onChangeAmount}
+            value={password}
+            onChangeText={setPassword}
             placeholder={'1234'}
             placeholderTextColor={colors.subtle}
           />
         </View>
+
+        <ButtonWithText
+          text='Create Account'
+          color={
+            (email != '' && password != '') ? colors.gold : colors.subtle
+          }
+          onPress={null}
+        />
 
       </KeyboardAvoidingView>
     </ScreenContainer>
