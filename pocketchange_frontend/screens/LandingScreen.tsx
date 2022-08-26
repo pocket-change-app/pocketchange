@@ -24,7 +24,7 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
       <View style={{
         backgroundColor: colors.card,
         flex: 1,
-        padding: SCREEN_WIDTH / 6,
+        // padding: SCREEN_WIDTH / 6,
         justifyContent: 'center',
       }}>
         <View style={{
@@ -40,33 +40,33 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
         </View>
         <Text style={[styles.logoText, { marginBottom: MARGIN }]}>pocketchange</Text>
 
+        <View style={{ paddingHorizontal: SCREEN_WIDTH / 6 }}>
+          <View style={{ height: BUTTON_HEIGHT, justifyContent: 'center', marginBottom: MARGIN }}>
+            {
+              loading ? (
 
-        <View style={{ height: BUTTON_HEIGHT, justifyContent: 'center', marginBottom: MARGIN }}>
-          {
-            loading ? (
+                <ActivityIndicator
+                  color={colors.subtle}
+                  animating={true}
+                  size="small"
+                />
 
-              <ActivityIndicator
-                color={colors.subtle}
-                animating={true}
-                size="small"
-              />
+              ) : (
+                <ButtonWithText
+                  text="Sign In"
+                  color={colors.gold}
+                  onPress={signIn}
+                />
+              )
+            }
+          </View>
 
-            ) : (
-              <ButtonWithText
-                text="Sign In"
-                color={colors.gold}
-                onPress={signIn}
-              />
-            )
-          }
+          <ButtonWithText
+            text="Sign Up"
+            negativeStyle={true}
+            onPress={() => navigation.navigate('SignUp', {})}
+          />
         </View>
-
-        <ButtonWithText
-          text="Sign Up"
-          negativeStyle={true}
-          onPress={() => navigation.navigate('SignUp', {})}
-        />
-
       </View>
     </>
   );
