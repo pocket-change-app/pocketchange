@@ -91,7 +91,7 @@ export const pockets = [
   {
     pocketID: '04',
     name: 'Bloor West',
-    imageURL: require('./assets/images/bloor_west.jpg'),
+    imageURL: require('./assets/images/bloor_west.png'),
     bannerURL: require('./assets/images/bloor_west_banner.jpg'),
     description: "",
   },
