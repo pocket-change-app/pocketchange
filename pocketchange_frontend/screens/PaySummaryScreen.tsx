@@ -69,6 +69,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             navigation.popToTop()
             navigation.goBack()
 
+            console.log('made it')
+
             navigation.navigate("PayConfirmation", {
               // navigation: navigation,
               businessName: name,
@@ -76,6 +78,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               date: date,
               time: time,
             })
+
+            console.log('navigated to PayConfirmation')
           }}
         />
       </View>
