@@ -21,12 +21,13 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : "height"}
-      keyboardVerticalOffset={100}
-      style={{ flex: 1 }}
-    >
-      <ScreenContainer>
+    <ScreenContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? 'padding' : "height"}
+        keyboardVerticalOffset={100}
+        style={{ flex: 1 }}
+      >
+
         <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
 
           <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
@@ -77,7 +78,8 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
             />
           </View>
         </View>
-      </ScreenContainer>
-    </KeyboardAvoidingView>
+
+      </KeyboardAvoidingView>
+    </ScreenContainer>
   )
 }
