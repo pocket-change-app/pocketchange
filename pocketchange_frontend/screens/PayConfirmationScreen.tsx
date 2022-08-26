@@ -12,12 +12,14 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
 
   const { businessName, total, date, time } = route.params;
 
+  console.log('inside confirmation component')
+
   return (
     <>
       <StatusBar hidden={true} />
       <TouchableWithoutFeedback
         onPress={() => {
-          navigation.goBack()
+          // navigation.goBack()
           navigation.navigate('WalletStack', { screen: 'Wallet' })
           // navigation.popToTop()
           // navigation.goBack()
