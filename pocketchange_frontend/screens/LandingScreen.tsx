@@ -7,7 +7,7 @@ import { ButtonWithText } from '../components/Cards';
 import { colors } from '../constants/Colors';
 import { StatusBar } from 'expo-status-bar';
 
-export const SignInScreen = () => {
+export default function LandingScreen({ route, navigation }: { route: any, navigation: any }) {
   const [loading, isLoading] = useState(false);
   const auth = useAuth();
   const signIn = async () => {
@@ -60,9 +60,11 @@ export const SignInScreen = () => {
             )
           }
         </View>
+
         <ButtonWithText
           text="Sign Up"
           negativeStyle={true}
+          onPress={() => navigation.navigate('SignUp', {})}
         />
 
       </View>
