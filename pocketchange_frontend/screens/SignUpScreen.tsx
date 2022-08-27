@@ -1,3 +1,4 @@
+import { StatusBar } from "react-native";
 import { useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { ButtonWithText } from "../components/Cards";
@@ -19,6 +20,11 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
   return (
     <ScreenContainer>
+      <StatusBar
+        hidden={false}
+        animated
+        showHideTransition='fade'
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? 'padding' : "height"}
         keyboardVerticalOffset={100}
