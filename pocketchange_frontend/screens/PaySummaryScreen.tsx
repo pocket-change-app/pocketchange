@@ -21,8 +21,10 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
   const changeToUse = (useChange ? 2.63 : 0)
-  const fee = ((amountNum + tipNum - changeToUse) * FEE_RATE)
-  const total = (amountNum + tipNum)
+  const fee = ((amountNum + tipNum) * FEE_RATE)
+  const total = (amountNum + tipNum + fee)
+
+
 
   const consumerTotal = (total - changeToUse)
   const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE)
@@ -54,8 +56,11 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
           </View>
-
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{fee.toFixed(2)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Total</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${total.toFixed(2)}</Text>
           </View>
@@ -79,10 +84,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Applied</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeToUse}</Text>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
-            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{fee.toFixed(2)}</Text>
-          </View>
+
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'left' }]}>You Pay</Text>
             <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'right' }]}>${consumerTotal.toFixed(2)}</Text>

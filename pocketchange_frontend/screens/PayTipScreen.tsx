@@ -49,13 +49,17 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
             <View style={[styles.card, styles.container]}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Amount</Text>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${amount}</Text>
               </View>
             </View>
 
             <View style={styles.card}>
-              <CardHeader text='Tip' />
+              {/* <View style={styles.cardHeader}> */}
+              <View style={{ marginTop: MARGIN / 2 }}>
+                <Text style={[styles.paymentFocusText, { alignSelf: 'center' }]}>Tip</Text>
+              </View>
+              {/* </View> */}
               <View style={styles.container}>
                 <View style={[{ flexDirection: 'row', marginBottom: MARGIN }]}>
                   <TipButton
@@ -177,7 +181,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
           tip: tipAmount.toFixed(2),
         })}>
         <View style={[styles.buttonBordered, { borderColor: colors.gold }]}>
-          <Text style={[styles.cardHeaderText, styles.buttonBorderedText, { color: colors.gold }]}>{'$' + tipAmount.toFixed(2)}</Text>
+          <Text style={[styles.tipButtonText, { color: colors.gold }]}>{'$' + tipAmount.toFixed(2)}</Text>
         </View>
       </Pressable>
     )
@@ -203,7 +207,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
           tip: (parseFloat(amount) * tipPercentage / 100).toFixed(2),
         })}>
         <View style={[styles.buttonBordered, { borderColor: colors.gold }]}>
-          <Text style={[styles.cardHeaderText, styles.buttonBorderedText, { color: colors.gold }]}>{tipPercentage.toString() + '%'}</Text>
+          <Text style={[styles.tipButtonText, { color: colors.gold }]}>{tipPercentage.toString() + '%'}</Text>
         </View>
       </Pressable>
     )
