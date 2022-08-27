@@ -256,31 +256,36 @@ export const transactions = [
 
 export const analytics = [
   {
-    title: "Number of Sales via PocketChange",
-    type: "line-chart",
-    content: {
-      x: {
-        data: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        label: "Day"
-      },
-      y: {
-        data: [60, 34, 27, 60, 88, 122, 170],
-        label: "Sales (#)"
-      } 
-    }
+    title: "Today's Sales",
+    type: "text",
+    data: [
+      {date: "17 Sept, 2022", sales: 437.23}
+    ]
   },
   {
-    title: "Sales Volume via PocketChange",
-    type: "line-chart",
-    content: {
-      x: {
-        data: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        label: "Day"
-      },
-      y: {
-        data: [804.43, 456.30, 437.23, 806.54, 1122.10, 1366.38, 2505.76],
-        label: "Sales ($)"
-      } 
-    }
+    title: "Number of Sales",
+    type: "bar",
+    data: [
+      {day: "mon", sales: 60},
+      {day: "tue", sales: 34},
+      {day: "wed", sales: 27},
+      {day: "thu", sales: 60},
+      {day: "fri", sales: 88},
+      {day: "sat", sales: 122},
+      {day: "sun", sales: 170},
+    ]
+  },
+  {
+    title: "Sales Volume",
+    type: "line",
+    data: [
+      {day: "mon", sales: 804.43},
+      {day: "tue", sales: 456.30},
+      {day: "wed", sales: 437.23},
+      {day: "thu", sales: 806.54},
+      {day: "fri", sales: 1122.10},
+      {day: "sat", sales: 1366.38},
+      {day: "sun", sales: 2505.76},
+    ]
   },
 ]

@@ -9,6 +9,7 @@ import { colors } from '../constants/Colors';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as V from 'victory-native';
+import Svg from 'react-native-svg';
 
 const R = require('ramda');
 
@@ -688,27 +689,42 @@ function pad(n: number, size: number) {
   return num;
 }
 
-export function AnalyticsCard({ title, type, content }: any) {
-  
-  const data = [
-    { quarter: 1, earnings: 13000 },
-    { quarter: 2, earnings: 16500 },
-    { quarter: 3, earnings: 14250 },
-    { quarter: 4, earnings: 19000 }
-  ];
+export function AnalyticsCard({ title, type, data }: any) {
+
+  function renderChart() {
+    if (type == 'bar') {
+      return (
+        <V.VictoryChart 
+          height={150}
+          domainPadding={{ x: 25 }}
+          theme={V.VictoryTheme.material}
+          padding={{top:20, bottom:30, left:50, right:50}}
+        >
+          <V.VictoryBar data={data} x="day" y="sales"/>
+        </V.VictoryChart>
+      );
+    } else if (type == 'line') {
+      return (
+        <V.VictoryChart 
+          height={150}
+          domainPadding={{ x: 25 }}
+          theme={V.VictoryTheme.material}
+          padding={{top:20, bottom:30, left:50, right:50}}
+        >
+          <V.VictoryLine data={data} x="day" y="sales"/>
+        </V.VictoryChart>
+      );
+    } else if (type == 'text') {
+      return <Text style={styles.changeLg} >${data[0].sales}</Text>;
+    }
+  }
 
   return (
-    <View style={[styles.card, styles.businessListItemCard]}>
+    <View style={[styles.card, styles.analyticsCard]}>
 
-      <CardHeader text = { title }/>
-      
-        <Text> { type } </Text>
-      
-        <V.VictoryChart width={350} theme={V.VictoryTheme.material}>
-          <V.VictoryBar data={data} x="quarter" y="earnings" />
-        </V.VictoryChart>
-      
-
+        <Text style={styles.analyticsTitle}>{ title }</Text>
+        {renderChart()}
+        
     </View>
   )
 }
