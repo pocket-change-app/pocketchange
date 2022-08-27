@@ -367,7 +367,7 @@ export function TransactionListed({ navigation, transaction }: any) {
             style={{ aspectRatio: 1 }}
             onPress={() => navigation.navigate('PayConfirmation', {
               businessName: transaction.merchant,
-              total: transaction.total,
+              subtotal: transaction.subtotal,
               date: transaction.date,
               time: transaction.time,
             })}
@@ -689,7 +689,7 @@ function pad(n: number, size: number) {
 }
 
 export function AnalyticsCard({ title, type, content }: any) {
-  
+
   const data = [
     { quarter: 1, earnings: 13000 },
     { quarter: 2, earnings: 16500 },
@@ -700,14 +700,14 @@ export function AnalyticsCard({ title, type, content }: any) {
   return (
     <View style={[styles.card, styles.businessListItemCard]}>
 
-      <CardHeader text = { title }/>
-      
-        <Text> { type } </Text>
-      
-        <V.VictoryChart width={350} theme={V.VictoryTheme.material}>
-          <V.VictoryBar data={data} x="quarter" y="earnings" />
-        </V.VictoryChart>
-      
+      <CardHeader text={title} />
+
+      <Text> {type} </Text>
+
+      <V.VictoryChart width={350} theme={V.VictoryTheme.material}>
+        <V.VictoryBar data={data} x="quarter" y="earnings" />
+      </V.VictoryChart>
+
 
     </View>
   )

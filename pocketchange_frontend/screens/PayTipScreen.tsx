@@ -45,11 +45,12 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                   <Text style={styles.pocket}>{pocket}</Text>
                 </View>
               </View>
+            </View>
 
-              <HorizontalLine />
-
-              <View style={styles.container}>
-                <Text style={[styles.paymentAmountText, { textAlign: 'center' }]}>${amount}</Text>
+            <View style={[styles.card, styles.container]}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
               </View>
             </View>
 
