@@ -124,7 +124,7 @@ export const businesses = [
     busID: "001",
     name: "Avling",
     phoneNumber: "+1 (413) 111-1111",
-    address: "1042 QUEEN ST E",
+    address: "1042 Queen St E",
     pocket: "Leslieville",
     imageURL: require("./assets/images/avling.jpg"),
     bio: "We offer the best products and service around. I have no idea what to write for this because I can't remember what Avling does :)",
@@ -266,7 +266,7 @@ export const analytics = [
       y: {
         data: [60, 34, 27, 60, 88, 122, 170],
         label: "Sales (#)"
-      } 
+      }
     }
   },
   {
@@ -280,7 +280,7 @@ export const analytics = [
       y: {
         data: [804.43, 456.30, 437.23, 806.54, 1122.10, 1366.38, 2505.76],
         label: "Sales ($)"
-      } 
+      }
     }
   },
 ]
