@@ -50,14 +50,14 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                   <Text style={styles.pocket}>{pocket}</Text>
                 </View>
               </View>
+            </View>
 
-              <HorizontalLine />
-
+            <View style={styles.card}>
               <View style={styles.inputContainer}>
-                <Text style={styles.paymentInputText}>$</Text>
+                <Text style={styles.paymentFocusText}>$</Text>
                 <TextInput
                   autoFocus={true}
-                  style={styles.paymentInputText}
+                  style={styles.paymentFocusText}
                   keyboardType='numeric'
                   value={amount}
                   onChangeText={onChangeAmount}

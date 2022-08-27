@@ -34,8 +34,15 @@ export const styles = StyleSheet.create({
     padding: MARGIN / 2,
   },
 
-  paymentInputText: {
-    fontFamily: 'metropolis bold',
+  paymentFocusText: {
+    fontFamily: 'receipt',
+    fontSize: 50,
+    color: colors.gold,
+  },
+
+  tipButtonText: {
+    textAlign: 'center',
+    fontFamily: 'receipt',
     fontSize: 30,
     color: colors.gold,
   },
