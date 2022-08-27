@@ -5,17 +5,27 @@ import { HorizontalLine } from "../components/Lines";
 import { colors } from "../constants/Colors";
 import { ConsumerNavigation } from "../navigation/ConsumerNavigation";
 import { user } from "../dummy";
+import { getBackgroundColorAsync } from "expo-system-ui";
+import { Switch } from 'react-native'
+import { useState } from "react";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const { busID, name, address, pocket, imageURL, amount, tip } = route.params;
 
-  const changeUsed = '2.63'
+  const [useChange, setUseChange] = useState(true)
+
+  const EARN_RATE = 0.1
+  const FEE_RATE = 0.05
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  const total = (amountNum + tipNum).toFixed(2)
-  const consumerTotal = (amountNum + tipNum - 2.63).toFixed(2)
+  const changeToUse = (useChange ? 2.63 : 0)
+  const fee = ((amountNum + tipNum - changeToUse) * FEE_RATE)
+  const total = (amountNum + tipNum)
+
+  const consumerTotal = (total - changeToUse)
+  const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE)
 
   return (
     <ScreenContainer>
@@ -30,32 +40,59 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               <Text style={styles.pocket}>{pocket}</Text>
             </View>
           </View>
+        </View>
 
-          <HorizontalLine />
 
-          <View style={styles.container}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Used</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeUsed}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Total</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${total}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>You Pay</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${consumerTotal}</Text>
-            </View>
+        {/* <View style={styles.card}> */}
+
+        <View style={[styles.card, styles.container]}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Total</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${total.toFixed(2)}</Text>
           </View>
         </View>
+
+        <View style={[styles.card, styles.container]}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {pocket} Change?</Text>
+            <Switch
+              trackColor={{ false: colors.subtle, true: colors.gold }}
+              thumbColor={colors.card}
+              ios_backgroundColor={colors.subtle}
+              onValueChange={setUseChange}
+              value={useChange}
+            />
+          </View>
+        </View>
+
+        <View style={[styles.card, styles.container]}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Applied</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeToUse}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{fee.toFixed(2)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'left' }]}>You Pay</Text>
+            <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'right' }]}>${consumerTotal.toFixed(2)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'left' }]}>You Earn</Text>
+            <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'right' }]}>${youEarn.toFixed(2)}</Text>
+          </View>
+        </View>
+        {/* </View> */}
 
         <ButtonWithText
           color={colors.gold}
@@ -74,7 +111,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             navigation.navigate("PayConfirmation", {
               // navigation: navigation,
               businessName: name,
-              total: total,
+              subtotal: amount,
               date: date,
               time: time,
             })

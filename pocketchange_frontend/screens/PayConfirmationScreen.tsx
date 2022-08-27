@@ -10,7 +10,7 @@ import TextTicker from 'react-native-text-ticker'
 
 export default function PayConfirmationScreen({ route, navigation }: any) {
 
-  const { businessName, total, date, time } = route.params;
+  const { businessName, subtotal, date, time } = route.params;
 
   console.log('inside confirmation component')
 
@@ -64,7 +64,7 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
               </Text>
 
               <Text style={styles.payConfirmationTotal}>
-                ${total}
+                ${subtotal}
               </Text>
             </View>
 
