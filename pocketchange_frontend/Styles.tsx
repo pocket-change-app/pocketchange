@@ -659,6 +659,18 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     // lineHeight: 60,
     color: colors.transluscentWhite,
-  }
+  },
+
+  analyticsCard: {
+    padding: MARGIN,
+    fontFamily: 'metropolis regular',
+  },
+
+  analyticsTitle: {
+    fontSize: 20,
+    //lineHeight: 20,
+    fontFamily: 'metropolis black',
+    color: colors.dark,
+  },
 
 })

@@ -21,7 +21,7 @@ export default function AnalyticsDashboardScreen() {
     <AnalyticsCard
       title={ item.title }
       type={ item.type }
-      content={ item.content }
+      data={ item.data }
     />
 
   )
