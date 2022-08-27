@@ -161,7 +161,7 @@ module.exports = {
         })
         console.log(transactionsInBusinessesWithCommonUsersBetweenDates)
         transactionsInBusinessesWithCommonUsersBetweenDates = decimalNested(transactionsInBusinessesWithCommonUsersBetweenDates,'value', 'dataValues' )
-        //need to get a list of all the userIDs from the transaction object
+        //need to get a list of all the businessIDs from the transaction object
         let businessIDs = R.pluck("businessID", transactionsInBusinessesWithCommonUsersBetweenDates);
         console.log(businessIDs)
         if(businessNumber != null){

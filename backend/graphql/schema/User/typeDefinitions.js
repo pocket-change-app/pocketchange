@@ -23,6 +23,18 @@ module.exports = gql`
         Login a specific user given username and password
         """
         loginUser(username:String, password:String):User
+        """
+        Fetch a list of all users from Mongo if no other parameters specified, otherwise fetch by username
+        """
+        getAllUsers(username:String):[User]
+        """
+        Get a list of all the users recently at a business/pocket within a dateRange if specified
+        """
+        getTopUsers(businessID:ID, startDate: Date, endDate: Date, userNumber: Int, pocketID:ID):[User]
+        """
+        Get a list of all the users that love a business
+        """
+        getUsersThatLove(businessID:ID):[User]
     }
 
     type Mutation {
