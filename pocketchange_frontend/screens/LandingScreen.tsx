@@ -5,7 +5,7 @@ import { BUTTON_HEIGHT, MARGIN, styles } from '../Styles';
 import { useAuth } from '../contexts/Auth';
 import { ButtonWithText } from '../components/Cards';
 import { colors } from '../constants/Colors';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 
 export default function LandingScreen({ route, navigation }: { route: any, navigation: any }) {
   const [loading, isLoading] = useState(false);
@@ -19,7 +19,11 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
 
   return (
     <>
-      {/* <StatusBar hidden={true} /> */}
+      <StatusBar
+        hidden={true}
+        animated={true}
+        showHideTransition='fade'
+      />
 
       <View style={{
         backgroundColor: colors.card,
