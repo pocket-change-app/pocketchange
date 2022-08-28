@@ -36,7 +36,13 @@ export default function ConsumerSettingsScreen() {
         <DivHeader text="Account" />
 
         <View style={styles.card}>
-          {/* <HorizontalLine /> */}
+          <SettingPressable
+            iconName='hand-holding-usd'
+            settingText={"Payment Methods"}
+          />
+
+          <HorizontalLine />
+
           <SettingPressable
             iconName='key'
             settingText={'Change Password'}
@@ -51,12 +57,8 @@ export default function ConsumerSettingsScreen() {
           {/* <DivHeader text="Payment" /> */}
 
           {/* <View style={styles.card}> */}
-          <HorizontalLine />
+          {/* <HorizontalLine /> */}
 
-          <SettingPressable
-            iconName='hand-holding-usd'
-            settingText={"Payment Methods"}
-          />
         </View>
 
         <DivHeader text="Privacy" />
@@ -94,7 +96,16 @@ export default function ConsumerSettingsScreen() {
         }
 
 
-        <Button title="Sign Out" onPress={signOut} />
+        {/* <Button title="Sign Out" onPress={signOut} /> */}
+
+        <Pressable
+          onPress={signOut}
+        >
+          <View style={[styles.card, { height: 45, justifyContent: 'center', }]}>
+            <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Sign Out</Text>
+          </View>
+          {/* <HorizontalLine /> */}
+        </Pressable>
 
       </ScrollView>
     </ScreenContainer >
