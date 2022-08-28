@@ -10,7 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg';
-import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 const R = require('ramda');
 
@@ -315,11 +315,25 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
   )
 }
 
-export function Setting({ settingText }: { settingText: string }) {
+export function SettingPressable({ settingText, iconName, onPress = null }: { settingText: string, iconName: string, onPress?: any }) {
   return (
-    <View style={styles.setting}>
-      <Text style={styles.settingText}>{settingText}</Text>
-    </View>
+    <Pressable
+      onPress={onPress}
+    >
+      <View style={styles.setting}>
+        <View style={styles.settingIconContainer}>
+          <FontAwesome5
+            // style={styles.settingIcon}
+            name={iconName}
+            size={25}
+            color={colors.medium}
+            style={styles.settingIcon}
+          />
+        </View>
+        <Text style={styles.settingText}>{settingText}</Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </Pressable>
   )
 }
 
