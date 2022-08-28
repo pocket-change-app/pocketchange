@@ -595,19 +595,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 45,
     alignItems: 'center',
-    // paddingHorizontal: MARGIN,
+    paddingHorizontal: MARGIN / 2,
   },
 
   settingIcon: {
     textAlign: 'center',
     alignSelf: 'center',
-    color: colors.subtle,
+    color: colors.medium,
   },
 
   settingIconContainer: {
     height: '100%',
     aspectRatio: 1,
-    marginHorizontal: MARGIN / 2,
+    marginRight: MARGIN / 2,
     justifyContent: 'center',
     alignItems: 'center'
   },
