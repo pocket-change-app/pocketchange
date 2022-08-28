@@ -4,6 +4,7 @@ const {decimalValue, decimalNested} = require('../../utils')
 const {Op} = require('sequelize');
 const R = require('ramda');
 const e = require('express');
+const { mongoBusiness } = require('../../../databases/mongoSchema/mongodb');
 
 module.exports = {
     Query: {
@@ -201,6 +202,216 @@ module.exports = {
             } else {
               throw new ApolloError('User already exists, or username taken')
             }
-        },  
+        },
+        deactivateUser: async (parent, { 
+          userID
+        }, { User, mongoUser}) => {
+              const mongoUserInfo = await mongoUser.updateOne({ userID: userID },
+                {
+                  deactivated: true,
+                })
+              return(mongoUserInfo) 
+        },
+        updatePassword: async (parent, { 
+          userID,
+          password
+        }, { User, mongoUser }) => {
+            const encryptpass = obfuscate(password);
+            //check to make sure user exists
+            const userInfo = await mongoUser.findOne({ userID })
+            if (userInfo) {
+              await User.update({ salt: encryptpass.salt, where: {userID: userID}});
+              await userInfo.updateOne({ 
+                password: encryptpass.hash
+              })
+              userInfo.save()
+              return {
+                userID: userInfo.userID,
+                username: userInfo.username,
+                name: userInfo.name,
+                home: userInfo.home,
+                birthDate: userInfo.birthDate,
+                totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
+                emailAddress: userInfo.emailAddress,
+                deactivated:  userInfo.deactivated,
+              }
+            } else {
+              throw new ApolloError('User does not exist')
+            }
+        },
+        updateUserProfile: async (parent, { 
+          username, 
+          name,
+          home,
+          birthDate,
+          emailAddress
+        }, { User, mongoUser }) => {
+            //check to make sure the user exists 
+            const userInfo = await mongoUser.findOne({ userID })
+            if (userInfo) {
+              const updatedUser = await userInfo.updateOne(
+                {
+                  username: username == null ? userInfo.username : username,
+                  name: name ==null ? userInfo.name : name ,
+                  emailAddress: emailAddress ==null ? userInfo.emailAddress : emailAddress ,
+                  home: home ==null ? userInfo.home : home ,
+                  birthDate: birthDate ==null ? userInfo.birthDate : birthDate ,
+                })
+              updatedUser.save()
+              return {
+                userID: updatedUser.userID,
+                username: updatedUser.username,
+                name: updatedUser.name,
+                home: updatedUser.home,
+                birthDate: updatedUser.birthDate,
+                totalChange:  parseFloat(updatedUser.totalChange).toFixed(2),
+                emailAddress: updatedUser.emailAddress,
+                deactivated:  updatedUser.deactivated,
+              }
+            } 
+            else {
+              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+            }
+        }, 
+        loveOrUnloveBusiness: async (parent, { 
+          userID, 
+          businessID
+        }, { User, mongoBusiness, mongoUser, Loves }) => {
+            //check to make sure the user exists 
+            const userInfo = await mongoUser.findOne({ userID })
+            //check to make sure the business exists
+            const mongoBusinessInfo = await mongoBusiness.findOne(businessID)
+            if (userInfo && mongoBusinessInfo && userInfo.deactivated == false && mongoBusinessInfo.deactivated == false) {
+              //both exist & are active
+              //so find if user and business love relationship already exists
+              let lovesInfo = await Loves.findOne({where: {userID: userID, businessID: businessID}})
+              if(lovesInfo){
+                //user already loves this business so UNlove it
+                await lovesInfo.destroy()
+              }
+              else{
+                //user doesn't yet love this business so LOVE it
+                lovesInfo = await Loves.create({userID: userID, businessID: businessID})
+                lovesInfo.save()
+              }
+              //return userInfo
+              return {
+                userID: userInfo.userID,
+                username: userInfo.username,
+                name: userInfo.name,
+                home: userInfo.home,
+                birthDate: userInfo.birthDate,
+                totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
+                emailAddress: userInfo.emailAddress,
+                deactivated:  userInfo.deactivated,
+              }
+            } 
+            else {
+              throw new ApolloError('the userID or businessID is invalid or no longer active')
+            }
+          },
+          updateUserLocations: async (parent, { 
+            userID, 
+            latitude,
+            longitude
+          }, { mongoUser, Geolocation }) => {
+              //check to make sure the user exists 
+              const userInfo = await mongoUser.findOne({ userID })
+              if (userInfo &&  userInfo.deactivated == false ) {
+                //user is active and exists so add their geolocation data
+                //so find if user and business love relationship already exists
+                const date = new Date()
+                await Geolocation.create({userID: userID, latitude: latitude, longitude: longitude, timestamp: date})
+                //return userInfo
+                return {
+                  userID: userInfo.userID,
+                  username: userInfo.username,
+                  name: userInfo.name,
+                  home: userInfo.home,
+                  birthDate: userInfo.birthDate,
+                  totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
+                  emailAddress: userInfo.emailAddress,
+                  deactivated:  userInfo.deactivated,
+                }
+              } 
+              else {
+                throw new ApolloError('the userID is invalid or no longer active')
+              }
+          }, 
+          addUserRole: async (parent, { 
+            userID, 
+            role,
+            businessID
+          }, { User, mongoBusiness, mongoUser, WorksAt }) => {
+              //check to make sure the user exists 
+              const userInfo = await mongoUser.findOne({ userID })
+              //check to make sure the business exists
+              const mongoBusinessInfo = await mongoBusiness.findOne(businessID)
+              if (userInfo && mongoBusinessInfo && userInfo.deactivated == false && mongoBusinessInfo.deactivated == false) {
+                //both exist & are active
+                //so find if user and business role work relationship already exists
+                let worksAtInfo = await WorksAt.findOne({where: {userID: userID, businessID: businessID, role: role}})
+                if(worksAtInfo){
+                  //user already works at this business in this role so 
+                  throw new ApolloError(`the userID:${userID}already has this role: ${role} at this businessID:${businessID}`)
+                }
+                else{
+                  //user doesn't yet have this role at this business
+                  worksAtInfo = await WorksAt.create({userID: userID, businessID: businessID, role: role})
+                  worksAtInfo.save()
+                }
+                //return userInfo
+                return {
+                  userID: userInfo.userID,
+                  username: userInfo.username,
+                  name: userInfo.name,
+                  home: userInfo.home,
+                  birthDate: userInfo.birthDate,
+                  totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
+                  emailAddress: userInfo.emailAddress,
+                  deactivated:  userInfo.deactivated,
+                }
+              } 
+              else {
+                throw new ApolloError('the userID or businessID is invalid or no longer active')
+              }
+          },
+          removeUserRole: async (parent, { 
+            userID, 
+            role,
+            businessID
+          }, { User, mongoBusiness, mongoUser, WorksAt }) => {
+              //check to make sure the user exists 
+              const userInfo = await mongoUser.findOne({ userID })
+              //check to make sure the business exists
+              const mongoBusinessInfo = await mongoBusiness.findOne(businessID)
+              if (userInfo && mongoBusinessInfo && userInfo.deactivated == false && mongoBusinessInfo.deactivated == false) {
+                //both exist & are active
+                //so find if user and business role work relationship already exists
+                let worksAtInfo = await WorksAt.findOne({where: {userID: userID, businessID: businessID, role: role}})
+                if(worksAtInfo){
+                  //user works at this business in this role so  remove it 
+                  await worksAtInfo.destroy()
+                }
+                else{
+                  //user doesn't yet have this role at this business
+                  throw new ApolloError(`the userID:${userID}already does not have this role: ${role} at this businessID:${businessID}`)
+                }
+                //return userInfo
+                return {
+                  userID: userInfo.userID,
+                  username: userInfo.username,
+                  name: userInfo.name,
+                  home: userInfo.home,
+                  birthDate: userInfo.birthDate,
+                  totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
+                  emailAddress: userInfo.emailAddress,
+                  deactivated:  userInfo.deactivated,
+                }
+              } 
+              else {
+                throw new ApolloError(`the userID:${userID} or businessID: ${businessID} is invalid or no longer active`)
+              }
+          },
     }
   }

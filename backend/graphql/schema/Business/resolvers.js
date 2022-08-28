@@ -259,22 +259,24 @@ module.exports = {
           if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
             //the user is the owner of this business, proceed (or its pocketchange admin)
             //update the business with specified values
-            const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+            const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+            await mongoBusinessInfo.updateOne(
               {
-                businessName: businessName == null ? mongoBusinessInfo.dataValues.businessName : businessName,
-                dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dataValues.dateEstablished : dateEstablished ,
-                emailAddress: emailAddress ==null ? mongoBusinessInfo.dataValues.emailAddress : emailAddress ,
-                phoneNumber: phoneNumber ==null ? mongoBusinessInfo.dataValues.phoneNumber : phoneNumber ,
-                website: website ==null ? mongoBusinessInfo.dataValues.website : website ,
-                businessType: businessType ==null ? mongoBusinessInfo.dataValues.businessType : businessType ,
-                businessSubtype: businessSubtype ==null ? mongoBusinessInfo.dataValues.businessSubtype : businessSubtype ,
-                address: address ==null ? mongoBusinessInfo.dataValues.address : address ,
-                latitude: latitude ==null ? mongoBusinessInfo.dataValues.latitude : latitude ,
-                longitude: longitude ==null ? mongoBusinessInfo.dataValues.longitude : longitude ,
-                businessTags: businessTags ==null ? mongoBusinessInfo.dataValues.businessTags : businessTags ,
-                stripeID: stripeID ==null ? mongoBusinessInfo.dataValues.stripeID : stripeID ,
-                description: description ==null ? mongoBusinessInfo.dataValues.description : description ,
+                businessName: businessName == null ? mongoBusinessInfo.businessName : businessName,
+                dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dateEstablished : dateEstablished ,
+                emailAddress: emailAddress ==null ? mongoBusinessInfo.emailAddress : emailAddress ,
+                phoneNumber: phoneNumber ==null ? mongoBusinessInfo.phoneNumber : phoneNumber ,
+                website: website ==null ? mongoBusinessInfo.website : website ,
+                businessType: businessType ==null ? mongoBusinessInfo.businessType : businessType ,
+                businessSubtype: businessSubtype ==null ? mongoBusinessInfo.businessSubtype : businessSubtype ,
+                address: address ==null ? mongoBusinessInfo.address : address ,
+                latitude: latitude ==null ? mongoBusinessInfo.latitude : latitude ,
+                longitude: longitude ==null ? mongoBusinessInfo.longitude : longitude ,
+                businessTags: businessTags ==null ? mongoBusinessInfo.businessTags : businessTags ,
+                stripeID: stripeID ==null ? mongoBusinessInfo.stripeID : stripeID ,
+                description: description ==null ? mongoBusinessInfo.description : description ,
               })
+              mongoBusinessInfo.save()
             return(mongoBusinessInfo)
           }
           else {
