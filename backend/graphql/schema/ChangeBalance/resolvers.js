@@ -48,7 +48,8 @@ module.exports = {
         //no pocket or userID return all changeBalances
         changeBalanceInfo = await ChangeBalance.findAll({})
         return changeBalanceInfo
-      } else {
+      } 
+      else {
         changeBalanceInfo = await ChangeBalance.findAll({ 
           where: filterChange
         })
