@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "pocketchange_loyalty_inc",
     "name": "pocketchange_frontend",
     "slug": "pocketchange_frontend",
     "version": "1.0.0",
