@@ -20,7 +20,7 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
       <TouchableWithoutFeedback
         onPress={() => {
           // navigation.goBack()
-          navigation.navigate('WalletStack', { screen: 'Wallet' })
+          navigation.navigate('Wallet')
           // navigation.popToTop()
           // navigation.goBack()
           // navigation.popToTop()
