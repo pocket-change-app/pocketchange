@@ -592,13 +592,31 @@ export const styles = StyleSheet.create({
   },
 
   setting: {
+    flexDirection: 'row',
     height: 45,
+    alignItems: 'center',
+    // paddingHorizontal: MARGIN,
+  },
+
+  settingIcon: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: colors.subtle,
+  },
+
+  settingIconContainer: {
+    height: '100%',
+    aspectRatio: 1,
+    marginHorizontal: MARGIN / 2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   settingText: {
     fontFamily: 'metropolis medium',
-    fontSize: 16,
+    fontSize: 18,
     color: colors.medium,
+    // marginLeft: MARGIN,
   },
 
   transactionListed: {
