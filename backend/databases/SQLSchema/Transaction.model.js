@@ -50,6 +50,13 @@ module.exports = (sequelize, Sequelize) => {
         changeEarned: {
             type: Sequelize.DECIMAL(10,2),
             allowNull: false
+        },
+        refunded:{
+            type: Sequelize.BOOLEAN,
+            allowNull: false
+        },
+        refundDate:{
+            type: Sequelize.DATE(6),
         }
     });
   

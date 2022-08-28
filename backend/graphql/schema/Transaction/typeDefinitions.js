@@ -13,6 +13,8 @@ module.exports = gql`
       pocketID: ID
       changeRedeemed: Decimal
       changeEarned: Decimal
+      refunded: Boolean
+      refundDate: Date
     }
 
     """
