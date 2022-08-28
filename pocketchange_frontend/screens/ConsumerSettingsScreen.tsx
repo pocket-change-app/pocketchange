@@ -92,7 +92,7 @@ export default function ConsumerSettingsScreen() {
         </View>
 
         {
-          (auth.authData.type == "merchant") ? <Button title="Switch to Merchant Account" onPress={switchAccount} /> : <></>
+          // (auth.authData.type == "merchant") ? <Button title="Switch to Merchant Account" onPress={switchAccount} /> : <></>
         }
 
 
