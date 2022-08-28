@@ -1,7 +1,7 @@
 
 import { Pressable, ScrollView, Button } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
-import { Setting } from "../components/Cards";
+import { SettingPressable } from "../components/Cards";
 
 import { useAuth } from '../contexts/Auth';
 
@@ -20,13 +20,13 @@ export default function MerchantSettingsScreen() {
   return (
     <ScreenContainer>
       <ScrollView>
-        <Setting
+        <SettingPressable
           settingText={"Setting 1"}
         />
-        <Setting
+        <SettingPressable
           settingText={"Setting 2"}
         />
-        <Setting
+        <SettingPressable
           settingText={"Setting 3"}
         />
 
