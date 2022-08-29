@@ -400,7 +400,7 @@ export function TransactionListed({ navigation, transaction }: any) {
   )
 }
 
-export function TransactionSummaryCard({ navigation, transaction }: any) {
+export function Receipt({ navigation, transaction }: any) {
 
   const business = businesses.find(b => b.name == transaction.merchant)
 
@@ -408,7 +408,7 @@ export function TransactionSummaryCard({ navigation, transaction }: any) {
 
   return (
     <>
-      <View style={[styles.card, styles.container]}>
+      <View style={[styles.container]}>
         {/* <CardHeader text='Summary' /> */}
 
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
