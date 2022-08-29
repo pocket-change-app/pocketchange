@@ -9,6 +9,10 @@ export const user = {
     middle: 'Stone',
     last: 'Williams',
   },
+  gender: 'Male',
+  address: {
+    zipCode: 'ABC007'
+  },
   type: "merchant",
   worksAt: [
     {
