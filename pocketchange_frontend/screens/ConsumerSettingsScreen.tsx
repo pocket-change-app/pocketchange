@@ -11,7 +11,7 @@ import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 
-export default function ConsumerSettingsScreen() {
+export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
   const auth = useAuth();
   const signOut = async () => {
     await auth.signOut();
@@ -30,6 +30,7 @@ export default function ConsumerSettingsScreen() {
           <SettingPressable
             iconName='id-card'
             settingText={`Edit Profile`}
+            onPress={() => navigation.navigate('EditProfile')}
           />
         </View>
 
