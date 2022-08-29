@@ -257,35 +257,108 @@ export const transactions = [
 export const analytics = [
   {
     title: "Today's Sales",
-    type: "text",
+    type: 'text',
+    data: "$2505.76 "
+  },
+  {
+    title: "Your Customers Come From",
+    type: "pie",
     data: [
-      {date: "17 Sept, 2022", sales: 437.23}
+      {x: "University-Rosedale", y: 54},
+      {x: "Beaches-East York", y: 62},
+      {x: "Toronto Centre", y: 43},
+      {x: "Toronto-Danforth", y: 88},
+      {x: "Other", y: 20},
     ]
   },
   {
     title: "Number of Sales",
     type: "bar",
     data: [
-      {day: "mon", sales: 60},
-      {day: "tue", sales: 34},
-      {day: "wed", sales: 27},
-      {day: "thu", sales: 60},
-      {day: "fri", sales: 88},
-      {day: "sat", sales: 122},
-      {day: "sun", sales: 170},
+      {x: "mon", y: 60},
+      {x: "tue", y: 34},
+      {x: "wed", y: 27},
+      {x: "thu", y: 60},
+      {x: "fri", y: 88},
+      {x: "sat", y: 122},
+      {x: "sun", y: 170},
     ]
   },
   {
     title: "Sales Volume",
     type: "line",
     data: [
-      {day: "mon", sales: 804.43},
-      {day: "tue", sales: 456.30},
-      {day: "wed", sales: 437.23},
-      {day: "thu", sales: 806.54},
-      {day: "fri", sales: 1122.10},
-      {day: "sat", sales: 1366.38},
-      {day: "sun", sales: 2505.76},
+      {x: "mon", y: 804.43},
+      {x: "tue", y: 456.30},
+      {x: "wed", y: 437.23},
+      {x: "thu", y: 806.54},
+      {x: "fri", y: 1122.10},
+      {x: "sat", y: 1366.38},
+      {x: "sun", y: 2505.76},
     ]
   },
+
+  {
+    title: "Your Top Customers",
+    type: "list",
+    data: [
+      "Cole C.",
+      "Mica C.",
+      "Siku C.",
+      "Mia S.",
+      "Kanye W."
+    ]
+  },
+  {
+    title: "Average PocketChange Customer Visits / Week",
+    type: "text",
+    data: "2.3x"
+  },
+  {
+    title: "Foot Traffic in Leslieville (past 14 days)",
+    type: "bar",
+    data: [
+      {x: "9/3", y: 57},
+      {x: "9/4", y: 34},
+      {x: "9/5", y: 43},
+      {x: "9/6", y: 75},
+      {x: "9/7", y: 54},
+      {x: "9/8", y: 48},
+      {x: "9/9", y: 69},
+      {x: "9/10", y: 65},
+      {x: "9/11", y: 60},
+      {x: "9/12", y: 78},
+      {x: "9/13", y: 88},
+      {x: "9/14", y: 90},
+      {x: "9/15", y: 123},
+      {x: "9/16", y: 153},
+      
+    ]
+  },
+  {
+    title: "Businesses with Shared Customer Bases",
+    type: "list",
+    data: [
+      "Bespoke Butchers",
+      "Avling",
+      "Okay Okay Diner",
+      "Blessed Love",
+      "Leslieville Cheese"
+    ]
+  },
+  {
+    title: "Customer Satisfaction",
+    type: "line",
+    data: [
+      {x: "mon", y: 0.75},
+      {x: "tue", y: 0.80},
+      {x: "wed", y: 0.90},
+      {x: "thu", y: 0.54},
+      {x: "fri", y: -0.60},
+      {x: "sat", y: 0.80},
+      {x: "sun", y: 0.75},
+    ]
+  },
+
+
 ]
