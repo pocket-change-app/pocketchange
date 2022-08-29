@@ -10,6 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg';
+import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 
 const R = require('ramda');
 
@@ -700,7 +701,14 @@ export function AnalyticsCard({ title, type, data }: any) {
           theme={V.VictoryTheme.material}
           padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
         >
-          <V.VictoryBar data={data} x="day" y="sales" />
+          <V.VictoryAxis  
+            fixLabelOverlap={true}
+            style={{
+              //tickLabels: {angle: -0},
+              }} 
+          />
+          <V.VictoryAxis dependentAxis />
+          <V.VictoryBar data={data} x="x" y="y" />
         </V.VictoryChart>
       );
     } else if (type == 'line') {
@@ -711,20 +719,66 @@ export function AnalyticsCard({ title, type, data }: any) {
           theme={V.VictoryTheme.material}
           padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
         >
-          <V.VictoryLine data={data} x="day" y="sales" />
+          <V.VictoryAxis
+            fixLabelOverlap={true}
+            style={{
+              //tickLabels: {angle: -30}
+            }} 
+          />
+          <V.VictoryAxis dependentAxis />
+          <V.VictoryLine data={data} x="x" y="y" />
         </V.VictoryChart>
       );
     } else if (type == 'text') {
-      return <Text style={styles.changeLg} >${data[0].sales}</Text>;
+      return <Text style={styles.changeLg} >{data}</Text>;
+    } else if (type == 'list') {
+      const listItems = data.map(
+        (item) => <Text>{item}</Text>
+      );
+      return (
+        <View>{listItems}</View>
+      );
+    } else if (type == 'pie') {
+      const legendData = data.map(
+        (item) => ({name: item.x})
+      );
+      return (
+          <Svg width="100%" height={250}>
+            <V.VictoryPie 
+              standalone={false}
+              height={250} 
+              padding={{ top: 0, left: 150, right: 50, bottom: 10 }}
+              //labelPlacement="parallel"
+              //labelPosition="centroid"
+              labelComponent={<></>}
+              //startAngle={0}
+              //endAngle={180}
+              //labelRadius={0}
+              innerRadius={50}
+              //padAngle={1}
+              theme={V.VictoryTheme.material} 
+              data={data} 
+              x="x" 
+              y="y" />
+            <V.VictoryLegend 
+              y={50}
+              height={50}
+              //itemsPerRow={2}
+              standalone={false}
+              theme={V.VictoryTheme.material} 
+              orientation='vertical'              
+              data={legendData}
+              //height={200}
+              />
+          </Svg>
+      );
     }
   }
 
   return (
     <View style={[styles.card, styles.analyticsCard]}>
-
       <Text style={styles.analyticsTitle}>{title}</Text>
       {renderChart()}
-
     </View>
   )
 }
