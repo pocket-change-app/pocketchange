@@ -9,7 +9,25 @@ export const user = {
     middle: 'Stone',
     last: 'Williams',
   },
+  gender: 'Male',
+  address: {
+    zipCode: 'ABC007'
+  },
   type: "merchant",
+  worksAt: [
+    {
+      busID: '001',
+      role: 'employee'
+    },
+    {
+      busID: '004',
+      role: 'manager'
+    },
+    {
+      busID: '006',
+      role: 'owner'
+    }
+  ],
   imageURL: require('./assets/images/Elias.jpeg'),
   dateOfBirth: '12/16/1998',
   lifetimeChange: 2308,      // total cents spent in Change. Displayted under name on ID card

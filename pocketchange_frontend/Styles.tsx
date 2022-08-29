@@ -34,8 +34,15 @@ export const styles = StyleSheet.create({
     padding: MARGIN / 2,
   },
 
-  paymentInputText: {
-    fontFamily: 'metropolis bold',
+  paymentFocusText: {
+    fontFamily: 'receipt',
+    fontSize: 50,
+    color: colors.gold,
+  },
+
+  tipButtonText: {
+    textAlign: 'center',
+    fontFamily: 'receipt',
     fontSize: 30,
     color: colors.gold,
   },
@@ -585,13 +592,31 @@ export const styles = StyleSheet.create({
   },
 
   setting: {
+    flexDirection: 'row',
     height: 45,
+    alignItems: 'center',
+    paddingHorizontal: MARGIN / 2,
+  },
+
+  settingIcon: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: colors.medium,
+  },
+
+  settingIconContainer: {
+    height: '100%',
+    aspectRatio: 1,
+    marginRight: MARGIN / 2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   settingText: {
     fontFamily: 'metropolis medium',
-    fontSize: 16,
+    fontSize: 18,
     color: colors.medium,
+    // marginLeft: MARGIN,
   },
 
   transactionListed: {

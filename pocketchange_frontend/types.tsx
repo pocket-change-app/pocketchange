@@ -17,8 +17,8 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
 
-  Landing: undefined
-  SignUp: undefined
+  Landing: undefined;
+  SignUp: undefined;
 
   Business: undefined;
 
@@ -38,14 +38,15 @@ export type RootStackParamList = {
 
   Wallet: undefined;
   ConsumerSettings: undefined;
+  EditProfile: undefined;
 
   // Merchant Screens
-  Transactions: undefined
+  Transactions: undefined;
   TransactionModal: undefined;
 
-  Analytics: undefined
+  Analytics: undefined;
 
-  MerchantSettings: undefined
+  MerchantSettings: undefined;
 
 };
 

@@ -315,11 +315,25 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
   )
 }
 
-export function Setting({ settingText }: { settingText: string }) {
+export function SettingPressable({ settingText, iconName, onPress = null }: { settingText: string, iconName: string, onPress?: any }) {
   return (
-    <View style={styles.setting}>
-      <Text style={styles.settingText}>{settingText}</Text>
-    </View>
+    <Pressable
+      onPress={onPress}
+    >
+      <View style={styles.setting}>
+        <View style={styles.settingIconContainer}>
+          <FontAwesome5
+            // style={styles.settingIcon}
+            name={iconName}
+            size={25}
+            color={colors.medium}
+            style={styles.settingIcon}
+          />
+        </View>
+        <Text style={styles.settingText}>{settingText}</Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </Pressable>
   )
 }
 
@@ -386,7 +400,7 @@ export function TransactionListed({ navigation, transaction }: any) {
   )
 }
 
-export function TransactionSummaryCard({ navigation, transaction }: any) {
+export function Receipt({ navigation, transaction }: any) {
 
   const business = businesses.find(b => b.name == transaction.merchant)
 
@@ -394,7 +408,7 @@ export function TransactionSummaryCard({ navigation, transaction }: any) {
 
   return (
     <>
-      <View style={[styles.card, styles.container]}>
+      <View style={[styles.container]}>
         {/* <CardHeader text='Summary' /> */}
 
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}

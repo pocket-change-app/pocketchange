@@ -10,7 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import { styles } from '../Styles';
+import { MARGIN, styles } from '../Styles';
 
 import BusinessScreen from '../screens/BusinessScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -24,6 +24,9 @@ import PayAmountScreen from '../screens/PayAmountScreen';
 import PayTipScreen from '../screens/PayTipScreen';
 import PaySummaryScreen from '../screens/PaySummaryScreen';
 import PayConfirmationScreen from '../screens/PayConfirmationScreen';
+import { authService } from '../services/authService';
+import { useAuth } from '../contexts/Auth';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -268,6 +271,9 @@ function PaymentModalStack() {
 
 
 function WalletStack() {
+
+  const auth = useAuth();
+
   return (
     <Stack.Navigator
       initialRouteName="Wallet"
@@ -282,11 +288,27 @@ function WalletStack() {
         name="Wallet"
         component={WalletScreen}
         options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
+          headerLeft: () => (
+            <Pressable
+              onPress={auth.switchAccount}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+                // marginRight: 2 * MARGIN,
+              })}>
+              <FontAwesome
+                name='user-circle-o'
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
+                // marginRight: MARGIN,
               })}>
               <FontAwesome
                 name="gear"
@@ -299,13 +321,6 @@ function WalletStack() {
         })}
       />
       <Stack.Screen
-        name="ConsumerSettings"
-        component={ConsumerSettingsScreen}
-        options={{
-          title: 'Settings'
-        }}
-      />
-      <Stack.Screen
         name="Receipt"
         component={ReceiptScreen}
         options={({ navigation }: any) => ({
@@ -313,6 +328,20 @@ function WalletStack() {
           headerShown: false,
           headerTitle: 'You paid',
         })}
+      />
+      <Stack.Screen
+        name="ConsumerSettings"
+        component={ConsumerSettingsScreen}
+        options={{
+          title: 'Settings'
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          title: 'Edit Profile'
+        }}
       />
     </Stack.Navigator>
   )

@@ -4,7 +4,7 @@ import { Platform, Image, Pressable, ScrollView } from 'react-native';
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
-import { PaySummaryCard, TransactionSummaryCard } from '../components/Cards';
+import { PaySummaryCard, Receipt } from '../components/Cards';
 
 export default function ConsumerTransactionScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -14,7 +14,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
 
   return (
     <ScreenContainer>
-      <ScrollView style={styles.container}>
+      <ScrollView style={{ backgroundColor: colors.card }}>
 
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
 
@@ -35,7 +35,7 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
 
         </View> */}
 
-        <TransactionSummaryCard
+        <Receipt
           navigation={navigation}
           transaction={transaction}
         />
