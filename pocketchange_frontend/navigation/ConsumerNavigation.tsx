@@ -26,6 +26,7 @@ import PaySummaryScreen from '../screens/PaySummaryScreen';
 import PayConfirmationScreen from '../screens/PayConfirmationScreen';
 import { authService } from '../services/authService';
 import { useAuth } from '../contexts/Auth';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -320,13 +321,6 @@ function WalletStack() {
         })}
       />
       <Stack.Screen
-        name="ConsumerSettings"
-        component={ConsumerSettingsScreen}
-        options={{
-          title: 'Settings'
-        }}
-      />
-      <Stack.Screen
         name="Receipt"
         component={ReceiptScreen}
         options={({ navigation }: any) => ({
@@ -334,6 +328,20 @@ function WalletStack() {
           headerShown: false,
           headerTitle: 'You paid',
         })}
+      />
+      <Stack.Screen
+        name="ConsumerSettings"
+        component={ConsumerSettingsScreen}
+        options={{
+          title: 'Settings'
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          title: 'Edit Profile'
+        }}
       />
     </Stack.Navigator>
   )
