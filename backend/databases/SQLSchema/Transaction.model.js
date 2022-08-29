@@ -55,9 +55,18 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN,
             allowNull: false
         },
+        refundedValue:{
+            type: Sequelize.DECIMAL(19,4),
+        },
         refundDate:{
             type: Sequelize.DATE(6),
-        }
+        },
+        changeRedeemedBeforeRefund: {
+            type: Sequelize.DECIMAL(10,2),
+        },
+        changeEarnedBeforeRefund: {
+            type: Sequelize.DECIMAL(10,2),
+        },
     });
   
     return Transaction;

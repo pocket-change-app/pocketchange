@@ -50,12 +50,15 @@ module.exports = {
                   pocketID: transactionInfo.dataValues.pocketID,
                   changeRedeemed: transactionInfo.dataValues.changeRedeemed,
                   changeEarned: transactionInfo.dataValues.changeEarned,
+                  refunded: transactionInfo.dataValues.refunded,
+                  refundDate: transactionInfo.dataValues.refundDate,
+                  changeEarnedBeforeRefund: transactionInfo.dataValues.changeEarnedBeforeRefund,
+                  changeRedeemedBeforeRefund: transactionInfo.dataValues.changeRedeemedBeforeRefund,
                 }
       
             }
             else {
               throw new ApolloError(`transactionID:${transactionID} doesn't exist`);
-              return {};
             }
         },
         getAllTransactions: async (parent, { businessID, pocketID, userID, startDate, endDate }, { Transaction}) => {
@@ -114,7 +117,6 @@ module.exports = {
     Mutation: {
         processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
             if(userID, businessID, pocketID, value){
-                //update this resolver TO-DO: people can use and earn change, just not earn change on the change they used
                 //check to make sure user is in pocket
                 //turn changeUsed into a float
                 const changeUsing = parseFloat(changeUsed)
@@ -127,7 +129,7 @@ module.exports = {
                         //check to make sure business is in pocket, get IsIn relationship table to check 
                         const businessPocket = await IsIn.findOne({where:{businessID:businessID, pocketID:pocketID }})
                         //get the pocketID of the business
-                        var changeEarned = 0
+                        let changeEarned = 0
                         if(businessPocket){
                             //get pocket Info
                             const pocketInfo = await Pocket.findOne({where:{pocketID:pocketID}})
@@ -139,6 +141,8 @@ module.exports = {
                             //get date 
                             const dateOfTransaction = new Date().toISOString().slice(0, 10)
                             //business is in the pocket, so now check if change is used
+                            let changeEarningValue = parseFloat(value)
+                            let changeRedeemed = 0
                             if(changeUsing >0.00){
                                 //subtract change from users change in SQL and from pockets circulating change
                                 //check to make sure user has enough change
@@ -146,7 +150,7 @@ module.exports = {
                                 const availableChange = parseFloat(userChangeInfo.dataValues.value)
                                 if(changeUsing <= availableChange){
                                     //user has enough change, subtract the change
-                                    var changeRedeemed = changeUsing
+                                    changeRedeemed = changeUsing
                                     const updatedChange = availableChange - changeUsing
                                     //update the change in Change and Pocket
                                     //change the circulating change into a float
@@ -154,43 +158,53 @@ module.exports = {
                                     //updated change circulating is a float
                                     const updatedChangeCirculating = oldChangeCirculating - changeRedeemed
                                     await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
+                                    //the value the user can earn change on is now the value of the good minus the change used
+                                    changeEarningValue = value - parseFloat(changeUsing)
                                 }
                                 else {
                                     throw new ApolloError(`User:${userID} has insufficient change in Pocket: ${pocketID}`);
                                 }
                             }
-                            else{
-                                //get pocket info to calculate rate of change, change is earned
-                                var changeRedeemed = 0
-                                const changeRate = parseFloat(pocketInfo.dataValues.changeRate)
-                                changeEarned = value*(changeRate)
-                                const currChange = parseFloat(userChangeInfo.dataValues.value)
-                                //updatedChange is a float
-                                const updatedChange = (currChange  + changeEarned)
-                                const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
-                                //updatedChangeCirculating is a float
-                                const updatedChangeCirculating = oldChangeCirculating + changeEarned
-                                await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
+                            if(changeEarningValue > 0.00){
+                              //there is still value to be earned change on
+                              //get pocket info to calculate rate of change, change is earned
+                              const changeRate = parseFloat(pocketInfo.dataValues.changeRate)
+                              changeEarned = changeEarningValue*(changeRate)
+                              const currChange = parseFloat(userChangeInfo.dataValues.value)
+                              //updatedChange is a float
+                              const updatedChange = (currChange  + changeEarned)
+                              const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
+                              //updatedChangeCirculating is a float
+                              const updatedChangeCirculating = oldChangeCirculating + changeEarned
+                              await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                             }
                             //change is updated across
                             const newTransaction = await Transaction.create({
                                 userID: userID,
-                                value: value.toFixed(4),
+                                value: parseFloat(value).toFixed(4),
                                 businessID: busID,
                                 date: dateOfTransaction,
                                 pocketID: pocketID,
                                 changeRedeemed: changeRedeemed,
-                                changeEarned: changeEarned
+                                changeEarned: changeEarned,
+                                refunded: false,
+                                refundDate: null,
+                                changeRedeemedBeforeRefund: null,
+                                changeEarnedBeforeRefund: null,
                             })
                             return {
                                 transactionID: newTransaction.dataValues.transactionID,
                                 userID: newTransaction.dataValues.userID,
-                                value: (newTransaction.dataValues.value).toFixed(2),
+                                value: parseFloat(newTransaction.dataValues.value).toFixed(2),
                                 date: newTransaction.dataValues.date,
                                 businessID: newTransaction.dataValues.businessID,
                                 pocketID: newTransaction.dataValues.pocketID,
                                 changeRedeemed: newTransaction.dataValues.changeRedeemed,
                                 changeEarned: newTransaction.dataValues.changeEarned,
+                                refunded: newTransaction.dataValues.refunded,
+                                refundDate: newTransaction.dataValues.refundDate,
+                                changeRedeemedBeforeRefund: newTransaction.dataValues.changeRedeemedBeforeRefund,
+                                changeEarnedBeforeRefund: newTransaction.dataValues.changeEarnedBeforeRefund,
                               }
                         }
                         else {
@@ -209,5 +223,85 @@ module.exports = {
               throw new ApolloError(`Not enough information about userID, businessID, pocketID` );
             }
         },
-    }
+        refundTransaction: async (parent, {userID, businessID, pocketID, date, refundValue}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
+          if(userID, businessID, pocketID, value){
+              //check to make sure the transaction exists
+              const transactionInfo = await Transaction.findOne({
+                where:{
+                  userID: userID, 
+                  pocketID: pocketID, 
+                  businessID: businessID,
+                  date: date,
+                }
+              })
+              let finalRefundValue = refundValue
+              if(transactionInfo){
+                //the transaction exists, so make sure the refundedValue is less than the value of the transaction
+                if(transactionInfo.dataValues.value <= finalRefundValue){
+                  //valid refund
+                  //get the current date
+                  const transactionRefundDate = new Date().toISOString()
+                  //work out the new change
+                  const changeEarnedBeforeRefund = transactionInfo.dataValues.changeEarned
+                  const newChangeEarned = 0
+                  //get change info
+                  const userChangeInfo = await ChangeBalance.findOne({where:{
+                    userID: userID,
+                    pocketID: pocketID}
+                  })
+                  //check to see if user redeemed change on the refunded transaction
+                  const changeRedeemedBeforeRefund = transactionInfo.dataValues.changeRedeemed
+                  const newChangeRedeemed = transactionInfo.dataValues.changeRedeemed
+                  if(changeRedeemedBeforeRefund > 0){
+                    //the user gets redeemed change back first
+                    const changeAddedBack = changeRedeemedBeforeRefund 
+                    newChangeRedeemed = 0
+                    await transactionInfo.update({
+                      changeRedeemed: parseFloat(0).toFixed(4),
+                      changeRedeemedBeforeRefund: changeRedeemedBeforeRefund
+                    })
+                    finalRefundValue = refundValue - changeRedeemedBeforeRefund
+                    //update change across 
+                    const currChange = parseFloat(userChangeInfo.dataValues.value)
+                    //updatedChange is a float
+                    const updatedChange = (currChange  + changeAddedBack)
+                    const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
+                    //updatedChangeCirculating is a float
+                    const updatedChangeCirculating = oldChangeCirculating + newChangeEarned
+                    await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, transactionRefundDate)
+                  }
+                  newChangeEarned = changeEarnedBeforeRefund + finalRefundValue 
+                  await transactionInfo.update({
+                    changeEarned: parseFloat(newChange).toFixed(4),
+                    changeEarnedBeforeRefund: changeEarnedBeforeRefund,
+                  })
+                  const currChange = parseFloat(userChangeInfo.dataValues.value)
+                  //updatedChange is a float
+                  const updatedChange = (currChange  + newChangeEarned)
+                  const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
+                  //updatedChangeCirculating is a float
+                  const updatedChangeCirculating = oldChangeCirculating + newChangeEarned
+                  await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, transactionRefundDate)
+                  await transactionInfo.save()
+                  //time to update the values of the transaction
+                  await transactionInfo.update({
+                    changeEarned: newChangeEarned,
+                    changeRedeemed: newChangeRedeemed,
+                    refunded: true, 
+                    refundedValue: finalRefundValue,
+                    refundDate: transactionRefundDate,
+                    changeRedeemedBeforeRefund: transactionInfo.dataValues.changeRedeemedBeforeRefund,
+                    changeEarnedBeforeRefund: transactionInfo.dataValues.changeEarnedBeforeRefund,
+                   })
+                }
+                else {
+                  throw new ApolloError(`Refunding more than value of transaction is invalid,refund : ${refundValue}, transactionValue: ${transactionInfo.dataValues.value}} `);
+                }
+              }
+              else {
+                throw new ApolloError(`Transaction with user:${userID}, business: ${businessID}, date:${date}, pocket:${pocketID} doesn't exist  `);
+              }
+             }
+        }
+      }
   }

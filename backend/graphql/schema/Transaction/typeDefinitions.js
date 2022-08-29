@@ -14,7 +14,10 @@ module.exports = gql`
       changeRedeemed: Decimal
       changeEarned: Decimal
       refunded: Boolean
+      refundedValue: Decimal
       refundDate: Date
+      changeEarnedBeforeRefund: Decimal
+      changeRedeemedBeforeRefund: Decimal
     }
 
     """
@@ -41,5 +44,6 @@ module.exports = gql`
         Process a new transaction, where a user is either using up the change they have or earning change
         """
         processTransaction(userID: ID, businessID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal): Transaction
+        refundTransaction(userID: ID, businessID: ID, pocketID: ID, refundValue: Decimal): Transaction
     }
 `
