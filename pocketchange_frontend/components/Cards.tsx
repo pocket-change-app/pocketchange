@@ -6,11 +6,13 @@ import { user, businesses } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const R = require('ramda');
 
@@ -715,11 +717,11 @@ export function AnalyticsCard({ title, type, data }: any) {
           theme={V.VictoryTheme.material}
           padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
         >
-          <V.VictoryAxis  
+          <V.VictoryAxis
             fixLabelOverlap={true}
             style={{
               //tickLabels: {angle: -0},
-              }} 
+            }}
           />
           <V.VictoryAxis dependentAxis />
           <V.VictoryBar data={data} x="x" y="y" />
@@ -737,7 +739,7 @@ export function AnalyticsCard({ title, type, data }: any) {
             fixLabelOverlap={true}
             style={{
               //tickLabels: {angle: -30}
-            }} 
+            }}
           />
           <V.VictoryAxis dependentAxis />
           <V.VictoryLine data={data} x="x" y="y" />
@@ -754,37 +756,37 @@ export function AnalyticsCard({ title, type, data }: any) {
       );
     } else if (type == 'pie') {
       const legendData = data.map(
-        (item) => ({name: item.x})
+        (item) => ({ name: item.x })
       );
       return (
-          <Svg width="100%" height={250}>
-            <V.VictoryPie 
-              standalone={false}
-              height={250} 
-              padding={{ top: 0, left: 150, right: 50, bottom: 10 }}
-              //labelPlacement="parallel"
-              //labelPosition="centroid"
-              labelComponent={<></>}
-              //startAngle={0}
-              //endAngle={180}
-              //labelRadius={0}
-              innerRadius={50}
-              //padAngle={1}
-              theme={V.VictoryTheme.material} 
-              data={data} 
-              x="x" 
-              y="y" />
-            <V.VictoryLegend 
-              y={50}
-              height={50}
-              //itemsPerRow={2}
-              standalone={false}
-              theme={V.VictoryTheme.material} 
-              orientation='vertical'              
-              data={legendData}
-              //height={200}
-              />
-          </Svg>
+        <Svg width="100%" height={250}>
+          <V.VictoryPie
+            standalone={false}
+            height={250}
+            padding={{ top: 0, left: 150, right: 50, bottom: 10 }}
+            //labelPlacement="parallel"
+            //labelPosition="centroid"
+            labelComponent={<></>}
+            //startAngle={0}
+            //endAngle={180}
+            //labelRadius={0}
+            innerRadius={50}
+            //padAngle={1}
+            theme={V.VictoryTheme.material}
+            data={data}
+            x="x"
+            y="y" />
+          <V.VictoryLegend
+            y={50}
+            height={50}
+            //itemsPerRow={2}
+            standalone={false}
+            theme={V.VictoryTheme.material}
+            orientation='vertical'
+            data={legendData}
+          //height={200}
+          />
+        </Svg>
       );
     }
   }
