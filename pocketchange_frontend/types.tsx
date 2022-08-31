@@ -19,6 +19,7 @@ export type RootStackParamList = {
 
   Landing: undefined;
   SignUp: undefined;
+  ViewPDF: undefined;
 
   Business: undefined;
 
