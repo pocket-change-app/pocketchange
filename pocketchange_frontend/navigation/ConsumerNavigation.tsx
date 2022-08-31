@@ -27,6 +27,8 @@ import PayConfirmationScreen from '../screens/PayConfirmationScreen';
 import { authService } from '../services/authService';
 import { useAuth } from '../contexts/Auth';
 import EditProfileScreen from '../screens/EditProfileScreen';
+import ViewPDFScreen from '../screens/ViewPDFScreen';
+import SettingsAboutScreen from '../screens/SettingsAboutScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -342,6 +344,18 @@ function WalletStack() {
         options={{
           title: 'Edit Profile'
         }}
+      />
+      <Stack.Screen
+        name="About"
+        component={SettingsAboutScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="ViewPDF"
+        component={ViewPDFScreen}
+        options={({ route }) => ({
+          title: route.params.title
+        })}
       />
     </Stack.Navigator>
   )
