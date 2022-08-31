@@ -42,12 +42,12 @@ module.exports = gql`
         Register a user to the pocketchange app
         """
         registerUser(username: String, password: String, name: String, home: String, birthDate: Date, emailAddress:String): User
-        deactivateUSer(userID:ID): User
-        registerUser(userID: ID, password: String): User
+        deactivateUser(userID:ID): User
+        updatePassword(userID: ID, password: String): User
         updateUserProfile(username: String, name: String, home: String, birthDate: Date, emailAddress:String): User
-        loveOrUnloveBusiness(userID: ID, businessID:ID)
-        addUserRole(userID: ID, role: String, businessID: ID)
-        removeUserRole(userID: ID, role: String, businessID: ID)
-        updateUserLocations(userID:ID, latitude: Float, longitude: Float)
+        loveOrUnloveBusiness(userID: ID, businessID:ID): User
+        addUserRole(userID: ID, role: String, businessID: ID): User
+        removeUserRole(userID: ID, role: String, businessID: ID): User
+        updateUserLocations(userID:ID, latitude: Float, longitude: Float): User
     }
 `
