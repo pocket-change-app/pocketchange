@@ -5,7 +5,7 @@ import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { user } from "../dummy";
 import { MARGIN, styles } from "../Styles";
-import DateTimePicker from '@react-native-community/datetimepicker';
+//import DateTimePicker from '@react-native-community/datetimepicker';
 import { ButtonWithText } from "../components/Cards";
 
 export default function EditProfileScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -72,24 +72,27 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
             <Text style={styles.prose}>
               Birthday
             </Text>
-            <DateTimePicker
-              style={{ width: 90 }}
-              value={birthday}
-              display='compact'
-              onChange={null}
-            // autoFocus={true}
-            // returnKeyType="next"
-            // selectionColor={colors.gold}
-            // autoCapitalize='words'
-            // style={styles.receipt}
-            // keyboardType='numeric'
-            // defaultValue={firstName}
-            // value={firstName}
-            // onChangeText={setFirstName}
-            // placeholder={'Jane'}
-            // placeholderTextColor={colors.subtle}
-            // onSubmitEditing={() => ref_inputLast.current.focus()}
-            />
+            {
+            //<DateTimePicker
+              //style={{ width: 90 }}
+              //value={birthday}
+              //display='compact'
+              //onChange={null}
+            
+              // autoFocus={true}
+              // returnKeyType="next"
+              // selectionColor={colors.gold}
+              // autoCapitalize='words'
+              // style={styles.receipt}
+              // keyboardType='numeric'
+              // defaultValue={firstName}
+              // value={firstName}
+              // onChangeText={setFirstName}
+              // placeholder={'Jane'}
+              // placeholderTextColor={colors.subtle}
+              // onSubmitEditing={() => ref_inputLast.current.focus()}
+            ///>
+          }
           </View>
 
           <View style={[styles.signUpInputText, { flex: 1 }]}>
