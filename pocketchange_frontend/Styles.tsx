@@ -693,7 +693,7 @@ export const styles = StyleSheet.create({
 
   analyticsTitle: {
     fontSize: 20,
-    //lineHeight: 20,
+    paddingBottom: 10,
     fontFamily: 'metropolis black',
     color: colors.dark,
   },

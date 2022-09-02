@@ -275,8 +275,18 @@ export const transactions = [
 export const analytics = [
   {
     title: "Today's Sales",
-    type: 'text',
-    data: "$2505.76 "
+    type: 'text-sales',
+    data: 
+      {
+        date: "9/16/22",
+        gross_sales: 2505.76,
+        change_issued: 150.32,
+        processing_fees: 58.8,
+        refunds: 12.52,
+        net_sales: 2284.12
+      }
+
+    
   },
   {
     title: "Your Customers Come From",
