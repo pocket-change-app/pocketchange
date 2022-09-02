@@ -18,119 +18,131 @@ const R = require('ramda');
 
 export default function PayTabScreen({ navigation }: { navigation: any }) {
 
-  const userID ='1c'
-  const {businesses, loading} =  useGetLovedBusinessesQuery(userID)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState(businesses)
+    const userID = '1c'
+    const { businesses, loading, refetch } = useGetLovedBusinessesQuery(userID)
+    const [searchQuery, setSearchQuery] = useState('')
+    const [searchResults, setSearchResults] = useState('default')
+
+    // useEffect(() => {
+    //     // setSearchResults(businesses); // This is be executed when `loading` state changes
+    // }, [loading])
+
+    // if (isNilOrEmpty(businesses)) {
+    //     return null
+    // }
+
+    if (loading) {
+        return (null)
+    }
 
 
-  if(isNilOrEmpty(businesses)) {
-    return null
-  }
+    const updateSearch = (text: string) => {
+        setSearchQuery(text)
+        setSearchResults(() => {
+            const formattedQuery = text.toLowerCase().trim()
+            const results = businesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
+            return results
+        })
+    };
 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = businesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
-      return results
-    })
-  };
+    const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+        <Pressable
+            onPress={() => navigation.navigate('BusinessModal', {
+                business: item
+            })}
+        >
+            <BusinessCardSm
+                key={item.businessID}
+                navigation={navigation}
+                business={item}
+            />
+        </Pressable>
+    )
 
-  const renderBusinessCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <Pressable
-      onPress={() => navigation.navigate('BusinessModal', {
-        business: item
-    })}
-    >
-      <BusinessCardSm
-        key={item.businessID}
-        navigation={navigation}
-        business={item}
-      />
-    </Pressable>
-  )
+    console.log('searchResults', searchResults)
 
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
-      style={{ flex: 1 }}
-    >
+    return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={100}
+            style={{ flex: 1 }}
+        >
 
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
-      <ScreenContainer>
+            {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+            <ScreenContainer>
 
-        {/* <View style={{ flexGrow: 1 }}> */}
-        {/* <HorizontalLine /> */}
-        <FlatList
-          contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
-          data={businesses}
-          renderItem={renderBusinessCard}
-          ListHeaderComponent={() => {
-            if (searchQuery == '') {
-              return (
-                <>
-                  <DivHeader text='Suggested' />
-                  {/* <Pressable
+                {isNilOrEmpty(businesses) ? null : <>
+
+                    {/* <View style={{ flexGrow: 1 }}> */}
+                    {/* <HorizontalLine /> */}
+                    <FlatList
+                        contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
+                        data={(!searchResults) ? businesses : searchResults}
+                        renderItem={renderBusinessCard}
+                        ListHeaderComponent={() => {
+                            if (searchQuery == '') {
+                                return (
+                                    <>
+                                        <DivHeader text='Suggested' />
+                                        {/* <Pressable
                     onPress={() => navigation.navigate('Business', {
                       business: businesses[0]
                     })}
                   > */}
 
-                  <BusinessCardSuggested
-                    key={businesses[0].businessID}
-                    navigation={navigation}
-                    business={businesses[0]}
-                  />
-                  {/* </Pressable> */}
-                  <DivHeader text='Loved' />
-                </>
-              )
-            } else {
-              return (null)
-            }
-          }}
-        />
-        {/* <HorizontalLine /> */}
-        {/* </View> */}
+                                        <BusinessCardSuggested
+                                            key={businesses[0].businessID}
+                                            navigation={navigation}
+                                            business={businesses[0]}
+                                        />
+                                        {/* </Pressable> */}
+                                        <DivHeader text='Loved' />
+                                    </>
+                                )
+                            } else {
+                                return (null)
+                            }
+                        }}
+                    />
+                    {/* <HorizontalLine /> */}
+                    {/* </View> */}
+                </>}
+            </ScreenContainer>
+            {/* </TouchableWithoutFeedback> */}
 
-      </ScreenContainer>
-      {/* </TouchableWithoutFeedback> */}
+            <SearchBar
+                showCancel={false}
+                containerStyle={styles.searchBarContainer}
+                inputContainerStyle={styles.searchBarInputContainer}
 
-      <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
+                inputStyle={styles.searchBarInput}
+                placeholder="Search Businesses"
+                placeholderTextColor={colors.subtle}
 
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Businesses"
-        placeholderTextColor={colors.subtle}
+                onChangeText={updateSearch}
+                onClear={() => null}
+                value={searchQuery}
+            />
 
-        onChangeText={updateSearch}
-        onClear={() => null}
-        value={searchQuery}
-      />
+        </KeyboardAvoidingView>
 
-    </KeyboardAvoidingView>
-
-    //   <ScrollView
-    //     style={styles.container}
-    //   >
-    //     {R.map(
-    //       ({ businessID, name, address, pocket, imageURL }) => (
-    //         <BusinessCardSm
-    //           key={businessID}
-    //           navigation={navigation}
-    //           name={name}
-    //           address={address}
-    //           pocket={pocket}
-    //           imageURL={imageURL}
-    //         />
-    //       ), businesses
-    //     )}
-    //   </ScrollView>
-    // );
-  )
+        //   <ScrollView
+        //     style={styles.container}
+        //   >
+        //     {R.map(
+        //       ({ businessID, name, address, pocket, imageURL }) => (
+        //         <BusinessCardSm
+        //           key={businessID}
+        //           navigation={navigation}
+        //           name={name}
+        //           address={address}
+        //           pocket={pocket}
+        //           imageURL={imageURL}
+        //         />
+        //       ), businesses
+        //     )}
+        //   </ScrollView>
+        // );
+    )
 
 }
