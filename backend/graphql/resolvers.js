@@ -1,4 +1,4 @@
-const {mergeResolvers} = require('merge-graphql-schemas') 
+const {mergeResolvers} = require('@graphql-tools/merge')
 
 //RESOLVERS
 const BusinessResolver = require('./schema/Business/resolvers')

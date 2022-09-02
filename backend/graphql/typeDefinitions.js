@@ -1,4 +1,4 @@
-const {mergeTypes} = require('merge-graphql-schemas') 
+const { mergeTypeDefs } = require('@graphql-tools/merge')
 
 // SCALAR TYPES
 const ScalarTypeDefs = require('./schema/scalarTypeDefs')
@@ -11,7 +11,7 @@ const TransactionTypeDefs = require('./schema/Transaction/typeDefinitions')
 const UserTypeDefs= require('./schema/User/typeDefinitions')
 
 // Type definitions for graph nodes as returned structures
-module.exports = mergeTypes([
+module.exports = mergeTypeDefs([
   ScalarTypeDefs,
 
   BusinessTypeDefs,
