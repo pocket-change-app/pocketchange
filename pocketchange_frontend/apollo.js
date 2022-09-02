@@ -30,7 +30,7 @@ const httpLink = new HttpLink({
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: 'http://localhost:4000/graphql'
+  uri: 'http://ce82-2607-fea8-5e3-2900-50b-969-6c6f-1705.ngrok.io/graphql'
   //link: httpLink,
   // link: asyncAuthLink.concat(httpLink),
 });
