@@ -27,8 +27,8 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
         />
       </View>
       <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{business.name}</Text>
-        <Text style={styles.address}>{business.address}</Text>
+        <Text style={styles.businessNameLg}>{business.businessName}</Text>
+        <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
         <Text style={styles.pocket}>{business.pocket}</Text>
 
         <Pressable style={styles.payButton}
@@ -38,7 +38,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
               // navigation: navigation,
               business: business,
             }
-            // busID: business.busID,
+            // businessID: business.businessID,
             // name: business.name,
             // address: business.address,
             // pocket: business.pocket,
@@ -89,8 +89,8 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
           />
         </View>
         <View style={styles.businessModalInfo}>
-          <Text style={styles.businessNameLg}>{business.name}</Text>
-          <Text style={styles.address}>{business.address}</Text>
+          <Text style={styles.businessNameLg}>{business.businessName}</Text>
+          <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
           <Text style={styles.pocket}>{business.pocket}</Text>
 
         </View>
@@ -119,8 +119,8 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{business.name}</Text>
-          <Text style={styles.address}>{business.address}</Text>
+          <Text style={styles.businessNameSm}>{business.businessName}</Text>
+          <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
           {
             //<Text style={styles.pocket}>{business.pocket}</Text>
           }

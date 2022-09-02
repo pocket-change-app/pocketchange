@@ -56,9 +56,9 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     //     style={styles.container}
     //   >
     //     {R.map(
-    //       ({ busID, name, address, pocket, imageURL }) => (
+    //       ({ businessID, name, address, pocket, imageURL }) => (
     //         <BusinessCardSm
-    //           key={busID}
+    //           key={businessID}
     //           navigation={navigation}
     //           name={name}
     //           address={address}

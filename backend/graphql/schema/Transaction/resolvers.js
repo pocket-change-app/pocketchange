@@ -182,7 +182,7 @@ module.exports = {
                             const newTransaction = await Transaction.create({
                                 userID: userID,
                                 value: parseFloat(value).toFixed(4),
-                                businessID: busID,
+                                businessID: businessID,
                                 date: dateOfTransaction,
                                 pocketID: pocketID,
                                 changeRedeemed: changeRedeemed,

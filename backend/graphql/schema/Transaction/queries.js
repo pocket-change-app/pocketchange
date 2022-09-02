@@ -12,6 +12,9 @@ export default {
                 pocketID
                 changeRedeemed
                 changeEarned
+                refunded
+                refundedValue
+                refundDate
             }
         }
     `,
@@ -26,6 +29,9 @@ export default {
                 pocketID
                 changeRedeemed
                 changeEarned
+                refunded
+                refundedValue
+                refundDate
             }
         }
 `,

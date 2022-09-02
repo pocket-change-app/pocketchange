@@ -12,8 +12,8 @@ query User($userID: ID){
     }
 }
 
-query Business($busID: ID){
-    business(busID: $busID) {
+query Business($businessID: ID){
+    business(businessID: $businessID) {
       businessID
       businessName
       dateEstablished
@@ -51,13 +51,13 @@ query loginUser($username:String, $password: String){
   }
 }
   
-query getAllTransactionsByBus($busID:ID, $startDate: Date, $endDate: Date){
-        getAllTransactionsByBus(busID:$busID, startDate: $startDate, endDate: $endDate){
+query getAllTransactionsByBus($businessID:ID, $startDate: Date, $endDate: Date){
+        getAllTransactionsByBus(businessID:$businessID, startDate: $startDate, endDate: $endDate){
             transactionID
             userID
             value
             date
-            busID
+            businessID
             pocketID
             changeRedeemed
             changeEarned

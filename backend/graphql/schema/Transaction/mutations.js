@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 export default {
     processTransaction: gql`
         mutation processTransaction($userID: ID, $businessID: ID, $pocketID: ID, $value: Decimal, $changeUsed: Boolean){
-            processTransaction(userID: $userID, businessID: $busID, pocketID: $pocketID, value: $value, changeUsed: $changeUsed){
+            processTransaction(userID: $userID, businessID: $businessID, pocketID: $pocketID, value: $value, changeUsed: $changeUsed){
                 transactionID
                 userID
                 value
@@ -23,7 +23,7 @@ export default {
 `,
     refundTransaction: gql`
     mutation refundTransaction($userID: ID, $businessID: ID, $pocketID: ID, $refundValue: Decimal){
-        refundTransaction(userID: $userID, businessID: $busID, pocketID: $pocketID, refundValue: $refundValue){
+        refundTransaction(userID: $userID, businessID: $businessID, pocketID: $pocketID, refundValue: $refundValue){
             transactionID
             userID
             value

@@ -5,26 +5,30 @@ import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { BusinessCard, BusinessCardSm, DivHeader, PocketDetailCard } from '../components/Cards';
-
+import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
+import * as R from 'ramda';
 import { useState } from 'react';
 import { colors } from '../constants/Colors';
 
 
-const R = require('ramda');
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
 
   const pocket = route.params.pocket;
 
+  const pocketID = '1p'
+  const {allBusinesses, loading} =  useGetAllBusinessesQuery(pocketID)
+
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState(businesses)
+  const [searchResults, setSearchResults] = useState(allBusinesses)
+
 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {
       const formattedQuery = text.toLowerCase().trim()
-      const results = businesses.filter(b => b.name.toLowerCase().includes(formattedQuery))
+      const results = allBusinesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
       return results
     })
   };
@@ -32,13 +36,15 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
     <BusinessCardSm
-      key={item.busID}
+      key={item.businessID}
       navigation={navigation}
       business={item}
     />
 
   )
-
+  if(R.isNil(allBusinesses) ){
+    return null
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -64,7 +70,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
             }
           }}
           contentContainerStyle={styles.businessFlatList}
-          data={searchResults}
+          data={allBusinesses}
           renderItem={renderBusinessCard}
         />
       </ScreenContainer>
@@ -86,9 +92,9 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     //     style={styles.container}
     //   >
     //     {R.map(
-    //       ({ busID, name, address, pocket, imageURL }) => (
+    //       ({ businessID, name, address, pocket, imageURL }) => (
     //         <BusinessCardSm
-    //           key={busID}
+    //           key={businessID}
     //           navigation={navigation}
     //           name={name}
     //           address={address}

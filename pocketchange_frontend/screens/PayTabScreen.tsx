@@ -2,28 +2,37 @@ import { FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Pla
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses } from '../dummy';
+//import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { BusinessCardSm, BusinessCardSuggested, DivHeader } from '../components/Cards';
 import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HorizontalLine } from '../components/Lines';
+import { useGetLovedBusinessesQuery } from '../hooks-apollo';
+import { isNilOrEmpty } from 'ramda-adjunct';
 
 const R = require('ramda');
 
 export default function PayTabScreen({ navigation }: { navigation: any }) {
 
+  const userID ='1c'
+  const {businesses, loading} =  useGetLovedBusinessesQuery(userID)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState(businesses)
+
+
+  if(isNilOrEmpty(businesses)) {
+    return null
+  }
 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {
       const formattedQuery = text.toLowerCase().trim()
-      const results = businesses.filter(b => b.name.toLowerCase().includes(formattedQuery))
+      const results = businesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
       return results
     })
   };
@@ -35,7 +44,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     })}
     >
       <BusinessCardSm
-        key={item.busID}
+        key={item.businessID}
         navigation={navigation}
         business={item}
       />
@@ -56,7 +65,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
         {/* <HorizontalLine /> */}
         <FlatList
           contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
-          data={searchResults}
+          data={businesses}
           renderItem={renderBusinessCard}
           ListHeaderComponent={() => {
             if (searchQuery == '') {
@@ -70,7 +79,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                   > */}
 
                   <BusinessCardSuggested
-                    key={businesses[0].busID}
+                    key={businesses[0].businessID}
                     navigation={navigation}
                     business={businesses[0]}
                   />
@@ -109,9 +118,9 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     //     style={styles.container}
     //   >
     //     {R.map(
-    //       ({ busID, name, address, pocket, imageURL }) => (
+    //       ({ businessID, name, address, pocket, imageURL }) => (
     //         <BusinessCardSm
-    //           key={busID}
+    //           key={businessID}
     //           navigation={navigation}
     //           name={name}
     //           address={address}

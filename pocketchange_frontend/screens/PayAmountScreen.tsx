@@ -12,7 +12,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const { business } = route.params;
 
-  const { busID, name, address, pocket, imageURL } = business;
+  const { businessID, name, address, pocket, imageURL } = business;
 
   const [amount, setAmount] = useState('')
 

@@ -11,7 +11,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
   const { business, amount } = route.params;
 
-  const { busID, name, address, pocket, imageURL } = business;
+  const { businessID, name, address, pocket, imageURL } = business;
 
   const [percentage, setPercentage] = useState('20')
   const [tip, setTip] = useState((amount * parseFloat(percentage) / 100).toString())
@@ -139,7 +139,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               text={'Next'}
               onPress={() => navigation.navigate("PaySummary", {
                 // navigation: navigation,
-                busID: busID,
+                businessID: businessID,
                 name: name,
                 address: address,
                 pocket: pocket,
@@ -158,7 +158,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
 function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: { business: any, amount: string, tipAmount: number, tipPercentage: number, navigation: any }) {
 
-  const { busID, name, address, pocket, imageURL } = business;
+  const { businessID, name, address, pocket, imageURL } = business;
 
   if (tipAmount) {
 
@@ -172,7 +172,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
       <Pressable
         style={{ flex: 1 }}
         onPress={() => navigation.navigate('PaySummary', {
-          busID: busID,
+          businessID: businessID,
           name: name,
           address: address,
           pocket: pocket,
@@ -198,7 +198,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
       <Pressable
         style={{ flex: 1 }}
         onPress={() => navigation.navigate('PaySummary', {
-          busID: busID,
+          businessID: businessID,
           name: name,
           address: address,
           pocket: pocket,

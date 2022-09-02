@@ -16,15 +16,15 @@ export const user = {
   type: "merchant",
   worksAt: [
     {
-      busID: '001',
+      businessID: '001',
       role: 'employee'
     },
     {
-      busID: '004',
+      businessID: '004',
       role: 'manager'
     },
     {
-      busID: '006',
+      businessID: '006',
       role: 'owner'
     }
   ],
@@ -139,7 +139,7 @@ export const pockets = [
 
 export const businesses = [
   {
-    busID: "001",
+    businessID: "001",
     name: "Avling",
     phoneNumber: "+1 (413) 111-1111",
     address: "1042 Queen St E",
@@ -155,7 +155,7 @@ export const businesses = [
     ]
   },
   {
-    busID: "002",
+    businessID: "002",
     name: "La Paella",
     phoneNumber: "(413) 111-1111",
     address: "1146 QUEEN ST E",
@@ -171,7 +171,7 @@ export const businesses = [
     ]
   },
   {
-    busID: "003",
+    businessID: "003",
     name: "Wvrst",
     phoneNumber: "(413) 111-1111",
     address: "Somewhere",
@@ -187,7 +187,7 @@ export const businesses = [
     ]
   },
   {
-    busID: "004",
+    businessID: "004",
     name: "Jimmy's Coffee",
     phoneNumber: "(413) 111-1111",
     address: "806 Queen St E",
@@ -203,7 +203,7 @@ export const businesses = [
     ]
   },
   {
-    busID: "005",
+    businessID: "005",
     name: "Cat Land",
     phoneNumber: "(413) 111-1111",
     address: "1010 QUEEN ST E",
@@ -219,7 +219,7 @@ export const businesses = [
     ]
   },
   {
-    busID: "006",
+    businessID: "006",
     name: "Cheese Land",
     phoneNumber: "(413) 111-1111",
     address: "1042 QUEEN ST E",
@@ -245,7 +245,7 @@ export const transactions = [
     userID: "Elias",
     value: "10.43",
     date: "2022-06-04 09:22:11",
-    busID: "002",
+    businessID: "002",
     pocketID: "001",
     changeRedeemed: "3.40",
     changeEarned: "1.00",
@@ -255,7 +255,7 @@ export const transactions = [
     userID: "Micas",
     value: "13.02",
     date: "2022-06-04 09:22:11",
-    busID: "001",
+    businessID: "001",
     pocketID: "002",
     changeRedeemed: "0.40",
     changeEarned: "2.30",
@@ -265,7 +265,7 @@ export const transactions = [
     userID: "Siku",
     value: "5.20",
     date: "2022-06-04 09:22:11",
-    busID: "003",
+    businessID: "003",
     pocketID: "001",
     changeRedeemed: "3.40",
     changeEarned: "1.00",

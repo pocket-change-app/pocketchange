@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { busID, name, address, pocket, imageURL, amount, tip } = route.params;
+  const { businessID, name, address, pocket, imageURL, amount, tip } = route.params;
 
   const [useChange, setUseChange] = useState(true)
 

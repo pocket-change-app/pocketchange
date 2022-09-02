@@ -582,20 +582,10 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange
-show collections
-db.mongobusinesses.drop()
-db.mongopockets.drop()
-db.mongousers.drop()
-show collections
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange
-show collections
-load('dummyMongoData.js')
-db.mongobusinesses.find()
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
@@ -888,13 +878,6 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange
-db.mongopockets.drop()
-db.mongousers.drop()
-show collections;
-db.mongoimages.drop()
-db.mongobusinesses.drop()
-show collections;
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
@@ -990,11 +973,28 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange;
-show collections
-db.mongopockets.find()
-db.mongopockets.find({})
-load('dummyMongoData.js')
-db.mongopockets.find({})
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
