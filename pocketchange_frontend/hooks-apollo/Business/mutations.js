@@ -12,6 +12,14 @@ export default {
                 website
                 businessType
                 businessSubtype
+                address{
+                    streetName
+                    buildingNumber
+                    unitNumber
+                    city
+                    region
+                    postalCode
+                }
                 latitude
                 longitude
                 businessTags
@@ -32,11 +40,14 @@ export default {
                 website
                 businessType
                 businessSubtype
-                latitude
-                longitude
-                businessTags
-                stripeID
-                description
+                address{
+                    streetName
+                    buildingNumber
+                    unitNumber
+                    city
+                    region
+                    postalCode
+                }
                 latitude
                 longitude
                 businessTags
@@ -57,11 +68,14 @@ export default {
             website
             businessType
             businessSubtype
-            latitude
-            longitude
-            businessTags
-            stripeID
-            description
+            address{
+                streetName
+                buildingNumber
+                unitNumber
+                city
+                region
+                postalCode
+            }
             latitude
             longitude
             businessTags
