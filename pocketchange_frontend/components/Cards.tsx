@@ -13,6 +13,7 @@ import * as V from 'victory-native';
 import Svg from 'react-native-svg';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { color } from '@rneui/base';
 
 const R = require('ramda');
 
@@ -706,7 +707,7 @@ function pad(n: number, size: number) {
   return num;
 }
 
-export function AnalyticsCard({ title, type, data }: any) {
+export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
 
   function renderChart() {
     if (type == 'bar') {
@@ -789,26 +790,7 @@ export function AnalyticsCard({ title, type, data }: any) {
                   lineHeight: 30}} >${data.change_issued}</Text>
               </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
-              <Text style={{
-                fontFamily: 'metropolis medium', 
-                fontSize: 14,
-                color: colors.subtle,
-                justifyContent: 'flex-start',
-                lineHeight: 30}} >
-                PROCESSING</Text>
-            </View>
-            <View>
-              <Text style={{
-                fontFamily: 'metropolis extrabold', 
-                fontSize: 20,
-                color: colors.subtle,
-                textAlign: "right",
-                lineHeight: 30}} >${data.processing_fees}</Text>
-            </View>
-          </View>
-
+          
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1}}>
               <Text style={{
@@ -825,7 +807,7 @@ export function AnalyticsCard({ title, type, data }: any) {
               fontSize: 20,
               color: colors.subtle,
               textAlign: "right",
-              lineHeight: 30}} >${data.refunds}</Text>
+              lineHeight: 30}} >${data.refunds_issued}</Text>
             </View>
           </View>
 
@@ -860,45 +842,53 @@ export function AnalyticsCard({ title, type, data }: any) {
       );
     } else if (type == 'pie') {
       const legendData = data.map(
-        (item) => ({ name: item.x })
+        (item) => ({ name: item.x + " (" + item.y + ")" })
       );
       return (
-        <Svg width="100%" height={150}>
-          <V.VictoryPie
-            standalone={false}
-            height={250}
-            padding={{ top: -120, left: 150, right: 50, bottom: 0 }}
-            //labelPlacement="parallel"
-            //labelPosition="centroid"
-            labelComponent={<></>}
-            //startAngle={0}
-            //endAngle={180}
-            //labelRadius={0}
-            innerRadius={30}
-            //padAngle={1}
-            theme={V.VictoryTheme.material}
-            data={data}
-            x="x"
-            y="y" />
-          <V.VictoryLegend
-            y={5}
-            height={50}
-            //itemsPerRow={2}
-            standalone={false}
-            theme={V.VictoryTheme.material}
-            orientation='vertical'
-            data={legendData}
-          //height={200}
-          />
-        </Svg>
+        <View style={{flexDirection: 'row', alignContent: 'center'}}>
+          <Svg width="50%" height={150}>
+            <V.VictoryPie
+              standalone={false}
+              height={150}
+              width={150}
+              padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
+              //labelPlacement="parallel"
+              //labelPosition="centroid"
+              labelComponent={<></>}
+              //startAngle={0}
+              //endAngle={180}
+              //labelRadius={0}
+              innerRadius={40}
+              //padAngle={1}
+              theme={V.VictoryTheme.material}
+              data={data}
+              x="x"
+              y="y" />
+            </Svg>
+            <Svg width="50%" height={150}>
+            <V.VictoryLegend
+              y={10}
+              height={50}
+              //itemsPerRow={2}
+              standalone={false}
+              theme={V.VictoryTheme.material}
+              orientation='vertical'
+              data={legendData}
+            //height={200}
+            />
+          </Svg>
+        </View>
       );
     }
   }
 
   return (
     <View style={[styles.card, styles.analyticsCard]}>
-      <Text style={styles.analyticsTitle}>{title}</Text>
+      
+      <Text style={styles.analyticsTitle}>{ title }</Text>
+
       {renderChart()}
+
     </View>
   )
 }

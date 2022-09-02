@@ -22,6 +22,7 @@ export default function AnalyticsDashboardScreen() {
       title={ item.title }
       type={ item.type }
       data={ item.data }
+      startDate={ item.startDate }
     />
 
   )
