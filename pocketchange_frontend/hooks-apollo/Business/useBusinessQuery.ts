@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 import BusinessQueries from './queries'
 
-export default function useGetBusinessQuery(
+export default function useBusinessQuery(
     businessID: String,
 ) {
   console.log("USE GET BUSINESS QUERY BUSINESS ID", businessID)

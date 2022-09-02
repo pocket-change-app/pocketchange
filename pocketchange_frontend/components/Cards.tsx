@@ -14,7 +14,7 @@ import Svg from 'react-native-svg';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
-import {usePocketQuery, useGetBusinessQuery} from '../hooks-apollo/index';
+import {usePocketQuery, useBusinessQuery} from '../hooks-apollo/index';
 
 const R = require('ramda');
 
@@ -367,7 +367,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 
 export function TransactionListed({ navigation, transaction }: any) {
   const businessID= transaction.businessID
-  const {business, loading} =  useGetBusinessQuery(businessID)
+  const {business, loading} =  useBusinessQuery(businessID)
 
   console.log("TRANSACTION LISTED REACHED")
   if(R.isNil(business) ){
@@ -415,7 +415,7 @@ export function Receipt({ navigation, transaction }: any) {
   console.log("TRANS", transaction)
 
   const businessID= transaction.businessID
-  const {business, loading} =  useGetBusinessQuery(businessID)
+  const {business, loading} =  useBusinessQuery(businessID)
 
   console.log("REECEOIPT REACHED")
   if(R.isNil(business) ){

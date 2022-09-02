@@ -13,6 +13,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   if(R.isNil(allTransactions) ){
     return null
   }
+
   return (
     <ScreenContainer>
       <ScrollView
