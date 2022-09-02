@@ -1,5 +1,5 @@
-import useGetAllBusinessesQuery from './useGetAllBusinessesQuery'
-import useGetLovedBusinessesQuery from './useGetLovedBusinessesQuery'
+import useGetAllBusinessesQuery from './Business/useGetAllBusinessesQuery'
+import useGetLovedBusinessesQuery from './Business/useGetLovedBusinessesQuery'
 
 export {
     useGetAllBusinessesQuery,

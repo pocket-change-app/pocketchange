@@ -3,7 +3,7 @@ import * as RA from 'ramda-adjunct'
 
 import { useQuery } from '@apollo/react-hooks'
 
-import BusinessQueries from 'backend/graphql/schema/Business/queries'
+import BusinessQueries from './queries'
 
 export default function useGetAllBusinessesQuery(
     pocketID?: String,
