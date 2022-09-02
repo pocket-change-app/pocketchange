@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platfor
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
-import { user, businesses } from '../dummy';
+import { user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 
@@ -14,6 +14,7 @@ import Svg from 'react-native-svg';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
+import {usePocketQuery, useGetBusinessQuery} from '../hooks-apollo/index';
 
 const R = require('ramda');
 
@@ -365,30 +366,36 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 }
 
 export function TransactionListed({ navigation, transaction }: any) {
+  const businessID= transaction.businessID
+  const {business, loading} =  useGetBusinessQuery(businessID)
 
+  console.log("TRANSACTION LISTED REACHED")
+  if(R.isNil(business) ){
+    return null
+  }
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => (navigation.navigate("Receipt", {
-        // navigation: navigation,
-        transaction: transaction,
+        navigation: navigation,
+        transaction: transaction
       }))}
     >
       <View style={styles.transactionListed}>
         <Text style={styles.transactionListedMerchantText}>
-          {transaction.merchant}
+          {business.businessName}
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.transactionListedAmountText}>
-            ${transaction.total}
+            ${transaction.value}
           </Text>
           <Pressable
             style={{ aspectRatio: 1 }}
             onPress={() => navigation.navigate('PayConfirmation', {
-              businessName: transaction.merchant,
-              subtotal: transaction.subtotal,
+              businessName: business.businessName,
+              subtotal: transaction.value,
               date: transaction.date,
-              time: transaction.time,
+              //time: transaction.time,
             })}
           >
             <Image
@@ -405,10 +412,24 @@ export function TransactionListed({ navigation, transaction }: any) {
 
 export function Receipt({ navigation, transaction }: any) {
 
-  const business = businesses.find(b => b.name == transaction.merchant)
+  console.log("TRANS", transaction)
 
-  // console.log(business)
+  const businessID= transaction.businessID
+  const {business, loading} =  useGetBusinessQuery(businessID)
 
+  console.log("REECEOIPT REACHED")
+  if(R.isNil(business) ){
+    return null
+  }
+
+  const address = business.address
+  const {pocketID} = transaction
+  const {pocket, loadingPockets} = usePocketQuery(pocketID)
+  if(R.isEmpty (pocket)){
+    return null
+  }
+  //const address = business.address
+  console.log(business, pocket)
   return (
     <>
       <View style={[styles.container]}>
@@ -417,13 +438,13 @@ export function Receipt({ navigation, transaction }: any) {
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.receipt}>{business.name}</Text>
+            <Text style={styles.receipt}>{business.businessName}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Text style={styles.receipt}> X</Text>
             </Pressable>
           </View>
-          <Text style={styles.receipt}>{business.address}</Text>
-          <Text style={styles.receipt}>{business.pocket}</Text>
+          {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
+          <Text style={styles.receipt}>{pocket.pocketName}</Text>
         </View>
         {/* </View> */}
 
@@ -444,11 +465,11 @@ export function Receipt({ navigation, transaction }: any) {
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Used</Text>
-            <Text style={[styles.receipt, { textAlign: 'right' }]}>-{transaction.changeUsed}</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>-{transaction.changeRedeemed}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Total</Text>
-            <Text style={[styles.receipt, { textAlign: 'right' }]}>${transaction.total}</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>${transaction.value}</Text>
           </View>
         </View>
 

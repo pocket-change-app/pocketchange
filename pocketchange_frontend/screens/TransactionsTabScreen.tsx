@@ -2,17 +2,25 @@ import { ScrollView, FlatList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { transactions } from '../dummy';
+//import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { TranactionCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
+import { useGetAllTransactionsQuery } from '../hooks-apollo';
 
 const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
+  const userID= '1c'
+  const {allTransactions, loading} =  useGetAllTransactionsQuery(userID)
+
   const state = {
     search: '',
+  }
+
+  if(R.isNil(allTransactions) ){
+    return null
   }
 
 
@@ -46,7 +54,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
       <ScreenContainer>
         <FlatList
           contentContainerStyle={styles.businessFlatList}
-          data={transactions}
+          data={allTransactions}
           renderItem={renderTransactionCard}
         />
       </ScreenContainer>
