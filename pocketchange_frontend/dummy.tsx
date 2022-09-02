@@ -116,21 +116,21 @@ export const pockets = [
   {
     pocketID: '01',
     name: 'Leslieville',
-    imageURL: require('./assets/images/leslieville.jpg'),
+    imageURL: require('./assets/images/leslieville.png'),
     bannerURL: require('./assets/images/leslieville-logo.jpg'),
     description: "Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit. "
   },
-  {
-    pocketID: '02',
-    name: 'Riverside',
-    imageURL: require('./assets/images/riverside.jpg'),
-    bannerURL: require('./assets/images/riverside-banner.jpg'),
-    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. "
-  },
+  // {
+  //   pocketID: '02',
+  //   name: 'Riverside',
+  //   imageURL: require('./assets/images/riverside.jpg'),
+  //   bannerURL: require('./assets/images/riverside-banner.jpg'),
+  //   description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. "
+  // },
   {
     pocketID: '03',
     name: 'Uptown Yonge',
-    imageURL: require('./assets/images/uptown_yonge.jpg'),
+    imageURL: require('./assets/images/uptown_yonge.png'),
     bannerURL: require('./assets/images/uptown-yonge-logo.png'),
     description: ""
   },
@@ -292,37 +292,37 @@ export const analytics = [
     title: "Your Customers Come From",
     type: "pie",
     data: [
-      {x: "University-Rosedale", y: 54},
-      {x: "Beaches-East York", y: 62},
-      {x: "Toronto Centre", y: 43},
-      {x: "Toronto-Danforth", y: 88},
-      {x: "Other", y: 20},
+      { x: "University-Rosedale", y: 54 },
+      { x: "Beaches-East York", y: 62 },
+      { x: "Toronto Centre", y: 43 },
+      { x: "Toronto-Danforth", y: 88 },
+      { x: "Other", y: 20 },
     ]
   },
   {
     title: "Number of Sales",
     type: "bar",
     data: [
-      {x: "mon", y: 60},
-      {x: "tue", y: 34},
-      {x: "wed", y: 27},
-      {x: "thu", y: 60},
-      {x: "fri", y: 88},
-      {x: "sat", y: 122},
-      {x: "sun", y: 170},
+      { x: "mon", y: 60 },
+      { x: "tue", y: 34 },
+      { x: "wed", y: 27 },
+      { x: "thu", y: 60 },
+      { x: "fri", y: 88 },
+      { x: "sat", y: 122 },
+      { x: "sun", y: 170 },
     ]
   },
   {
     title: "Sales Volume",
     type: "line",
     data: [
-      {x: "mon", y: 804.43},
-      {x: "tue", y: 456.30},
-      {x: "wed", y: 437.23},
-      {x: "thu", y: 806.54},
-      {x: "fri", y: 1122.10},
-      {x: "sat", y: 1366.38},
-      {x: "sun", y: 2505.76},
+      { x: "mon", y: 804.43 },
+      { x: "tue", y: 456.30 },
+      { x: "wed", y: 437.23 },
+      { x: "thu", y: 806.54 },
+      { x: "fri", y: 1122.10 },
+      { x: "sat", y: 1366.38 },
+      { x: "sun", y: 2505.76 },
     ]
   },
 
@@ -346,21 +346,21 @@ export const analytics = [
     title: "Foot Traffic in Leslieville (past 14 days)",
     type: "bar",
     data: [
-      {x: "9/3", y: 57},
-      {x: "9/4", y: 34},
-      {x: "9/5", y: 43},
-      {x: "9/6", y: 75},
-      {x: "9/7", y: 54},
-      {x: "9/8", y: 48},
-      {x: "9/9", y: 69},
-      {x: "9/10", y: 65},
-      {x: "9/11", y: 60},
-      {x: "9/12", y: 78},
-      {x: "9/13", y: 88},
-      {x: "9/14", y: 90},
-      {x: "9/15", y: 123},
-      {x: "9/16", y: 153},
-      
+      { x: "9/3", y: 57 },
+      { x: "9/4", y: 34 },
+      { x: "9/5", y: 43 },
+      { x: "9/6", y: 75 },
+      { x: "9/7", y: 54 },
+      { x: "9/8", y: 48 },
+      { x: "9/9", y: 69 },
+      { x: "9/10", y: 65 },
+      { x: "9/11", y: 60 },
+      { x: "9/12", y: 78 },
+      { x: "9/13", y: 88 },
+      { x: "9/14", y: 90 },
+      { x: "9/15", y: 123 },
+      { x: "9/16", y: 153 },
+
     ]
   },
   {
@@ -378,13 +378,13 @@ export const analytics = [
     title: "Customer Satisfaction",
     type: "line",
     data: [
-      {x: "mon", y: 0.75},
-      {x: "tue", y: 0.80},
-      {x: "wed", y: 0.90},
-      {x: "thu", y: 0.54},
-      {x: "fri", y: -0.60},
-      {x: "sat", y: 0.80},
-      {x: "sun", y: 0.75},
+      { x: "mon", y: 0.75 },
+      { x: "tue", y: 0.80 },
+      { x: "wed", y: 0.90 },
+      { x: "thu", y: 0.54 },
+      { x: "fri", y: -0.60 },
+      { x: "sat", y: 0.80 },
+      { x: "sun", y: 0.75 },
     ]
   },
 
