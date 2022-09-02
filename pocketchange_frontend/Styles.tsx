@@ -11,7 +11,7 @@ export const CARD_RADIUS = MARGIN
 export const BORDER_WIDTH = 1
 export const BUTTON_HEIGHT = 50
 const CREDIT_CARD_ASPECT_RATIO = (1 + Math.sqrt(5)) / 2 // 1.64
-const POCKET_CARD_ASPECT_RATIO = 4 / 7 // 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
+// const POCKET_CARD_ASPECT_RATIO = 4 / 7 // 5 / 6 // 1 / CREDIT_CARD_ASPECT_RATIO
 export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
@@ -693,7 +693,7 @@ export const styles = StyleSheet.create({
 
   analyticsTitle: {
     fontSize: 20,
-    //lineHeight: 20,
+    paddingBottom: 10,
     fontFamily: 'metropolis black',
     color: colors.dark,
   },

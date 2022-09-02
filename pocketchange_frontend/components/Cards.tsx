@@ -711,11 +711,11 @@ export function AnalyticsCard({ title, type, data }: any) {
   function renderChart() {
     if (type == 'bar') {
       return (
-        <V.VictoryChart 
+        <V.VictoryChart
           height={150}
           domainPadding={{ x: 25 }}
           theme={V.VictoryTheme.material}
-          padding={{top:20, bottom:30, left:50, right:50}}
+          padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
         >
           <V.VictoryAxis
             fixLabelOverlap={true}
@@ -729,11 +729,11 @@ export function AnalyticsCard({ title, type, data }: any) {
       );
     } else if (type == 'line') {
       return (
-        <V.VictoryChart 
+        <V.VictoryChart
           height={150}
           domainPadding={{ x: 25 }}
           theme={V.VictoryTheme.material}
-          padding={{top:20, bottom:30, left:50, right:50}}
+          padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
         >
           <V.VictoryAxis
             fixLabelOverlap={true}
@@ -747,6 +747,110 @@ export function AnalyticsCard({ title, type, data }: any) {
       );
     } else if (type == 'text') {
       return <Text style={styles.changeLg} >{data}</Text>;
+    } else if (type == 'text-sales') {
+      return (
+        <View>
+          <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <Text style={{
+                  fontFamily: 'metropolis medium', 
+                  fontSize: 14,
+                  color: colors.subtle,
+                  justifyContent: 'flex-start',
+                  lineHeight: 30}} >
+                  GROSS SALES</Text>
+              </View>
+              <View>
+                <Text style={{
+                  fontFamily: 'metropolis extrabold', 
+                  fontSize: 24,
+                  color: colors.gold,
+                  textAlign: "right",
+                  lineHeight: 30}} >${data.gross_sales}</Text>
+              </View>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <Text style={{
+                  fontFamily: 'metropolis medium', 
+                  fontSize: 14,
+                  color: colors.subtle,
+                  justifyContent: 'flex-start',
+                  lineHeight: 30}} >
+                  CHANGE ISSUED</Text>
+              </View>
+              <View>
+                <Text style={{
+                  fontFamily: 'metropolis extrabold', 
+                  fontSize: 20,
+                  color: colors.subtle,
+                  textAlign: "right",
+                  lineHeight: 30}} >${data.change_issued}</Text>
+              </View>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <Text style={{
+                fontFamily: 'metropolis medium', 
+                fontSize: 14,
+                color: colors.subtle,
+                justifyContent: 'flex-start',
+                lineHeight: 30}} >
+                PROCESSING</Text>
+            </View>
+            <View>
+              <Text style={{
+                fontFamily: 'metropolis extrabold', 
+                fontSize: 20,
+                color: colors.subtle,
+                textAlign: "right",
+                lineHeight: 30}} >${data.processing_fees}</Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <Text style={{
+                fontFamily: 'metropolis medium', 
+                fontSize: 14,
+                color: colors.subtle,
+                justifyContent: 'flex-start',
+                lineHeight: 30}} >
+                REFUNDS</Text>
+            </View>
+            <View>
+              <Text style={{
+              fontFamily: 'metropolis extrabold', 
+              fontSize: 20,
+              color: colors.subtle,
+              textAlign: "right",
+              lineHeight: 30}} >${data.refunds}</Text>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <Text style={{
+                fontFamily: 'metropolis medium', 
+                fontSize: 14,
+                color: colors.subtle,
+                justifyContent: 'flex-start',
+                lineHeight: 30}} >
+                NET SALES</Text>
+            </View>
+            <View>
+              <Text style={{
+                fontFamily: 'metropolis extrabold', 
+                fontSize: 20,
+                color: "green",
+                justifyContent: 'flex-end',
+                lineHeight: 30}} >${data.net_sales}</Text>
+            </View>
+          </View>
+
+        </View>
+      );
     } else if (type == 'list') {
       const listItems = data.map(
         (item) => <Text>{item}</Text>
@@ -759,25 +863,25 @@ export function AnalyticsCard({ title, type, data }: any) {
         (item) => ({ name: item.x })
       );
       return (
-        <Svg width="100%" height={250}>
+        <Svg width="100%" height={150}>
           <V.VictoryPie
             standalone={false}
             height={250}
-            padding={{ top: 0, left: 150, right: 50, bottom: 10 }}
+            padding={{ top: -120, left: 150, right: 50, bottom: 0 }}
             //labelPlacement="parallel"
             //labelPosition="centroid"
             labelComponent={<></>}
             //startAngle={0}
             //endAngle={180}
             //labelRadius={0}
-            innerRadius={50}
+            innerRadius={30}
             //padAngle={1}
             theme={V.VictoryTheme.material}
             data={data}
             x="x"
             y="y" />
           <V.VictoryLegend
-            y={50}
+            y={5}
             height={50}
             //itemsPerRow={2}
             standalone={false}

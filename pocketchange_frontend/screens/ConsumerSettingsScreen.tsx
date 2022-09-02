@@ -89,6 +89,7 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
           <SettingPressable
             iconName='info-circle'
             settingText={"About"}
+            onPress={() => navigation.navigate('About')}
           />
         </View>
 
