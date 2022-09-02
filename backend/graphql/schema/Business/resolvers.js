@@ -32,6 +32,12 @@ module.exports = {
               businessType: mongoBusinessInfo.businessType,
               businessSubtype: mongoBusinessInfo.businessSubtype,
               deactivated: mongoBusinessInfo.deactivated,
+              latitude: mongoBusinessInfo.latitude,
+              longitude:  mongoBusinessInfo.longitude,
+              address: mongoBusinessInfo.address,
+              businessTags: mongoBusinessInfo.businessTags,
+              stripeID: mongoBusinessInfo.stripeID,
+              description: mongoBusinessInfo.description,
             }
           }
           else {

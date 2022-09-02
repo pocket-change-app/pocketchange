@@ -3,8 +3,6 @@ import * as RA from 'ramda-adjunct'
 
 import { useQuery } from '@apollo/react-hooks'
 
-//getAllTransactions(businessID:ID, pocketID:ID, userID:ID, startDate: Date, endDate: Date): [Transaction]
-
 import TransactionQueries from './queries'
 
 export default function useGetAllTransactionsQuery(
