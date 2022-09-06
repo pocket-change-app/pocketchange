@@ -301,6 +301,8 @@ export const analytics = [
   {
     title: "Number of Visits",
     type: "bar",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       {x: "mon", y: 60},
       {x: "tue", y: 34},
@@ -314,6 +316,8 @@ export const analytics = [
   {
     title: "Number of PocketChange Customers",
     type: "bar",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       {x: "mon", y: 9},
       {x: "tue", y: 6},
@@ -327,6 +331,8 @@ export const analytics = [
   {
     title: "Sales Volume via PocketChange",
     type: "line",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       {x: "mon", y: 804.43},
       {x: "tue", y: 456.30},
@@ -341,6 +347,8 @@ export const analytics = [
   {
     title: "Your Top Customers",
     type: "list",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       "Cole C.",
       "Mica C.",
@@ -352,11 +360,15 @@ export const analytics = [
   {
     title: "Average PocketChange Customer Visits / Week",
     type: "text",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: "2.3x"
   },
   {
     title: "Foot Traffic in Leslieville (past 14 days)",
     type: "bar",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       {x: "9/3", y: 57},
       {x: "9/4", y: 34},
@@ -378,6 +390,8 @@ export const analytics = [
   {
     title: "Businesses with Shared Customer Bases",
     type: "list",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       "Bespoke Butchers",
       "Avling",
@@ -389,6 +403,8 @@ export const analytics = [
   {
     title: "Customer Satisfaction",
     type: "line",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: [
       {x: "mon", y: 0.75},
       {x: "tue", y: 0.80},
