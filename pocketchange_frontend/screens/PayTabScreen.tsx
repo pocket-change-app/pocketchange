@@ -21,7 +21,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     const userID = '1c'
     const { businesses, loading, refetch } = useGetLovedBusinessesQuery(userID)
     const [searchQuery, setSearchQuery] = useState('')
-    const [searchResults, setSearchResults] = useState('default')
+    const [searchResults, setSearchResults] = useState('')
 
     // useEffect(() => {
     //     // setSearchResults(businesses); // This is be executed when `loading` state changes
@@ -90,11 +90,14 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                     })}
                   > */}
 
-                                        <BusinessCardSuggested
-                                            key={businesses[0].businessID}
-                                            navigation={navigation}
-                                            business={businesses[0]}
-                                        />
+                                        {
+                                            //<BusinessCardSuggested
+                                            //key={businesses[0].businessID}
+                                            //navigation={navigation}
+                                            //business={businesses[0]}
+                                            ///>
+                                        }
+
                                         {/* </Pressable> */}
                                         <DivHeader text='Loved' />
                                     </>
