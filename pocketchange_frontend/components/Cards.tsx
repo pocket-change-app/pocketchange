@@ -118,8 +118,8 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{business.businessName}</Text>
-          <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+          <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
+          <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
           {
             //<Text style={styles.pocket}>{business.pocket}</Text>
           }
@@ -366,8 +366,7 @@ export function TransactionListed({ navigation, transaction }: any) {
   const businessID= transaction.businessID
   const {business, loading} =  useBusinessQuery(businessID)
 
-  console.log("TRANSACTION LISTED REACHED")
-  if(R.isNil(business) ){
+  if (loading){
     return null
   }
   return (
@@ -389,7 +388,7 @@ export function TransactionListed({ navigation, transaction }: any) {
           <Pressable
             style={{ aspectRatio: 1 }}
             onPress={() => navigation.navigate('PayConfirmation', {
-              businessName: business.businessName,
+              business: business,
               subtotal: transaction.value,
               date: transaction.date,
               //time: transaction.time,

@@ -228,7 +228,7 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
               x="x"
               y="y" />
             </Svg>
-            <Svg width={200} height={150}>
+            <Svg width={180} height={150}>
             <V.VictoryLegend
               y={10}
               height={50}

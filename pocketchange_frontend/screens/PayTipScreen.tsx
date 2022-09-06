@@ -11,7 +11,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
   const { business, amount } = route.params;
 
-  const { businessID, name, address, pocket, imageURL } = business;
+  //const { businessID, name, address, pocket, imageURL } = business;
 
   const [percentage, setPercentage] = useState('20')
   const [tip, setTip] = useState((amount * parseFloat(percentage) / 100).toString())
@@ -40,16 +40,16 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
               <View style={{ flexDirection: 'row' }}>
                 <View style={styles.businessListInfo}>
-                  <Text style={styles.businessNameSm}>{name}</Text>
-                  <Text style={styles.address}>{address}</Text>
-                  <Text style={styles.pocket}>{pocket}</Text>
+                  <Text style={styles.businessNameSm}>{business.businessName}</Text>
+                  <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
+                  <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
                 </View>
               </View>
             </View>
 
             <View style={[styles.card, styles.container]}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Amount</Text>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
                 <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${amount}</Text>
               </View>
             </View>
@@ -109,6 +109,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                 />
               </View>
 
+
               {/* <View style={[styles.inputContainer, { flexDirection: 'row', justifyContent: 'center' }]}>
 
                 <TextInput
@@ -135,6 +136,15 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               {/* <HorizontalLine /> */}
             </View>
 
+            <ButtonWithText
+                  text='No Tip'
+                  onPress={() => navigation.navigate('PaySummary', {
+                    business: business,
+                    amount: parseFloat(amount).toFixed(2),
+                    tip: 0,
+                  })}
+                />
+
             {/* <ButtonWithText
               text={'Next'}
               onPress={() => navigation.navigate("PaySummary", {
@@ -158,8 +168,6 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
 function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: { business: any, amount: string, tipAmount: number, tipPercentage: number, navigation: any }) {
 
-  const { businessID, name, address, pocket, imageURL } = business;
-
   if (tipAmount) {
 
     return (
@@ -172,11 +180,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
       <Pressable
         style={{ flex: 1 }}
         onPress={() => navigation.navigate('PaySummary', {
-          businessID: businessID,
-          name: name,
-          address: address,
-          pocket: pocket,
-          imageURL: imageURL,
+          business: business,
           amount: parseFloat(amount).toFixed(2),
           tip: tipAmount.toFixed(2),
         })}>
@@ -198,11 +202,7 @@ function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: {
       <Pressable
         style={{ flex: 1 }}
         onPress={() => navigation.navigate('PaySummary', {
-          businessID: businessID,
-          name: name,
-          address: address,
-          pocket: pocket,
-          imageURL: imageURL,
+          business: business,
           amount: parseFloat(amount).toFixed(2),
           tip: (parseFloat(amount) * tipPercentage / 100).toFixed(2),
         })}>
