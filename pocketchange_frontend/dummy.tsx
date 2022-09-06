@@ -277,6 +277,7 @@ export const analytics = [
     title: "Today's Sales",
     type: 'text-sales',
     startDate: "9/16/2022",
+    endDate: "9/16/2022",
     data: {
       gross_sales: 275.76,
       change_issued: 20.53,
@@ -287,6 +288,8 @@ export const analytics = [
   {
     title: "Your Customers Come From",
     type: "pie",
+    startDate: "9/1/2022",
+    endDate: "9/14/2022",
     data: [
       {x: "University-Rosedale", y: 54},
       {x: "Beaches-East York", y: 62},
@@ -296,7 +299,7 @@ export const analytics = [
     ]
   },
   {
-    title: "Number of Sales",
+    title: "Number of Visits",
     type: "bar",
     data: [
       {x: "mon", y: 60},
@@ -309,7 +312,20 @@ export const analytics = [
     ]
   },
   {
-    title: "Sales Volume",
+    title: "Number of PocketChange Customers",
+    type: "bar",
+    data: [
+      {x: "mon", y: 9},
+      {x: "tue", y: 6},
+      {x: "wed", y: 7},
+      {x: "thu", y: 9},
+      {x: "fri", y: 14},
+      {x: "sat", y: 16},
+      {x: "sun", y: 18},
+    ]
+  },
+  {
+    title: "Sales Volume via PocketChange",
     type: "line",
     data: [
       {x: "mon", y: 804.43},
