@@ -9,7 +9,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
             }
@@ -23,7 +22,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
             }
@@ -37,7 +35,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
             }
@@ -51,7 +48,6 @@ export default {
             username
             name
             birthDate
-            password
             totalChange
             emailAddress
         }
@@ -65,7 +61,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
             }
@@ -78,7 +73,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
             }
@@ -91,7 +85,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
         }
@@ -104,7 +97,6 @@ export default {
                 username
                 name
                 birthDate
-                password
                 totalChange
                 emailAddress
         }

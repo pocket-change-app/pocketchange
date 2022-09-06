@@ -6,17 +6,29 @@ import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
 
+import { useMutation } from '@apollo/react-hooks'
+import UserMutations from '../hooks-apollo/User/mutations'
+
 
 export default function SignUpScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const [firstName, setFirstname] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const [emailAddress, setEmailAddress] = useState('')
+  const [birthDate, setBirthDate] = useState('')
+  const [homeNeighbourhood, setHomeNeighbourhood] = useState('')
   const [password, setPassword] = useState('')
 
   const ref_inputLast = useRef();
   const ref_inputEmail = useRef();
+  const ref_inputBirthDate = useRef();
+  const ref_inputHomeNeighbourhood = useRef();
   const ref_inputPass = useRef();
+
+  const [useRegisterUserMutation, {loading, data, error}] = useMutation(UserMutations.registerUser)
+
+  if (loading) return <Text>{'Submitting...'}</Text>;
+  if (error) return <Text>Submission Error!{console.log(JSON.stringify(error, null, 2))}</Text>;
 
   return (
     <ScreenContainer>
@@ -78,7 +90,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
         <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
           <Text style={styles.prose}>
-            Email
+            Email Address
           </Text>
 
           <TextInput
@@ -89,10 +101,54 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             style={styles.receipt}
             keyboardType='email-address'
             // value={email}
-            onChangeText={setEmail}
-            placeholder={'buy.local@aol.com'}
+            onChangeText={setEmailAddress}
+            placeholder={'buy.local@gmail.com'}
             placeholderTextColor={colors.subtle}
             ref={ref_inputEmail}
+            onSubmitEditing={() => ref_inputBirthDate.current.focus()}
+          />
+        </View>
+
+        <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
+          <Text style={styles.prose}>
+            Birth Date
+          </Text>
+
+          <TextInput
+            // autoFocus={true}
+            returnKeyType="next"
+            selectionColor={colors.gold}
+            autoCapitalize='none'
+            style={styles.receipt}
+            //keyboardType='email-address'
+            // value={email}
+            onChangeText={setBirthDate}
+            placeholder={'December 25th, 1'}
+            placeholderTextColor={colors.subtle}
+            ref={ref_inputBirthDate}
+            onSubmitEditing={() => ref_inputHomeNeighbourhood.current.focus()}
+          />
+        </View>
+
+        
+
+        <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
+          <Text style={styles.prose}>
+            Home Neighbourhood
+          </Text>
+
+          <TextInput
+            // autoFocus={true}
+            returnKeyType="next"
+            selectionColor={colors.gold}
+            autoCapitalize='none'
+            style={styles.receipt}
+            //keyboardType='email-address'
+            // value={email}
+            onChangeText={setHomeNeighbourhood}
+            placeholder={'Riverside'}
+            placeholderTextColor={colors.subtle}
+            ref={ref_inputHomeNeighbourhood}
             onSubmitEditing={() => ref_inputPass.current.focus()}
           />
         </View>
@@ -121,9 +177,21 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
         <ButtonWithText
           text='Create Account'
           color={
-            (email != '' && password != '') ? colors.gold : colors.subtle
+            (emailAddress != '' && password != '') ? colors.gold : colors.subtle
           }
-          onPress={null}
+          onPress={e => {
+              e.preventDefault();
+              const fullName = firstName.concat(" ", lastName);
+              useRegisterUserMutation({
+                variables: {
+                    username: emailAddress, // temporary fix, need ot remove username field from backend
+                    name: fullName, 
+                    home: homeNeighbourhood, 
+                    birthDate: birthDate, 
+                    emailAddress: emailAddress, 
+                    password: password
+                }});
+            }}
         />
 
       </KeyboardAvoidingView>
