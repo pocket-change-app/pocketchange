@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
-    width: '100%',
+    // width: '100%',
   },
 
   navigationHeaderPocketTitle: {
