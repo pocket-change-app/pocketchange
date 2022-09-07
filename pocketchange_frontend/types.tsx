@@ -40,6 +40,8 @@ export type RootStackParamList = {
   Wallet: undefined;
   ConsumerSettings: undefined;
   EditProfile: undefined;
+  BusinessWizardProfile: undefined;
+  BusinessWizardStripe: undefined;
 
   // Merchant Screens
   Transactions: undefined;
