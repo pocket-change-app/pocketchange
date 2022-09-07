@@ -29,6 +29,9 @@ import { useAuth } from '../contexts/Auth';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import ViewPDFScreen from '../screens/ViewPDFScreen';
 import SettingsAboutScreen from '../screens/SettingsAboutScreen';
+import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
+import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
+import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -356,6 +359,20 @@ function WalletStack() {
         options={({ route }) => ({
           title: route.params.title
         })}
+      />
+      <Stack.Screen
+        name="BusinessWizardProfile"
+        component={BusinessWizardProfileScreen}
+        options={{
+          title: 'Create Profile',
+        }}
+      />
+      <Stack.Screen
+        name="BusinessWizardStripe"
+        component={BusinessWizardStripeScreen}
+        options={{
+          title: 'Bank Information',
+        }}
       />
     </Stack.Navigator>
   )

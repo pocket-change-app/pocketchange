@@ -101,13 +101,23 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
         {/* <Button title="Sign Out" onPress={signOut} /> */}
 
         <Pressable
-          onPress={signOut}
+          style={[styles.card, { height: 45, justifyContent: 'center', }]}
+          onPress={() => navigation.navigate("BusinessWizardProfile")}
         >
-          <View style={[styles.card, { height: 45, justifyContent: 'center', }]}>
-            <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Sign Out</Text>
-          </View>
+          <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Biz Whiz</Text>
           {/* <HorizontalLine /> */}
         </Pressable>
+
+        <Pressable
+          style={[styles.card, { height: 45, justifyContent: 'center', }]}
+          onPress={signOut}
+
+        >
+          <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Sign Out</Text>
+          {/* <HorizontalLine /> */}
+        </Pressable>
+
+
 
       </ScrollView>
     </ScreenContainer >
