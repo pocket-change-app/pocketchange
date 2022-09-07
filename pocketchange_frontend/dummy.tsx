@@ -285,6 +285,23 @@ export const analytics = [
       net_sales: 248.73
     }
   },
+
+  {
+    title: "CUSTOMERS",
+    type: "text",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: [
+    ]
+  },
+
+  {
+    title: "PocketChange Participation",
+    type: "text",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: "25 Customers this Month, Average Customer Visits 2.3 times per week"
+  },
   {
     title: "Your Customers Come From",
     type: "pie",
@@ -296,51 +313,6 @@ export const analytics = [
       {x: "Toronto Centre", y: 43},
       {x: "Toronto-Danforth", y: 88},
       {x: "Other", y: 20},
-    ]
-  },
-  {
-    title: "Number of Visits",
-    type: "bar",
-    startDate: "9/16/2022",
-    endDate: "9/16/2022",
-    data: [
-      {x: "mon", y: 60},
-      {x: "tue", y: 34},
-      {x: "wed", y: 27},
-      {x: "thu", y: 60},
-      {x: "fri", y: 88},
-      {x: "sat", y: 122},
-      {x: "sun", y: 170},
-    ]
-  },
-  {
-    title: "Number of PocketChange Customers",
-    type: "bar",
-    startDate: "9/16/2022",
-    endDate: "9/16/2022",
-    data: [
-      {x: "mon", y: 9},
-      {x: "tue", y: 6},
-      {x: "wed", y: 7},
-      {x: "thu", y: 9},
-      {x: "fri", y: 14},
-      {x: "sat", y: 16},
-      {x: "sun", y: 18},
-    ]
-  },
-  {
-    title: "Sales Volume via PocketChange",
-    type: "line",
-    startDate: "9/16/2022",
-    endDate: "9/16/2022",
-    data: [
-      {x: "mon", y: 804.43},
-      {x: "tue", y: 456.30},
-      {x: "wed", y: 437.23},
-      {x: "thu", y: 806.54},
-      {x: "fri", y: 1122.10},
-      {x: "sat", y: 1366.38},
-      {x: "sun", y: 2505.76},
     ]
   },
 
@@ -357,13 +329,57 @@ export const analytics = [
       "Kanye W."
     ]
   },
+
   {
-    title: "Average PocketChange Customer Visits / Week",
+    title: "SALES",
     type: "text",
     startDate: "9/16/2022",
     endDate: "9/16/2022",
-    data: "2.3x"
+    data: [
+    ]
   },
+
+  {
+    title: "Number of Transactions",
+    type: "bar",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: [
+      {x: "mon", y: 60},
+      {x: "tue", y: 34},
+      {x: "wed", y: 27},
+      {x: "thu", y: 60},
+      {x: "fri", y: 88},
+      {x: "sat", y: 122},
+      {x: "sun", y: 170},
+    ]
+  },
+
+  {
+    title: "Sales Volume via PocketChange",
+    type: "bar",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: [
+      {x: "mon", y: 804.43},
+      {x: "tue", y: 456.30},
+      {x: "wed", y: 437.23},
+      {x: "thu", y: 806.54},
+      {x: "fri", y: 1122.10},
+      {x: "sat", y: 1366.38},
+      {x: "sun", y: 2505.76},
+    ]
+  },
+
+   {
+    title: "LESLIEVILLE",
+    type: "text",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: [
+    ]
+  },
+
   {
     title: "Foot Traffic in Leslieville (past 14 days)",
     type: "bar",
@@ -400,7 +416,15 @@ export const analytics = [
       "Leslieville Cheese"
     ]
   },
+
   {
+    title: " ",
+    type: "text",
+    startDate: "9/16/2022",
+    endDate: "9/16/2022",
+    data: "9.6% of Leslieville Pocket members visited you this month."
+  }
+/*   {
     title: "Customer Satisfaction",
     type: "line",
     startDate: "9/16/2022",
@@ -414,7 +438,7 @@ export const analytics = [
       {x: "sat", y: 0.80},
       {x: "sun", y: 0.75},
     ]
-  },
+  }, */
 
 
 ]

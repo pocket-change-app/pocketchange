@@ -16,13 +16,13 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const [lastName, setLastName] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [homeNeighbourhood, setHomeNeighbourhood] = useState('')
+  const [homePostalCode, setHomePostalCode] = useState('')
   const [password, setPassword] = useState('')
 
   const ref_inputLast = useRef();
   const ref_inputEmail = useRef();
   const ref_inputBirthDate = useRef();
-  const ref_inputHomeNeighbourhood = useRef();
+  const ref_inputHomePostalCode = useRef();
   const ref_inputPass = useRef();
 
   const [useRegisterUserMutation, {loading, data, error}] = useMutation(UserMutations.registerUser)
@@ -126,7 +126,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             placeholder={'December 25th, 1'}
             placeholderTextColor={colors.subtle}
             ref={ref_inputBirthDate}
-            onSubmitEditing={() => ref_inputHomeNeighbourhood.current.focus()}
+            onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
           />
         </View>
 
@@ -134,7 +134,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
         <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
           <Text style={styles.prose}>
-            Home Neighbourhood
+            Home Postal Code
           </Text>
 
           <TextInput
@@ -142,13 +142,16 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             returnKeyType="next"
             selectionColor={colors.gold}
             autoCapitalize='none'
+            autoCorrect={false}
+            autoComplete="postal-code"
+            maxLength={6}
             style={styles.receipt}
             //keyboardType='email-address'
             // value={email}
-            onChangeText={setHomeNeighbourhood}
-            placeholder={'Riverside'}
+            onChangeText={setHomePostalCode}
+            placeholder={'M5S1H2'}
             placeholderTextColor={colors.subtle}
-            ref={ref_inputHomeNeighbourhood}
+            ref={ref_inputHomePostalCode}
             onSubmitEditing={() => ref_inputPass.current.focus()}
           />
         </View>
@@ -186,7 +189,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
                 variables: {
                     username: emailAddress, // temporary fix, need ot remove username field from backend
                     name: fullName, 
-                    home: homeNeighbourhood, 
+                    home: homePostalCode, 
                     birthDate: birthDate, 
                     emailAddress: emailAddress, 
                     password: password

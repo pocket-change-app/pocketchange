@@ -75,7 +75,7 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
             height={150}
             domainPadding={{ x: 25 }}
             theme={V.VictoryTheme.material}
-            padding={{ top: 15, bottom: 35, left: 40, right: 65 }}
+            padding={{ top: 15, bottom: 35, left: 60, right: 75 }}
           >
             <V.VictoryAxis
               fixLabelOverlap={true}
