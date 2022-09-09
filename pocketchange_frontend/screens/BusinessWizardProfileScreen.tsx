@@ -13,11 +13,11 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [busBio, setBusBio] = useState('')
   const [address, setAddress] = useState('')
   const [addressLineTwo, setAddressLineTwo] = useState('')
-  const [zipCode, setZipCode] = useState('')
+  const [postalCode, setPostalCode] = useState('')
 
   const ref_about = useRef();
   const ref_address = useRef();
-  const ref_zipCode = useRef();
+  const ref_postalCode = useRef();
   const ref_phone = useRef();
 
 
@@ -56,11 +56,11 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               onChangeText={setBusName}
               placeholder={'Your Business'}
               placeholderTextColor={colors.subtle}
-              onSubmitEditing={() => ref_about.current.focus()}
+              onSubmitEditing={() => ref_address.current.focus()}
             />
           </View>
 
-          <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
+          {/* <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
             <Text style={styles.prose}>
               About {!busName ? 'your business' : busName}:
             </Text>
@@ -82,7 +82,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               ref={ref_about}
             // onSubmitEditing={() => ref_inputLast.current.focus()}
             />
-          </View>
+          </View> */}
 
           <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
             <Text style={styles.prose}>
@@ -101,7 +101,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               placeholder={'000 Queen St E'}
               placeholderTextColor={colors.subtle}
               ref={ref_address}
-              onSubmitEditing={() => ref_zipCode.current.focus()}
+              onSubmitEditing={() => ref_postalCode.current.focus()}
             />
           </View>
 
@@ -122,7 +122,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
             <View style={[styles.signUpInputText, { flex: 1, marginBottom: MARGIN }]}>
               <Text style={styles.prose}>
-                Zip Code
+                Postal Code
               </Text>
 
               <TextInput
@@ -132,12 +132,12 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
                 autoCapitalize='characters'
                 style={styles.receipt}
                 // keyboardType='number-pad'
-                value={zipCode}
+                value={postalCode}
                 maxLength={6}
-                onChangeText={setZipCode}
+                onChangeText={setPostalCode}
                 placeholder={'ABC123'}
                 placeholderTextColor={colors.subtle}
-                ref={ref_zipCode}
+                ref={ref_postalCode}
                 onSubmitEditing={() => ref_phone.current.focus()}
               />
             </View>
