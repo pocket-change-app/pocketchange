@@ -179,7 +179,7 @@ const BottomTabMerchant = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='Analytics'
+      initialRouteName='TransactionsStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,

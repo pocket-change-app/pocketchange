@@ -108,16 +108,16 @@ export const user = {
 export const pockets = [
   {
     pocketID: '04',
-    name: 'Bloor West',
+    name: 'Bloor West Village',
     imageURL: require('./assets/images/bloor_west.png'),
-    bannerURL: require('./assets/images/bloor_west_banner.jpg'),
-    description: "",
+    bannerURL: require('./assets/images/bloor-west-village-banner.jpg'),
+    description: "A small village in a big city!  Widely recognized as one of Toronto’s most popular districts, with over 400 cafes, restaurants, distinctive European bakeries, and boutique shops.",
   },
   {
     pocketID: '01',
     name: 'Leslieville',
     imageURL: require('./assets/images/leslieville.png'),
-    bannerURL: require('./assets/images/leslieville-logo.jpg'),
+    bannerURL: require('./assets/images/leslieville-banner.jpg'),
     description: "Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit. "
   },
   {
@@ -131,8 +131,8 @@ export const pockets = [
     pocketID: '03',
     name: 'Uptown Yonge',
     imageURL: require('./assets/images/uptown_yonge.png'),
-    bannerURL: require('./assets/images/uptown-yonge-logo.png'),
-    description: ""
+    bannerURL: require('./assets/images/uptown-yonge-banner.jpg'),
+    description: "Located in the heart of North Toronto, Uptown Yonge is the perfect combination of international retailers, local boutiques, fine dining, and quiet parkettes."
   },
 
 ];
