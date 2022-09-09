@@ -1,11 +1,11 @@
-import { ScrollView, FlatList } from 'react-native';
+import { ScrollView, FlatList, SectionList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
-import { BalancesCard, IdCard } from '../components/Cards';
-import { colors } from '../constants/Colors';
+import { BalancesCard, IdCard, DivHeader, BusinessCardSm } from '../components/Cards';
+import { colors, colorScale } from '../constants/Colors';
 
 import { analytics } from '../dummy';
 
@@ -44,6 +44,25 @@ export default function AnalyticsDashboardScreen() {
   return (
 
     <>
+      
+      <ScreenContainer>
+      
+        <SectionList
+          sections={analytics}
+          contentContainerStyle={styles.businessFlatList}
+          keyExtractor={(item, index) => item + index}
+          renderSectionHeader={({ section: { sectionTitle } }) => (
+            <View style={styles.analyticsSectionHeaderContainer}>
+              <Text style={styles.analyticsSectionHeader}>{sectionTitle}</Text>
+            </View>
+          )}
+          renderItem={renderAnalyticsCard}
+          stickySectionHeadersEnabled
+          SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
+        />
+
+      </ScreenContainer>
+
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
@@ -53,13 +72,6 @@ export default function AnalyticsDashboardScreen() {
         onChangeText={updateSearch}
         value={search}
       />
-      <ScreenContainer>
-        <FlatList
-          contentContainerStyle={styles.businessFlatList}
-          data={analytics}
-          renderItem={renderAnalyticsCard}
-        />
-      </ScreenContainer>
     </>
     
   );
@@ -78,14 +90,36 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
             theme={V.VictoryTheme.material}
             padding={{ top: 15, bottom: 35, left: 60, right: 75 }}
           >
+            
+
             <V.VictoryAxis
               fixLabelOverlap={true}
               style={{
-                //tickLabels: {angle: -0},
+                axis: {
+                  stroke: colors.subtle
+                },
+                grid: {
+                  stroke: colors.light, //CHANGE COLOR OF X-AXIS GRID LINES
+                  strokeDasharray: '3',
+                }
               }}
             />
-            <V.VictoryAxis dependentAxis />
-            <V.VictoryBar data={data} x="x" y="y" />
+            <V.VictoryAxis dependentAxis
+              style={{
+                axis: {
+                  stroke: colors.subtle
+                },
+                grid: {
+                  stroke: colors.light, //CHANGE COLOR OF X-AXIS GRID LINES
+                  strokeDasharray: '3',
+                }
+              }} />
+              <V.VictoryBar 
+              data={data} 
+              x="x" 
+              y="y" 
+              style={{ data: { fill: colorScale[0] } }}/>
+            
           </V.VictoryChart>
         </Svg>
       );
@@ -110,9 +144,50 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
           </V.VictoryChart>
         </Svg>
       );
-    } else if (type == 'text') {
-      return <Text style={styles.changeLg} >{data}</Text>;
-    } else if (type == 'text-sales') {
+    } else if (type == 'text-participation') {
+      return (
+        <Text style={{fontFamily: 'metropolis medium', fontSize:16,}}>
+          <Text style={{fontFamily: 'metropolis bold', color: colors.gold, fontSize:20}} >
+            {data[0].numCustomers}
+          </Text>
+          <Text style={{color: colors.medium}}>
+            {" customers used PocketChange at {insert active store} this Month. They averaged "} 
+          </Text>
+          <Text style={{fontFamily: 'metropolis bold', color: colors.blue, fontSize:20}}>
+            {data[0].visitRate}
+          </Text>
+          <Text style={{color: colors.medium}}>
+            {" visits per week."}
+          </Text>
+        </Text>
+      );
+    } else if (type == 'text-pocket-participation') {
+      return (
+        <Text style={{fontFamily: 'metropolis medium', fontSize:16,}}>
+          <Text style={{color: colors.medium}}>
+            {"There are "} 
+          </Text>
+          <Text style={{fontFamily: 'metropolis bold', color: colors.gold, fontSize:20}} >
+            {data[0].numCustomers}
+          </Text>
+          <Text style={{color: colors.medium}}>
+            {" active PocketChange users in {insert active pocket}. They averaged "} 
+          </Text>
+          <Text style={{fontFamily: 'metropolis bold', color: colors.blue, fontSize:20}}>
+            {data[0].visitRate}
+          </Text>
+          <Text style={{color: colors.medium}}>
+            {" visits per week to businesses in the Pocket. "}
+          </Text>
+          <Text style={{fontFamily: 'metropolis bold', color: colors.green, fontSize:20}}>
+            {data[0].visitShare}%
+          </Text>
+          <Text style={{color: colors.medium}}>
+            {" of these users are customers of { insert active business }."}
+          </Text>
+        </Text>
+      );
+    }else if (type == 'text-sales') {
       return (
         <View>
           <View style={{flexDirection: 'row'}}>
@@ -189,7 +264,7 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
               <Text style={{
                 fontFamily: 'metropolis extrabold', 
                 fontSize: 20,
-                color: "green",
+                color: colors.green,
                 justifyContent: 'flex-end',
                 lineHeight: 30}} >${data.net_sales}</Text>
             </View>
@@ -197,7 +272,14 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
 
         </View>
       );
-    } else if (type == 'list') {
+    } else if (type == 'list-similar-businesses') {
+      const listItems = data.map(
+        (item) => <BusinessCardSm navigation={undefined} business={item}/>
+      );
+      return (
+        <View>{listItems}</View>
+      );
+    } else if (type == 'list-top-customers') {
       const listItems = data.map(
         (item) => <Text>{item}</Text>
       );
@@ -225,6 +307,7 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
               innerRadius={20}
               //padAngle={1}
               theme={V.VictoryTheme.material}
+              colorScale={colorScale}
               data={data}
               x="x"
               y="y" />
@@ -236,6 +319,7 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
               //itemsPerRow={2}
               standalone={false}
               theme={V.VictoryTheme.material}
+              colorScale={colorScale}
               orientation='vertical'
               data={legendData}
             //height={200}

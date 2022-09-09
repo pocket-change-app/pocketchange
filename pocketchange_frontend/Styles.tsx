@@ -708,10 +708,27 @@ export const styles = StyleSheet.create({
   },
 
   analyticsTitle: {
-    fontSize: 20,
+    fontSize: 18,
     paddingBottom: 10,
-    fontFamily: 'metropolis black',
+    fontFamily: 'metropolis semibold',
     color: colors.dark,
+  },
+  analyticsSectionHeaderContainer: {
+    height: 40,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: colors.bg,
+    //borderTopWidth: 0,
+    //borderBottomWidth: BORDER_WIDTH,
+    // borderWidth: 0,
+    //borderColor: colors.light,
+  },
+  analyticsSectionHeader: {
+    alignSelf:'center',
+    textTransform: 'uppercase',
+    fontSize: 18,
+    color: colors.subtle,
+    fontFamily: 'metropolis regular',
   },
 
 })
