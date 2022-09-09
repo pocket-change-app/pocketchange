@@ -729,7 +729,7 @@ export const styles = StyleSheet.create({
   }, 
 
   analyticsContentContainer: {
-    padding:8
+    padding:10
   },
 
   analyticsSectionHeaderContainer: {

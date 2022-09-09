@@ -13,6 +13,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
 import {usePocketQuery, useBusinessQuery, useUserQuery} from '../hooks-apollo/index';
 
+import { isNilOrEmpty } from 'ramda-adjunct';
 const R = require('ramda');
 
 
@@ -559,7 +560,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   console.log("USER:", user)
 
-  if (R.isNil(user)) {
+  if (isNilOrEmpty(user)) {
     return (null)
   }
 

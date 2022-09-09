@@ -51,6 +51,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     return null
   }
 
+  // TODO: search wont work unitl we find a way to use the users names 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {

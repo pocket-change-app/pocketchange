@@ -1,4 +1,4 @@
-import { ScrollView, FlatList, SectionList } from 'react-native';
+import { ScrollView, FlatList, SectionList, KeyboardAvoidingView } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -9,17 +9,35 @@ import { colors, colorScale } from '../constants/Colors';
 
 import { analytics } from '../dummy';
 
-import React from 'react';
+import { React, useState } from 'react';
 import ReactDOM from 'react-dom';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
+const R = require('ramda');
 
 export default function AnalyticsDashboardScreen() {
 
-  const state = {
-    search: '',
-  }
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState('')
+
+  /* if (isNilOrEmpty(allAnalytics)) {
+    return (null)
+  } */ 
+
+  const updateSearch = (text: string) => {
+    setSearchQuery(text)
+    setSearchResults(() => {
+        const formattedQuery = text.toLowerCase().trim()
+        const results = analytics.map((section) => 
+          ({
+            sectionTitle: section.sectionTitle,
+            data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
+          })
+        )
+        return results
+    })
+};
 
 
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
@@ -34,22 +52,18 @@ export default function AnalyticsDashboardScreen() {
     />
 
   )
-
-  const updateSearch = (search: string) => {
-    state.search = search;
-  };
-
-  console.log(analytics)
-  const { search } = state;
-
   return (
 
-    <>
+    <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={100}
+            style={{ flex: 1 }}
+        >
       
       <ScreenContainer>
       
         <SectionList
-          sections={analytics}
+          sections={searchQuery ? searchResults : analytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={({ section: { sectionTitle } }) => (
@@ -58,22 +72,26 @@ export default function AnalyticsDashboardScreen() {
             </View>
           )}
           renderItem={renderAnalyticsCard}
-          stickySectionHeadersEnabled
+          stickySectionHeadersEnabled={false}
           SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
         />
 
       </ScreenContainer>
 
       <SearchBar
+        showCancel={false}
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
+
         inputStyle={styles.searchBarInput}
-        round
         placeholder="Search Analytics"
+        placeholderTextColor={colors.subtle}
+
         onChangeText={updateSearch}
-        value={search}
-      />
-    </>
+        onClear={() => null}
+        value={searchQuery}/>
+
+    </KeyboardAvoidingView>
     
   );
 }
@@ -89,7 +107,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
             height={150}
             domainPadding={{ x: 25 }}
             theme={V.VictoryTheme.material}
-            padding={{ top: 15, bottom: 35, left: 60, right: 75 }}
+            padding={{ top: 15, bottom: 35, left: 50, right: 85 }}
           >
             
 
@@ -135,7 +153,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
             height={150}
             domainPadding={{ x: 25 }}
             theme={V.VictoryTheme.material}
-            padding={{ top: 15, bottom: 35, left: 50, right: 75 }}
+            padding={{ top: 15, bottom: 35, left: 50, right: 85 }}
           >
             <V.VictoryAxis
               fixLabelOverlap={true}
