@@ -25,6 +25,7 @@ export default function AnalyticsDashboardScreen() {
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
     <AnalyticsCard
+      key={ item.title } //TODO: is this right?
       title={ item.title }
       type={ item.type }
       data={ item.data }

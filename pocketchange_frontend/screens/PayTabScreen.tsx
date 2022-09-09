@@ -73,8 +73,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
                 {isNilOrEmpty(businesses) ? null : <>
 
-                    {/* <View style={{ flexGrow: 1 }}> */}
-                    {/* <HorizontalLine /> */}
                     <FlatList
                         contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
                         data={(!searchResults) ? businesses : searchResults}
@@ -107,11 +105,9 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                             }
                         }}
                     />
-                    {/* <HorizontalLine /> */}
-                    {/* </View> */}
+
                 </>}
             </ScreenContainer>
-            {/* </TouchableWithoutFeedback> */}
 
             <SearchBar
                 showCancel={false}
@@ -129,23 +125,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
         </KeyboardAvoidingView>
 
-        //   <ScrollView
-        //     style={styles.container}
-        //   >
-        //     {R.map(
-        //       ({ businessID, name, address, pocket, imageURL }) => (
-        //         <BusinessCardSm
-        //           key={businessID}
-        //           navigation={navigation}
-        //           name={name}
-        //           address={address}
-        //           pocket={pocket}
-        //           imageURL={imageURL}
-        //         />
-        //       ), businesses
-        //     )}
-        //   </ScrollView>
-        // );
     )
 
 }

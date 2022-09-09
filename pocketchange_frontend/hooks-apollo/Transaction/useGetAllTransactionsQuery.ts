@@ -17,6 +17,7 @@ export default function useGetAllTransactionsQuery(
     variables: {pocketID, businessID, userID, startDate, endDate},
     fetchPolicy: 'network-only',
   })
+  //console.log(JSON.stringify(error, null, 2))
   useEffect(() => {
     if (RA.isNotNil(data)) {
       // allBusinesses query is aliased as getAllBusinesses

@@ -116,7 +116,7 @@ export const pockets = [
   {
     pocketID: '01',
     name: 'Leslieville',
-    imageURL: require('./assets/images/leslieville.jpg'),
+    imageURL: require('./assets/images/leslieville.png'),
     bannerURL: require('./assets/images/leslieville-logo.jpg'),
     description: "Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit. "
   },
@@ -130,7 +130,7 @@ export const pockets = [
   {
     pocketID: '03',
     name: 'Uptown Yonge',
-    imageURL: require('./assets/images/uptown_yonge.jpg'),
+    imageURL: require('./assets/images/uptown_yonge.png'),
     bannerURL: require('./assets/images/uptown-yonge-logo.png'),
     description: ""
   },

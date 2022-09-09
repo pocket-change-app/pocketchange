@@ -196,14 +196,17 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
     <>
+      
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
           <Image
             style={[styles.image, styles.pocketHeaderImage]}
             source={pocket.bannerURL}
           />
+          
         </View>
         <View style={styles.container}>
+        <Text style={styles.pocketTitle}>{pocket.name}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
               {pocket.description}
@@ -391,7 +394,7 @@ export function TransactionListed({ navigation, transaction }: any) {
               business: business,
               subtotal: transaction.value,
               date: transaction.date,
-              //time: transaction.time,
+              time: transaction.time,
             })}
           >
             <Image

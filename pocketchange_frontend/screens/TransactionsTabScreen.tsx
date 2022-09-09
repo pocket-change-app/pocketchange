@@ -1,5 +1,6 @@
-import { ScrollView, FlatList } from 'react-native';
+import { ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
 import { SearchBar } from '@rneui/base';
+import { useState } from 'react';
 
 import { styles } from '../Styles';
 //import { transactions } from '../dummy';
@@ -7,21 +8,34 @@ import { ScreenContainer } from '../components/Themed';
 import { TranactionCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
+import { colors } from '../constants/Colors';
 
+
+import { isNilOrEmpty } from 'ramda-adjunct';
 const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
-  const userID= '1c'
-  const {allTransactions, loading} =  useGetAllTransactionsQuery(userID)
+  // TODO: remove hard coded value, get logged in business
+  const businessID = '1b'
 
-  const state = {
-    search: '',
-  }
+
+  const {allTransactions, error, loading} =  useGetAllTransactionsQuery(undefined, businessID)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState('')
 
   if(R.isNil(allTransactions) ){
     return null
   }
+
+  const updateSearch = (text: string) => {
+    setSearchQuery(text)
+    setSearchResults(() => {
+        const formattedQuery = text.toLowerCase().trim()
+        const results = allTransactions.filter(t => t.userID.toLowerCase().includes(formattedQuery))
+        return results
+    })
+};
 
 
   const renderTransactionCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
@@ -33,50 +47,41 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     />
 
   )
-
-  const updateSearch = (search: string) => {
-    state.search = search;
-  };
-
-  const { search } = state;
-
   return (
-    <>
-      <SearchBar
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-        inputStyle={styles.searchBarInput}
-        round
-        placeholder="Search Merchants"
-        onChangeText={updateSearch}
-        value={search}
-      />
-      <ScreenContainer>
-        <FlatList
-          contentContainerStyle={styles.businessFlatList}
-          data={allTransactions}
-          renderItem={renderTransactionCard}
-        />
-      </ScreenContainer>
-    </>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}>
 
-    //   <ScrollView
-    //     style={styles.container}
-    //   >
-    //     {R.map(
-    //       ({ businessID, name, address, pocket, imageURL }) => (
-    //         <BusinessCardSm
-    //           key={businessID}
-    //           navigation={navigation}
-    //           name={name}
-    //           address={address}
-    //           pocket={pocket}
-    //           imageURL={imageURL}
-    //         />
-    //       ), businesses
-    //     )}
-    //   </ScrollView>
-    // );
+      <ScreenContainer>
+
+        {isNilOrEmpty(allTransactions) ? null : <>
+
+          <FlatList
+            contentContainerStyle={styles.businessFlatList}
+            data={(!searchResults) ? allTransactions : searchResults}
+            renderItem={renderTransactionCard}
+          />
+
+        </>}
+
+      </ScreenContainer>
+
+      <SearchBar
+                showCancel={false}
+                containerStyle={styles.searchBarContainer}
+                inputContainerStyle={styles.searchBarInputContainer}
+
+                inputStyle={styles.searchBarInput}
+                placeholder="Search Customers"
+                placeholderTextColor={colors.subtle}
+
+                onChangeText={updateSearch}
+                onClear={() => null}
+                value={searchQuery}
+            />
+    </KeyboardAvoidingView>
+
   )
 
 }
