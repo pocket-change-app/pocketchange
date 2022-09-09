@@ -303,9 +303,6 @@ export const styles = StyleSheet.create({
     color: colors.gold,
   },
 
-
-
-
   businessFlatList: {
     flexGrow: 1,
     padding: MARGIN,
@@ -707,12 +704,34 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis regular',
   },
 
-  analyticsTitle: {
-    fontSize: 18,
+  analyticsHeaderContainer: {
     paddingBottom: 10,
+    //width:'100%',
+    flex:1,
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+  },
+
+  analyticsTitle: {
+    //flex:1,
+    fontSize: 16,
+    paddingBottom: 3,
     fontFamily: 'metropolis semibold',
     color: colors.dark,
   },
+
+  analyticsRange: {
+    //flex:1,
+    fontSize: 12,
+    fontFamily: 'metropolis black',
+    color: colors.subtle,
+  }, 
+
+  analyticsContentContainer: {
+    padding:8
+  },
+
   analyticsSectionHeaderContainer: {
     height: 40,
     justifyContent: 'center',
@@ -730,5 +749,16 @@ export const styles = StyleSheet.create({
     color: colors.subtle,
     fontFamily: 'metropolis regular',
   },
+
+  analyticsNormalText: {
+    fontFamily: 'metropolis medium', 
+    fontSize: 14, 
+    paddingBottom: 15,
+  },
+
+  analyticsMetricText: {
+    fontFamily: 'metropolis bold', 
+    fontSize: 16,
+  }
 
 })

@@ -30,6 +30,7 @@ export default function AnalyticsDashboardScreen() {
       type={ item.type }
       data={ item.data }
       startDate={ item.startDate }
+      rangeName={ item.rangeName }
     />
 
   )
@@ -77,7 +78,7 @@ export default function AnalyticsDashboardScreen() {
   );
 }
 
-export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
+export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
   function renderChart() {
     if (type == 'bar') {
@@ -104,7 +105,9 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
                 }
               }}
             />
-            <V.VictoryAxis dependentAxis
+
+            <V.VictoryAxis 
+              dependentAxis
               style={{
                 axis: {
                   stroke: colors.subtle
@@ -114,7 +117,8 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
                   strokeDasharray: '3',
                 }
               }} />
-              <V.VictoryBar 
+
+            <V.VictoryBar 
               data={data} 
               x="x" 
               y="y" 
@@ -144,48 +148,65 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
           </V.VictoryChart>
         </Svg>
       );
-    } else if (type == 'text-participation') {
+    } else if (type == 'text-participation-business') {
       return (
-        <Text style={{fontFamily: 'metropolis medium', fontSize:16,}}>
-          <Text style={{fontFamily: 'metropolis bold', color: colors.gold, fontSize:20}} >
-            {data[0].numCustomers}
+        <>
+          <Text style={styles.analyticsNormalText}>
+            <Text style={[styles.analyticsMetricText, {color: colors.gold}]} >
+              {data[0].numCustomers}
+            </Text>
+            <Text style={{color: colors.medium}}>
+              {" customers used PocketChange at {insert active store}."} 
+            </Text>
           </Text>
-          <Text style={{color: colors.medium}}>
-            {" customers used PocketChange at {insert active store} this Month. They averaged "} 
+          <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
+            <Text style={{color: colors.medium}}>
+              {"the average customer visits "} 
+            </Text>
+            <Text style={[styles.analyticsMetricText, {color: colors.blue}]}>
+              {data[0].visitRate}x
+            </Text>
+            <Text style={{color: colors.medium}}>
+              {" per week"}
+            </Text>
           </Text>
-          <Text style={{fontFamily: 'metropolis bold', color: colors.blue, fontSize:20}}>
-            {data[0].visitRate}
+          <Text style={styles.analyticsNormalText}>
+            <Text style={[styles.analyticsMetricText, {color: colors.green}]}>
+              {data[0].pocketShare}%
+            </Text>
+            <Text style={{color: colors.medium}}>
+              {" of { insert active pocket } Pocket members visited { insert active business }"}
+            </Text>
           </Text>
-          <Text style={{color: colors.medium}}>
-            {" visits per week."}
-          </Text>
-        </Text>
+      </>
       );
-    } else if (type == 'text-pocket-participation') {
+    } else if (type == 'text-participation-pocket') {
       return (
-        <Text style={{fontFamily: 'metropolis medium', fontSize:16,}}>
-          <Text style={{color: colors.medium}}>
+        <>
+        <Text style={styles.analyticsNormalText}>
+          {/* <Text style={{color: colors.medium}}>
             {"There are "} 
-          </Text>
-          <Text style={{fontFamily: 'metropolis bold', color: colors.gold, fontSize:20}} >
+          </Text> */}
+          <Text style={[styles.analyticsMetricText, {color: colors.gold}]} >
             {data[0].numCustomers}
           </Text>
           <Text style={{color: colors.medium}}>
-            {" active PocketChange users in {insert active pocket}. They averaged "} 
+            {" PocketChange users in {insert active pocket}"} 
           </Text>
-          <Text style={{fontFamily: 'metropolis bold', color: colors.blue, fontSize:20}}>
+        </Text>
+        <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
+          <Text style={{color: colors.medium}}>
+            {"each averaged "}
+          </Text>
+          <Text style={[styles.analyticsMetricText, {color: colors.blue}]}>
             {data[0].visitRate}
           </Text>
           <Text style={{color: colors.medium}}>
-            {" visits per week to businesses in the Pocket. "}
-          </Text>
-          <Text style={{fontFamily: 'metropolis bold', color: colors.green, fontSize:20}}>
-            {data[0].visitShare}%
-          </Text>
-          <Text style={{color: colors.medium}}>
-            {" of these users are customers of { insert active business }."}
+            {" visits per week to businesses in the Pocket"}
           </Text>
         </Text>
+        
+        </>
       );
     }else if (type == 'text-sales') {
       return (
@@ -332,10 +353,14 @@ export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
 
   return (
     <View style={[styles.card, styles.analyticsCard]}>
+      <View style={styles.analyticsHeaderContainer}>
+          <Text style={styles.analyticsTitle}>{ title }</Text>
+          <Text style={styles.analyticsRange}>{ rangeName }</Text>
+      </View>
+      <View style={styles.analyticsContentContainer}>
+        {renderChart()}
+      </View>
       
-      <Text style={styles.analyticsTitle}>{ title }</Text>
-
-      {renderChart()}
 
     </View>
   )

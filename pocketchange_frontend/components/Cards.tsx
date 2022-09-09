@@ -11,7 +11,7 @@ import { colors } from '../constants/Colors';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
-import {usePocketQuery, useBusinessQuery} from '../hooks-apollo/index';
+import {usePocketQuery, useBusinessQuery, useUserQuery} from '../hooks-apollo/index';
 
 const R = require('ramda');
 
@@ -554,21 +554,37 @@ export function ButtonWithText({
 }
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
+
+  const { user, loading, refetch } = useUserQuery(transaction.userID)
+
+  console.log("USER:", user)
+
+  if (R.isNil(user)) {
+    return (null)
+  }
+
   return (
     <Pressable
       onPress={() => navigation.navigate('TransactionModal', {
+        user, 
         transaction
       })}
     >
-      <View style={[styles.card, styles.businessListItemCard]}>
-
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{transaction.userID}</Text>
-          <Text style={styles.address}>{transaction.value}</Text>
-          <Text style={styles.pocket}>{transaction.date}</Text>
-        </View>
-
+      <View style={styles.transactionListed}>
+        
+        <Text style={styles.transactionListedAmountText}>
+          {transaction.date.split("T")[1].split(".")[0]}
+        </Text>
+        <Text style={styles.transactionListedMerchantText}>
+          {!user ? null : user.name.split(' ')[0]
+          }
+        </Text>
+        <Text style={styles.transactionListedAmountText}>
+          ${transaction.value}
+        </Text>
+        
       </View>
+
 
     </Pressable>
   )

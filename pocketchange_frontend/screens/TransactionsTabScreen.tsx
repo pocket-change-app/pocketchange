@@ -1,11 +1,11 @@
-import { ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useState } from 'react';
 
-import { styles } from '../Styles';
+import { styles, MARGIN } from '../Styles';
 //import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { TranactionCardSm } from '../components/Cards';
+import { DivHeader, TranactionCardSm } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
 import { colors } from '../constants/Colors';
@@ -17,10 +17,33 @@ const R = require('ramda');
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
   // TODO: remove hard coded value, get logged in business
-  const businessID = '1b'
+  const business = {
+    businessID: '2b',
+    businessName: 'La Paella',
+    dateEstablished: '2015-01-01',
+    phoneNumber: '416-000-000',
+    website: 'paella.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'spanish',
+    emailAddress:'paella@gmail.com',
+    address: {
+     streetName: 'Queen St E',
+     buildingNumber: '1146', 
+     unitNumber: '',
+     city: 'Toronto',
+     region: 'ON',
+     postalCode: 'M4M 1L1',
+    },
+    latitude: 43.6625197,
+    longitude: -79.336471,
+    businessTags: [],
+    stripeID: '2b',
+    description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
+    deactivated: false,
+ };
 
 
-  const {allTransactions, error, loading} =  useGetAllTransactionsQuery(undefined, businessID)
+  const {allTransactions, error, loading} =  useGetAllTransactionsQuery(undefined, business.businessID)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState('')
 
@@ -55,6 +78,34 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
 
       <ScreenContainer>
 
+      <View style={{padding: MARGIN,}}>
+      
+      <View style={styles.businessModalInfo}>
+        <Text style={styles.businessNameLg}>{business.businessName}</Text>
+        <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+        <Text style={styles.pocket}>{"TODO: business pocket"}</Text>
+
+        <Pressable style={styles.payButton}
+          onPress={() => (navigation.navigate('PaymentModalStack', {
+            screen: "PayAmount",
+            params: {
+              // navigation: navigation,
+              business: business,
+            }
+            // businessID: business.businessID,
+            // name: business.name,
+            // address: business.address,
+            // pocket: business.pocket,
+            // imageURL: business.imageURL,
+          }))}
+        >
+          <Text style={styles.payButtonText}>NEW TRANSACTION</Text>
+        </Pressable>
+
+      </View>
+    </View>
+
+    <DivHeader text="Transaction History"/>
         {isNilOrEmpty(allTransactions) ? null : <>
 
           <FlatList
@@ -73,7 +124,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
                 inputContainerStyle={styles.searchBarInputContainer}
 
                 inputStyle={styles.searchBarInput}
-                placeholder="Search Customers"
+                placeholder="Search Transactions"
                 placeholderTextColor={colors.subtle}
 
                 onChangeText={updateSearch}

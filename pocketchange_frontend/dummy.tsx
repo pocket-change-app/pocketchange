@@ -370,10 +370,11 @@ export const transactions = [
 
 export const analytics = [
   {
-    sectionTitle: "",
+    sectionTitle: "Favorites",
     data: [{
-        title: "Today's Sales",
+        title: "Sales",
         type: 'text-sales',
+        rangeName: 'TODAY',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: {
@@ -389,19 +390,22 @@ export const analytics = [
     data: [
       {
         title: "PocketChange Participation",
-        type: "text-participation",
+        type: "text-participation-business",
+        rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
           {
             numCustomers: 25,
-            visitRate: 2.3
+            visitRate: 2.3,
+            pocketShare: 19.2
           }
         ]
       },
       {
         title: "Your Customers Come From",
         type: "pie",
+        rangeName: 'PAST 30 DAYS',
         startDate: "9/1/2022",
         endDate: "9/14/2022",
         data: [
@@ -415,6 +419,7 @@ export const analytics = [
       {
         title: "Your Top Customers",
         type: "list-top-customers",
+        rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
@@ -433,6 +438,7 @@ export const analytics = [
       {
         title: "Number of Transactions",
         type: "bar",
+        rangeName: 'PAST WEEK',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
@@ -446,8 +452,9 @@ export const analytics = [
         ]
       },
       {
-        title: "Sales Volume via PocketChange",
+        title: "Sales (dollars per day)",
         type: "bar",
+        rangeName: 'PAST WEEK',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
@@ -467,20 +474,21 @@ export const analytics = [
     data: [
       {
         title: "Pocket Membership",
-        type: "text-pocket-participation",
+        type: "text-participation-pocket",
+        rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
           {
             numCustomers: 126,
             visitRate: 6.4,
-            visitShare: 19.8
           }
         ]
       },
       {
-        title: "Foot Traffic in Leslieville (past 14 days)",
+        title: "Foot Traffic in Leslieville",
         type: "bar",
+        rangeName: 'PAST 2 WEEKS',
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
