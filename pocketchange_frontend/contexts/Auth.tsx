@@ -69,7 +69,9 @@ const AuthProvider: React.FC = ({ children }) => {
     //Set the data in the context, so the App can be notified
     //and send the user to the AuthStack
     setAuthData(_authData);
-    setSignedInAs('consumer');
+
+    // TODO: change this to remember which was signed in
+    setSignedInAs('merchant');
 
     //Persist the data in the Async Storage
     //to be recovered in the next user session.

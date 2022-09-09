@@ -90,16 +90,21 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.bg,
   },
   navigationHeaderTitle: {
-    fontSize: 30,
+    fontSize: 25,
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
     // width: '100%',
   },
 
   navigationHeaderPocketTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'metropolis black italic',
     color: colors.subtle,
+  },
+
+  navigationBackTitleStyle: {
+    fontSize: 16,
+    fontFamily: 'metropolis semibold',
   },
 
   tabBar: {
@@ -273,8 +278,19 @@ export const styles = StyleSheet.create({
     color: colors.subtle,
   },
 
+  pocketTitle: {
+    fontSize: 25,
+    lineHeight: 35,
+    //paddingBottom: MARGIN,
+    //textAlign: 'center',
+    fontFamily: 'metropolis black italic',
+    //color: colors.dark,
+    color: colors.dark,
+    //position: 'absolute', bottom: 0,
+
+  },
+
   pocketBig: {
-    //textTransform: 'uppercase',
     fontSize: 20,
     lineHeight: 30,
     fontFamily: 'metropolis black italic',
@@ -286,9 +302,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis black italic',
     color: colors.gold,
   },
-
-
-
 
   businessFlatList: {
     flexGrow: 1,
@@ -691,11 +704,61 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis regular',
   },
 
-  analyticsTitle: {
-    fontSize: 20,
+  analyticsHeaderContainer: {
     paddingBottom: 10,
-    fontFamily: 'metropolis black',
+    //width:'100%',
+    flex:1,
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+  },
+
+  analyticsTitle: {
+    //flex:1,
+    fontSize: 16,
+    paddingBottom: 3,
+    fontFamily: 'metropolis semibold',
     color: colors.dark,
   },
+
+  analyticsRange: {
+    //flex:1,
+    fontSize: 12,
+    fontFamily: 'metropolis black',
+    color: colors.subtle,
+  }, 
+
+  analyticsContentContainer: {
+    padding:10
+  },
+
+  analyticsSectionHeaderContainer: {
+    height: 40,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: colors.bg,
+    //borderTopWidth: 0,
+    //borderBottomWidth: BORDER_WIDTH,
+    // borderWidth: 0,
+    //borderColor: colors.light,
+  },
+  analyticsSectionHeader: {
+    alignSelf:'center',
+    textTransform: 'uppercase',
+    fontSize: 18,
+    color: colors.subtle,
+    fontFamily: 'metropolis regular',
+  },
+
+  analyticsNormalText: {
+    fontFamily: 'metropolis medium', 
+    fontSize: 14, 
+    paddingBottom: 15,
+  },
+
+  analyticsMetricText: {
+    fontFamily: 'metropolis bold', 
+    fontSize: 16,
+  }
 
 })

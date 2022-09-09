@@ -107,8 +107,12 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             const date = d.toDateString()
             const time = d.toTimeString()
 
-            navigation.popToTop()
-            navigation.goBack()
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Wallet' }],
+            })
+            //navigation.push("Wallet");
+            //navigation.goBack()
 
             console.log('made it')
 
