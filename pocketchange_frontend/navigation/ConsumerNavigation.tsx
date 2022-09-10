@@ -276,13 +276,13 @@ function PaymentModalStack() {
         }}
       />
       <Stack.Screen
-          name="PayConfirmation"
-          component={PayConfirmationScreen}
-          options={({ navigation }: any) => ({
-            presentation: 'modal',
-            headerShown: false,
-          })}
-        />
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={({ navigation }: any) => ({
+          presentation: 'modal',
+          headerShown: false,
+        })}
+      />
     </Stack.Navigator >
   )
 }
@@ -389,13 +389,13 @@ function WalletStack() {
         }}
       />
       <Stack.Screen
-          name="PayConfirmation"
-          component={PayConfirmationScreen}
-          options={({ navigation }: any) => ({
-            presentation: 'modal',
-            headerShown: false,
-          })}
-        />
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={({ navigation }: any) => ({
+          presentation: 'modal',
+          headerShown: false,
+        })}
+      />
     </Stack.Navigator>
   )
 }
