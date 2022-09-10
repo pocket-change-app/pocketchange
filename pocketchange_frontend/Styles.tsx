@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
 
   navigationBackTitleStyle: {
     fontSize: 16,
-    fontFamily: 'metropolis semibold',
+    fontFamily: 'metropolis medium',
   },
 
   tabBar: {
@@ -707,10 +707,10 @@ export const styles = StyleSheet.create({
   analyticsHeaderContainer: {
     paddingBottom: 10,
     //width:'100%',
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
-    alignItems:'center',
-    justifyContent:'space-between',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   analyticsTitle: {
@@ -726,10 +726,10 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'metropolis black',
     color: colors.subtle,
-  }, 
+  },
 
   analyticsContentContainer: {
-    padding:10
+    padding: 10
   },
 
   analyticsSectionHeaderContainer: {
@@ -743,7 +743,7 @@ export const styles = StyleSheet.create({
     //borderColor: colors.light,
   },
   analyticsSectionHeader: {
-    alignSelf:'center',
+    alignSelf: 'center',
     textTransform: 'uppercase',
     fontSize: 18,
     color: colors.subtle,
@@ -751,13 +751,13 @@ export const styles = StyleSheet.create({
   },
 
   analyticsNormalText: {
-    fontFamily: 'metropolis medium', 
-    fontSize: 14, 
+    fontFamily: 'metropolis medium',
+    fontSize: 14,
     paddingBottom: 15,
   },
 
   analyticsMetricText: {
-    fontFamily: 'metropolis bold', 
+    fontFamily: 'metropolis bold',
     fontSize: 16,
   }
 
