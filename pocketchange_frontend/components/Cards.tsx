@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
@@ -11,7 +11,7 @@ import { colors } from '../constants/Colors';
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
-import {usePocketQuery, useBusinessQuery, useUserQuery} from '../hooks-apollo/index';
+import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/index';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 const R = require('ramda');
@@ -28,7 +28,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
       </View>
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
-        <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+        <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
         <Text style={styles.pocket}>{business.pocket}</Text>
 
         <Pressable style={styles.payButton}
@@ -120,7 +120,7 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
 
         <View style={styles.businessListInfo}>
           <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
-          <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+          <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
           {
             //<Text style={styles.pocket}>{business.pocket}</Text>
           }
@@ -197,17 +197,17 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
     <>
-      
+
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
           <Image
             style={[styles.image, styles.pocketHeaderImage]}
             source={pocket.bannerURL}
           />
-          
+
         </View>
         <View style={styles.container}>
-        <Text style={styles.pocketTitle}>{pocket.name}</Text>
+          <Text style={styles.pocketTitle}>{pocket.name}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
               {pocket.description}
@@ -342,6 +342,32 @@ export function SettingPressable({ settingText, iconName, onPress = null }: { se
   )
 }
 
+export function SettingSwitch({ settingText, value, onToggle }: { settingText: string, value: boolean, onToggle: any }) {
+  return (
+    <View style={styles.setting}>
+      <View style={{ flex: 1 }}>
+        {/* <View style={styles.settingIconContainer}>
+          <FontAwesome5
+            // style={styles.settingIcon}
+            name={iconName}
+            size={25}
+            color={colors.medium}
+            style={styles.settingIcon}
+          />
+        </View> */}
+        <Text style={styles.settingText}>{settingText}</Text>
+      </View>
+      <Switch
+        trackColor={{ false: colors.subtle, true: colors.gold }}
+        thumbColor={colors.card}
+        ios_backgroundColor={colors.subtle}
+        value={value}
+        onValueChange={onToggle}
+      />
+    </View>
+  )
+}
+
 export function TransactionHistoryCard({ navigation, transactions }: { navigation: any, transactions: { [key: string]: any }[] }) {
 
   const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
@@ -367,10 +393,10 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 }
 
 export function TransactionListed({ navigation, transaction }: any) {
-  const businessID= transaction.businessID
-  const {business, loading} =  useBusinessQuery(businessID)
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
 
-  if (loading){
+  if (loading) {
     return null
   }
   return (
@@ -414,18 +440,18 @@ export function Receipt({ navigation, transaction }: any) {
 
   console.log("TRANS", transaction)
 
-  const businessID= transaction.businessID
-  const {business, loading} =  useBusinessQuery(businessID)
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
 
   console.log("REECEOIPT REACHED")
-  if(R.isNil(business) ){
+  if (R.isNil(business)) {
     return null
   }
 
   const address = business.address
-  const {pocketID} = transaction
-  const {pocket, loadingPockets} = usePocketQuery(pocketID)
-  if(R.isEmpty (pocket)){
+  const { pocketID } = transaction
+  const { pocket, loadingPockets } = usePocketQuery(pocketID)
+  if (R.isEmpty(pocket)) {
     return null
   }
   //const address = business.address
@@ -567,12 +593,12 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   return (
     <Pressable
       onPress={() => navigation.navigate('TransactionModal', {
-        user, 
+        user,
         transaction
       })}
     >
       <View style={styles.transactionListed}>
-        
+
         <Text style={styles.transactionListedAmountText}>
           {transaction.date.split("T")[1].split(".")[0]}
         </Text>
@@ -583,7 +609,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
         <Text style={styles.transactionListedAmountText}>
           ${transaction.value}
         </Text>
-        
+
       </View>
 
 
