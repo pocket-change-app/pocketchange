@@ -83,7 +83,7 @@ export default function EditEmployeesScreen({ route, navigation }: { route: any,
 
         </View>
 
-        <View style={styles.c}>
+        <View style={styles.card}>
           <SettingPressable
             settingText="Invite Employee"
           />
