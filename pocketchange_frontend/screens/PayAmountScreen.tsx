@@ -12,8 +12,6 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const { business } = route.params;
 
-  const { businessID, name, address, pocket, imageURL } = business;
-
   const [amount, setAmount] = useState('')
 
   function onChangeAmount(amt: string) {
@@ -45,9 +43,9 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
               <View style={{ flexDirection: 'row' }}>
                 <View style={styles.businessListInfo}>
-                  <Text style={styles.businessNameSm}>{name}</Text>
-                  <Text style={styles.address}>{address}</Text>
-                  <Text style={styles.pocket}>{pocket}</Text>
+                  <Text style={styles.businessNameSm}>{business.businessName}</Text>
+                  <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
+                  <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
                 </View>
               </View>
             </View>

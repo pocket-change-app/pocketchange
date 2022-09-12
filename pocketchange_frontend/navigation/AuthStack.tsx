@@ -24,6 +24,7 @@ export const AuthStack = () => {
         component={LandingScreen}
         options={{
           headerShown: false,
+          headerTitle: "Sign In",
         }}
       />
       <Stack.Screen

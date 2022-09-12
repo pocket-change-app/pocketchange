@@ -108,131 +108,227 @@ export const user = {
 export const pockets = [
   {
     pocketID: '04',
-    name: 'Bloor West',
+    name: 'Bloor West Village',
     imageURL: require('./assets/images/bloor_west.png'),
-    bannerURL: require('./assets/images/bloor_west_banner.jpg'),
-    description: "",
+    bannerURL: require('./assets/images/bloor-west-village-banner.jpg'),
+    description: "A small village in a big city!  Widely recognized as one of Toronto’s most popular districts, with over 400 cafes, restaurants, distinctive European bakeries, and boutique shops.",
   },
   {
     pocketID: '01',
     name: 'Leslieville',
-    imageURL: require('./assets/images/leslieville.jpg'),
-    bannerURL: require('./assets/images/leslieville-logo.jpg'),
+    imageURL: require('./assets/images/leslieville.png'),
+    bannerURL: require('./assets/images/leslieville-banner.jpg'),
     description: "Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit. "
   },
-  {
-    pocketID: '02',
-    name: 'Riverside',
-    imageURL: require('./assets/images/riverside.jpg'),
-    bannerURL: require('./assets/images/riverside-banner.jpg'),
-    description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. "
-  },
+  // {
+  //   pocketID: '02',
+  //   name: 'Riverside',
+  //   imageURL: require('./assets/images/riverside.jpg'),
+  //   bannerURL: require('./assets/images/riverside-banner.jpg'),
+  //   description: "Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions — just across the bridge from Toronto’s downtown core along Queen Street East. "
+  // },
   {
     pocketID: '03',
     name: 'Uptown Yonge',
-    imageURL: require('./assets/images/uptown_yonge.jpg'),
-    bannerURL: require('./assets/images/uptown-yonge-logo.png'),
-    description: ""
+    imageURL: require('./assets/images/uptown_yonge.png'),
+    bannerURL: require('./assets/images/uptown-yonge-banner.jpg'),
+    description: "Located in the heart of North Toronto, Uptown Yonge is the perfect combination of international retailers, local boutiques, fine dining, and quiet parkettes."
   },
 
 ];
 
 export const businesses = [
   {
-    businessID: "001",
-    name: "Avling",
-    phoneNumber: "+1 (413) 111-1111",
-    address: "1042 Queen St E",
-    pocket: "Leslieville",
-    imageURL: require("./assets/images/avling.jpg"),
-    bio: "We offer the best products and service around. I have no idea what to write for this because I can't remember what Avling does :)",
-    people: [
-      {
-        name: 'Max',
-        position: 'Owner',
-        imageURL: require('./assets/images/max.png')
-      }
-    ]
+    businessID: '1b',
+    businessName: 'Avling',
+    dateEstablished: '2017-01-01',
+    phoneNumber: '416-000-000',
+    website: 'avling.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'brewery',
+    emailAddress: 'avling@gmail.com',
+    address: {
+      streetName: 'Queen St E',
+      buildingNumber: '1042',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4M 1K4',
+    },
+    latitude: 43.6616134,
+    longitude: -79.3403008,
+    businessTags: ['sustainable', 'farm-to-table'],
+    stripeID: '1b',
+    description: 'Avling is the norwegian word for crop or harvest, and for us, it is all about our kitchen and brewery and farm working as one.',
+    deactivated: false,
   },
   {
-    businessID: "002",
-    name: "La Paella",
-    phoneNumber: "(413) 111-1111",
-    address: "1146 QUEEN ST E",
-    pocket: "Leslieville",
-    imageURL: require("./assets/images/la-paella.jpg"),
-    bio: "Best paella in the biz'.",
-    people: [
-      {
-        name: 'Mike',
-        position: 'Owner',
-        imageURL: require('./assets/images/mike.png')
-      }
-    ]
+    businessID: '2b',
+    businessName: 'La Paella',
+    dateEstablished: '2015-01-01',
+    phoneNumber: '416-000-000',
+    website: 'paella.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'spanish',
+    emailAddress: 'paella@gmail.com',
+    address: {
+      streetName: 'Queen St E',
+      buildingNumber: '1146',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4M 1L1',
+    },
+    latitude: 43.6625197,
+    longitude: -79.336471,
+    businessTags: [],
+    stripeID: '2b',
+    description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
+    deactivated: false,
   },
   {
-    businessID: "003",
-    name: "Wvrst",
-    phoneNumber: "(413) 111-1111",
-    address: "Somewhere",
-    pocket: 'Pckt',
-    imageURL: require("./assets/images/wvrst.jpg"),
-    bio: "We have the meats.",
-    people: [
-      {
-        name: 'Miguel',
-        position: 'Manager',
-        imageURL: require('./assets/images/miguel.png')
-      }
-    ]
+    businessID: '3b',
+    businessName: 'Mercury Espresso Bar',
+    dateEstablished: '2020-01-01',
+    phoneNumber: '416-000-000',
+    website: 'mercury.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'cafe',
+    emailAddress: 'mercury@gmail.com',
+    address: {
+      streetName: 'Queen St E',
+      buildingNumber: '915',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4M 1J4',
+    },
+    latitude: 43.6605726,
+    longitude: -79.3435212,
+    businessTags: [],
+    stripeID: '3b',
+    description: 'Indie multi-roaster cafe serving Leslieville since 2006.',
+    deactivated: false,
   },
   {
-    businessID: "004",
-    name: "Jimmy's Coffee",
-    phoneNumber: "(413) 111-1111",
-    address: "806 Queen St E",
-    pocket: "Riverside",
-    imageURL: require("./assets/images/avling.jpg"),
-    bio: "Best coffee in Riverside! Come on in and see what we're all about.",
-    people: [
-      {
-        name: 'Jimmy',
-        position: 'Owner',
-        imageURL: require('./assets/images/max.png')
-      }
-    ]
+    businessID: '4b',
+    businessName: 'Slowhands Pizza',
+    dateEstablished: '2022-01-01',
+    phoneNumber: '416-000-000',
+    website: 'slowhandspizza.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'pizza',
+    emailAddress: 'slowhands@gmail.com',
+    address: {
+      streetName: 'Pape Ave',
+      buildingNumber: '99',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4M 2V7',
+    },
+    latitude: 43.6619347,
+    longitude: -79.3397946,
+    businessTags: ['new'],
+    stripeID: '4b',
+    description: 'At Slowhand we have one obsession: making light, airy, and delicious sourdough pan pizza.Combining our favourite techniques from Italy and Detroit with sourdough culture from the San Francisco gold rush, we create a pizza like you’ve never had before.',
+    deactivated: false,
   },
   {
-    businessID: "005",
-    name: "Cat Land",
-    phoneNumber: "(413) 111-1111",
-    address: "1010 QUEEN ST E",
-    pocket: "Somewhere",
-    imageURL: require("./assets/images/cats.jpg"),
-    bio: "Cat stuff. Pretty self explanatory.",
-    people: [
-      {
-        name: 'Margaret',
-        position: 'Owner',
-        imageURL: require('./assets/images/max.png')
-      }
-    ]
+    businessID: '5b',
+    businessName: 'De Mello Coffee',
+    dateEstablished: '2011-01-01',
+    phoneNumber: '416-000-000',
+    website: 'demello.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'cafe',
+    emailAddress: 'demello@gmail.com',
+    address: {
+      streetName: 'Yonge St',
+      buildingNumber: '2489',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4P 2H6',
+    },
+    latitude: 43.7118501,
+    longitude: -79.4013567,
+    businessTags: [],
+    stripeID: '5b',
+    description: 'Our cafe represents the soul of De Mello—an eclectic and playful gathering space where the local community gathers to share time over a great coffee.Aside from serving and retailing our freshly roasted coffees daily, all of the pastries at our cafe are baked in-house every morning thanks to our expert pastry chefs.',
+    deactivated: false,
   },
   {
-    businessID: "006",
-    name: "Cheese Land",
-    phoneNumber: "(413) 111-1111",
-    address: "1042 QUEEN ST E",
-    pocket: "Somewhere",
-    imageURL: require("./assets/images/cheese.jpg"),
-    bio: "Cheese stuff. Pretty self explanatory.",
-    people: [
-      {
-        name: 'Max',
-        position: 'Owner',
-        imageURL: require('./assets/images/max.png')
-      }
-    ]
+    businessID: '6b',
+    businessName: 'Himalayan Java House',
+    dateEstablished: '2009-01-01',
+    phoneNumber: '416-000-000',
+    website: 'himalayanjava.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'cafe',
+    emailAddress: 'himalayanjava@gmail.com',
+    address: {
+      streetName: 'Yonge St',
+      buildingNumber: '2552',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4P 2J2',
+    },
+    latitude: 43.713383,
+    longitude: -79.4022449,
+    businessTags: [],
+    stripeID: '6b',
+    description: 'Cozy, brick-walled coffeehouse known for drinks with unique latte art, light bites & pastries.',
+    deactivated: false,
+  },
+  {
+    businessID: '7b',
+    businessName: 'Isaan Der Yonge',
+    dateEstablished: '2019-01-01',
+    phoneNumber: '416-000-000',
+    website: 'isaander.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'thai',
+    emailAddress: 'isaander@gmail.com',
+    address: {
+      streetName: 'Yonge St',
+      buildingNumber: '2013',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4S 1Z8',
+    },
+    latitude: 43.7010608,
+    longitude: -79.3991778,
+    businessTags: [],
+    stripeID: '7b',
+    description: 'We are a not so traditional Thai restaurant bringing you flavours from The Isaan region of Thailand to everything in between. Simply Delish!',
+    deactivated: false,
+  },
+  {
+    businessID: '8b',
+    businessName: 'Juicy Dumplings Yonge',
+    dateEstablished: '2012-01-01',
+    phoneNumber: '416-000-000',
+    website: 'juicydumplings.ca',
+    businessType: 'restaurant',
+    businessSubtype: 'chinese',
+    emailAddress: 'juicydumpling@gmail.com',
+    address: {
+      streetName: 'Yonge St',
+      buildingNumber: '2150',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4S 2A8',
+    },
+    latitude: 43.7037168,
+    longitude: -79.4001231,
+    businessTags: [],
+    stripeID: '8b',
+    description: 'Best dumpling/ dimsum/ famous Toronto must try. Tasty and cheap.',
+    deactivated: false,
   },
 ]
 
@@ -274,115 +370,153 @@ export const transactions = [
 
 export const analytics = [
   {
-    title: "Today's Sales",
-    type: 'text-sales',
-    startDate: "9/16/2022",
-    data: {
-      gross_sales: 275.76,
-      change_issued: 20.53,
-      refunds_issued: 6.50,
-      net_sales: 248.73
-    }
+    sectionTitle: "Favorites",
+    data: [{
+      title: "Sales",
+      type: 'text-sales',
+      rangeName: 'TODAY',
+      startDate: "9/16/2022",
+      endDate: "9/16/2022",
+      data: {
+        gross_sales: 275.76,
+        change_issued: 20.53,
+        refunds_issued: 6.50,
+        net_sales: 248.73
+      }
+    },],
   },
   {
-    title: "Your Customers Come From",
-    type: "pie",
+    sectionTitle: "Customer Analytics",
     data: [
-      {x: "University-Rosedale", y: 54},
-      {x: "Beaches-East York", y: 62},
-      {x: "Toronto Centre", y: 43},
-      {x: "Toronto-Danforth", y: 88},
-      {x: "Other", y: 20},
-    ]
+      {
+        title: "PocketChange Participation",
+        type: "text-participation-business",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          {
+            numCustomers: 25,
+            visitRate: 2.3,
+            pocketShare: 19.2
+          }
+        ]
+      },
+      {
+        title: "Your Customers Come From",
+        type: "pie",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/1/2022",
+        endDate: "9/14/2022",
+        data: [
+          { x: "University-Rosedale", y: 54 },
+          { x: "Beaches-East York", y: 62 },
+          { x: "Toronto Centre", y: 43 },
+          { x: "Toronto-Danforth", y: 88 },
+          { x: "Other", y: 20 },
+        ]
+      },
+      {
+        title: "Your Top Customers",
+        type: "list-top-customers",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          "Cole C.",
+          "Mica C.",
+          "Siku C.",
+          "Mia S.",
+          "Kanye W."
+        ]
+      },
+    ],
   },
   {
-    title: "Number of Sales",
-    type: "bar",
+    sectionTitle: "Sales Analytics",
     data: [
-      {x: "mon", y: 60},
-      {x: "tue", y: 34},
-      {x: "wed", y: 27},
-      {x: "thu", y: 60},
-      {x: "fri", y: 88},
-      {x: "sat", y: 122},
-      {x: "sun", y: 170},
-    ]
+      {
+        title: "Number of Transactions",
+        type: "bar",
+        rangeName: 'PAST WEEK',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          { x: "mon", y: 60 },
+          { x: "tue", y: 34 },
+          { x: "wed", y: 27 },
+          { x: "thu", y: 60 },
+          { x: "fri", y: 88 },
+          { x: "sat", y: 122 },
+          { x: "sun", y: 170 },
+        ]
+      },
+      {
+        title: "Sales (dollars per day)",
+        type: "bar",
+        rangeName: 'PAST WEEK',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          { x: "mon", y: 804.43 },
+          { x: "tue", y: 456.30 },
+          { x: "wed", y: 437.23 },
+          { x: "thu", y: 806.54 },
+          { x: "fri", y: 1122.10 },
+          { x: "sat", y: 1366.38 },
+          { x: "sun", y: 2505.76 },
+        ]
+      },
+    ],
   },
   {
-    title: "Sales Volume",
-    type: "line",
+    sectionTitle: "Pocket Analytics",
     data: [
-      {x: "mon", y: 804.43},
-      {x: "tue", y: 456.30},
-      {x: "wed", y: 437.23},
-      {x: "thu", y: 806.54},
-      {x: "fri", y: 1122.10},
-      {x: "sat", y: 1366.38},
-      {x: "sun", y: 2505.76},
-    ]
-  },
+      {
+        title: "Pocket Membership",
+        type: "text-participation-pocket",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          {
+            numCustomers: 126,
+            visitRate: 6.4,
+          }
+        ]
+      },
+      {
+        title: "Foot Traffic in Leslieville",
+        type: "bar",
+        rangeName: 'PAST 2 WEEKS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          { x: "9/3", y: 57 },
+          { x: "9/4", y: 34 },
+          { x: "9/5", y: 43 },
+          { x: "9/6", y: 75 },
+          { x: "9/7", y: 54 },
+          { x: "9/8", y: 48 },
+          { x: "9/9", y: 69 },
+          { x: "9/10", y: 65 },
+          { x: "9/11", y: 60 },
+          { x: "9/12", y: 78 },
+          { x: "9/13", y: 88 },
+          { x: "9/14", y: 90 },
+          { x: "9/15", y: 123 },
+          { x: "9/16", y: 153 },
 
-  {
-    title: "Your Top Customers",
-    type: "list",
-    data: [
-      "Cole C.",
-      "Mica C.",
-      "Siku C.",
-      "Mia S.",
-      "Kanye W."
-    ]
-  },
-  {
-    title: "Average PocketChange Customer Visits / Week",
-    type: "text",
-    data: "2.3x"
-  },
-  {
-    title: "Foot Traffic in Leslieville (past 14 days)",
-    type: "bar",
-    data: [
-      {x: "9/3", y: 57},
-      {x: "9/4", y: 34},
-      {x: "9/5", y: 43},
-      {x: "9/6", y: 75},
-      {x: "9/7", y: 54},
-      {x: "9/8", y: 48},
-      {x: "9/9", y: 69},
-      {x: "9/10", y: 65},
-      {x: "9/11", y: 60},
-      {x: "9/12", y: 78},
-      {x: "9/13", y: 88},
-      {x: "9/14", y: 90},
-      {x: "9/15", y: 123},
-      {x: "9/16", y: 153},
-      
-    ]
-  },
-  {
-    title: "Businesses with Shared Customer Bases",
-    type: "list",
-    data: [
-      "Bespoke Butchers",
-      "Avling",
-      "Okay Okay Diner",
-      "Blessed Love",
-      "Leslieville Cheese"
-    ]
-  },
-  {
-    title: "Customer Satisfaction",
-    type: "line",
-    data: [
-      {x: "mon", y: 0.75},
-      {x: "tue", y: 0.80},
-      {x: "wed", y: 0.90},
-      {x: "thu", y: 0.54},
-      {x: "fri", y: -0.60},
-      {x: "sat", y: 0.80},
-      {x: "sun", y: 0.75},
-    ]
-  },
+        ]
+      },
+      {
+        title: "Your Customers Also Visit",
+        type: "list-similar-businesses",
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: businesses.slice(0, 3)
+      },
 
-
+    ],
+  },
 ]

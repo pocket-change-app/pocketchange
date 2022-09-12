@@ -20,6 +20,11 @@ import WalletScreen from '../screens/WalletScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
+import { authService } from '../services/authService';
+import { useAuth } from '../contexts/Auth';
+import SettingsTippingScreen from '../screens/SettingsTippingScreen';
+import EditEmployeesScreen from '../screens/EditEmployeesScreen';
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -125,6 +130,9 @@ function AnalyticsStack() {
 
 
 function SettingsStack() {
+
+  const auth = useAuth();
+
   return (
     <Stack.Navigator
       initialRouteName="MerchantSettings"
@@ -139,22 +147,39 @@ function SettingsStack() {
         name="MerchantSettings"
         component={MerchantSettingsScreen}
         options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
-          // headerRight: () => (
-          //   <Pressable
-          //     onPress={() => navigation.navigate('ConsumerSettings')}
-          //     style={({ pressed }) => ({
-          //       opacity: pressed ? 0.5 : 1,
-          //     })}>
-          //     <FontAwesome
-          //       name="gear"
-          //       size={25}
-          //       color={colors.medium}
-          //     // style={{ marginRight: 15 }}
-          //     />
-          //   </Pressable>
-          // ),
-          title: 'Settings',
+          title: "Settings",
+          headerLeft: () => (
+            <Pressable
+              onPress={auth.switchAccount}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+                // marginRight: 2 * MARGIN,
+              })}>
+              <FontAwesome
+                name='user-circle-o'
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
         })}
+      />
+
+      <Stack.Screen
+        name="EditEmployees"
+        component={EditEmployeesScreen}
+        options={{
+          title: "Employees",
+        }}
+      />
+
+      <Stack.Screen
+        name="SettingsTipping"
+        component={SettingsTippingScreen}
+        options={{
+          title: "Tipping",
+        }}
       />
 
     </Stack.Navigator>
@@ -172,7 +197,7 @@ const BottomTabMerchant = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='Analytics'
+      initialRouteName='TransactionsStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
@@ -185,14 +210,6 @@ const BottomTabMerchant = () => {
       }}
     >
       <BottomTab.Screen
-        name="TransactionsStack"
-        component={TransactionsStack}
-        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
-          title: 'Transactions',
-          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
-        })}
-      />
-      <BottomTab.Screen
         name="AnalyticsStack"
         component={AnalyticsStack}
         options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
@@ -200,6 +217,16 @@ const BottomTabMerchant = () => {
           tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
         })}
       />
+
+      <BottomTab.Screen
+        name="TransactionsStack"
+        component={TransactionsStack}
+        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
+          title: 'Transactions',
+          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
+        })}
+      />
+
       <BottomTab.Screen
         name="SettingsStack"
         component={SettingsStack}

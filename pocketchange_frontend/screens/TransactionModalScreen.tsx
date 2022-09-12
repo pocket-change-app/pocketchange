@@ -8,7 +8,7 @@ import { colors } from '../constants/Colors';
 
 export default function TransactionModalScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { transaction } = route.params;
+  const { transaction, user } = route.params;
 
   return (
     <ScrollView style={styles.container}>
@@ -19,7 +19,7 @@ export default function TransactionModalScreen({ route, navigation }: { route: a
       <View style={styles.card}>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{transaction.userID}</Text>
+          <Text style={styles.businessNameSm}>{user.name}</Text>
           <Text style={styles.address}>{transaction.value}</Text>
           <Text style={styles.pocket}>{transaction.date}</Text>
         </View>

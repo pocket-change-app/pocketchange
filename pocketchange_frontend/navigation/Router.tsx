@@ -16,7 +16,6 @@ export const Router = () => {
     return <SplashScreen />;
   }
 
-  console.log(signedInAs);
   var stack;
   if (authData) {
     if (signedInAs === "merchant") {

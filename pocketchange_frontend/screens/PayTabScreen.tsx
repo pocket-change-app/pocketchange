@@ -21,7 +21,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     const userID = '1c'
     const { businesses, loading, refetch } = useGetLovedBusinessesQuery(userID)
     const [searchQuery, setSearchQuery] = useState('')
-    const [searchResults, setSearchResults] = useState('default')
+    const [searchResults, setSearchResults] = useState('')
 
     // useEffect(() => {
     //     // setSearchResults(businesses); // This is be executed when `loading` state changes
@@ -31,11 +31,11 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     //     return null
     // }
 
-    if (loading) {
+    if (isNilOrEmpty(businesses)) {
         return (null)
     }
 
-
+    // make search all businesses instead of loved
     const updateSearch = (text: string) => {
         setSearchQuery(text)
         setSearchResults(() => {
@@ -59,8 +59,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
         </Pressable>
     )
 
-    console.log('searchResults', searchResults)
-
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -73,29 +71,21 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
                 {isNilOrEmpty(businesses) ? null : <>
 
-                    {/* <View style={{ flexGrow: 1 }}> */}
-                    {/* <HorizontalLine /> */}
                     <FlatList
                         contentContainerStyle={[styles.businessFlatList, { flexGrow: 1 }]}
-                        data={(!searchResults) ? businesses : searchResults}
+                        data={searchQuery ? searchResults : businesses}
                         renderItem={renderBusinessCard}
                         ListHeaderComponent={() => {
                             if (searchQuery == '') {
                                 return (
                                     <>
                                         <DivHeader text='Suggested' />
-                                        {/* <Pressable
-                    onPress={() => navigation.navigate('Business', {
-                      business: businesses[0]
-                    })}
-                  > */}
-
-                                        <BusinessCardSuggested
-                                            key={businesses[0].businessID}
-                                            navigation={navigation}
-                                            business={businesses[0]}
-                                        />
-                                        {/* </Pressable> */}
+                                            <BusinessCardSuggested
+                                                key={businesses[0].businessID}
+                                                navigation={navigation}
+                                                business={businesses[0]}
+                                            />
+                        
                                         <DivHeader text='Loved' />
                                     </>
                                 )
@@ -104,11 +94,9 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                             }
                         }}
                     />
-                    {/* <HorizontalLine /> */}
-                    {/* </View> */}
+
                 </>}
             </ScreenContainer>
-            {/* </TouchableWithoutFeedback> */}
 
             <SearchBar
                 showCancel={false}
@@ -126,23 +114,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
         </KeyboardAvoidingView>
 
-        //   <ScrollView
-        //     style={styles.container}
-        //   >
-        //     {R.map(
-        //       ({ businessID, name, address, pocket, imageURL }) => (
-        //         <BusinessCardSm
-        //           key={businessID}
-        //           navigation={navigation}
-        //           name={name}
-        //           address={address}
-        //           pocket={pocket}
-        //           imageURL={imageURL}
-        //         />
-        //       ), businesses
-        //     )}
-        //   </ScrollView>
-        // );
     )
 
 }

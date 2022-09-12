@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
@@ -7,15 +7,13 @@ import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as V from 'victory-native';
-import Svg from 'react-native-svg';
+;
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
-import {usePocketQuery, useBusinessQuery} from '../hooks-apollo/index';
+import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/index';
 
+import { isNilOrEmpty } from 'ramda-adjunct';
 const R = require('ramda');
 
 
@@ -30,7 +28,7 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
       </View>
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
-        <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+        <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
         <Text style={styles.pocket}>{business.pocket}</Text>
 
         <Pressable style={styles.payButton}
@@ -121,8 +119,8 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{business.businessName}</Text>
-          <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
+          <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
+          <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
           {
             //<Text style={styles.pocket}>{business.pocket}</Text>
           }
@@ -199,14 +197,17 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
     <>
+
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
           <Image
             style={[styles.image, styles.pocketHeaderImage]}
             source={pocket.bannerURL}
           />
+
         </View>
         <View style={styles.container}>
+          <Text style={styles.pocketTitle}>{pocket.name}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
               {pocket.description}
@@ -341,6 +342,32 @@ export function SettingPressable({ settingText, iconName, onPress = null }: { se
   )
 }
 
+export function SettingSwitch({ settingText, value, onToggle }: { settingText: string, value: boolean, onToggle: any }) {
+  return (
+    <View style={styles.setting}>
+      <View style={{ flex: 1 }}>
+        {/* <View style={styles.settingIconContainer}>
+          <FontAwesome5
+            // style={styles.settingIcon}
+            name={iconName}
+            size={25}
+            color={colors.medium}
+            style={styles.settingIcon}
+          />
+        </View> */}
+        <Text style={styles.settingText}>{settingText}</Text>
+      </View>
+      <Switch
+        trackColor={{ false: colors.subtle, true: colors.gold }}
+        thumbColor={colors.card}
+        ios_backgroundColor={colors.subtle}
+        value={value}
+        onValueChange={onToggle}
+      />
+    </View>
+  )
+}
+
 export function TransactionHistoryCard({ navigation, transactions }: { navigation: any, transactions: { [key: string]: any }[] }) {
 
   const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
@@ -366,11 +393,10 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
 }
 
 export function TransactionListed({ navigation, transaction }: any) {
-  const businessID= transaction.businessID
-  const {business, loading} =  useBusinessQuery(businessID)
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
 
-  console.log("TRANSACTION LISTED REACHED")
-  if(R.isNil(business) ){
+  if (loading) {
     return null
   }
   return (
@@ -392,10 +418,10 @@ export function TransactionListed({ navigation, transaction }: any) {
           <Pressable
             style={{ aspectRatio: 1 }}
             onPress={() => navigation.navigate('PayConfirmation', {
-              businessName: business.businessName,
+              business: business,
               subtotal: transaction.value,
               date: transaction.date,
-              //time: transaction.time,
+              time: transaction.time,
             })}
           >
             <Image
@@ -414,18 +440,18 @@ export function Receipt({ navigation, transaction }: any) {
 
   console.log("TRANS", transaction)
 
-  const businessID= transaction.businessID
-  const {business, loading} =  useBusinessQuery(businessID)
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
 
   console.log("REECEOIPT REACHED")
-  if(R.isNil(business) ){
+  if (R.isNil(business)) {
     return null
   }
 
   const address = business.address
-  const {pocketID} = transaction
-  const {pocket, loadingPockets} = usePocketQuery(pocketID)
-  if(R.isEmpty (pocket)){
+  const { pocketID } = transaction
+  const { pocket, loadingPockets } = usePocketQuery(pocketID)
+  if (R.isEmpty(pocket)) {
     return null
   }
   //const address = business.address
@@ -555,21 +581,37 @@ export function ButtonWithText({
 }
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
+
+  const { user, loading, refetch } = useUserQuery(transaction.userID)
+
+  console.log("USER:", user)
+
+  if (isNilOrEmpty(user)) {
+    return (null)
+  }
+
   return (
     <Pressable
       onPress={() => navigation.navigate('TransactionModal', {
+        user,
         transaction
       })}
     >
-      <View style={[styles.card, styles.businessListItemCard]}>
+      <View style={styles.transactionListed}>
 
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{transaction.userID}</Text>
-          <Text style={styles.address}>{transaction.value}</Text>
-          <Text style={styles.pocket}>{transaction.date}</Text>
-        </View>
+        <Text style={styles.transactionListedAmountText}>
+          {transaction.date.split("T")[1].split(".")[0]}
+        </Text>
+        <Text style={styles.transactionListedMerchantText}>
+          {!user ? null : user.name.split(' ')[0]
+          }
+        </Text>
+        <Text style={styles.transactionListedAmountText}>
+          ${transaction.value}
+        </Text>
 
       </View>
+
 
     </Pressable>
   )
@@ -728,188 +770,3 @@ function pad(n: number, size: number) {
   return num;
 }
 
-export function AnalyticsCard({ title, type, startDate, endDate, data }: any) {
-
-  function renderChart() {
-    if (type == 'bar') {
-      return (
-        <V.VictoryChart
-          height={150}
-          domainPadding={{ x: 25 }}
-          theme={V.VictoryTheme.material}
-          padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
-        >
-          <V.VictoryAxis
-            fixLabelOverlap={true}
-            style={{
-              //tickLabels: {angle: -0},
-            }}
-          />
-          <V.VictoryAxis dependentAxis />
-          <V.VictoryBar data={data} x="x" y="y" />
-        </V.VictoryChart>
-      );
-    } else if (type == 'line') {
-      return (
-        <V.VictoryChart
-          height={150}
-          domainPadding={{ x: 25 }}
-          theme={V.VictoryTheme.material}
-          padding={{ top: 20, bottom: 30, left: 50, right: 50 }}
-        >
-          <V.VictoryAxis
-            fixLabelOverlap={true}
-            style={{
-              //tickLabels: {angle: -30}
-            }}
-          />
-          <V.VictoryAxis dependentAxis />
-          <V.VictoryLine data={data} x="x" y="y" />
-        </V.VictoryChart>
-      );
-    } else if (type == 'text') {
-      return <Text style={styles.changeLg} >{data}</Text>;
-    } else if (type == 'text-sales') {
-      return (
-        <View>
-          <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <Text style={{
-                  fontFamily: 'metropolis medium', 
-                  fontSize: 14,
-                  color: colors.subtle,
-                  justifyContent: 'flex-start',
-                  lineHeight: 30}} >
-                  GROSS SALES</Text>
-              </View>
-              <View>
-                <Text style={{
-                  fontFamily: 'metropolis extrabold', 
-                  fontSize: 24,
-                  color: colors.gold,
-                  textAlign: "right",
-                  lineHeight: 30}} >${data.gross_sales}</Text>
-              </View>
-          </View>
-
-          <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <Text style={{
-                  fontFamily: 'metropolis medium', 
-                  fontSize: 14,
-                  color: colors.subtle,
-                  justifyContent: 'flex-start',
-                  lineHeight: 30}} >
-                  CHANGE ISSUED</Text>
-              </View>
-              <View>
-                <Text style={{
-                  fontFamily: 'metropolis extrabold', 
-                  fontSize: 20,
-                  color: colors.subtle,
-                  textAlign: "right",
-                  lineHeight: 30}} >${data.change_issued}</Text>
-              </View>
-          </View>
-          
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
-              <Text style={{
-                fontFamily: 'metropolis medium', 
-                fontSize: 14,
-                color: colors.subtle,
-                justifyContent: 'flex-start',
-                lineHeight: 30}} >
-                REFUNDS</Text>
-            </View>
-            <View>
-              <Text style={{
-              fontFamily: 'metropolis extrabold', 
-              fontSize: 20,
-              color: colors.subtle,
-              textAlign: "right",
-              lineHeight: 30}} >${data.refunds_issued}</Text>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
-              <Text style={{
-                fontFamily: 'metropolis medium', 
-                fontSize: 14,
-                color: colors.subtle,
-                justifyContent: 'flex-start',
-                lineHeight: 30}} >
-                NET SALES</Text>
-            </View>
-            <View>
-              <Text style={{
-                fontFamily: 'metropolis extrabold', 
-                fontSize: 20,
-                color: "green",
-                justifyContent: 'flex-end',
-                lineHeight: 30}} >${data.net_sales}</Text>
-            </View>
-          </View>
-
-        </View>
-      );
-    } else if (type == 'list') {
-      const listItems = data.map(
-        (item) => <Text>{item}</Text>
-      );
-      return (
-        <View>{listItems}</View>
-      );
-    } else if (type == 'pie') {
-      const legendData = data.map(
-        (item) => ({ name: item.x + " (" + item.y + ")" })
-      );
-      return (
-        <View style={{flexDirection: 'row', alignContent: 'center'}}>
-          <Svg width="50%" height={150}>
-            <V.VictoryPie
-              standalone={false}
-              height={150}
-              width={150}
-              padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
-              //labelPlacement="parallel"
-              //labelPosition="centroid"
-              labelComponent={<></>}
-              //startAngle={0}
-              //endAngle={180}
-              //labelRadius={0}
-              innerRadius={40}
-              //padAngle={1}
-              theme={V.VictoryTheme.material}
-              data={data}
-              x="x"
-              y="y" />
-            </Svg>
-            <Svg width="50%" height={150}>
-            <V.VictoryLegend
-              y={10}
-              height={50}
-              //itemsPerRow={2}
-              standalone={false}
-              theme={V.VictoryTheme.material}
-              orientation='vertical'
-              data={legendData}
-            //height={200}
-            />
-          </Svg>
-        </View>
-      );
-    }
-  }
-
-  return (
-    <View style={[styles.card, styles.analyticsCard]}>
-      
-      <Text style={styles.analyticsTitle}>{ title }</Text>
-
-      {renderChart()}
-
-    </View>
-  )
-}

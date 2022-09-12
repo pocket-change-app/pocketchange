@@ -29,6 +29,9 @@ import { useAuth } from '../contexts/Auth';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import ViewPDFScreen from '../screens/ViewPDFScreen';
 import SettingsAboutScreen from '../screens/SettingsAboutScreen';
+import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
+import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
+import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +46,7 @@ export const ConsumerNavigation = () => {
         // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         headerTintColor: colors.gold,
         headerShadowVisible: false,
       }}
@@ -82,6 +86,7 @@ function PocketStack() {
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
         headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerBackButtonMenuEnabled: true,
         // headerTitle: 'Pockets',
       }}
@@ -96,7 +101,8 @@ function PocketStack() {
         name="Pocket"
         component={PocketScreen}
         options={({ route }) => ({
-          title: route.params.pocket.name
+          title: ''//route.params.pocket.name,
+          //headerTitleStyle: styles.navigationHeaderPocketTitle
         })}
       />
 
@@ -133,6 +139,7 @@ function PayStack() {
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false, // finding this was really annoying
         headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerBackButtonMenuEnabled: true,
       }}
     >
@@ -208,6 +215,7 @@ function PaymentModalStack() {
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
         headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerBackButtonMenuEnabled: true,
         headerRight: () => (
           <Pressable
@@ -267,6 +275,14 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={({ navigation }: any) => ({
+          presentation: 'modal',
+          headerShown: false,
+        })}
+      />
     </Stack.Navigator >
   )
 }
@@ -283,6 +299,7 @@ function WalletStack() {
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerShadowVisible: false,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         headerTintColor: colors.gold,
       }}
     >
@@ -357,6 +374,28 @@ function WalletStack() {
           title: route.params.title
         })}
       />
+      <Stack.Screen
+        name="BusinessWizardProfile"
+        component={BusinessWizardProfileScreen}
+        options={{
+          title: 'Create Profile',
+        }}
+      />
+      <Stack.Screen
+        name="BusinessWizardStripe"
+        component={BusinessWizardStripeScreen}
+        options={{
+          title: 'Bank Information',
+        }}
+      />
+      <Stack.Screen
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={({ navigation }: any) => ({
+          presentation: 'modal',
+          headerShown: false,
+        })}
+      />
     </Stack.Navigator>
   )
 }
@@ -377,6 +416,7 @@ const BottomTabConsumer = () => {
         tabBarActiveTintColor: colors.dark,
         tabBarInactiveTintColor: colors.subtle,
         tabBarShowLabel: false,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerTitleStyle: styles.navigationHeaderTitle,
         // headerStyle: styles.navigationHeader,
         // headerShadowVisible: false,

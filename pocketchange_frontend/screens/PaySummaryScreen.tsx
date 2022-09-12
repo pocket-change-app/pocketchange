@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const { businessID, name, address, pocket, imageURL, amount, tip } = route.params;
+  const { business, amount, tip } = route.params;
 
   const [useChange, setUseChange] = useState(true)
 
@@ -36,11 +36,13 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
           {/* <CardHeader text='Summary' /> */}
 
           <View style={{ flexDirection: 'row' }}>
+
             <View style={styles.businessListInfo}>
-              <Text style={styles.businessNameSm}>{name}</Text>
-              <Text style={styles.address}>{address}</Text>
-              <Text style={styles.pocket}>{pocket}</Text>
+              <Text style={styles.businessNameSm}>{business.businessName}</Text>
+              <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
+              <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
             </View>
+
           </View>
         </View>
 
@@ -68,7 +70,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         <View style={[styles.card, styles.container]}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {pocket} Change?</Text>
+            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {"TODO: get pocket"} Change?</Text>
             <Switch
               trackColor={{ false: colors.subtle, true: colors.gold }}
               thumbColor={colors.card}
@@ -98,21 +100,25 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         <ButtonWithText
           color={colors.gold}
-          text={'Pay ' + name}
+          text={'Pay ' + business.businessName}
           onPress={() => {
 
             const d = new Date()
             const date = d.toDateString()
             const time = d.toTimeString()
 
-            navigation.popToTop()
-            navigation.goBack()
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Wallet' }],
+            })
+            //navigation.push("Wallet");
+            //navigation.goBack()
 
             console.log('made it')
 
             navigation.navigate("PayConfirmation", {
               // navigation: navigation,
-              businessName: name,
+              business: business,
               subtotal: amount,
               date: date,
               time: time,
