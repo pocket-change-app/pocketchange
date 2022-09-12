@@ -63,14 +63,10 @@ const context = async ({ req }) => {
 const app = express();
 const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
 
-const corsOptions = {
-  origin: ["http://localhost:4000/graphql",]
-};
 
 server.start().then(res => { 
   server.applyMiddleware({
     app,
-    cors: corsOptions,
   });
 })
 
