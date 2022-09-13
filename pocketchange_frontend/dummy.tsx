@@ -370,7 +370,7 @@ export const transactions = [
 
 export const analytics = [
   {
-    sectionTitle: "Favorites",
+    sectionTitle: "Favourites",
     data: [{
       title: "Sales",
       type: 'text-sales',

@@ -24,8 +24,6 @@ import PayAmountScreen from '../screens/PayAmountScreen';
 import PayTipScreen from '../screens/PayTipScreen';
 import PaySummaryScreen from '../screens/PaySummaryScreen';
 import PayConfirmationScreen from '../screens/PayConfirmationScreen';
-import { authService } from '../services/authService';
-import { useAuth } from '../contexts/Auth';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import ViewPDFScreen from '../screens/ViewPDFScreen';
 import SettingsAboutScreen from '../screens/SettingsAboutScreen';
@@ -33,10 +31,16 @@ import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
 
+import { AuthContext } from '../contexts/Auth';
+import { useContext, useEffect } from 'react';
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const ConsumerNavigation = () => {
+
+  const authContext = useContext(AuthContext);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -290,7 +294,6 @@ function PaymentModalStack() {
 
 function WalletStack() {
 
-  const auth = useAuth();
 
   return (
     <Stack.Navigator
@@ -307,21 +310,7 @@ function WalletStack() {
         name="Wallet"
         component={WalletScreen}
         options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
-          headerLeft: () => (
-            <Pressable
-              onPress={auth.switchAccount}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-                // marginRight: 2 * MARGIN,
-              })}>
-              <FontAwesome
-                name='user-circle-o'
-                size={25}
-                color={colors.medium}
-              // style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+        
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}

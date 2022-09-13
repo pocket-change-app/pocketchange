@@ -5,9 +5,9 @@ export default {
         query User($userID: ID){
             user(userID: $userID) {
                 userID
-                username
+                firstName
+                lastName
                 home
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -15,11 +15,11 @@ export default {
         }
     `,
     loginUser: gql`
-        query loginUser($username:String, $password: String){
-            loginUser(username:$username, password: $password) {
+        query loginUser($emailAddress:String, $password: String){
+            loginUser(emailAddress:$emailAddress, password: $password) {
                 userID
-                username
-                home
+                firstName
+                lastName
                 name
                 birthDate
                 totalChange
@@ -31,9 +31,9 @@ export default {
         query getAllUsers($username:String){
             getAllUsers(username:$username) {
                 userID
-                username
+                firstName
+                lastName
                 home
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -44,9 +44,9 @@ export default {
         query getUsersThatLove($businessID:ID){
             getUsersThatLove(businessID:$businessID) {
                 userID
-                username
+                firstName
+                lastName
                 home
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -57,9 +57,9 @@ export default {
     query getTopUsers($businessID:ID, $pocketID: ID, $startDate: Date, $endDate: Date, $userNumber:Int){
         getTopUsers(businessID:$businessID, pocketID: $pocketID, startDate: $startDate, endDate: $endDate, userNumber: $userNumber) {
             userID
-            username
+            firstName
+            lastName
             home
-            name
             birthDate
             totalChange
             emailAddress

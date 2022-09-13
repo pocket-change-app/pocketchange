@@ -5,8 +5,12 @@ import { ScreenContainer, Text, View } from '../components/Themed';
 import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/Auth';
 
 export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   // console.log(route)
   const { business } = route.params;

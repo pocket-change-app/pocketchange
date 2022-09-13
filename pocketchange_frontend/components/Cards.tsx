@@ -6,8 +6,6 @@ import { user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 
-
-;
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
@@ -412,12 +410,9 @@ export function TransactionListed({ navigation, transaction }: any) {
 
 export function Receipt({ navigation, transaction }: any) {
 
-  console.log("TRANS", transaction)
-
   const businessID= transaction.businessID
   const {business, loading} =  useBusinessQuery(businessID)
 
-  console.log("REECEOIPT REACHED")
   if(R.isNil(business) ){
     return null
   }
@@ -429,7 +424,7 @@ export function Receipt({ navigation, transaction }: any) {
     return null
   }
   //const address = business.address
-  console.log(business, pocket)
+  //console.log(business, pocket)
   return (
     <>
       <View style={[styles.container]}>
@@ -557,8 +552,6 @@ export function ButtonWithText({
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
 
   const { user, loading, refetch } = useUserQuery(transaction.userID)
-
-  console.log("USER:", user)
 
   if (isNilOrEmpty(user)) {
     return (null)

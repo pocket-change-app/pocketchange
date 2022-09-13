@@ -14,17 +14,16 @@ export default function useGetLovedBusinessesQuery(
     variables: {userID},
     fetchPolicy: 'network-only',
   })
-  console.log("INSIDE APOLLO HOOK")
-  console.log(data)
-  console.log('is not Nil ?', RA.isNotNil(data) )
+  //console.log("INSIDE APOLLO HOOK")
+  //console.log(data)
+  //console.log('is not Nil ?', RA.isNotNil(data) )
   useEffect(() => {
     if (RA.isNotNil(data) ) {
-      console.log("got data lol")
+      //console.log("got data lol")
       const {getLovedBusinessesByUser} = data
-      console.log(getLovedBusinessesByUser)
+      //console.log(getLovedBusinessesByUser)
       setBusinesses(getLovedBusinessesByUser)
     }
-    console.log("in use effect")
   }, [data])
 
   return {businesses, loading, refetch}

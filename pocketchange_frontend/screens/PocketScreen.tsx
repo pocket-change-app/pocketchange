@@ -8,12 +8,15 @@ import { BusinessCard, BusinessCardSm, DivHeader, PocketDetailCard } from '../co
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
+import { AuthContext } from '../contexts/Auth';
 
 
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const pocket = route.params.pocket;
 

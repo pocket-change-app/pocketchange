@@ -20,13 +20,16 @@ import WalletScreen from '../screens/WalletScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
-import { authService } from '../services/authService';
-import { useAuth } from '../contexts/Auth';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/Auth';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const MerchantNavigation = () => {
+
+  const authContext = useContext(AuthContext);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -129,7 +132,7 @@ function AnalyticsStack() {
 
 function SettingsStack() {
 
-  const auth = useAuth();
+  //const auth = useAuth();
 
   return (
     <Stack.Navigator

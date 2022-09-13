@@ -7,9 +7,12 @@ import { ConsumerNavigation } from "../navigation/ConsumerNavigation";
 import { user } from "../dummy";
 import { getBackgroundColorAsync } from "expo-system-ui";
 import { Switch } from 'react-native'
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../contexts/Auth";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const { business, amount, tip } = route.params;
 

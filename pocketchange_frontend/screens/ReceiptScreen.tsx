@@ -5,8 +5,12 @@ import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
 import { PaySummaryCard, Receipt } from '../components/Cards';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/Auth';
 
 export default function ConsumerTransactionScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const { transaction } = route.params;
 

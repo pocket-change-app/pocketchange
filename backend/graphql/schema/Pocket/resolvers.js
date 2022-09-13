@@ -48,7 +48,7 @@ module.exports = {
             return joinByPocketID(mongoPocketInfo, isMemberInfo)
           } 
           //return mongoPocketInfo, if empty it will return an empty list indicating that no businesses matching this criteria were found
-          console.log(mongoPocketInfo)
+          //(mongoPocketInfo)
           if(mongoPocketInfo)
             return mongoPocketInfo
           else {

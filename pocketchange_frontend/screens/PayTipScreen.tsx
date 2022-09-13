@@ -3,11 +3,14 @@ import { View, Text, ScreenContainer } from '../components/Themed'
 import { ButtonWithText, PayAmountCardSm, CardHeader, PayTipCard } from '../components/Cards'
 import { KeyboardAvoidingView, Platform, Pressable, TextInput, TimePickerAndroid } from "react-native";
 import { HorizontalLine } from "../components/Lines";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { colors } from "../constants/Colors";
 import { Button } from "@rneui/base";
+import { AuthContext } from "../contexts/Auth";
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const { business, amount } = route.params;
 

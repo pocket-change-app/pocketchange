@@ -1,124 +1,214 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthData, authService } from '../services/authService';
+//import { AuthData, authService } from '../services/authService';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+//import { useUserQuery } from '../hooks-apollo/index'
+import UserQueries from '../hooks-apollo/User/queries';
+
+import { isNilOrEmpty } from 'ramda-adjunct';
+import { useLazyQuery } from '@apollo/client';
+
+
+enum RoleType {
+  Consumer = "CONSUMER",
+  Merchant = "MERCHANT",
+  Leader = "LEADER"
+}
+
+type Role = {
+  type: RoleType, // 'consumer', 'merchant', or 'leader'
+  level?: String, // permission level if 'merchant' or 'leader'
+  entity?: String, // if 'merchant' then the business, if 'leader' then the pocket, else null
+};
 
 type AuthContextData = {
-  authData?: AuthData;
-  signedInAs: string; // if account type is merchant, then this is merchant or consumer, if account type is consumer then its only consumer
-  loading: boolean;
-  signIn(): Promise<void>;
-  signOut(): void;
-  switchAccount(): void;
+  userFirebase: User,
+  userGQL: Object,
+  setUserGQL(user): void,
+  activeRole: Role, 
+  switchActiveRole(role: Role): void,
+  signOut(): void,
+  loading: boolean,
 };
 
 //Create the Auth Context with the data type specified
 //and a empty object
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+export const AuthContext = createContext({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
-  const [authData, setAuthData] = useState<AuthData>();
+export const AuthProvider = ({ children }: { children: any }) => {
 
-  //the AuthContext start with loading equals true
-  //and stay like this, until the data be load from Async Storage
+  const [userFirebase, setUserFirebase] = useState<User>({} as User);
+  const [userGQL, setUserGQL] = useState({});
+  const [activeRole, setActiveRole] = useState<Role>({} as Role);
   const [loading, setLoading] = useState(true);
 
-  const [signedInAs, setSignedInAs] = useState("consumer");
+  // lazy query definition: GQL users for firebase uid 
+  const [loadUserGQL, { called, data, error }] = useLazyQuery(
+    UserQueries.user, 
+    {onCompleted(data) {setUserGQL(data.user)}, 
+    onError(error) {console.log("AUTH ERROR: firebase user not found in GQL")}});
+
+  // run on when userFirebase changes
+  useEffect(() => {
+    setActiveRole({type: RoleType.Consumer});// change this to use saved state or check roles via a resolver
+    if (!(isNilOrEmpty(userFirebase))) {
+      loadUserGQL({variables: {userID: userFirebase.uid}})
+    }
+  },[userFirebase]) // <-- here put the parameter to listen 
+  
+  // called when firebase auth state changes
+  const handleAuthStateChanged = ((userFirebase: User) => {
+    if (!(isNilOrEmpty(userFirebase))) {
+      setUserFirebase(userFirebase);
+    } else {
+      setUserFirebase({} as User);
+      setUserGQL({});
+    }
+    if (loading) setLoading(false);
+  });
+
+  const switchActiveRole = ((role: Role) => {
+    // TODO: check here if signed in user has permission to switch to role
+    if (userFirebase) { // change condition to call hook to GQL
+      setActiveRole(role);
+    }
+  });
+
+  const signOut = (() => {
+    const auth = getAuth();
+    auth.signOut();
+  });
 
   useEffect(() => {
-    AsyncStorage.clear();
-    //Every time the App is opened, this provider is rendered
-    //and call de loadStorage function.
-    loadStorageData();
+    const auth = getAuth()
+    const subscriber = auth.onAuthStateChanged(handleAuthStateChanged);
+    return subscriber;
   }, []);
 
-  async function loadStorageData(): Promise<void> {
-    try {
-      //Try get the data from Async Storage
-      const authDataSerialized = await AsyncStorage.getItem('@AuthData');
-      if (authDataSerialized) {
-        //If there are data, it's converted to an Object and the state is updated.
-        const _authData: AuthData = JSON.parse(authDataSerialized);
-        setAuthData(_authData);
-
-      }
-      const signedInAsSerialized = await AsyncStorage.getItem('@SignedInAs');
-      if (signedInAsSerialized) {
-        const _signedInAs: string = JSON.parse(signedInAsSerialized);
-        console.log("LOADING FROM STORE")
-        console.log(_signedInAs)
-        console.log("____________")
-
-        setSignedInAs(_signedInAs);
-      }
-    } catch (error) {
-    } finally {
-      //loading finished
-      setLoading(false);
-    }
+  const authContextData = {
+    userFirebase: userFirebase,
+    userGQL: userGQL,
+    setUserGQL: setUserGQL,
+    activeRole: activeRole, 
+    switchActiveRole: switchActiveRole,
+    signOut: signOut,
+    loading: loading,
   }
 
-
-  const signIn = async () => {
-    //call the service passing credential (email and password).
-    //In a real App this data will be provided by the user from some InputText components.
-    const _authData = await authService.signIn(
-      'lucasgarcez@email.com',
-      '123456',
-    );
-
-    //Set the data in the context, so the App can be notified
-    //and send the user to the AuthStack
-    setAuthData(_authData);
-
-    // TODO: change this to remember which was signed in
-    setSignedInAs('merchant');
-
-    //Persist the data in the Async Storage
-    //to be recovered in the next user session.
-    AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
-    AsyncStorage.setItem('@SignedInAs', JSON.stringify(signedInAs));
-  };
-
-  const signOut = async () => {
-    //Remove data from context, so the App can be notified
-    //and send the user to the AuthStack
-    setAuthData(undefined);
-
-    //Remove the data from Async Storage
-    //to NOT be recoverede in next session.
-    await AsyncStorage.removeItem('@AuthData');
-  };
-
-  const switchAccount = async () => {
-    if (authData.type === "merchant") {
-      if (signedInAs === "merchant") {
-        setSignedInAs("consumer");
-      } else {
-        setSignedInAs("merchant");
-      }
-    }
-  }
+  if (loading) return null;
 
   return (
-    //This component will be used to encapsulate the whole App,
-    //so all components will have access to the Context
-    <AuthContext.Provider value={{ authData, signedInAs, loading, signIn, signOut, switchAccount }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authContextData}>{children}</AuthContext.Provider>
   );
 };
 
-//A simple hooks to facilitate the access to the AuthContext
-// and permit components to subscribe to AuthContext updates
-function useAuth(): AuthContextData {
 
-  const context = useContext(AuthContext);
 
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
 
-  return context;
-}
+// const AuthProvider: React.FC = ({ children }) => {
+//   const [authData, setAuthData] = useState<User>();
 
-export { AuthContext, AuthProvider, useAuth };
+//   //the AuthContext start with loading equals true
+//   //and stay like this, until the data be load from Async Storage
+//   const [loading, setLoading] = useState(true);
+
+//   const [signedInAs, setSignedInAs] = useState("consumer");
+
+//   useEffect(() => {
+//     AsyncStorage.clear();
+//     //Every time the App is opened, this provider is rendered
+//     //and call de loadStorage function.
+//     loadStorageData();
+//   }, []);
+
+//   async function loadStorageData(): Promise<void> {
+//     try {
+//       //Try get the data from Async Storage
+//       const authDataSerialized = await AsyncStorage.getItem('@AuthData');
+//       if (authDataSerialized) {
+//         //If there are data, it's converted to an Object and the state is updated.
+//         const _authData: AuthData = JSON.parse(authDataSerialized);
+//         setAuthData(_authData);
+
+//       }
+//       const signedInAsSerialized = await AsyncStorage.getItem('@SignedInAs');
+//       if (signedInAsSerialized) {
+//         const _signedInAs: string = JSON.parse(signedInAsSerialized);
+//         console.log("LOADING FROM STORE")
+//         console.log(_signedInAs)
+//         console.log("____________")
+
+//         setSignedInAs(_signedInAs);
+//       }
+//     } catch (error) {
+//     } finally {
+//       //loading finished
+//       setLoading(false);
+//     }
+//   }
+
+
+//   const signIn = async () => {
+//     //call the service passing credential (email and password).
+//     //In a real App this data will be provided by the user from some InputText components.
+//     const _authData = await authService.signIn(
+//       'lucasgarcez@email.com',
+//       '123456',
+//     );
+
+//     //Set the data in the context, so the App can be notified
+//     //and send the user to the AuthStack
+//     setAuthData(_authData);
+
+//     // TODO: change this to remember which was signed in
+//     setSignedInAs('merchant');
+
+//     //Persist the data in the Async Storage
+//     //to be recovered in the next user session.
+//     AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
+//     AsyncStorage.setItem('@SignedInAs', JSON.stringify(signedInAs));
+//   };
+
+//   const signOut = async () => {
+//     //Remove data from context, so the App can be notified
+//     //and send the user to the AuthStack
+//     setAuthData(undefined);
+
+//     //Remove the data from Async Storage
+//     //to NOT be recoverede in next session.
+//     await AsyncStorage.removeItem('@AuthData');
+//   };
+
+//   const switchAccount = async () => {
+//     if (authData.type === "merchant") {
+//       if (signedInAs === "merchant") {
+//         setSignedInAs("consumer");
+//       } else {
+//         setSignedInAs("merchant");
+//       }
+//     }
+//   }
+
+//   return (
+//     //This component will be used to encapsulate the whole App,
+//     //so all components will have access to the Context
+//     <AuthContext.Provider value={{ authData, signedInAs, loading, signIn, signOut, switchAccount }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// //A simple hooks to facilitate the access to the AuthContext
+// // and permit components to subscribe to AuthContext updates
+// function useAuth(): AuthContextData {
+
+//   const context = useContext(AuthContext);
+
+//   if (!context) {
+//     throw new Error('useAuth must be used within an AuthProvider');
+//   }
+
+//   return context;
+// }
+
+// export { AuthContext, AuthProvider, useAuth };

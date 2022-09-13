@@ -3,22 +3,27 @@ import { Pressable, ScrollView, Button, Image } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable } from "../components/Cards";
 
-import { useAuth } from '../contexts/Auth';
+//import { useAuth } from '../contexts/Auth';
 import { businesses, user } from "../dummy";
 import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/Auth";
 
 
-export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
-  const auth = useAuth();
+export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
+
   const signOut = async () => {
-    await auth.signOut();
+    await authContext.signOut();
   };
 
+  // TODO: hook this up to authContext.switchActiveRole
   const switchAccount = async () => {
-    await auth.switchAccount();
+    //await auth.switchAccount();
   }
 
   const business = businesses.find(b => b.businessName == 'La Paella')

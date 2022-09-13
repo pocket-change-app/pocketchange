@@ -1,30 +1,39 @@
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '../contexts/Auth';
 
-import { useAuth } from '../contexts/Auth';
+//import { useAuth } from '../contexts/Auth';
+//import { useAuthentication } from '../hooks/useAuthentication';
 
 import { SplashScreen } from '../screens/SplashScreen';
 import { AuthStack } from './AuthStack';
 import { ConsumerNavigation } from './ConsumerNavigation';
 import { MerchantNavigation } from './MerchantNavigation';
+import { isNilOrEmpty } from 'ramda-adjunct';
+
 
 
 export const Router = () => {
 
-  const { authData, loading, signedInAs } = useAuth();
+  const authContext = useContext(AuthContext); 
+  console.log("-------------AUTH CONTEXT -----------")
+  console.log("firebase uid:", authContext.userFirebase.uid)
+  console.log("GQL email:", authContext.userGQL.emailAddress)
+  console.log("active role:", authContext.activeRole)
+  console.log("-------------------------------------")
 
-  if (loading) {
+  if (authContext.loading) {
     return <SplashScreen />;
   }
-
   var stack;
-  if (authData) {
-    if (signedInAs === "merchant") {
+  if (isNilOrEmpty(authContext.userGQL)) {
+    stack = <AuthStack />;
+  } else {
+    if (authContext.activeRole.type === "MERCHANT") {
       stack = <MerchantNavigation />;
-    } else if (signedInAs === "consumer") {
+    } else if (authContext.activeRole.type === "CONSUMER") {
       stack = <ConsumerNavigation />;
     }
-  } else {
-    stack = <AuthStack />;
   }
 
   return (

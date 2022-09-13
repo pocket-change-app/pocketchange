@@ -4,22 +4,27 @@ import { SearchBar } from '@rneui/base';
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
-import { BalancesCard, IdCard, DivHeader, BusinessCardSm } from '../components/Cards';
+import { DivHeader, BusinessCardSm } from '../components/Cards';
 import { colors, colorScale } from '../constants/Colors';
 
 import { analytics } from '../dummy';
 
-import { React, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useState, useContext } from 'react';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
+import { AuthContext } from '../contexts/Auth';
+
 const R = require('ramda');
+
+// TODO: add hook call to query all analytics
 
 export default function AnalyticsDashboardScreen() {
 
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState('')
+
+  const authContext = useContext(AuthContext); 
 
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)

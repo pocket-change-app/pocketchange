@@ -5,9 +5,13 @@ import { styles } from '../Styles';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/Auth';
 
 export default function TransactionModalScreen({ route, navigation }: { route: any, navigation: any }) {
-
+  
+  const authContext = useContext(AuthContext); 
+  
   const { transaction, user } = route.params;
 
   return (

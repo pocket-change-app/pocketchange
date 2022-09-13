@@ -14,10 +14,10 @@ export default function useBusinessQuery(
     variables: {businessID},
     fetchPolicy: 'network-only',
   })
-  console.log('business data', data)
+  //console.log('business data', data)
   useEffect(() => {
     if (RA.isNotNil(data)) {
-      console.log('businesss data inside', data.business)
+      //console.log('businesss data inside', data.business)
       // allBusinesses query is aliased as getAllBusinesses
       const {business} = data
       setBusiness(business)

@@ -4,8 +4,9 @@ import gold from '../constants/Colors';
 
 export const SplashScreen = () => {
   return (
+    // todo: add cool pocket change logo
     <ScreenContainer>
-      <Text>HELLLOOOO</Text>
+      <Text>SPLASH SCREEn</Text>
     </ScreenContainer>
   );
 }

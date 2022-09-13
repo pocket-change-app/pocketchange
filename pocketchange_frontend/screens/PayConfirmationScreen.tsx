@@ -6,9 +6,13 @@ import { colors } from "../constants/Colors";
 import { user } from "../dummy";
 import { MARGIN, styles } from "../Styles";
 import TextTicker from 'react-native-text-ticker'
+import { useContext } from "react";
+import { AuthContext } from "../contexts/Auth";
 
 
 export default function PayConfirmationScreen({ route, navigation }: any) {
+
+  const authContext = useContext(AuthContext); 
 
   const { business, subtotal, date, time } = route.params;
 

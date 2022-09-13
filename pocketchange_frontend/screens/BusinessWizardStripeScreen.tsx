@@ -1,26 +1,25 @@
 import { isNumber } from "ramda-adjunct";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
+import * as WebBrowser from 'expo-web-browser';
+import { AuthContext } from "../contexts/Auth";
 
 
 export default function BusinessWizardStripeScreen({ route, navigation }: { route: any, navigation: any }) {
 
+  const authContext = useContext(AuthContext); 
+
   const { business } = route.params
 
-  const [routingNumber, setRoutingNumber] = useState('')
-  const [accountNumber, setAccountNumber] = useState('')
-  // const [address, setAddress] = useState('')
-  // const [addressLineTwo, setAddressLineTwo] = useState('')
-  // const [zipCode, setZipCode] = useState('')
-
-  const ref_accountNumber = useRef();
-  // const ref_address = useRef();
-  // const ref_zipCode = useRef();
-
+  const [result, setResult] = useState(null);
+  const handleStripeFlowRedirect = async () => {
+    let result = await WebBrowser.openBrowserAsync('https://expo.dev');
+    setResult(result);
+  };
 
   return (
     <ScreenContainer>
@@ -41,59 +40,17 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
           {/* <View style={{ flexDirection: 'row' }}> */}
 
-          <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-            <Text style={styles.prose}>
-              Routing Number
-            </Text>
-
-            <TextInput
-              // autoFocus={true}
-              returnKeyType="next"
-              selectionColor={colors.gold}
-              // autoCapitalize='words'
-              style={styles.receipt}
-              keyboardType='number-pad'
-              // value={firstName}
-              onChangeText={setRoutingNumber}
-              placeholder={'12345678'}
-              placeholderTextColor={colors.subtle}
-              onSubmitEditing={() => ref_accountNumber.current.focus()}
-            />
-          </View>
-
-          <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-            <Text style={styles.prose}>
-              Account Number
-            </Text>
-
-            <TextInput
-
-              multiline
-              numberOfLines={2}
-              // autoFocus={true}
-              // returnKeyType="next"
-              selectionColor={colors.gold}
-              // autoCapitalize='sentences'
-              style={styles.receipt}
-              keyboardType='number-pad'
-              // value={firstName}
-              onChangeText={setAccountNumber}
-              placeholder={'123456789'}
-              placeholderTextColor={colors.subtle}
-              ref={ref_accountNumber}
-            // onSubmitEditing={() => ref_inputLast.current.focus()}
-            />
-          </View>
-
-
+      
 
           <ButtonWithText
-            text='Create PocketChange Business'
+            text='Setup with Stripe'
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={null}
+            onPress={handleStripeFlowRedirect}
           />
+
+          <Text>{result && JSON.stringify(result)}</Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </ScreenContainer>

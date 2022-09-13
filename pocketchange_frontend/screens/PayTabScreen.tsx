@@ -9,14 +9,17 @@ import { BusinessCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
 import { Text, View } from '../components/Themed';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { HorizontalLine } from '../components/Lines';
 import { useGetLovedBusinessesQuery } from '../hooks-apollo';
 import { isNilOrEmpty } from 'ramda-adjunct';
+import { AuthContext } from '../contexts/Auth';
 
 const R = require('ramda');
 
 export default function PayTabScreen({ navigation }: { navigation: any }) {
+
+    const authContext = useContext(AuthContext); 
 
     const userID = '1c'
     const { businesses, loading, refetch } = useGetLovedBusinessesQuery(userID)

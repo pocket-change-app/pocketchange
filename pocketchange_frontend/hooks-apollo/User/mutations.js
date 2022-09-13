@@ -2,12 +2,12 @@ import {gql } from '@apollo/client';
 
 export default {
     registerUser: gql`
-        mutation RegisterUser($username: String, $name: String, $home: String, $birthDate: Date, $password: String, $emailAddress: String){
-            registerUser(username:$username, name: $name, home: $home, birthDate: $birthDate, emailAddress: $emailAddress, password: $password) {
+        mutation registerUser($userID: ID, $firstName: String, $lastName: String, $home: String, $birthDate: Date, $emailAddress: String){
+            registerUser(userID: $userID, firstName: $firstName, lastName: $lastName, home: $home, birthDate: $birthDate, emailAddress: $emailAddress) {
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -18,9 +18,9 @@ export default {
         mutation deactivateUser($userID: ID){
             deactivateUser(userID:$userID){
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -31,9 +31,9 @@ export default {
         mutation updatePassword($userID: ID, $password: String){
             updatePassword(userID:$userID, password: $password){
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -41,12 +41,12 @@ export default {
       }
     `,
     updateUserProfile: gql`
-    mutation updateUserProfile($username: String, $name: String, $home: String, $birthDate: Date, $emailAddress: String){
-        updateUserProfile(username:$username, name: $name, home: $home, birthDate: $birthDate, emailAddress: $emailAddress) {
+    mutation updateUserProfile($userID: String, $firstName: String, $lastName: String, $home: String, $birthDate: Date, $emailAddress: String){
+        updateUserProfile(userID: $userID, firstName: $firstName, lastName: $lastName, home: $home, birthDate: $birthDate, emailAddress: $emailAddress) {
             userID
+            firstName
+            lastName
             home
-            username
-            name
             birthDate
             totalChange
             emailAddress
@@ -57,9 +57,9 @@ export default {
         mutation loveOrUnloveBusiness($userID: ID, $businessID: ID){
             loveOrUnloveBusiness(userID:$userID, businessID: $businessID) {
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -69,9 +69,9 @@ export default {
         mutation updateUserLocations($userID: ID, $latitude: Float, $longitude: Float){
             updateUserLocations(userID:$userID, latitude: $latitude, longitude: $longitude) {
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -81,9 +81,9 @@ export default {
         mutation addUserRole($userID: ID, $role: String, $businessID: ID){
             addUserRole(userID:$userID, role: $role, businessID: $businessID) {
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress
@@ -93,9 +93,9 @@ export default {
         mutation removeUserRole($userID: ID, $role: String, $businessID: ID){
             removeUserRole(userID:$userID, role: $role, businessID: $businessID) {
                 userID
+                firstName
+                lastName
                 home
-                username
-                name
                 birthDate
                 totalChange
                 emailAddress

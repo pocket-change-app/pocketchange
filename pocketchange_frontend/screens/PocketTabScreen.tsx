@@ -7,13 +7,17 @@ import { PocketListCard, PocketListSeparator, PocketSearchResult } from "../comp
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
+import { AuthContext } from '../contexts/Auth';
 
 const R = require('ramda');
 
 
 export default function PocketTabScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const authContext = useContext(AuthContext); 
+  
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState(pockets)
 

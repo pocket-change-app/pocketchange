@@ -3,22 +3,27 @@ import { Pressable, ScrollView, Button } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { DivHeader, SettingPressable } from "../components/Cards";
 
-import { useAuth } from '../contexts/Auth';
+//import { useAuth } from '../contexts/Auth';
 import { user } from "../dummy";
 import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/Auth";
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
-  const auth = useAuth();
+
+  const authContext = useContext(AuthContext); 
+
   const signOut = async () => {
-    await auth.signOut();
+    await authContext.signOut();
   };
 
+  // TODO: hook this up to authContext.switchActiveRole
   const switchAccount = async () => {
-    await auth.switchAccount();
+    //await auth.switchAccount();
   }
 
 

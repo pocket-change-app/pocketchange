@@ -14,6 +14,8 @@ import useCachedResources from './hooks/useCachedResources';
 import { Text, TextInput } from 'react-native';
 import { apolloClient } from './apollo'
 
+import './config/firebase';
+
 
 export default function App() {
 

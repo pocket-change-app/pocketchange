@@ -1,6 +1,6 @@
 import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image } from 'react-native';
 import { SearchBar } from '@rneui/base';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { styles, MARGIN } from '../Styles';
 //import { transactions } from '../dummy';
@@ -12,9 +12,12 @@ import { colors } from '../constants/Colors';
 
 
 import { isNilOrEmpty } from 'ramda-adjunct';
+import { AuthContext } from '../contexts/Auth';
 const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   // TODO: remove hard coded value, get logged in business
   const business = {

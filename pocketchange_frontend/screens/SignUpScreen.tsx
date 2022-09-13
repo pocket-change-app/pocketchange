@@ -1,5 +1,5 @@
 import { StatusBar } from "react-native";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
@@ -8,6 +8,13 @@ import { MARGIN, styles } from "../Styles";
 
 import { useMutation } from '@apollo/react-hooks'
 import UserMutations from '../hooks-apollo/User/mutations'
+
+
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { AuthContext } from '../contexts/Auth';
+
+import { isNilOrEmpty } from 'ramda-adjunct';
+
 
 
 export default function SignUpScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -19,16 +26,69 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const [homePostalCode, setHomePostalCode] = useState('')
   const [password, setPassword] = useState('')
 
+  const [signUpError, setSignUpError] = useState('')
+
   const ref_inputLast = useRef();
   const ref_inputEmail = useRef();
   const ref_inputBirthDate = useRef();
   const ref_inputHomePostalCode = useRef();
   const ref_inputPass = useRef();
 
-  const [useRegisterUserMutation, {loading, data, error}] = useMutation(UserMutations.registerUser)
+  const auth = getAuth();
+  const authContext = useContext(AuthContext);
 
-  if (loading) return <Text>{'Submitting...'}</Text>;
-  if (error) return <Text>Submission Error!{console.log(JSON.stringify(error, null, 2))}</Text>;
+  const [useRegisterUserMutation, {loading, error}] = useMutation(
+    UserMutations.registerUser, {
+      onCompleted(data) {authContext.setUserGQL(data.registerUser)}, 
+      onError(error) {console.log(error)}
+  })
+
+  if (error) console.log(error);
+
+  if (authContext.loading || loading) return <Text>{'Submitting...'}</Text>;
+
+  async function signUp() {
+
+    //setFirstname("Elias")
+    //setLastName("Williams")
+    //setEmailAddress("elias.williams1216@gmail.com")
+    //setBirthDate("1998-12-16")
+    //setHomePostalCode("M4L3A2")
+    //setPassword("password123")
+
+    if (emailAddress === '' || password === '') {
+      setSignUpError('Email and password are mandatory.')
+      return;
+    }
+  
+    try {
+      await createUserWithEmailAndPassword(auth, emailAddress, password).then(
+        (userCredential) => {
+          //console.log("ABOUT TO REGISTER USER")
+          useRegisterUserMutation({
+            variables: {
+                userID: userCredential.user.uid,
+                firstName: firstName, 
+                lastName: lastName,
+                home: homePostalCode, 
+                birthDate: birthDate, 
+                emailAddress: emailAddress, 
+            }
+          }).then(
+            res => authContext.setUserGQL(res.data),
+            err => console.log(err)
+          );
+          //console.log("AFTER MUTUATION CALL")
+
+        }
+      );
+    } catch (firebaseError) {
+      setSignUpError(firebaseError);
+      console.log(signUpError)
+      return
+    }
+
+  }
 
   return (
     <ScreenContainer>
@@ -123,7 +183,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             //keyboardType='email-address'
             // value={email}
             onChangeText={setBirthDate}
-            placeholder={'December 25th, 1'}
+            placeholder={'YYYY-DD-MM'}
             placeholderTextColor={colors.subtle}
             ref={ref_inputBirthDate}
             onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
@@ -182,20 +242,12 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
           color={
             (emailAddress != '' && password != '') ? colors.gold : colors.subtle
           }
-          onPress={e => {
-              e.preventDefault();
-              const fullName = firstName.concat(" ", lastName);
-              useRegisterUserMutation({
-                variables: {
-                    username: emailAddress, // temporary fix, need ot remove username field from backend
-                    name: fullName, 
-                    home: homePostalCode, 
-                    birthDate: birthDate, 
-                    emailAddress: emailAddress, 
-                    password: password
-                }});
-            }}
+          onPress={signUp}
         />
+
+        <Text style={[styles.prose, {color:"red"}]}>
+          {signUpError.code}
+        </Text>
 
       </KeyboardAvoidingView>
     </ScreenContainer>

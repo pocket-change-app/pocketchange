@@ -1,13 +1,16 @@
 import { isNumber } from "ramda-adjunct";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
+import { AuthContext } from "../contexts/Auth";
 import { MARGIN, styles } from "../Styles";
 
 
 export default function BusinessWizardProfileScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const [busName, setBusName] = useState('')
   const [busBio, setBusBio] = useState('')

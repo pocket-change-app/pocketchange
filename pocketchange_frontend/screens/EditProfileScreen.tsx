@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { TextInput } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { ScreenContainer, Text, View } from "../components/Themed";
@@ -7,8 +7,11 @@ import { user } from "../dummy";
 import { MARGIN, styles } from "../Styles";
 //import DateTimePicker from '@react-native-community/datetimepicker';
 import { ButtonWithText } from "../components/Cards";
+import { AuthContext } from "../contexts/Auth";
 
 export default function EditProfileScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const authContext = useContext(AuthContext); 
 
   const [firstName, setFirstName] = useState(user.name.first)
   const [lastName, setLastName] = useState(user.name.last)
@@ -133,6 +136,8 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
           />
         </View>
 
+        {// TODO: make this work
+        }
         <ButtonWithText
           text='Save'
           color={colors.gold}
