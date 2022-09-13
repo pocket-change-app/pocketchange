@@ -5,7 +5,7 @@ import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
-import * as WebBrowser from 'expo-web-browser';
+//import * as WebBrowser from 'expo-web-browser';
 import { AuthContext } from "../contexts/Auth";
 
 
@@ -17,7 +17,7 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
   const [result, setResult] = useState(null);
   const handleStripeFlowRedirect = async () => {
-    let result = await WebBrowser.openBrowserAsync('https://expo.dev');
+    //let result = await WebBrowser.openBrowserAsync('https://expo.dev');
     setResult(result);
   };
 
