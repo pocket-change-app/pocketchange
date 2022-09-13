@@ -22,6 +22,8 @@ import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
+import SettingsTippingScreen from '../screens/SettingsTippingScreen';
+import EditEmployeesScreen from '../screens/EditEmployeesScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -167,6 +169,22 @@ function SettingsStack() {
         })}
       />
 
+      <Stack.Screen
+        name="EditEmployees"
+        component={EditEmployeesScreen}
+        options={{
+          title: "Employees",
+        }}
+      />
+
+      <Stack.Screen
+        name="SettingsTipping"
+        component={SettingsTippingScreen}
+        options={{
+          title: "Tipping",
+        }}
+      />
+
     </Stack.Navigator>
   )
 }
@@ -211,7 +229,7 @@ const BottomTabMerchant = () => {
           tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
         })}
       />
-      
+
       <BottomTab.Screen
         name="SettingsStack"
         component={SettingsStack}

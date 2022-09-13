@@ -608,7 +608,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 45,
     alignItems: 'center',
-    paddingHorizontal: MARGIN / 2,
+    paddingHorizontal: MARGIN,
   },
 
   settingIcon: {

@@ -1,7 +1,7 @@
+const express = require("express");
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 //const Mongoose = require('mongoose');
-const express = require("express");
 const { MongoClient } = require ('mongodb');
 
 //get SQL data
@@ -51,7 +51,9 @@ const context = async ({ req }) => {
     //schema Mongo
     mongoUser,
     mongoBusiness,
-    mongoPocket
+    mongoPocket,
+    //mongoose connection
+    mongoose,
 
   }
 }
@@ -59,10 +61,13 @@ const context = async ({ req }) => {
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers, context });
-server.start().then(res => {
-    server.applyMiddleware({ app }) 
-    console.log("RES", res)
+const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
+
+
+server.start().then(res => { 
+  server.applyMiddleware({
+    app,
+  });
 })
 
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE

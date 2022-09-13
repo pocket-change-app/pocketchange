@@ -1,12 +1,19 @@
 import { useContext, useRef, useState } from "react";
-import { TextInput } from "react-native";
+import { Button, TextInput } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { user } from "../dummy";
 import { MARGIN, styles } from "../Styles";
+import {useCreateUploadFileMutation} from '../hooks-apollo/index';
 //import DateTimePicker from '@react-native-community/datetimepicker';
 import { ButtonWithText } from "../components/Cards";
+import * as ImagePicker from 'expo-image-picker';
+import { ReactNativeFile } from 'apollo-upload-client';
+import * as mime from 'react-native-mime-types';
+
+
+const R = require('ramda');
 import { AuthContext } from "../contexts/Auth";
 
 export default function EditProfileScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -18,12 +25,47 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
   const [birthday, setBirthday] = useState(new Date(user.dateOfBirth))
   const [gender, setGender] = useState(user.gender)
   const [zipCode, setZipCode] = useState(user.address.zipCode)
+  const [pickedImagePath, setPickedImagePath] = useState('')
+
+  const generateRNFile = (uri: string, name: string)=> {
+    return uri ? new ReactNativeFile({
+      uri,
+      type: mime.lookup(uri) || 'image',
+      name,
+    }) : null;
+  }
 
   const ref_inputLast = useRef();
+  const objectID ='1c'
 
+  const showImagePicker = async () => {
+    // Ask the user for the permission to access the media library 
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this app to access your photos!");
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+      console.log("RES", result)
+      //const file = generateRNFile(result.uri, `picture-${Date.now()}`); 
+      //console.log(file)
+    }
+  }
   return (
     <ScreenContainer>
       <View style={styles.container}>
+      <ButtonWithText
+          color={colors.gold}
+          text={'Upload photo '}
+          onPress={ showImagePicker}/>
         <View style={[{ flexDirection: 'row' }]}>
           <View style={[styles.signUpInputText, { flex: 2, marginBottom: MARGIN, marginRight: MARGIN }]}>
             <Text style={styles.prose}>

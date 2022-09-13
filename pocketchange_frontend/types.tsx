@@ -50,6 +50,8 @@ export type RootStackParamList = {
   Analytics: undefined;
 
   MerchantSettings: undefined;
+  EditEmployees: undefined;
+  SettingsTipping: undefined;
 
 };
 
