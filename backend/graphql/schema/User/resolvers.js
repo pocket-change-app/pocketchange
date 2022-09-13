@@ -13,10 +13,10 @@ module.exports = {
             if (userID == null) {
               return null;
             }
-            //find the mongo and SQL user
-            const userInfo = await User.findOne({ where : {userID: userID}});
+            //find the mongo user
+            //const userInfo = await User.findOne({ where : {userID: userID}});
             const mongoUserInfo = await mongoUser.findOne({ userID});
-            if (userInfo && mongoUserInfo) {
+            if (mongoUserInfo) {
               return {
                 userID: mongoUserInfo.userID,
                 username: mongoUserInfo.username,
@@ -33,8 +33,8 @@ module.exports = {
               return {};
             }
         },
-          loginUser: async (parent, { username, password }, { mongoUser, User}) => {
-            const user = await mongoUser.findOne({ username })
+        loginUser: async (parent, { emailAddress, password }, { mongoUser, User}) => {
+            const user = await mongoUser.findOne({ emailAddress })
             if (user){
               const userTable = await User.findOne({where:{userID: user.userID}})
               if(userTable){
@@ -49,23 +49,23 @@ module.exports = {
                 }
               }
               else {
-                throw new ApolloError(`username:${user.userID} doesn't exist in SQL`);
+                throw new ApolloError(`emailAddress:${user.emailAddress} doesn't exist in SQL`);
               }
             }
             else {
-              throw new ApolloError(`username:${username} doesn't exist in MongoDB`);
+              throw new ApolloError(`emailAddress:${emailAddress} doesn't exist in MongoDB`);
             }
         },
-        getAllUsers: async (parent, { username }, { mongoUser, User}) => {
+        getAllUsers: async (parent, { userID }, { mongoUser, User}) => {
           let mongoUserInfo;
-          if(username != null){
-             mongoUserInfo = await mongoUser.findOne({ username: username })
-             console.log("USER NAME SPEC", mongoUserInfo)
+          if(userID != null){
+             mongoUserInfo = await mongoUser.findOne({ userID: userID })
+             //console.log("USER NAME SPEC", mongoUserInfo)
              if(mongoUserInfo){
               return [{
                 userID: mongoUserInfo.userID,
-                username: mongoUserInfo.username,
-                name: mongoUserInfo.name,
+                firstName: mongoUserInfo.firstName,
+                lastName: mongoUserInfo.lastName,
                 home: mongoUserInfo.home,
                 birthDate: mongoUserInfo.birthDate,
                 totalChange: parseFloat(mongoUserInfo.totalChange).toFixed(2),
@@ -73,7 +73,7 @@ module.exports = {
               }]
              }
              else {
-              throw new ApolloError(`username:${username} doesn't exist in MongoDB`);
+              throw new ApolloError(`userID:${userID} doesn't exist in MongoDB`);
             }
           }
           else{
@@ -87,101 +87,103 @@ module.exports = {
              return []
            }
           }
-      },
-      getUsersThatLove: async (parent, { businessID }, { mongoUser, Loves}) => {
-        //find all users that love business
-        const lovesInfo = await Loves.findAll({where:{businessID: businessID}})
-        //find all users
-        console.log(lovesInfo)
-        let mongoUserInfo = await mongoUser.find({}).lean()
-        if(mongoUserInfo && lovesInfo){
-          //map totalChange values to 2 decimal places
-          mongoUserInfo = mongoUserInfo.map((obj, i) => ({...obj, totalChange: parseFloat(R.prop('totalChange', mongoUserInfo[i])).toFixed(2)}));
-          //join two object arrays by matching userIDs
-          const joinByUserID = R.innerJoin(
-            (a, b) => a.userID === b.userID
-          )
-          return joinByUserID(mongoUserInfo, lovesInfo)
-        }
-        else{
-          return []
-        }
-      },
-      getTopUsers: async (parent, { businessID, pocketID, startDate, endDate, userNumber }, { mongoUser, Transaction, sequelizeConnection}) => {
-        let filterTransactions = []
-        //check to see if type is not null
-        if (businessID != null) {
-          filterTransactions.push({'businessID': businessID})
-        }
-        //check to see if subtype is not null
-        if (pocketID != null) {
-          filterTransactions.push({'pocketID' : pocketID})
-        }
-        //if date specified
-        if(startDate && endDate){
-          filterTransactions.push({date: {
-            [Op.between]: [startDate, endDate]
-          }})
-        }
-        //search through the transactions within a business or pocket
-        let transactionInfo;
-        if (filterTransactions.length == 0) {
-          //no filters specified get all
-          transactionInfo = await Transaction.findAll({    
-            attributes: [ 'userID', [sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), "userCount"]
-            ],
-            group: ["userID"],
-            order: [ [ sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), 'DESC' ]]
-          })
-        } 
-        else {
-          //filters specified
-          transactionInfo = await Transaction.findAll({ 
-            attributes: [ 'userID', [sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), "userCount"]
-            ],
-            where: filterTransactions,
-            group: ["userID"],
-            order: [ [ sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), 'DESC' ]],
-          })
-        }
-        console.log(transactionInfo)
-        transactionInfo = decimalNested(transactionInfo,'value', 'dataValues' )
-        console.log(transactionInfo)
-        if(transactionInfo){
-          let userIDs = R.pluck("userID", transactionInfo);
-          if(userNumber){
-            //cap them at the user Number
-            userIDs = userIDs.slice(0, userNumber);
+        },
+        getUsersThatLove: async (parent, { businessID }, { mongoUser, Loves}) => {
+          //find all users that love business
+          const lovesInfo = await Loves.findAll({where:{businessID: businessID}})
+          //find all users
+          //console.log(lovesInfo)
+          let mongoUserInfo = await mongoUser.find({}).lean()
+          if(mongoUserInfo && lovesInfo){
+            //map totalChange values to 2 decimal places
+            mongoUserInfo = mongoUserInfo.map((obj, i) => ({...obj, totalChange: parseFloat(R.prop('totalChange', mongoUserInfo[i])).toFixed(2)}));
+            //join two object arrays by matching userIDs
+            const joinByUserID = R.innerJoin(
+              (a, b) => a.userID === b.userID
+            )
+            return joinByUserID(mongoUserInfo, lovesInfo)
           }
-          //find matching users
-          let mongoUserInfo = await mongoUser.find({ $and: [{userID: { $in: userIDs } }] }).lean()
-          mongoUserInfo = mongoUserInfo.map((obj, i) => ({...obj, totalChange: parseFloat(R.prop('totalChange', mongoUserInfo[i])).toFixed(2)}));
-          return mongoUserInfo
+          else{
+            return []
+          }
+        },
+        getTopUsers: async (parent, { businessID, pocketID, startDate, endDate, userNumber }, { mongoUser, Transaction, sequelizeConnection}) => {
+          let filterTransactions = []
+          //check to see if type is not null
+          if (businessID != null) {
+            filterTransactions.push({'businessID': businessID})
+          }
+          //check to see if subtype is not null
+          if (pocketID != null) {
+            filterTransactions.push({'pocketID' : pocketID})
+          }
+          //if date specified
+          if(startDate && endDate){
+            filterTransactions.push({date: {
+              [Op.between]: [startDate, endDate]
+            }})
+          }
+          //search through the transactions within a business or pocket
+          let transactionInfo;
+          if (filterTransactions.length == 0) {
+            //no filters specified get all
+            transactionInfo = await Transaction.findAll({    
+              attributes: [ 'userID', [sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), "userCount"]
+              ],
+              group: ["userID"],
+              order: [ [ sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), 'DESC' ]]
+            })
+          } 
+          else {
+            //filters specified
+            transactionInfo = await Transaction.findAll({ 
+              attributes: [ 'userID', [sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), "userCount"]
+              ],
+              where: filterTransactions,
+              group: ["userID"],
+              order: [ [ sequelizeConnection.fn('COUNT', sequelizeConnection.col('userID')), 'DESC' ]],
+            })
+          }
+          //console.log(transactionInfo)
+          transactionInfo = decimalNested(transactionInfo,'value', 'dataValues' )
+          //console.log(transactionInfo)
+          if(transactionInfo){
+            let userIDs = R.pluck("userID", transactionInfo);
+            if(userNumber){
+              //cap them at the user Number
+              userIDs = userIDs.slice(0, userNumber);
+            }
+            //find matching users
+            let mongoUserInfo = await mongoUser.find({ $and: [{userID: { $in: userIDs } }] }).lean()
+            mongoUserInfo = mongoUserInfo.map((obj, i) => ({...obj, totalChange: parseFloat(R.prop('totalChange', mongoUserInfo[i])).toFixed(2)}));
+            return mongoUserInfo
+          }
+          else{ //no transactions found 
+            return []
+          }
         }
-        else{ //no transactions found 
-          return []
-        }
-      }
     },
   
     Mutation: {
         registerUser: async (parent, { 
-          username, 
-          name,
+          userID, 
+          firstName,
+          lastName,
           home,
           birthDate,
-          password,
           emailAddress
         }, { User, mongoUser }) => {
-            const encryptpass = obfuscate(password);
-            const existing = await mongoUser.findOne({ username })
-            if (!existing) {
-              const newUser = await User.create({ salt: encryptpass.salt});
+
+            console.log('IN USER REGISTER RESOLVER')
+            console.log(userID, firstName, lastName)
+            const existingUserID = await mongoUser.findOne({ userID })
+            const existingEmail = await mongoUser.findOne({ emailAddress })
+            if (!(existingUserID | existingEmail)) {
+              //const newUser = await User.create({ salt: encryptpass.salt}); // removed since we're using firebase for authentication
               const newMongoUser = await mongoUser.create({ 
-                userID: newUser.userID, 
-                username:username, 
-                password: encryptpass.hash, 
-                name: name,
+                userID: userID, 
+                firstName: firstName,
+                lastName: lastName,
                 home: home,
                 birthDate: birthDate,
                 totalChange:  parseFloat(0).toFixed(4),
@@ -189,10 +191,11 @@ module.exports = {
                 deactivated: false,
               })
               newMongoUser.save()
+              console.log('USER CREATED,', userID)
               return {
                 userID: newMongoUser.userID,
-                username: newMongoUser.username,
-                name: newMongoUser.name,
+                firstName: newMongoUser.firstName,
+                lastName: newMongoUser.lastName,
                 home: newMongoUser.home,
                 birthDate: newMongoUser.birthDate,
                 totalChange:  parseFloat(newMongoUser.totalChange).toFixed(2),
@@ -240,8 +243,9 @@ module.exports = {
             }
         },
         updateUserProfile: async (parent, { 
-          username, 
-          name,
+          userID, 
+          firstName,
+          lastName,
           home,
           birthDate,
           emailAddress
@@ -251,17 +255,17 @@ module.exports = {
             if (userInfo) {
               const updatedUser = await userInfo.updateOne(
                 {
-                  username: username == null ? userInfo.username : username,
-                  name: name ==null ? userInfo.name : name ,
-                  emailAddress: emailAddress ==null ? userInfo.emailAddress : emailAddress ,
-                  home: home ==null ? userInfo.home : home ,
-                  birthDate: birthDate ==null ? userInfo.birthDate : birthDate ,
+                  firstName: firstName == null ? userInfo.firstName : firstName,
+                  lastName: lastName == null ? userInfo.lastName : lastName,
+                  home: home == null ? userInfo.home : home,
+                  emailAddress: emailAddress == null ? userInfo.emailAddress : emailAddress,
+                  birthDate: birthDate == null ? userInfo.birthDate : birthDate,
                 })
               updatedUser.save()
               return {
                 userID: updatedUser.userID,
-                username: updatedUser.username,
-                name: updatedUser.name,
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
                 home: updatedUser.home,
                 birthDate: updatedUser.birthDate,
                 totalChange:  parseFloat(updatedUser.totalChange).toFixed(2),
@@ -297,8 +301,8 @@ module.exports = {
               //return userInfo
               return {
                 userID: userInfo.userID,
-                username: userInfo.username,
-                name: userInfo.name,
+                firstName: userInfo.firstName,
+                lastName: userInfo.lastName,
                 home: userInfo.home,
                 birthDate: userInfo.birthDate,
                 totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
@@ -309,7 +313,7 @@ module.exports = {
             else {
               throw new ApolloError('the userID or businessID is invalid or no longer active')
             }
-          },
+        },
           updateUserLocations: async (parent, { 
             userID, 
             latitude,
@@ -325,8 +329,8 @@ module.exports = {
                 //return userInfo
                 return {
                   userID: userInfo.userID,
-                  username: userInfo.username,
-                  name: userInfo.name,
+                  firstName: userInfo.firstName,
+                  lastName: userInfo.lastName,
                   home: userInfo.home,
                   birthDate: userInfo.birthDate,
                   totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
@@ -363,8 +367,8 @@ module.exports = {
                 //return userInfo
                 return {
                   userID: userInfo.userID,
-                  username: userInfo.username,
-                  name: userInfo.name,
+                  firstName: userInfo.firstName,
+                  lastName: userInfo.lastName,
                   home: userInfo.home,
                   birthDate: userInfo.birthDate,
                   totalChange:  parseFloat(userInfo.totalChange).toFixed(2),
@@ -400,8 +404,8 @@ module.exports = {
                 //return userInfo
                 return {
                   userID: userInfo.userID,
-                  username: userInfo.username,
-                  name: userInfo.name,
+                  firstName: userInfo.firstName,
+                  lastName: userInfo.lastName,
                   home: userInfo.home,
                   birthDate: userInfo.birthDate,
                   totalChange:  parseFloat(userInfo.totalChange).toFixed(2),

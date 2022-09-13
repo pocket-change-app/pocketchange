@@ -6,8 +6,8 @@ module.exports = gql`
     """
     type User {
         userID: ID 
-        username: String
-        name: String
+        firstName: String
+        lastName: String
         home: String
         birthDate: Date
         totalChange: Decimal
@@ -22,15 +22,15 @@ module.exports = gql`
         """
         Login a specific user given username and password
         """
-        loginUser(username:String, password:String):User
+        loginUser(emailAddress:String, password:String):User
         """
-        Fetch a list of all users from Mongo if no other parameters specified, otherwise fetch by username
+        Fetch a list of all users from Mongo if no other parameters specified, otherwise fetch by userID
         """
-        getAllUsers(username:String):[User]
+        getAllUsers(userID:ID):[User]
         """
         Get a list of all the users recently at a business/pocket within a dateRange if specified
         """
-        getTopUsers(businessID:ID, startDate: Date, endDate: Date, userNumber: Int, pocketID:ID):[User]
+        getTopUsers(businessID: ID, startDate: Date, endDate: Date, userNumber: Int, pocketID: ID):[User]
         """
         Get a list of all the users that love a business
         """
@@ -41,11 +41,11 @@ module.exports = gql`
         """
         Register a user to the pocketchange app
         """
-        registerUser(username: String, password: String, name: String, home: String, birthDate: Date, emailAddress:String): User
-        deactivateUser(userID:ID): User
+        registerUser(userID: ID, firstName: String, lastName: String, home: String, birthDate: Date, emailAddress: String): User
+        deactivateUser(userID: ID): User
         updatePassword(userID: ID, password: String): User
-        updateUserProfile(username: String, name: String, home: String, birthDate: Date, emailAddress:String): User
-        loveOrUnloveBusiness(userID: ID, businessID:ID): User
+        updateUserProfile(userID: ID, firstName: String, lastName: String, home: String, birthDate: Date, emailAddress: String): User
+        loveOrUnloveBusiness(userID: ID, businessID: ID): User
         addUserRole(userID: ID, role: String, businessID: ID): User
         removeUserRole(userID: ID, role: String, businessID: ID): User
         updateUserLocations(userID:ID, latitude: Float, longitude: Float): User
