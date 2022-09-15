@@ -3,14 +3,15 @@ import { Pressable, ScrollView, Button, Image } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable } from "../components/Cards";
 
-//import { useAuth } from '../contexts/Auth';
 import { businesses, user } from "../dummy";
 import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext, RoleType } from "../contexts/Auth";
+
+import businessImages from '../assets/images/businessImages';
 
 
 export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -21,9 +22,10 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
     await authContext.signOut();
   };
 
-  // TODO: hook this up to authContext.switchActiveRole
-  const switchAccount = async () => {
-    //await auth.switchAccount();
+  /// TODO: hook this up to authContext.switchActiveRole
+  const switchAccount = () => {
+    authContext.switchActiveRole({ type: RoleType.Consumer });
+    console.log(authContext.activeRole)
   }
 
   const business = businesses.find(b => b.businessName == 'La Paella')
@@ -32,6 +34,16 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
     <ScreenContainer>
       <ScrollView
         contentContainerStyle={[styles.container]}>
+
+        {// TODO: make drop down
+        }
+        <View style={styles.card}>
+          <SettingPressable
+            iconName='random'
+            settingText={`Switch Accounts`}
+            onPress={() => switchAccount()}
+          />
+        </View>
 
         <Pressable
           onPress={() => navigation.navigate('Business', {
@@ -46,7 +58,7 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
               <View style={styles.businessListImageContainer}>
                 <Image
                   style={styles.businessListImage}
-                  source={business.imageURL}
+                  source={businessImages[business.businessID]}
                 />
               </View>
 

@@ -27,10 +27,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
   const fee = ((amountNum + tipNum) * FEE_RATE)
   const total = (amountNum + tipNum + fee)
 
-
-
   const consumerTotal = (total - changeToUse)
-  const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE)
+  const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
 
   return (
     <ScreenContainer>
@@ -43,7 +41,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <View style={styles.businessListInfo}>
               <Text style={styles.businessNameSm}>{business.businessName}</Text>
               <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-              <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
+              <Text style={styles.pocket}>{"Leslieville"}</Text>
             </View>
 
           </View>
@@ -73,7 +71,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         <View style={[styles.card, styles.container]}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {"TODO: get pocket"} Change?</Text>
+            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {"Leslieville"} Change?</Text>
             <Switch
               trackColor={{ false: colors.subtle, true: colors.gold }}
               thumbColor={colors.card}

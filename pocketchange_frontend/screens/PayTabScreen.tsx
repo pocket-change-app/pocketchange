@@ -58,6 +58,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                 key={item.businessID}
                 navigation={navigation}
                 business={item}
+                pocket={"Leslieville"}
             />
         </Pressable>
     )
@@ -87,6 +88,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                                                 key={businesses[0].businessID}
                                                 navigation={navigation}
                                                 business={businesses[0]}
+                                                pocket={"Leslieville"}
                                             />
                         
                                         <DivHeader text='Loved' />

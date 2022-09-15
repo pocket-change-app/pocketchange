@@ -5,7 +5,7 @@ import { ButtonWithText } from "../components/Cards";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
-//import * as WebBrowser from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser';
 import { AuthContext } from "../contexts/Auth";
 
 
@@ -17,7 +17,10 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
   const [result, setResult] = useState(null);
   const handleStripeFlowRedirect = async () => {
-    //let result = await WebBrowser.openBrowserAsync('https://expo.dev');
+
+    // CALL CREATE STRIPE ACCOUNT FROM BACKEND
+
+    let result = await WebBrowser.openBrowserAsync('https://expo.dev');
     setResult(result);
   };
 
@@ -40,13 +43,12 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
           {/* <View style={{ flexDirection: 'row' }}> */}
 
-      
+          <Text style={styles.pocketTitle}>Payments</Text>
+
+          <Text style={styles.prose}>PocketChange uses uses Stripe to get you paid quickly and keep your personal and payment information secure. Thousands of companies around the world trust Stripe to process payments for their users. Set up a Stripe account to get paid with PocketChange.</Text>
 
           <ButtonWithText
             text='Setup with Stripe'
-            // color={
-            //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
-            // }
             onPress={handleStripeFlowRedirect}
           />
 

@@ -11,23 +11,25 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
 import {usePocketQuery, useBusinessQuery, useUserQuery} from '../hooks-apollo/index';
 
+import businessImages from '../assets/images/businessImages';
+
 import { isNilOrEmpty } from 'ramda-adjunct';
 const R = require('ramda');
 
 
-export function BusinessCard({ navigation, business }: { navigation: any, business: any }) {
+export function BusinessCard({ navigation, business, pocket }: { navigation: any, business: any }) {
   return (
     <View style={styles.card}>
       <View style={styles.businessHeaderImageContainer}>
         <Image
           style={styles.businessHeaderImage}
-          source={business.imageURL}
+          source={businessImages[business.businessID]}
         />
       </View>
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
         <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
-        <Text style={styles.pocket}>{business.pocket}</Text>
+        <Text style={styles.pocket}>{pocket}</Text>
 
         <Pressable style={styles.payButton}
           onPress={() => (navigation.navigate('PaymentModalStack', {
@@ -71,25 +73,27 @@ export function BusinessCard({ navigation, business }: { navigation: any, busine
 
 }
 
-export function BusinessCardSuggested({ navigation, business }: { navigation: any, business: any }) {
+export function BusinessCardSuggested({ navigation, business, pocket }: { navigation: any, business: any, pocket: any }) {
+  console.log(business.imageURL)
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
         // navigation: navigation,
         business: business,
+        pocket: pocket
       })}
     >
       <View style={styles.card}>
         <View style={styles.businessHeaderImageContainer}>
           <Image
             style={styles.businessHeaderImage}
-            source={business.imageURL}
+            source={businessImages[business.businessID]}
           />
         </View>
         <View style={styles.businessModalInfo}>
           <Text style={styles.businessNameLg}>{business.businessName}</Text>
           <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-          <Text style={styles.pocket}>{business.pocket}</Text>
+          <Text style={styles.pocket}>{pocket}</Text>
 
         </View>
       </View>
@@ -98,13 +102,14 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessCardSm({ navigation, business }: { navigation: any, business: any }) {
+export function BusinessCardSm({ navigation, business, pocket, showPocket=true}: { navigation: any, business: any, pocket: any, showPocket: boolean }) {
 
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
         // navigation: navigation,
         business: business,
+        pocket: pocket
       })}
     >
       <View style={[styles.card, styles.businessListItemCard]}>
@@ -112,16 +117,14 @@ export function BusinessCardSm({ navigation, business }: { navigation: any, busi
         <View style={styles.businessListImageContainer}>
           <Image
             style={styles.businessListImage}
-            source={business.imageURL}
+            source={businessImages[business.businessID]}
           />
         </View>
 
         <View style={styles.businessListInfo}>
           <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
           <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
-          {
-            //<Text style={styles.pocket}>{business.pocket}</Text>
-          }
+          {showPocket ? <Text style={styles.pocket}>{pocket}</Text> : null}
         </View>
 
       </View>
@@ -570,7 +573,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
           {transaction.date.split("T")[1].split(".")[0]}
         </Text>
         <Text style={styles.transactionListedMerchantText}>
-          {!user ? null : user.name.split(' ')[0]
+          {!user ? null : user.firstName
           }
         </Text>
         <Text style={styles.transactionListedAmountText}>

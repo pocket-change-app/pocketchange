@@ -10,7 +10,7 @@ import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useContext } from "react";
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext, RoleType } from "../contexts/Auth";
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -22,8 +22,9 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
   };
 
   // TODO: hook this up to authContext.switchActiveRole
-  const switchAccount = async () => {
-    //await auth.switchAccount();
+  const switchAccount = () => {
+    authContext.switchActiveRole({ type: RoleType.Merchant });
+    console.log(authContext.activeRole)
   }
 
 
@@ -31,6 +32,17 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
     <ScreenContainer>
       <ScrollView
         contentContainerStyle={[styles.container]}>
+
+        {// TODO: make drop down
+        }
+        <View style={styles.card}>
+          <SettingPressable
+            iconName='random'
+            settingText={`Switch Accounts`}
+            onPress={() => switchAccount()}
+          />
+        </View>
+
         <View style={styles.card}>
           <SettingPressable
             iconName='id-card'

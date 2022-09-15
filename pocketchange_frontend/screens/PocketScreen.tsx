@@ -20,7 +20,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const pocket = route.params.pocket;
 
-  const pocketID = '1p'
+  const pocketID = pocket.pocketID
   const {allBusinesses, loading} =  useGetAllBusinessesQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -42,6 +42,8 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       key={item.businessID}
       navigation={navigation}
       business={item}
+      pocket={pocket.name}
+      showPocket={false}
     />
 
   )

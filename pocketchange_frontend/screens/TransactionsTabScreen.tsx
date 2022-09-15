@@ -87,9 +87,9 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
         <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
-        <Text style={styles.pocket}>{"TODO: business pocket"}</Text>
+        <Text style={styles.pocket}>{"Leslieville"}</Text> 
 
-        <Pressable style={styles.payButton}
+        {/* <Pressable style={styles.payButton}
           onPress={() => (navigation.navigate('PaymentModalStack', {
             screen: "PayAmount",
             params: {
@@ -104,15 +104,16 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
           }))}
         >
           <Text style={styles.payButtonText}>NEW TRANSACTION</Text>
-        </Pressable>
+        </Pressable> */}
 
       </View>
     </View>
 
-    <DivHeader text="Transaction History"/>
+    
         {isNilOrEmpty(allTransactions) ? null : <>
 
           <FlatList
+            ListHeaderComponent={<DivHeader text="Transaction History"/>}
             contentContainerStyle={styles.businessFlatList}
             data={(!searchResults) ? allTransactions : searchResults}
             renderItem={renderTransactionCard}

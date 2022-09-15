@@ -13,7 +13,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   const authContext = useContext(AuthContext); 
 
   // console.log(route)
-  const { business } = route.params;
+  const { business, pocket } = route.params;
 
   return (
     <ScreenContainer>
@@ -24,10 +24,11 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
         <BusinessCard
           navigation={navigation}
           business={business}
+          pocket={pocket}
         />
 
         <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-          <Text style={styles.pocketBig}>{business.pocket} Change</Text>
+          <Text style={styles.pocketBig}>{pocket} Change</Text>
           <Text style={styles.changeLg}>$8.94</Text>
         </View>
 

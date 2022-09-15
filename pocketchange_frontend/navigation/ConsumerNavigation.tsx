@@ -367,14 +367,14 @@ function WalletStack() {
         name="BusinessWizardProfile"
         component={BusinessWizardProfileScreen}
         options={{
-          title: 'Create Profile',
+          title: '',
         }}
       />
       <Stack.Screen
         name="BusinessWizardStripe"
         component={BusinessWizardStripeScreen}
         options={{
-          title: 'Bank Information',
+          title: '',
         }}
       />
       <Stack.Screen

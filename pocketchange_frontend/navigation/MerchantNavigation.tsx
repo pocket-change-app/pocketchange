@@ -149,21 +149,6 @@ function SettingsStack() {
         component={MerchantSettingsScreen}
         options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
           title: "Settings",
-          headerLeft: () => (
-            <Pressable
-              onPress={auth.switchAccount}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-                // marginRight: 2 * MARGIN,
-              })}>
-              <FontAwesome
-                name='user-circle-o'
-                size={25}
-                color={colors.medium}
-              // style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
 

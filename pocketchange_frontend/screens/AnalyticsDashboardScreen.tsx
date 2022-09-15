@@ -179,7 +179,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].numCustomers}
             </Text>
             <Text style={{color: colors.medium}}>
-              {" customers used PocketChange at {insert active store}."} 
+              {" customers used PocketChange at La Paella."} 
             </Text>
           </Text>
           <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
@@ -198,7 +198,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].pocketShare}%
             </Text>
             <Text style={{color: colors.medium}}>
-              {" of { insert active pocket } Pocket members visited { insert active business }"}
+              {" of Leslieville Pocket members visited La Paella"}
             </Text>
           </Text>
       </>
@@ -214,7 +214,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
             {data[0].numCustomers}
           </Text>
           <Text style={{color: colors.medium}}>
-            {" PocketChange users in {insert active pocket}"} 
+            {" PocketChange users in Leslieville"} 
           </Text>
         </Text>
         <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
@@ -318,7 +318,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       );
     } else if (type == 'list-similar-businesses') {
       const listItems = data.map(
-        (item) => <BusinessCardSm navigation={undefined} business={item}/>
+        (item) => <BusinessCardSm navigation={undefined} business={item} pocket={"Leslieville"}/>
       );
       return (
         <View>{listItems}</View>

@@ -12,11 +12,12 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
   const authContext = useContext(AuthContext); 
 
-  const [busName, setBusName] = useState('')
-  const [busBio, setBusBio] = useState('')
-  const [address, setAddress] = useState('')
+  const [businessName, setBusinessName] = useState('')
+  const [businessBio, setBusinessBio] = useState('')
+  const [businessStreetAddress, setBusinessStreetAddress] = useState('')
   const [addressLineTwo, setAddressLineTwo] = useState('')
-  const [postalCode, setPostalCode] = useState('')
+  const [businessPostalCode, setBusinessPostalCode] = useState('')
+  const [businessPhoneNumber, setBusinessPhoneNumber] = useState('')
 
   const ref_about = useRef();
   const ref_address = useRef();
@@ -40,12 +41,13 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
         <ScrollView
           contentContainerStyle={[styles.container, { flex: 1 }]}
         >
+          <Text style={styles.pocketTitle}>Create Business Profile</Text>
 
           {/* <View style={{ flexDirection: 'row' }}> */}
 
           <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-            <Text style={styles.prose}>
-              Business Name
+            <Text style={[styles.prose]}>
+              Business Display Name
             </Text>
 
             <TextInput
@@ -56,8 +58,8 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               style={styles.receipt}
               // keyboardType='numeric'
               // value={firstName}
-              onChangeText={setBusName}
-              placeholder={'Your Business'}
+              onChangeText={setBusinessName}
+              placeholder={'Honest Bean Cafe'}
               placeholderTextColor={colors.subtle}
               onSubmitEditing={() => ref_address.current.focus()}
             />
@@ -89,7 +91,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
           <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
             <Text style={styles.prose}>
-              Address
+              Street Address
             </Text>
 
             <TextInput
@@ -100,7 +102,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               style={styles.receipt}
               keyboardType='numbers-and-punctuation'
               // value={lastName}
-              onChangeText={setAddress}
+              onChangeText={setBusinessStreetAddress}
               placeholder={'000 Queen St E'}
               placeholderTextColor={colors.subtle}
               ref={ref_address}
@@ -125,7 +127,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
             <View style={[styles.signUpInputText, { flex: 1, marginBottom: MARGIN }]}>
               <Text style={styles.prose}>
-                Postal Code
+                Postal Code (no space)
               </Text>
 
               <TextInput
@@ -135,9 +137,9 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
                 autoCapitalize='characters'
                 style={styles.receipt}
                 // keyboardType='number-pad'
-                value={postalCode}
+                // value={businessPostalCode}
                 maxLength={6}
-                onChangeText={setPostalCode}
+                onChangeText={setBusinessPostalCode}
                 placeholder={'ABC123'}
                 placeholderTextColor={colors.subtle}
                 ref={ref_postalCode}
@@ -160,8 +162,9 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               style={styles.receipt}
               keyboardType='number-pad'
               // value={lastName}
-              onChangeText={setAddress}
-              placeholder={'+1 (416) 123-4567'}
+              maxLength={10}
+              onChangeText={setBusinessPhoneNumber}
+              placeholder={'4161234567'}
               placeholderTextColor={colors.subtle}
               ref={ref_phone}
             // onSubmitEditing={() => ref_phone.current.focus()}
@@ -177,12 +180,12 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // }
             onPress={() => navigation.navigate('BusinessWizardStripe', {
               business: {
-                name: busName,
-                // phoneNumber: busPhone,
-                address: address,
-                // pocket: "Leslieville",
+                businessName: businessName,
+                phoneNumber: businessPhoneNumber,
+                address: businessStreetAddress,
+                pocket: "Leslieville",
                 // imageURL: require("./assets/images/avling.jpg"),
-                bio: busBio,
+                bio: businessBio,
                 // hours: hmm...
                 // people: [
                 //   {

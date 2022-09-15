@@ -9,7 +9,7 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { useLazyQuery } from '@apollo/client';
 
 
-enum RoleType {
+export enum RoleType {
   Consumer = "CONSUMER",
   Merchant = "MERCHANT",
   Leader = "LEADER"
@@ -68,10 +68,10 @@ export const AuthProvider = ({ children }: { children: any }) => {
   });
 
   const switchActiveRole = ((role: Role) => {
+    
     // TODO: check here if signed in user has permission to switch to role
-    if (userFirebase) { // change condition to call hook to GQL
-      setActiveRole(role);
-    }
+    setActiveRole(role);
+
   });
 
   const signOut = (() => {
