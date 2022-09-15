@@ -63,7 +63,15 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
             <SettingPressable
               iconName='id-card'
               settingText={`Edit Business Profile`}
-              onPress={() => navigation.navigate('EditProfile')}
+              onPress={() => navigation.navigate('EditBusinessProfile')}
+            />
+
+            <HorizontalLine />
+
+            <SettingPressable
+              iconName='users'
+              settingText="Employees"
+              onPress={() => navigation.navigate('EditEmployees')}
             />
 
           </View>
@@ -71,6 +79,13 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
 
         </Pressable>
+
+
+        {/* <DivHeader text="Permissions" />
+
+        <View style={styles.card}>
+
+        </View> */}
 
 
 
@@ -82,16 +97,17 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
             settingText={"Stripe Account"}
           />
 
-          <HorizontalLine />
+          {/* <HorizontalLine /> */}
 
-          <SettingPressable
+          {/* <SettingPressable
             settingText="Taxes"
-          />
+          /> */}
 
           <HorizontalLine />
 
           <SettingPressable
             settingText="Tipping"
+            onPress={() => navigation.navigate('SettingsTipping')}
           />
 
           {/* </View> */}

@@ -25,7 +25,42 @@ export default {
                 businessTags
                 stripeID
                 description
-                deactivated
+                hours{
+                    Monday {
+                      start
+                      end
+                    }
+                    Tuesday{
+                      start
+                      end
+                    }
+                    Wednesday{
+                      start
+                      end
+                    }
+                    Thursday{
+                      start
+                      end
+                    }
+                    Friday{
+                      start
+                      end
+                    }
+                    Saturday{
+                      start
+                      end
+                    }
+                    Sunday{
+                      start
+                      end
+                    }
+                  }
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
+                pockets
             }
         }
     `,
@@ -53,13 +88,48 @@ export default {
                 businessTags
                 stripeID
                 description
-                deactivated
+                hours{
+                    Monday {
+                      start
+                      end
+                    }
+                    Tuesday{
+                      start
+                      end
+                    }
+                    Wednesday{
+                      start
+                      end
+                    }
+                    Thursday{
+                      start
+                      end
+                    }
+                    Friday{
+                      start
+                      end
+                    }
+                    Saturday{
+                      start
+                      end
+                    }
+                    Sunday{
+                      start
+                      end
+                    }
+                  }
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
+                pockets
             }
         }
     `,
     deactivateBusiness: gql`
     mutation deactivateBusiness($userID: String, $businessID: ID){
-        updateBusiness(userID: $userID, businessID:$businessID) {
+        deactivateBusiness(userID: $userID, businessID:$businessID) {
             businessID
             businessName
             dateEstablished
@@ -81,7 +151,104 @@ export default {
             businessTags
             stripeID
             description
-            deactivated
+            hours{
+                Monday {
+                  start
+                  end
+                }
+                Tuesday{
+                  start
+                  end
+                }
+                Wednesday{
+                  start
+                  end
+                }
+                Thursday{
+                  start
+                  end
+                }
+                Friday{
+                  start
+                  end
+                }
+                Saturday{
+                  start
+                  end
+                }
+                Sunday{
+                  start
+                  end
+                }
+              }
+            status{
+                pending
+                approved
+                deactivated
+              }
+            pockets
+        }
+    }`,
+    approveBusiness: gql`
+    mutation approveBusiness($userID: String, $businessID: ID){
+        approveBusiness(userID: $userID, businessID:$businessID) {
+            businessID
+            businessName
+            dateEstablished
+            emailAddress
+            phoneNumber
+            website
+            businessType
+            businessSubtype
+            address{
+                streetName
+                buildingNumber
+                unitNumber
+                city
+                region
+                postalCode
+            }
+            latitude
+            longitude
+            businessTags
+            stripeID
+            description
+            hours{
+                Monday {
+                  start
+                  end
+                }
+                Tuesday{
+                  start
+                  end
+                }
+                Wednesday{
+                  start
+                  end
+                }
+                Thursday{
+                  start
+                  end
+                }
+                Friday{
+                  start
+                  end
+                }
+                Saturday{
+                  start
+                  end
+                }
+                Sunday{
+                  start
+                  end
+                }
+              }
+            status{
+                pending
+                approved
+                deactivated
+              }
+            pockets
         }
     }
 `,

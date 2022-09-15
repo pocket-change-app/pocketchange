@@ -9,6 +9,11 @@ export default {
                 changeRate
                 circulatingChange
                 region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }
     `,
@@ -20,6 +25,11 @@ export default {
                 changeRate
                 circulatingChange
                 region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }         
 `,
@@ -31,6 +41,11 @@ export default {
                 changeRate
                 circulatingChange
                 region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }         
     `,
@@ -42,6 +57,11 @@ export default {
             changeRate
             circulatingChange
             region
+            status{
+                pending
+                approved
+                deactivated
+              }
         }
     }         
     `,
@@ -53,9 +73,30 @@ export default {
                 changeRate
                 circulatingChange
                 region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
-        }         
+        }      
 `,
+    approvePocket: gql`
+        mutation approvePocket($pocketID: ID, $userID: ID){
+            approvePocket(pocketID: $pocketID, userID: $userID) {
+                pocketID
+                pocketName
+                changeRate
+                circulatingChange
+                region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
+            }
+        }      
+    `,
     joinPocketAsMember: gql`
         mutation joinPocketAsMember($pocketID: ID, $userID: ID){
             joinPocketAsMember(pocketID: $pocketID, userID: $userID) {
@@ -64,6 +105,11 @@ export default {
                 changeRate
                 circulatingChange
                 region
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }         
 `,
@@ -75,6 +121,11 @@ export default {
                     changeRate
                     circulatingChange
                     region
+                    status{
+                        pending
+                        approved
+                        deactivated
+                      }
                 }
             }         
     `,

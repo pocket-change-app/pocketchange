@@ -25,7 +25,41 @@ export default {
         businessTags
         stripeID
         description
-        deactivated
+        status{
+          pending
+          approved
+          deactivated
+        }
+        hours{
+          Monday {
+            start
+            end
+          }
+          Tuesday{
+            start
+            end
+          }
+          Wednesday{
+            start
+            end
+          }
+          Thursday{
+            start
+            end
+          }
+          Friday{
+            start
+            end
+          }
+          Saturday{
+            start
+            end
+          }
+          Sunday{
+            start
+            end
+          }
+        }
       }
     }
   `,
@@ -53,7 +87,41 @@ export default {
         businessTags
         stripeID
         description
-        deactivated
+        status{
+          pending
+          approved
+          deactivated
+        }
+        hours{
+          Monday {
+            start
+            end
+          }
+          Tuesday{
+            start
+            end
+          }
+          Wednesday{
+            start
+            end
+          }
+          Thursday{
+            start
+            end
+          }
+          Friday{
+            start
+            end
+          }
+          Saturday{
+            start
+            end
+          }
+          Sunday{
+            start
+            end
+          }
+        }
         }
     }
   `,
@@ -81,7 +149,41 @@ export default {
         businessTags
         stripeID
         description
-        deactivated
+        status{
+          pending
+          approved
+          deactivated
+        }
+        hours{
+          Monday {
+            start
+            end
+          }
+          Tuesday{
+            start
+            end
+          }
+          Wednesday{
+            start
+            end
+          }
+          Thursday{
+            start
+            end
+          }
+          Friday{
+            start
+            end
+          }
+          Saturday{
+            start
+            end
+          }
+          Sunday{
+            start
+            end
+          }
+        }
         }
     }
   `,
@@ -109,7 +211,41 @@ export default {
         businessTags
         stripeID
         description
-        deactivated
+        status{
+          pending
+          approved
+          deactivated
+        }
+        hours{
+          Monday {
+            start
+            end
+          }
+          Tuesday{
+            start
+            end
+          }
+          Wednesday{
+            start
+            end
+          }
+          Thursday{
+            start
+            end
+          }
+          Friday{
+            start
+            end
+          }
+          Saturday{
+            start
+            end
+          }
+          Sunday{
+            start
+            end
+          }
+        }
         }
     }
   `,
@@ -137,7 +273,41 @@ export default {
         businessTags
         stripeID
         description
-        deactivated
+        status{
+          pending
+          approved
+          deactivated
+        }
+        hours{
+          Monday {
+            start
+            end
+          }
+          Tuesday{
+            start
+            end
+          }
+          Wednesday{
+            start
+            end
+          }
+          Thursday{
+            start
+            end
+          }
+          Friday{
+            start
+            end
+          }
+          Saturday{
+            start
+            end
+          }
+          Sunday{
+            start
+            end
+          }
+        }
         }
     }
   `,

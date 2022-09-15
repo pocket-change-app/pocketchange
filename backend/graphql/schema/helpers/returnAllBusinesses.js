@@ -18,7 +18,7 @@ module.exports = async function returnAllBusinesses (
       filterBusiness.push({'businessTag': businessTag})
     }
     //make sure only getting active businesses
-    filterBusiness.push({'deactivated': false})
+    filterBusiness.push({'status.deactivated': false})
     let mongoBusinessesInfo;
     mongoBusinessesInfo = await mongoBusiness.find({ $and: filterBusiness}); 
     //if pocket specified filter all business
@@ -31,6 +31,9 @@ module.exports = async function returnAllBusinesses (
         (a, b) => a.businessID === b.businessID
       )
       return joinByBusinessID(mongoBusinessesInfo, isInInfo)
+    }
+    else{
+      return mongoBusinessesInfo
     } 
   }
   catch (error) {

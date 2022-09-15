@@ -5,7 +5,11 @@ const mongoPocketSchema = new mongoose.Schema({
     pocketName: { type: mongoose.Schema.Types.String },
     region: {type: mongoose.Schema.Types.String}, //Toronto for now
     description:{type: mongoose.Schema.Types.String}, //
-    deactivated:{type:mongoose.Schema.Types.Boolean} //if the pocket is still active
+    status:{
+      pending: {type:mongoose.Schema.Types.Boolean}, //if the pocket has yet to be approved
+      approved: {type:mongoose.Schema.Types.Boolean}, //if the pocket has been approved & is active
+      deactivated: {type:mongoose.Schema.Types.Boolean} //if the pocket is still active
+  },
     //georegion?
   })
   
