@@ -209,10 +209,11 @@ module.exports = {
         deactivateUser: async (parent, { 
           userID
         }, { User, mongoUser}) => {
-              const mongoUserInfo = await mongoUser.updateOne({ userID: userID },
+              await mongoUser.updateOne({ userID: userID },
                 {
                   deactivated: true,
                 })
+              const mongoUserInfo = await mongoUser.findOne({ userID: userID })
               return(mongoUserInfo) 
         },
         updatePassword: async (parent, { 
@@ -253,7 +254,7 @@ module.exports = {
             //check to make sure the user exists 
             const userInfo = await mongoUser.findOne({ userID })
             if (userInfo) {
-              const updatedUser = await userInfo.updateOne(
+              const updatedUser = await mongoUser.updateOne({userID: userID},
                 {
                   firstName: firstName == null ? userInfo.firstName : firstName,
                   lastName: lastName == null ? userInfo.lastName : lastName,

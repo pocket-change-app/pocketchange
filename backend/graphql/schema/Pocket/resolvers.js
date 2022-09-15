@@ -111,15 +111,16 @@ module.exports = {
           const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
           if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
            //the user is the manager of this pocket, proceed (or its pocketchange admin)
-              const mongoPocketInfo = await mongoPocket.updateOne({ pocketID: pocketID },
+              await mongoPocket.updateOne({ pocketID: pocketID },
                 {
                   pocketName: pocketName == null ? mongoPocketInfo.dataValues.pocketName : pocketName,
                   region: region == null ? mongoPocketInfo.dataValues.region : region,
                 })
+              const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
               let pocketInfo;
               if(changeRate !=null){
                 //update the changeRate in SQL
-                pocketInfo = await Pocket.update(
+                await Pocket.update(
                     {
                       changeRate: changeRate,
                     },
@@ -128,9 +129,7 @@ module.exports = {
                     }
                   );
               }
-              else{
-                pocketInfo = await Pocket.findOne({where: { pocketID: pocketID }})
-              }
+              pocketInfo = Pocket.findOne(Pocket.findOne({where: { pocketID: pocketID }}))
               return {
                 pocketID: pocketInfo.dataValues.pocketID,
                 circulatingChange: pocketInfo.dataValues.circulatingChange,
@@ -158,13 +157,14 @@ module.exports = {
               pocketID: pocketID
             },{IsIn, mongoBusiness}) 
             if(businessList.length ==0 ){
-              const mongoPocketInfo = await mongoPocket.updateOne({pocketID: pocketID}, {
+              await mongoPocket.updateOne({pocketID: pocketID}, {
                 status: {
                   pending: false,
                   approved: false,
                   deactivated: true
                 },
-              });  
+              });
+              const mongoPocketInfo = await mongoPocket.findOne({pocketID: pocketID})  
               return(mongoPocketInfo)
             }
             else {
@@ -189,13 +189,14 @@ module.exports = {
                 pocketID: pocketID
               },{IsIn, mongoBusiness}) 
               if(businessList.length ==0 ){
-                const mongoPocketInfo = await mongoPocket.updateOne({pocketID: pocketID}, {
+                await mongoPocket.updateOne({pocketID: pocketID}, {
                   status: {
                     pending: false,
                     approved: true,
                     deactivated: false
                   },
                 });  
+                const mongoPocketInfo = await mongoPocket.findOne({pocketID: pocketID}) 
                 return(mongoPocketInfo)
               }
               else {
@@ -233,7 +234,7 @@ module.exports = {
           //add them as member
           await IsMember.create({userID: userID, pocketID: pocketID, role: 'customer'})
           //get the pocket info to return
-          const newMongoPocketJoined = await mongoPocket.find({pocketID:pocketID})
+          const newMongoPocketJoined = await mongoPocket.findOne({pocketID:pocketID})
           const newPocketJoined = await Pocket.findOne({where:{pocketID:pocketID}})
           return {
             pocketID: newPocketJoined.dataValues.pocketID,
@@ -260,7 +261,7 @@ module.exports = {
               //otherwise add them as IsIn
               await IsIn.create({businessID: businessID, pocketID: pocketID})
               //get the pocket info to return
-              const newMongoPocketJoined = await mongoPocket.find({pocketID:pocketID})
+              const newMongoPocketJoined = await mongoPocket.findOne({pocketID:pocketID})
               const newPocketJoined = await Pocket.findOne({where:{pocketID:pocketID}})
               return {
                 pocketID: newPocketJoined.dataValues.pocketID,
@@ -294,7 +295,7 @@ module.exports = {
               }
             )
             //get the pocket info to return
-            const newMongoPocketJoined = await mongoPocket.find({pocketID:pocketID})
+            const newMongoPocketJoined = await mongoPocket.findOne({pocketID:pocketID})
             const newPocketJoined = await Pocket.findOne({where:{pocketID:pocketID}})
             return {
               pocketID: newPocketJoined.dataValues.pocketID,

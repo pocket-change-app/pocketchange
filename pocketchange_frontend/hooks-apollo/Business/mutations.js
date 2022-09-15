@@ -2,7 +2,7 @@ import {gql } from '@apollo/client';
 
 export default {
     createBusiness: gql`
-        mutation createBusiness($userID: String, $ownerID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: String){
+        mutation createBusiness($userID: ID, $ownerID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: ID){
             createBusiness(userID: $userID, ownerID: $ownerID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
                 businessID
                 businessName
@@ -65,8 +65,8 @@ export default {
         }
     `,
     updateBusiness: gql`
-        mutation updateBusiness($userID: String, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: String, $address: Address, $latitude: Float, $longitude: Float, $businessTags: [String], $stripeID: ID, $description: String){
-            updateBusiness(userID: $userID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID, address: $address, latitude: $latitude, longitude: $longitude, businessTags: $businessTags, stripeID: $stripeID, description: $description) {
+        mutation updateBusiness($userID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: ID, $address: Address, $latitude: Float, $longitude: Float, $businessTags: [String], $description: String){
+            updateBusiness(userID: $userID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID, address: $address, latitude: $latitude, longitude: $longitude, businessTags: $businessTags, description: $description) {
                 businessID
                 businessName
                 dateEstablished
@@ -128,7 +128,7 @@ export default {
         }
     `,
     deactivateBusiness: gql`
-    mutation deactivateBusiness($userID: String, $businessID: ID){
+    mutation deactivateBusiness($userID: ID, $businessID: ID){
         deactivateBusiness(userID: $userID, businessID:$businessID) {
             businessID
             businessName
@@ -190,7 +190,7 @@ export default {
         }
     }`,
     approveBusiness: gql`
-    mutation approveBusiness($userID: String, $businessID: ID){
+    mutation approveBusiness($userID: ID, $businessID: ID){
         approveBusiness(userID: $userID, businessID:$businessID) {
             businessID
             businessName
@@ -251,5 +251,12 @@ export default {
             pockets
         }
     }
+`,
+createStripeLink: gql`
+  mutation createStripeLink($userID: ID, $businessID: ID){
+    createStripeLink(userID: $userID, businessID:$businessID) {
+      created
+      expires_at
+      url
 `,
 }
