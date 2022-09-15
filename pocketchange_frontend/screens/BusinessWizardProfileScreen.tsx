@@ -6,6 +6,7 @@ import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { AuthContext } from "../contexts/Auth";
 import { MARGIN, styles } from "../Styles";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function BusinessWizardProfileScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -18,6 +19,18 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [addressLineTwo, setAddressLineTwo] = useState('')
   const [businessPostalCode, setBusinessPostalCode] = useState('')
   const [businessPhoneNumber, setBusinessPhoneNumber] = useState('')
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Restaurant', value: 'restaurant'},
+    {label: 'Cafe', value: 'cafe', parent: 'restaurant'},
+    {label: 'Indian', value: 'indian', parent: 'restaurant'},
+  
+    {label: 'Retail', value: 'retail'},
+    {label: 'Clothing', value: 'clothing', parent: 'retail'},
+    {label: 'Toys', value: 'toys', parent: 'retail'},
+  ]);
 
   const ref_about = useRef();
   const ref_address = useRef();
@@ -64,6 +77,16 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               onSubmitEditing={() => ref_address.current.focus()}
             />
           </View>
+
+          <DropDownPicker
+            placeholder="Business Type"
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+          />
 
           {/* <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
             <Text style={styles.prose}>
