@@ -165,7 +165,62 @@ db.mongobusinesses.insertMany( [
        businessTags: ['sustainable', 'farm-to-table'],
        stripeID: '1b',
        description: 'Avling is the norwegian word for crop or harvest, and for us, it is all about our kitchen and brewery and farm working as one.',
-       deactivated: false,
+       hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
     },
     {
         businessID: '2b',
@@ -189,7 +244,62 @@ db.mongobusinesses.insertMany( [
         businessTags: [],
         stripeID: '2b',
         description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      },
      {
         businessID: '3b',
@@ -213,7 +323,63 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '3b',
         description: 'Indie multi-roaster cafe serving Leslieville since 2006.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
+        
      },
      {
         businessID: '4b',
@@ -237,7 +403,62 @@ db.mongobusinesses.insertMany( [
         businessTags:['new'],
         stripeID: '4b',
         description: 'At Slowhand we have one obsession: making light, airy, and delicious sourdough pan pizza.Combining our favourite techniques from Italy and Detroit with sourdough culture from the San Francisco gold rush, we create a pizza like you’ve never had before.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      },
      {
         businessID: '5b',
@@ -261,7 +482,62 @@ db.mongobusinesses.insertMany( [
         businessTags: [],
         stripeID: '5b',
         description:'Our cafe represents the soul of De Mello—an eclectic and playful gathering space where the local community gathers to share time over a great coffee.Aside from serving and retailing our freshly roasted coffees daily, all of the pastries at our cafe are baked in-house every morning thanks to our expert pastry chefs.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      },
      {
         businessID: '6b',
@@ -285,7 +561,62 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '6b',
         description: 'Cozy, brick-walled coffeehouse known for drinks with unique latte art, light bites & pastries.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      },
      {
         businessID: '7b',
@@ -333,7 +664,62 @@ db.mongobusinesses.insertMany( [
         businessTags:[],
         stripeID: '8b',
         description: 'Best dumpling/ dimsum/ famous Toronto must try. Tasty and cheap.',
-        deactivated: false,
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      },
  ] )
 
@@ -343,13 +729,21 @@ db.mongobusinesses.insertMany( [
        pocketName: 'Leslieville',
        region: 'Toronto',
        description: 'Leslieville has a family-friendly-but-hip atmosphere that’s made it one of the city’s most sought-after neighbourhoods for young families to live in, and among the most fun to visit.',
-       deactivated: false,
+       status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
     },
     {
         pocketID: '2p',
         pocketName: 'Uptown Yonge',
         region: 'Toronto',
         description: 'Located in the heart of North Toronto, Uptown Yonge is the perfect combination of local boutiques, fine dining, and quiet parkettes.',
-        deactivated: false,
+        status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
      }
 ])
