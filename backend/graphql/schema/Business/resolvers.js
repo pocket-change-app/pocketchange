@@ -5,7 +5,7 @@ const returnAllBusinesses = require('../helpers/returnAllBusinesses')
 const R = require('ramda')
 const math = require('mathjs')
 const {Op} = require('sequelize')
-
+                                                                                                                                                                                                                                                                                                       
 module.exports = {
   Query: {
     business: async (parent, { businessID }, { Business, mongoBusiness}) => {
@@ -18,7 +18,7 @@ module.exports = {
         const mongoBusinessInfo = await mongoBusiness.findOne({ businessID});
         //if the schemas return with relevant info for both mongo and SQl proceed
         if(businessInfo && mongoBusinessInfo){
-            if(mongoBusinessInfo.deactivated == false){
+            if(mongoBusinessInfo.status.deactivated == false){
             //subset fields needed which are businessID, businessName, 
             //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
             return {
@@ -31,13 +31,15 @@ module.exports = {
               website: mongoBusinessInfo.website,
               businessType: mongoBusinessInfo.businessType,
               businessSubtype: mongoBusinessInfo.businessSubtype,
-              deactivated: mongoBusinessInfo.deactivated,
+              status: mongoBusinessInfo.status,
               latitude: mongoBusinessInfo.latitude,
               longitude:  mongoBusinessInfo.longitude,
               address: mongoBusinessInfo.address,
               businessTags: mongoBusinessInfo.businessTags,
               stripeID: mongoBusinessInfo.stripeID,
               description: mongoBusinessInfo.description,
+              hours: mongoBusinessInfo.hours,
+              status: mongoBusinessInfo.status,
             }
           }
           else {
@@ -65,7 +67,7 @@ module.exports = {
     },
     getLovedBusinessesByUser: async (parent, { userID }, { Business, mongoBusiness, Loves}) => {
       //get a list of all businesses that are active
-      mongoBusinessesInfo = await mongoBusiness.find({'deactivated': false}); 
+      mongoBusinessesInfo = await mongoBusiness.find({'status.deactivated': false}); 
       //get a list of user loved businesses
       if (userID != null) {
         //check the user-business relationship SQL table Loves
@@ -86,7 +88,7 @@ module.exports = {
     },
     getNearbyBusinesses: async (parent, { latitude, longitude, radius }, { Business, mongoBusiness}) => {
       //get a list of all businesses that are active
-      businessList = await mongoBusiness.find({'deactivated': false}); 
+      businessList = await mongoBusiness.find({'status.deactivated': false}); 
       console.log(businessList)
       //check to make sure the distance between the business and the coordinates entered is less than the radius
       
@@ -174,7 +176,7 @@ module.exports = {
           businessIDs = businessIDs.slice(0, businessNumber);
         }
         //find common businesses that are active
-        const commonBusinesses = await mongoBusiness.find({ $and: [{businessID: { $in: businessIDs }, deactivated: false }] })
+        const commonBusinesses = await mongoBusiness.find({ $and: [{businessID: { $in: businessIDs }, 'status.deactivated': false }] })
         return commonBusinesses
       } 
     },
@@ -196,6 +198,7 @@ module.exports = {
       businessTags,
       stripeID,
       pocketID,
+      hours,
       description, 
       ownerID,
     }, { Business, mongoBusiness, IsIn, WorksAt}) => {
@@ -219,7 +222,12 @@ module.exports = {
             businessTags: businessTags,
             stripeID: stripeID,
             description: description,
-            deactivated: false,
+            status: {
+              pending: true,
+              approved: false,
+              deactivated: false,
+            },
+            hours: hours,
           })
           //create the relationship where the business is part of a pocket
           await IsIn.create({
@@ -243,7 +251,8 @@ module.exports = {
             website: newMongoBus.website,
             businessType: newMongoBus.businessType,
             businessSubtype: newMongoBus.businessSubtype,
-            deactivated: newMongoBus.deactivated,
+            status: newMongoBus.status,
+            hours: newMongoBus.hours,
           }
         } else {
           throw new ApolloError('Business already exists')
@@ -259,6 +268,7 @@ module.exports = {
         website, 
         businessType,
         businessSubtype,
+        hours,
       }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
           //check to make sure the userID is the business owner 
           const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
@@ -281,6 +291,7 @@ module.exports = {
                 businessTags: businessTags ==null ? mongoBusinessInfo.businessTags : businessTags ,
                 stripeID: stripeID ==null ? mongoBusinessInfo.stripeID : stripeID ,
                 description: description ==null ? mongoBusinessInfo.description : description ,
+                hours: hours ==null ? mongoBusinessInfo.hours : hours ,
               })
               mongoBusinessInfo.save()
             return(mongoBusinessInfo)
@@ -325,7 +336,11 @@ module.exports = {
               //deactivate the business
               const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
                 {
-                  deactivated: true,
+                  status: {
+                    pending: false,
+                    approved: false,
+                    deactivated: true
+                  },
                 })
               return(mongoBusinessInfo)
             }
@@ -333,5 +348,28 @@ module.exports = {
               throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
             }
           },  
+          approveBusiness: async (parent, { 
+            userID,
+            businessID
+          }, { Business, mongoBusiness,  IsMember, IsIn}) => {
+            //check to make sure the userID is the pocket manager 
+            const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
+            if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+             //the user is the manager of this pocket, proceed (or its pocketchange admin)
+                //approve the business
+                const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+                  {
+                    status: {
+                      pending: false,
+                      approved: true,
+                      deactivated: false
+                    },
+                  })
+                return(mongoBusinessInfo)
+              }
+              else {
+                throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
+              }
+            },  
   }
 }

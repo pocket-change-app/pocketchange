@@ -9,7 +9,6 @@ import {useCreateUploadFileMutation} from '../hooks-apollo/index';
 //import DateTimePicker from '@react-native-community/datetimepicker';
 import { ButtonWithText } from "../components/Cards";
 import * as ImagePicker from 'expo-image-picker';
-import { ReactNativeFile } from 'apollo-upload-client';
 import * as mime from 'react-native-mime-types';
 
 
@@ -24,13 +23,6 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
   const [zipCode, setZipCode] = useState(user.address.zipCode)
   const [pickedImagePath, setPickedImagePath] = useState('')
 
-  const generateRNFile = (uri: string, name: string)=> {
-    return uri ? new ReactNativeFile({
-      uri,
-      type: mime.lookup(uri) || 'image',
-      name,
-    }) : null;
-  }
 
   const ref_inputLast = useRef();
   const objectID ='1c'
@@ -52,8 +44,6 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
       setPickedImagePath(result.uri);
       console.log(result.uri);
       console.log("RES", result)
-      //const file = generateRNFile(result.uri, `picture-${Date.now()}`); 
-      //console.log(file)
     }
   }
   return (

@@ -9,7 +9,11 @@ export default {
                 changeRate
                 region
                 circulatingChange
-                deactivated
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }
 `,
@@ -21,7 +25,11 @@ export default {
                 changeRate
                 region
                 circulatingChange
-                deactivated
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
             }
         }
     `

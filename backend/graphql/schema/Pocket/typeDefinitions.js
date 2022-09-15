@@ -10,8 +10,15 @@ module.exports = gql`
       region: String
       changeRate: Decimal
       circulatingChange: Decimal
-      deactivated: Boolean
+      status: Status
     }
+
+
+    type Status{
+        pending: Boolean
+        approved: Boolean
+        deactivated: Boolean
+      }
 
     type Query {
         """
@@ -32,5 +39,6 @@ module.exports = gql`
         joinPocketAsMember(userID:ID , pocketID:ID): Pocket
         joinPocketAsBusiness(userID:ID , pocketID:ID, businessID:ID): Pocket
         deactivatePocket(userID: ID, pocketID: ID): Pocket
+        approvePocket(userID: ID, pocketID: ID): Pocket
     }
 `

@@ -13,7 +13,7 @@ module.exports = {
             const pocketInfo = await Pocket.findOne({ where : {pocketID: pocketID}});
             const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
             if(pocketInfo && mongoPocketInfo ){
-              if(mongoPocketInfo.deactivated == false){
+              if(mongoPocketInfo.status.deactivated == false){
                 return {
                   pocketID: pocketInfo.dataValues.pocketID,
                   circulatingChange: pocketInfo.dataValues.circulatingChange,
@@ -35,7 +35,7 @@ module.exports = {
         },
         getAllPockets: async (parent, { userID }, { Pocket, mongoPocket, IsMember}) => {
           //make sure only getting active pockets
-          let mongoPocketInfo = await mongoPocket.find({ deactivated: false}); 
+          let mongoPocketInfo = await mongoPocket.find({ 'status.deactivated': false}); 
           //if user specified filter all pockets
           //check if userID is not null
           if (userID != null) {
@@ -74,7 +74,10 @@ module.exports = {
               pocketID: newPocketInfo.pocketID, 
               pocketName: pocketName,
               region: region,
-              deactivated: false,
+              status: {
+                pending: true,
+                approved: false,
+                deactivated: false},
             })
             //create the relationship where the user who made the pocket is the manager of the pocket if manager wasn't specified
             const manager = managerID? managerID: userID
@@ -90,7 +93,7 @@ module.exports = {
               changeRate: newPocketInfo.dataValues.changeRate,
               region: newMongoPocket.region,
               pocketName: newMongoPocket.pocketName,
-              deactivated: newMongoPocket.deactivated,
+              status: newMongoPocket.status,
             }
           } else {
             throw new ApolloError('Pocket already exists')
@@ -134,7 +137,7 @@ module.exports = {
                 changeRate: pocketInfo.dataValues.changeRate,
                 region: mongoPocketInfo.region,
                 pocketName: mongoPocketInfo.pocketName,
-                deactivated: mongoPocketInfo.deactivated,
+                status: mongoPocketInfo.status,
               }
             }
             else {
@@ -155,7 +158,13 @@ module.exports = {
               pocketID: pocketID
             },{IsIn, mongoBusiness}) 
             if(businessList.length ==0 ){
-              const mongoPocketInfo = await mongoPocket.updateOne({ $and: [{pocketID: pocketID}, {deactivated: true}]});  
+              const mongoPocketInfo = await mongoPocket.updateOne({pocketID: pocketID}, {
+                status: {
+                  pending: false,
+                  approved: false,
+                  deactivated: true
+                },
+              });  
               return(mongoPocketInfo)
             }
             else {
@@ -165,7 +174,38 @@ module.exports = {
           else {
             throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
           }
-        },  
+        }, 
+        approvePocket: async (parent, { 
+          userID,
+          pocketID
+          }, { Pocket, mongoPocket,  IsMember, IsIn, mongoBusiness}) => {
+             //check to make sure the userID is the pocket manager 
+             const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
+             if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+              //the user is the manager of this pocket, proceed (or its pocketchange admin)
+              //deactivate the pocket
+              //check to make sure all businessses are deactivated in the pocket first
+              const businessList = await returnAllBusinesses({
+                pocketID: pocketID
+              },{IsIn, mongoBusiness}) 
+              if(businessList.length ==0 ){
+                const mongoPocketInfo = await mongoPocket.updateOne({pocketID: pocketID}, {
+                  status: {
+                    pending: false,
+                    approved: true,
+                    deactivated: false
+                  },
+                });  
+                return(mongoPocketInfo)
+              }
+              else {
+                throw new ApolloError('there are still active businesses in this pocket')
+              }
+            }
+            else {
+              throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
+            }
+          }, 
       joinPocketAsMember: async (parent, { 
           userID,
           pocketID
@@ -200,7 +240,8 @@ module.exports = {
             circulatingChange: newPocketJoined.dataValues.circulatingChange,
             changeRate: newPocketJoined.dataValues.changeRate,
             region: newMongoPocketJoined.region,
-            pocketName: newMongoPocketJoined.pocketName
+            pocketName: newMongoPocketJoined.pocketName,
+            status: newMongoPocketJoined.status,
           }
         },
         joinPocketAsBusiness: async (parent, { 
@@ -226,7 +267,8 @@ module.exports = {
                 circulatingChange: newPocketJoined.dataValues.circulatingChange,
                 changeRate: newPocketJoined.dataValues.changeRate,
                 region: newMongoPocketJoined.region,
-                pocketName: newMongoPocketJoined.pocketName
+                pocketName: newMongoPocketJoined.pocketName,
+                status: newMongoPocketJoined.status,
               }
           }
           else{
