@@ -9,12 +9,12 @@ import { MARGIN, styles } from "../Styles";
 import { useMutation } from '@apollo/react-hooks'
 import UserMutations from '../hooks-apollo/User/mutations'
 
-
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from '../contexts/Auth';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default function SignUpScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -23,8 +23,11 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const [lastName, setLastName] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
   const [birthDate, setBirthDate] = useState('')
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [homePostalCode, setHomePostalCode] = useState('')
   const [password, setPassword] = useState('')
+
 
   const [signUpError, setSignUpError] = useState('')
 
@@ -33,6 +36,25 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const ref_inputBirthDate = useRef();
   const ref_inputHomePostalCode = useRef();
   const ref_inputPass = useRef();
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShowDatePicker(false);
+    setDate(currentDate);
+
+    function join(t, a, s) {
+      function format(m) {
+         let f = new Intl.DateTimeFormat('en', m);
+         return f.format(t);
+      }
+      return a.map(format).join(s);
+   }
+   
+   let a = [{year: 'numeric'}, {day: '2-digit'}, {month: '2-digit'}];
+   let s = join(selectedDate, a, '-');
+   // console.log(s);
+   setBirthDate(s)
+  };
 
   const auth = getAuth();
   const authContext = useContext(AuthContext);
@@ -49,6 +71,8 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
   async function signUp() {
 
+   
+
     //setFirstname("Elias")
     //setLastName("Williams")
     //setEmailAddress("elias.williams1216@gmail.com")
@@ -60,7 +84,6 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
       setSignUpError('Email and password are mandatory.')
       return;
     }
-  
     try {
       await createUserWithEmailAndPassword(auth, emailAddress, password).then(
         (userCredential) => {
@@ -174,7 +197,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             Birth Date
           </Text>
 
-          <TextInput
+          {/* <TextInput
             // autoFocus={true}
             returnKeyType="next"
             selectionColor={colors.gold}
@@ -186,6 +209,14 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             placeholder={'YYYY-DD-MM'}
             placeholderTextColor={colors.subtle}
             ref={ref_inputBirthDate}
+            onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
+          /> */}
+
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            onChange={onDateChange}
             onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
           />
         </View>

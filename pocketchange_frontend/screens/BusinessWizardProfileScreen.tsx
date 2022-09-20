@@ -7,9 +7,13 @@ import { colors } from "../constants/Colors";
 import { AuthContext } from "../contexts/Auth";
 import { MARGIN, styles } from "../Styles";
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useMutation } from '@apollo/react-hooks'
+import BusinessMutations from '../hooks-apollo/Business/mutations'
 
 
 export default function BusinessWizardProfileScreen({ route, navigation }: { route: any, navigation: any }) {
+
+  const { pocketID } = route.params
 
   const authContext = useContext(AuthContext); 
 
@@ -21,21 +25,29 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [businessPhoneNumber, setBusinessPhoneNumber] = useState('')
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [businessType, setBusinessType] = useState(null);
+  console.log(businessType)
   const [items, setItems] = useState([
     {label: 'Restaurant', value: 'restaurant'},
-    {label: 'Cafe', value: 'cafe', parent: 'restaurant'},
-    {label: 'Indian', value: 'indian', parent: 'restaurant'},
+    //{label: 'Cafe', value: 'cafe', parent: 'restaurant'},
+    //{label: 'Indian', value: 'indian', parent: 'restaurant'},
+    {label: 'Grocery', value: 'grocery'},
   
     {label: 'Retail', value: 'retail'},
-    {label: 'Clothing', value: 'clothing', parent: 'retail'},
-    {label: 'Toys', value: 'toys', parent: 'retail'},
+    //{label: 'Clothing', value: 'clothing', parent: 'retail'},
+    //{label: 'Toys', value: 'toys', parent: 'retail'},
   ]);
 
   const ref_about = useRef();
   const ref_address = useRef();
   const ref_postalCode = useRef();
   const ref_phone = useRef();
+
+  const [useCreateBusinessMutation, {loading, error}] = useMutation(
+    BusinessMutations.createBusiness, {
+      onCompleted(data) {navigation.navigate('BusinessWizardStripe', {businessID : data.createBusiness.businessID})}, 
+      onError(error) {console.log(error)}
+  })
 
 
   return (
@@ -81,10 +93,10 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
           <DropDownPicker
             placeholder="Business Type"
             open={open}
-            value={value}
+            value={businessType}
             items={items}
             setOpen={setOpen}
-            setValue={setValue}
+            setValue={setBusinessType}
             setItems={setItems}
           />
 
@@ -201,24 +213,18 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={() => navigation.navigate('BusinessWizardStripe', {
-              business: {
-                businessName: businessName,
-                phoneNumber: businessPhoneNumber,
-                address: businessStreetAddress,
-                pocket: "Leslieville",
-                // imageURL: require("./assets/images/avling.jpg"),
-                bio: businessBio,
-                // hours: hmm...
-                // people: [
-                //   {
-                //     name: 'Max',
-                //     position: 'Owner',
-                //     imageURL: require('./assets/images/max.png')
-                //   }
-                // ]
-              },
-            })}
+            onPress={useCreateBusinessMutation({
+              variables: {
+                userID: authContext.userGQL.userID, 
+                businessName: businessName, 
+                // dateEstablished:$dateEstablished, 
+                // emailAddress: $emailAddress, 
+                phoneNumber: businessPhoneNumber, 
+                // website: website, 
+                businessType: businessType, 
+                //businessSubtype: $businessSubtype, 
+                pocketID: pocketID
+              }})}
           />
         </ScrollView>
       </KeyboardAvoidingView>

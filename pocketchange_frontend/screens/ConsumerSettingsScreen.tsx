@@ -119,7 +119,7 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
 
         <Pressable
           style={[styles.card, { height: 45, justifyContent: 'center', }]}
-          onPress={() => navigation.navigate("BusinessWizardProfile")}
+          onPress={() => navigation.navigate("BusinessWizardProfile", {pocketID : "1p"})}
         >
           <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Biz Whiz</Text>
           {/* <HorizontalLine /> */}
