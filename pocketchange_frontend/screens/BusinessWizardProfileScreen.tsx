@@ -46,7 +46,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [useCreateBusinessMutation, {loading, error}] = useMutation(
     BusinessMutations.createBusiness, {
       onCompleted(data) {navigation.navigate('BusinessWizardStripe', {businessID : data.createBusiness.businessID})}, 
-      onError(error) {console.log(error)}
+      onError(error) {console.log(JSON.stringify(error, null, 2))}
   })
 
 
@@ -213,7 +213,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={useCreateBusinessMutation({
+            onPress={() => useCreateBusinessMutation({
               variables: {
                 userID: authContext.userGQL.userID, 
                 businessName: businessName, 

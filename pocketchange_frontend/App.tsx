@@ -18,7 +18,10 @@ import './config/firebase';
 import { StripeProvider } from '@stripe/stripe-react-native';
 
 
+
+
 export default function App() {
+
 
   const isLoadingComplete = useCachedResources();
 

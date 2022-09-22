@@ -2,8 +2,8 @@ import {gql } from '@apollo/client';
 
 export default {
     createBusiness: gql`
-        mutation createBusiness($userID: String, $ownerID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: String){
-            createBusiness(userID: $userID, ownerID: $ownerID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
+        mutation createBusiness($userID: ID, $ownerID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: ID){
+            createBusiness(userID: $userID, ownerID: $ownerID, businessName:$businessName, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
                 businessID
                 businessName
                 dateEstablished

@@ -1,10 +1,10 @@
-import { ScrollView, FlatList, SectionList, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { styles } from '../Styles';
+import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
-import { DivHeader, BusinessCardSm } from '../components/Cards';
+import { DivHeader, BusinessCardSm, ButtonWithText } from '../components/Cards';
 import { colors, colorScale } from '../constants/Colors';
 
 import { analytics } from '../dummy';
@@ -79,6 +79,7 @@ export default function AnalyticsDashboardScreen() {
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
+          ListFooterComponent={<SuggestAnalyticForm/>}
         />
 
       </ScreenContainer>
@@ -387,4 +388,35 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
 
     </View>
   )
+}
+
+function SuggestAnalyticForm() {
+  return(
+    <View style={[styles.card, styles.analyticsCard]}>
+      <View style={styles.analyticsHeaderContainer}>
+          <Text style={styles.analyticsTitle}>Something missing?</Text>
+      </View>
+      <View style={styles.analyticsContentContainer}>
+        <Text style={styles.prose}>
+          Suggest a metric you'd like to see...
+        </Text>
+        <View style={[styles.signUpInputText, {marginBottom: MARGIN}]}>
+            <TextInput
+              // autoFocus={true}
+              selectionColor={colors.gold}
+              style={styles.receipt}
+              onChangeText={""}
+              placeholder={""}
+              multiline
+              numberOfLines={3}
+              placeholderTextColor={colors.subtle}
+              onSubmitEditing={() => {}}/>
+        </View>
+        <ButtonWithText
+          text='Submit'
+          color={colors.gold}/>
+      </View>
+      
+    </View>
+  );
 }

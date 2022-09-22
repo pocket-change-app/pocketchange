@@ -15,10 +15,16 @@ export enum RoleType {
   Leader = "LEADER"
 }
 
+export enum RoleLevel {
+  Owner = "OWNER",
+  Manager = "MANAGER",
+  Employee = "EMPLOYEE"
+}
+
 type Role = {
   type: RoleType, // 'consumer', 'merchant', or 'leader'
-  level?: String, // permission level if 'merchant' or 'leader'
-  entity?: String, // if 'merchant' then the business, if 'leader' then the pocket, else null
+  level?: RoleLevel, // permission level if 'merchant' or 'leader'
+  entity?: String, // if 'merchant' then the businessID, if 'leader' then the pocketID, else null
 };
 
 type AuthContextData = {
