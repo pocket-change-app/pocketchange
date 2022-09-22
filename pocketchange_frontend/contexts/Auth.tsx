@@ -21,17 +21,18 @@ export enum RoleLevel {
   Employee = "EMPLOYEE"
 }
 
-type Role = {
+export type Role = {
   type: RoleType, // 'consumer', 'merchant', or 'leader'
   level?: RoleLevel, // permission level if 'merchant' or 'leader'
-  entity?: String, // if 'merchant' then the businessID, if 'leader' then the pocketID, else null
+  entityID?: String, // if 'merchant' then the businessID, if 'leader' then the pocketID, else null
+  entityName?: String, // name corresponding to above ID.
 };
 
 type AuthContextData = {
   userFirebase: User,
   userGQL: Object,
   setUserGQL(user): void,
-  activeRole: Role, 
+  activeRole: Role,
   switchActiveRole(role: Role): void,
   signOut(): void,
   loading: boolean,
@@ -50,18 +51,20 @@ export const AuthProvider = ({ children }: { children: any }) => {
 
   // lazy query definition: GQL users for firebase uid 
   const [loadUserGQL, { called, data, error }] = useLazyQuery(
-    UserQueries.user, 
-    {onCompleted(data) {setUserGQL(data.user)}, 
-    onError(error) {console.log("AUTH ERROR: firebase user not found in GQL")}});
+    UserQueries.user,
+    {
+      onCompleted(data) { setUserGQL(data.user) },
+      onError(error) { console.log("AUTH ERROR: firebase user not found in GQL") }
+    });
 
   // run on when userFirebase changes
   useEffect(() => {
-    setActiveRole({type: RoleType.Consumer});// change this to use saved state or check roles via a resolver
+    setActiveRole({ type: RoleType.Consumer });// change this to use saved state or check roles via a resolver
     if (!(isNilOrEmpty(userFirebase))) {
-      loadUserGQL({variables: {userID: userFirebase.uid}})
+      loadUserGQL({ variables: { userID: userFirebase.uid } })
     }
-  },[userFirebase]) // <-- here put the parameter to listen 
-  
+  }, [userFirebase]) // <-- here put the parameter to listen 
+
   // called when firebase auth state changes
   const handleAuthStateChanged = ((userFirebase: User) => {
     if (!(isNilOrEmpty(userFirebase))) {
@@ -74,7 +77,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   });
 
   const switchActiveRole = ((role: Role) => {
-    
+
     // TODO: check here if signed in user has permission to switch to role
     setActiveRole(role);
 
@@ -95,7 +98,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
     userFirebase: userFirebase,
     userGQL: userGQL,
     setUserGQL: setUserGQL,
-    activeRole: activeRole, 
+    activeRole: activeRole,
     switchActiveRole: switchActiveRole,
     signOut: signOut,
     loading: loading,
