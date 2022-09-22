@@ -50,7 +50,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
       return a.map(format).join(s);
    }
    
-   let a = [{year: 'numeric'}, {day: '2-digit'}, {month: '2-digit'}];
+   let a = [{year: 'numeric'}, {month: '2-digit'}, {day: '2-digit'}];
    let s = join(selectedDate, a, '-');
    // console.log(s);
    setBirthDate(s)
