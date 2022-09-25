@@ -3,7 +3,7 @@ import {gql } from '@apollo/client';
 export default {
     createBusiness: gql`
         mutation createBusiness($userID: ID, $ownerID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: ID){
-            createBusiness(userID: $userID, ownerID: $ownerID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
+            createBusiness(userID: $userID, ownerID: $ownerID, businessName:$businessName, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID) {
                 businessID
                 businessName
                 dateEstablished
@@ -13,12 +13,12 @@ export default {
                 businessType
                 businessSubtype
                 address{
-                    streetName
-                    buildingNumber
-                    unitNumber
-                    city
-                    region
-                    postalCode
+                  streetName
+                  buildingNumber
+                  unitNumber
+                  city
+                  region
+                  postalCode
                 }
                 latitude
                 longitude
@@ -54,19 +54,19 @@ export default {
                       start
                       end
                     }
-                  }
+                }
                 status{
-                    pending
-                    approved
-                    deactivated
-                  }
+                  pending
+                  approved
+                  deactivated
+                }
                 pockets
-            }
+          }
         }
     `,
     updateBusiness: gql`
         mutation updateBusiness($userID: ID, $businessName:String, $dateEstablished:String, $emailAddress:String, $phoneNumber:String, $website:String, $businessType: String, $businessSubtype: String, $pocketID: ID, $address: Address, $latitude: Float, $longitude: Float, $businessTags: [String], $description: String){
-            updateBusiness(userID: $userID, businessName:$businessname, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID, address: $address, latitude: $latitude, longitude: $longitude, businessTags: $businessTags, description: $description) {
+            updateBusiness(userID: $userID, businessName:$businessName, dateEstablished:$dateEstablished, emailAddress:$emailAddress, phoneNumber:$phoneNumber, website:$website, businessType: $businessType, businessSubtype: $businessSubtype, pocketID:$pocketID, address: $address, latitude: $latitude, longitude: $longitude, businessTags: $businessTags, description: $description) {
                 businessID
                 businessName
                 dateEstablished
@@ -117,7 +117,7 @@ export default {
                       start
                       end
                     }
-                  }
+                }
                 status{
                     pending
                     approved
@@ -258,5 +258,7 @@ createStripeLink: gql`
       created
       expires_at
       url
+    }
+  }
 `,
 }
