@@ -9,6 +9,11 @@ import { MARGIN, styles } from "../Styles";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useMutation } from '@apollo/react-hooks'
 import BusinessMutations from '../hooks-apollo/Business/mutations'
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import * as ImagePicker from 'expo-image-picker';
+//import * as mime from 'react-native-mime-types';
+
+
 
 
 export default function BusinessWizardProfileScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -16,6 +21,14 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const { pocketID } = route.params
 
   const authContext = useContext(AuthContext); 
+
+  const storage = getStorage();
+
+
+  const storageRef = ref(storage);
+  const [pickedImagePath, setPickedImagePath] = useState('')
+  const [uploadingImage, setUploadingImage] = useState(false);
+
 
   const [businessName, setBusinessName] = useState('')
   const [businessBio, setBusinessBio] = useState('')
@@ -26,7 +39,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
   const [open, setOpen] = useState(false);
   const [businessType, setBusinessType] = useState(null);
-  console.log(businessType)
+  //console.log(businessType)
   const [items, setItems] = useState([
     {label: 'Restaurant', value: 'restaurant'},
     //{label: 'Cafe', value: 'cafe', parent: 'restaurant'},
@@ -45,7 +58,13 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
   const [useCreateBusinessMutation, {loading, error}] = useMutation(
     BusinessMutations.createBusiness, {
-      onCompleted(data) {navigation.navigate('BusinessWizardStripe', {businessID : data.createBusiness.businessID})}, 
+      onCompleted(data) {
+        const businessImageRef = ref(storage, "Business/".concat(data.createBusiness.businessID, "/businessProfile.jpg"));
+        uploadBytes(businessImageRef, pickedImagePath).then((snapshot) => {
+          console.log('Uploaded business profile image!');
+        });
+        navigation.navigate('BusinessWizardStripe', {businessID : data.createBusiness.businessID});
+      }, 
       onError(error) {console.log(JSON.stringify(error, null, 2))}
   })
 

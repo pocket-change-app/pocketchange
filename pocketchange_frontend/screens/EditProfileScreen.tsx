@@ -9,7 +9,7 @@ import {useCreateUploadFileMutation} from '../hooks-apollo/index';
 //import DateTimePicker from '@react-native-community/datetimepicker';
 import { ButtonWithText } from "../components/Cards";
 import * as ImagePicker from 'expo-image-picker';
-import * as mime from 'react-native-mime-types';
+//import * as mime from 'react-native-mime-types';
 
 
 const R = require('ramda');
