@@ -16,10 +16,11 @@ module.exports = {
               if(mongoPocketInfo.status.deactivated == false){
                 return {
                   pocketID: pocketInfo.dataValues.pocketID,
-                  circulatingChange: pocketInfo.dataValues.circulatingChange,
-                  changeRate: pocketInfo.dataValues.changeRate,
+                  circulatingChange: (parseFloat(pocketInfo.dataValues.circulatingChange).toFixed(2)),
+                  changeRate: (parseFloat(pocketInfo.dataValues.changeRate).toFixed(2)),
                   region: mongoPocketInfo.region,
-                  pocketName: mongoPocketInfo.pocketName
+                  pocketName: mongoPocketInfo.pocketName,
+                  status: mongoPocketInfo.status,
                 }
               }
               else{
@@ -45,16 +46,59 @@ module.exports = {
             const joinByPocketID = R.innerJoin(
               (a, b) => a.pocketID === b.pocketID
             )
-            return joinByPocketID(mongoPocketInfo, isMemberInfo)
+            mongoPocketInfo = joinByPocketID(mongoPocketInfo, isMemberInfo)
           } 
-          //return mongoPocketInfo, if empty it will return an empty list indicating that no businesses matching this criteria were found
-          //(mongoPocketInfo)
-          if(mongoPocketInfo)
-            return mongoPocketInfo
-          else {
-            return []
+          let pocketInfo
+          let currMongoPocket
+          const finalPocketInfo = []
+          for(pocket in mongoPocketInfo){
+            currMongoPocket = mongoPocketInfo[pocket]
+            pocketInfo = await Pocket.findOne({where: {pocketID: currMongoPocket.pocketID}})
+            finalPocketInfo.push({
+              pocketID: currMongoPocket.pocketID,
+              circulatingChange: (parseFloat(pocketInfo.dataValues.circulatingChange).toFixed(2)),
+                  changeRate: (parseFloat(pocketInfo.dataValues.changeRate).toFixed(2)),
+              region: currMongoPocket.region,
+              pocketName: currMongoPocket.pocketName,
+              status: currMongoPocket.status
+            })
           }
+          return finalPocketInfo
       },
+      getBusinessPockets: async (parent, { businessID }, { mongoPocket, Pocket, mongoBusiness, IsIn, sequelizeConnection}) => {
+        //find the top n (n = businessNumbr) list of all businesses that have customer overlap with the business in question (businessID) within dates if specified
+        if (businessID == null) {
+          return null;
+        }        
+        //get list of pocket business interactions
+        const businessPockets = await IsIn.findAll({ 
+            where: {businessID: businessID}
+        })
+        console.log(businessPockets)
+        //make sure only getting active pockets
+        let mongoPocketInfo = await mongoPocket.find({ 'status.deactivated': false});  
+        console.log("mongoPocketInfo", mongoPocketInfo)
+        const joinByPocketID = R.innerJoin(
+          (a, b) => a.pocketID === b.pocketID
+        )
+        mongoPocketInfo = joinByPocketID(mongoPocketInfo, businessPockets)
+        let pocketInfo
+        let currMongoPocket
+        const finalPocketInfo = []
+        for(pocket in mongoPocketInfo){
+          currMongoPocket = mongoPocketInfo[pocket]
+          pocketInfo = await Pocket.findOne({where: {pocketID: currMongoPocket.pocketID}})
+          finalPocketInfo.push({
+            pocketID: currMongoPocket.pocketID,
+            circulatingChange: (parseFloat(pocketInfo.dataValues.circulatingChange).toFixed(2)),
+            changeRate: (parseFloat(pocketInfo.dataValues.changeRate).toFixed(2)),
+            region: currMongoPocket.region,
+            pocketName: currMongoPocket.pocketName,
+            status: currMongoPocket.status
+          })
+        }
+        return finalPocketInfo
+      } 
     },
   
     Mutation: {
@@ -165,7 +209,15 @@ module.exports = {
                 },
               });
               const mongoPocketInfo = await mongoPocket.findOne({pocketID: pocketID})  
-              return(mongoPocketInfo)
+              pocketInfo = Pocket.findOne(Pocket.findOne({where: { pocketID: pocketID }}))
+              return {
+                pocketID: pocketInfo.dataValues.pocketID,
+                circulatingChange: pocketInfo.dataValues.circulatingChange,
+                changeRate: pocketInfo.dataValues.changeRate,
+                region: mongoPocketInfo.region,
+                pocketName: mongoPocketInfo.pocketName,
+                status: mongoPocketInfo.status,
+              }
             }
             else {
               throw new ApolloError('there are still active businesses in this pocket')
@@ -197,7 +249,15 @@ module.exports = {
                   },
                 });  
                 const mongoPocketInfo = await mongoPocket.findOne({pocketID: pocketID}) 
-                return(mongoPocketInfo)
+                pocketInfo = Pocket.findOne(Pocket.findOne({where: { pocketID: pocketID }}))
+                return {
+                  pocketID: pocketInfo.dataValues.pocketID,
+                  circulatingChange: pocketInfo.dataValues.circulatingChange,
+                  changeRate: pocketInfo.dataValues.changeRate,
+                  region: mongoPocketInfo.region,
+                  pocketName: mongoPocketInfo.pocketName,
+                  status: mongoPocketInfo.status,
+                }
               }
               else {
                 throw new ApolloError('there are still active businesses in this pocket')
@@ -302,7 +362,8 @@ module.exports = {
               circulatingChange: newPocketJoined.dataValues.circulatingChange,
               changeRate: newPocketJoined.dataValues.changeRate,
               region: newMongoPocketJoined.region,
-              pocketName: newMongoPocketJoined.pocketName
+              pocketName: newMongoPocketJoined.pocketName,
+              status: newMongoPocketJoined.status,
             }
           }
           else{
@@ -348,7 +409,8 @@ module.exports = {
                     circulatingChange: (pocketChange.dataValues.circulatingChange).toFixed(2),
                     changeRate: pocketChange.dataValues.changeRate,
                     region: mongoPocketInfo.region,
-                    pocketName: mongoPocketInfo.pocketName
+                    pocketName: mongoPocketInfo.pocketName,
+                    status: mongoPocketInfo.status,
                   }
                 }
               }

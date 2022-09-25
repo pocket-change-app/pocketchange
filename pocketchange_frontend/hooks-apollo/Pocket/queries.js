@@ -32,6 +32,22 @@ export default {
                   }
             }
         }
+    `,
+    getBusinessPockets: gql`
+        query getBusinessPockets($businessID:ID){
+            getBusinessPockets(businessID:$businessID) {
+                pocketID
+                pocketName
+                changeRate
+                region
+                circulatingChange
+                status{
+                    pending
+                    approved
+                    deactivated
+                  }
+            }
+        }
     `
 
 }
