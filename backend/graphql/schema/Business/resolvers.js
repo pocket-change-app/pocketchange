@@ -5,6 +5,10 @@ const returnAllBusinesses = require('../helpers/returnAllBusinesses')
 const R = require('ramda')
 const math = require('mathjs')
 const {Op} = require('sequelize')
+//sk_test must be replaced with private key
+require('dotenv').config('../../.env');
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
                                                                                                                                                                                                                                                                                                        
 module.exports = {
   Query: {
@@ -196,7 +200,6 @@ module.exports = {
       latitude,
       longitude,
       businessTags,
-      stripeID,
       pocketID,
       hours,
       description, 
@@ -210,24 +213,24 @@ module.exports = {
           const newMongoBus = await mongoBusiness.create({ 
             businessID: newBus.businessID, 
             businessName: businessName,
-            dateEstablished: dateEstablished,
-            emailAddress: emailAddress,
-            phoneNumber: phoneNumber,
-            website: website,
+            dateEstablished: dateEstablished? dateEstablished : null,
+            emailAddress: emailAddress? emailAddress : null,
+            phoneNumber: phoneNumber? phoneNumber : null,
+            website: websit ? website: null,
             businessType: businessType,
-            businessSubtype: businessSubtype,
+            businessSubtype: businessSubtype? businessSubtype: null ,
             address: address,
-            latitude: latitude,
-            longitude: longitude,
-            businessTags: businessTags,
-            stripeID: stripeID,
+            latitude: latitude ? latitude: null,
+            longitude: longitude ? longitude: null,
+            businessTags: businessTags? businessTags : null,
+            stripeID: null,
             description: description,
             status: {
               pending: true,
               approved: false,
               deactivated: false,
             },
-            hours: hours,
+            hours: hours? hours: null,
           })
           //create the relationship where the business is part of a pocket
           await IsIn.create({
@@ -271,12 +274,12 @@ module.exports = {
         hours,
       }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
           //check to make sure the userID is the business owner 
-          const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+          const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
           if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
             //the user is the owner of this business, proceed (or its pocketchange admin)
             //update the business with specified values
             const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
-            await mongoBusinessInfo.updateOne(
+            await mongoBusiness.updateOne({ businessID: businessID },
               {
                 businessName: businessName == null ? mongoBusinessInfo.businessName : businessName,
                 dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dateEstablished : dateEstablished ,
@@ -289,7 +292,6 @@ module.exports = {
                 latitude: latitude ==null ? mongoBusinessInfo.latitude : latitude ,
                 longitude: longitude ==null ? mongoBusinessInfo.longitude : longitude ,
                 businessTags: businessTags ==null ? mongoBusinessInfo.businessTags : businessTags ,
-                stripeID: stripeID ==null ? mongoBusinessInfo.stripeID : stripeID ,
                 description: description ==null ? mongoBusinessInfo.description : description ,
                 hours: hours ==null ? mongoBusinessInfo.hours : hours ,
               })
@@ -300,13 +302,38 @@ module.exports = {
             throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
           }
         }, 
+        createStripeLink: async (parent, { 
+          userID,
+          businessID
+        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+            //check to make sure the userID is the business owner 
+            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+              //the user is the current owner of this business, proceed (or its pocketchange admin)
+              //create stripe account
+              const account = await stripe.accounts.create({
+                type: 'standard',  
+              });
+              await mongoBusiness.updateOne({ businessID: businessID }, {stripeID: account.id})
+              const accountLink = await stripe.accountLinks.create({
+                account: account.id,
+                refresh_url: 'https://example.com/reauth',
+                return_url: 'https://example.com/return',
+                type: 'account_onboarding',
+              });
+              return accountLink
+            }
+            else {
+              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+            }
+          },  
         updateBusinessOwner: async (parent, { 
           userID,
           ownerID,
           businessID
         }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
             //check to make sure the userID is the business owner 
-            const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
             if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
               //the user is the current owner of this business, proceed (or its pocketchange admin)
               //update the role of the business
@@ -318,7 +345,7 @@ module.exports = {
                   where: { pocketID: pocketID, role: "owner" },
                 }
               )
-              const mongoBusinessInfo = await mongoBusiness.find({ businessID: businessID })
+              const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
               return(mongoBusinessInfo)
             }
             else {
@@ -330,11 +357,11 @@ module.exports = {
           businessID
         }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
             //check to make sure the userID is the business owner 
-            const worksAtInfo = await WorksAt.find({where:{ userID:userID, businessID: businessID}})
+            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
             if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
               //the user is the owner of this business, proceed (or its pocketchange admin)
               //deactivate the business
-              const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+              await mongoBusiness.updateOne({ businessID: businessID },
                 {
                   status: {
                     pending: false,
@@ -342,6 +369,8 @@ module.exports = {
                     deactivated: true
                   },
                 })
+              const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+              console.log(mongoBusinessInfo)
               return(mongoBusinessInfo)
             }
             else {
@@ -351,13 +380,13 @@ module.exports = {
           approveBusiness: async (parent, { 
             userID,
             businessID
-          }, { Business, mongoBusiness,  IsMember, IsIn}) => {
-            //check to make sure the userID is the pocket manager 
-            const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
-            if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+          }, { Business, mongoBusiness,  WorksAt, IsIn}) => {
+            //check to make sure the userID is the business manager 
+            const worksAtInfo = await WorksAt.findOne({ where:{ userID:userID, businessID: businessID}})
+            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
              //the user is the manager of this pocket, proceed (or its pocketchange admin)
                 //approve the business
-                const mongoBusinessInfo = await mongoBusiness.updateOne({ businessID: businessID },
+                await mongoBusiness.updateOne({ businessID: businessID },
                   {
                     status: {
                       pending: false,
@@ -365,6 +394,8 @@ module.exports = {
                       deactivated: false
                     },
                   })
+                const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+                console.log(mongoBusinessInfo)
                 return(mongoBusinessInfo)
               }
               else {

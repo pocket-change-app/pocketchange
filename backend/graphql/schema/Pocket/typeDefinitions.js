@@ -26,6 +26,7 @@ module.exports = gql`
         """
         pocket(pocketID:ID):Pocket
         getAllPockets(userID:ID): [Pocket]
+        getBusinessPockets(businessID: ID): [Pocket]
     }
 
     type Mutation {

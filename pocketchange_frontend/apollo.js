@@ -8,7 +8,6 @@ const PORT = '4000';
 // const GRAPHQL_API_URL = 'http://localhost:4000/graphql';
 
 const authLink = setContext((_, {headers}) => {
-  const token = localStorage.getItem('token')
   return {
     headers: {
       ...headers,

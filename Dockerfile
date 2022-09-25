@@ -1,6 +1,6 @@
 FROM node:16-alpine
 WORKDIR /pocketchange
-COPY package*.json ./
+COPY ./backend/package*.json ./
 RUN npm install
 COPY ./backend ./backend
 RUN npm install ./backend

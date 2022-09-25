@@ -54,6 +54,12 @@ module.exports = gql`
       postalCode: String
     }
 
+    type AccountLink{
+      created: Date
+      expires_at: Date
+      url: String
+    }
+
 
     input AddressInput{
       streetName: String
@@ -83,5 +89,6 @@ module.exports = gql`
         updateBusinessOwner(userID: ID, businessID: ID, ownerID: ID) : Business
         deactivateBusiness(userID:ID, businessID:ID): Business
         approveBusiness(userID:ID, businessID:ID): Business
+        createStripeLink(userID: ID, businessID: ID): AccountLink
       }
 `
