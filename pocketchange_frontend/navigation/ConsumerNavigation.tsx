@@ -29,6 +29,7 @@ import ViewPDFScreen from '../screens/ViewPDFScreen';
 import SettingsAboutScreen from '../screens/SettingsAboutScreen';
 import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
+import BusinessWizardUploadImage from '../screens/BusinessWizardUploadImage';
 import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
 
 import { AuthContext } from '../contexts/Auth';
@@ -366,6 +367,13 @@ function WalletStack() {
       <Stack.Screen
         name="BusinessWizardProfile"
         component={BusinessWizardProfileScreen}
+        options={{
+          title: '',
+        }}
+      />
+       <Stack.Screen
+        name="BusinessWizardUploadImage"
+        component={BusinessWizardUploadImage}
         options={{
           title: '',
         }}
