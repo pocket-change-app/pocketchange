@@ -13,7 +13,7 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
   const authContext = useContext(AuthContext); 
 
-  const { business } = route.params
+  const { businessID } = route.params
 
   const [result, setResult] = useState(null);
   const handleStripeFlowRedirect = async () => {

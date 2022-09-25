@@ -10,7 +10,11 @@ import { AuthStack } from './AuthStack';
 import { ConsumerNavigation } from './ConsumerNavigation';
 import { MerchantNavigation } from './MerchantNavigation';
 import { isNilOrEmpty } from 'ramda-adjunct';
+import { Text, } from 'react-native';
 
+
+import * as Linking from 'expo-linking';
+const prefix = Linking.createURL('/');
 
 
 export const Router = () => {
@@ -36,8 +40,12 @@ export const Router = () => {
     }
   }
 
+  const linking = {
+    prefixes: [prefix],//, "https://pocketchangeapp.ca"],
+  };
+
   return (
-    <NavigationContainer theme={DefaultTheme}>
+    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       {stack}
     </NavigationContainer>
   );

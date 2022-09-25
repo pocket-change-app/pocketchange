@@ -25,6 +25,7 @@ const firebaseConfig = {
     messagingSenderId: Constants.manifest?.extra?.firebaseMessagingSenderId,
     appId: Constants.manifest?.extra?.firebaseAppId,
     measurementId: Constants.manifest?.extra?.firebaseMeasurementId,
+    databaseURL: Constants.manifest?.extra?.firebaseDatabaseURL
   };
 
 

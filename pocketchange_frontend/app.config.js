@@ -7,7 +7,7 @@ export default {
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "pocketchange",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -40,7 +40,8 @@ export default {
       firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
       firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
       firebaseAppId: process.env.FIREBASE_APP_ID,
-      firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID
+      firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
+      firebaseDatabaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
     }
   },
 
