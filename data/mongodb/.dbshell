@@ -909,14 +909,14 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange
-show tables
-db.mongousers.drop()
-db.mongopockets.drop()
-db.mongousers.drop()
-show tables
-db.mongobusinesses.drop()
-show tables;
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
