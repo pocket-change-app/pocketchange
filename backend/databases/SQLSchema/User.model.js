@@ -3,12 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         userID: {
             type: Sequelize.UUID,
             allowNull: false,
-            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
-        },
-        salt: {
-            type: Sequelize.UUID,
-            allowNull: false
         }
     });
   

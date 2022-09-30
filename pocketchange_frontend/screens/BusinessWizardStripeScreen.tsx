@@ -45,7 +45,7 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
           <Text style={styles.pocketTitle}>Payments</Text>
 
-          <Text style={styles.prose}>PocketChange uses uses Stripe to get you paid quickly and keep your personal and payment information secure. Thousands of companies around the world trust Stripe to process payments for their users. Set up a Stripe account to get paid with PocketChange.</Text>
+          <Text style={[styles.prose, {marginBottom: MARGIN}]}>PocketChange uses uses Stripe to get you paid quickly and keep your personal and payment information secure. Thousands of companies around the world trust Stripe to process payments for their users. Set up a Stripe account to get paid with PocketChange.</Text>
 
           <ButtonWithText
             text='Setup with Stripe'

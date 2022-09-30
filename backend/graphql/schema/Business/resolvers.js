@@ -216,7 +216,7 @@ module.exports = {
             dateEstablished: dateEstablished? dateEstablished : null,
             emailAddress: emailAddress? emailAddress : null,
             phoneNumber: phoneNumber? phoneNumber : null,
-            website: websit ? website: null,
+            website: website ? website: null,
             businessType: businessType,
             businessSubtype: businessSubtype? businessSubtype: null ,
             address: address,

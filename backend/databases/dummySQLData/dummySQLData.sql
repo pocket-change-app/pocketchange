@@ -2,20 +2,20 @@
 -- source <entire file path to this file>/dummySQLData.sql
 
 -- insert users
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("1c", "7327cd7f13543d85", "2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("2c", "6ac7e0a038aab040", "2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("3c","51d68f2fb2ed5f24", "2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("4c", "c49037c2c5d0e601","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("5c", "47e3ac1cb84e6d7a","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("6c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("7c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("8c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("9c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("10c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("11c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("12c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("13c", "410e97e1759afc4f","2022-03-04 09:22:11","2022-03-04 20:34:13");
-INSERT INTO users (userID, salt, createdAt,updatedAt) VALUES ("pocketchangeAdmin", "868c90a2e3759f40", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("1c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("2c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("3c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("4c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("5c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("6c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("7c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("8c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("9c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("10c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("11c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("12c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("13c", "2022-03-04 09:22:11","2022-03-04 20:34:13");
+INSERT INTO users (userID, createdAt,updatedAt) VALUES ("pocketchangeAdmin", "2022-03-04 09:22:11","2022-03-04 20:34:13");
 
 -- insert pockets
 INSERT INTO pockets (pocketID, circulatingChange, changeRate, createdAt, updatedAt) VALUES ("1p", 16.00, 0.80, "2022-02-04 09:22:11","2022-02-04 20:34:13");

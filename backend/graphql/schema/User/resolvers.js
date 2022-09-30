@@ -179,7 +179,8 @@ module.exports = {
             const existingUserID = await mongoUser.findOne({ userID })
             const existingEmail = await mongoUser.findOne({ emailAddress })
             if (!(existingUserID | existingEmail)) {
-              //const newUser = await User.create({ salt: encryptpass.salt}); // removed since we're using firebase for authentication
+              const newUser = await User.create({userID: userID}); 
+              console.log(newUser.toJSON())
               const newMongoUser = await mongoUser.create({ 
                 userID: userID, 
                 firstName: firstName,

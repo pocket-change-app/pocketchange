@@ -26,7 +26,6 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
 
   const storageRef = ref(storage);
-  const [pickedImagePath, setPickedImagePath] = useState('')
   const [uploadingImage, setUploadingImage] = useState(false);
 
 
@@ -36,6 +35,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [addressLineTwo, setAddressLineTwo] = useState('')
   const [businessPostalCode, setBusinessPostalCode] = useState('')
   const [businessPhoneNumber, setBusinessPhoneNumber] = useState('')
+  const [website, setWebsite] = useState('')
 
   const [open, setOpen] = useState(false);
   const [businessType, setBusinessType] = useState(null);
@@ -55,15 +55,16 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const ref_address = useRef();
   const ref_postalCode = useRef();
   const ref_phone = useRef();
+  const ref_website = useRef();
 
   const [useCreateBusinessMutation, {loading, error}] = useMutation(
     BusinessMutations.createBusiness, {
       onCompleted(data) {
-        const businessImageRef = ref(storage, "Business/".concat(data.createBusiness.businessID, "/businessProfile.jpg"));
-        uploadBytes(businessImageRef, pickedImagePath).then((snapshot) => {
-          console.log('Uploaded business profile image!');
-        });
-        navigation.navigate('BusinessWizardStripe', {businessID : data.createBusiness.businessID});
+        // const businessImageRef = ref(storage, "Business/".concat(data.createBusiness.businessID, "/businessProfile.jpg"));
+        // uploadBytes(businessImageRef, blob).then((snapshot) => {
+        //   console.log('Uploaded business profile image!');
+        // });
+        navigation.navigate('BusinessWizardUploadImage', {businessID : data.createBusiness.businessID});
       }, 
       onError(error) {console.log(JSON.stringify(error, null, 2))}
   })
@@ -221,7 +222,28 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               placeholder={'4161234567'}
               placeholderTextColor={colors.subtle}
               ref={ref_phone}
-            // onSubmitEditing={() => ref_phone.current.focus()}
+              onSubmitEditing={() => ref_website.current.focus()}
+            />
+          </View>
+
+          <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
+            <Text style={styles.prose}>
+              Website
+            </Text>
+
+            <TextInput
+              // autoFocus={true}
+              returnKeyType="next"
+              selectionColor={colors.gold}
+              autoCapitalize='words'
+              style={styles.receipt}
+              keyboardType='default'
+              // value={lastName}
+              onChangeText={setWebsite}
+              placeholder={'yourwebsite.com'}
+              placeholderTextColor={colors.subtle}
+              ref={ref_website}
+              //onSubmitEditing={() => ref_postalCode.current.focus()}
             />
           </View>
 
@@ -239,7 +261,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
                 // dateEstablished:$dateEstablished, 
                 // emailAddress: $emailAddress, 
                 phoneNumber: businessPhoneNumber, 
-                // website: website, 
+                website: website, 
                 businessType: businessType, 
                 //businessSubtype: $businessSubtype, 
                 pocketID: pocketID
