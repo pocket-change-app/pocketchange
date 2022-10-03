@@ -1,5 +1,7 @@
 //// Dummy Data ////
 
+import { RoleLevel, RoleType } from "./contexts/Auth";
+
 
 //// FOR CONSUMER SIDE ////
 
@@ -27,6 +29,22 @@ export const user = {
       businessID: '006',
       role: 'owner'
     }
+  ],
+  roles: [
+    {
+      type: RoleType.Consumer
+    },
+    {
+      type: RoleType.Merchant,
+      level: RoleLevel.Owner,
+      entityID: '001',
+      entityName: 'La Paella',
+    },
+    {
+      type: RoleType.Leader,
+      entityName: 'Leslieville',
+      entityID: '007',
+    },
   ],
   imageURL: require('./assets/images/Elias.jpeg'),
   dateOfBirth: '12/16/1998',
