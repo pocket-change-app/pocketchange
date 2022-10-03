@@ -23,6 +23,8 @@ db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
 db.ChangeBalance = require("./ChangeBalance.model.js")(sequelize, Sequelize);
 db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
 db.Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
+db.Competition = require("./Competition.model.js")(sequelize, Sequelize);
+db.QRScans = require("./QRScans.model.js")(sequelize, Sequelize);
 
 //relationships
 db.IsIn = require("./IsIn.model.js")(sequelize, Sequelize);
@@ -43,6 +45,10 @@ db.User.belongsToMany(db.Business, { through : db.Loves, unique: false,  foreign
 db.Business.belongsToMany(db.User, { through : db.Loves, unique: false,  foreignKey: 'businessID'  });
 
 //users can work at many businesses, a business can have many workers
+db.User.belongsToMany(db.Business, { through : db.WorksAt, unique: false,  foreignKey: 'userID'   });
+db.Business.belongsToMany(db.User, { through : db.WorksAt , unique: false,  foreignKey: 'businessID'  });
+
+//QRScans belong to many users, users can have many QR scans
 db.User.belongsToMany(db.Business, { through : db.WorksAt, unique: false,  foreignKey: 'userID'   });
 db.Business.belongsToMany(db.User, { through : db.WorksAt , unique: false,  foreignKey: 'businessID'  });
 
