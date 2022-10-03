@@ -14,6 +14,9 @@ import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/
 import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { useState } from 'react';
+import { AuthContextData, Role, RoleType } from '../contexts/Auth';
 const R = require('ramda');
 
 
@@ -744,6 +747,54 @@ export function CardHeader({ text }: { text: string }) {
       </View>
       <HorizontalLine />
     </>
+  )
+}
+
+export function SwitchAccountDropdown({ authContext, roles_list }: { authContext: AuthContextData, roles_list: Role[] }) {
+
+  function makeLabel(r: Role): string {
+    let label: string = ''
+    if (r.type === RoleType.Consumer) {
+      label = r.type
+    } else if (r.type === RoleType.Merchant) {
+      label = r.level + ' at ' + r.entityName
+    } else if (r.type === RoleType.Leader) {
+      label = r.type + ' of ' + r.entityName
+    }
+    return label
+  }
+
+  const switchAccount = (role: Role) => {
+    authContext.switchActiveRole(role);
+    console.log(authContext.activeRole)
+  }
+
+  const [open, setOpen] = useState(false);
+  const [role, setRole] = useState(authContext.activeRole);
+  const [items, setItems] = useState(roles_list.map(r => ({ label: makeLabel(r), value: r })));
+
+  return (
+    <DropDownPicker
+      style={styles.card}
+      dropDownContainerStyle={styles.card}
+      textStyle={styles.settingText}
+      itemSeparator
+      itemSeparatorStyle={styles.horizontalLine}
+
+      // containerStyle={styles.card}
+
+      open={open}
+      value={null}    // set to null to always show placeholder text
+      items={items}
+
+      setOpen={setOpen}
+      setValue={setRole}
+      setItems={setItems}
+
+      onSelectItem={item => switchAccount(item.value)}
+
+      placeholder='Switch Account'
+    />
   )
 }
 
