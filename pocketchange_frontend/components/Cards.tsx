@@ -15,11 +15,10 @@ import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthContextData, Role, RoleType } from '../contexts/Auth';
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useEffect, useState } from 'react';
 
 const R = require('ramda');
 
