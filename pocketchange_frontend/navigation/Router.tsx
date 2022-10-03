@@ -31,7 +31,8 @@ export const Router = () => {
   }
   var stack;
   if (isNilOrEmpty(authContext.userGQL)) {
-    stack = <AuthStack />;
+    // stack = <AuthStack />;            //// UNCOMMENT to use AuthStack
+    stack = <ConsumerNavigation />;   //// UNCOMMENT to avoid AuthStack
   } else {
     if (authContext.activeRole.type === RoleType.Merchant) {
       stack = <MerchantNavigation />;
