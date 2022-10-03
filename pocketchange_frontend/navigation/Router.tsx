@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { useContext, useEffect } from 'react';
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext, RoleType } from '../contexts/Auth';
 
 //import { useAuth } from '../contexts/Auth';
 //import { useAuthentication } from '../hooks/useAuthentication';
@@ -33,9 +33,9 @@ export const Router = () => {
   if (isNilOrEmpty(authContext.userGQL)) {
     stack = <AuthStack />;
   } else {
-    if (authContext.activeRole.type === "MERCHANT") {
+    if (authContext.activeRole.type === RoleType.Merchant) {
       stack = <MerchantNavigation />;
-    } else if (authContext.activeRole.type === "CONSUMER") {
+    } else if (authContext.activeRole.type === RoleType.Consumer) {
       stack = <ConsumerNavigation />;
     }
   }
