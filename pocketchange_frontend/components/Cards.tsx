@@ -14,17 +14,44 @@ import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/
 import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useEffect, useState } from 'react';
+
 const R = require('ramda');
+
+async function getBusinessImageURL(businessID: string, setImageURL) {
+  const storage = getStorage();
+  await getDownloadURL(ref(storage, "Business/".concat(businessID, "/businessProfile.jpg"))).then(
+    function(url) {
+      console.log(url);
+      setImageURL(url);
+    }, 
+    function(error) {
+      console.log(error);
+    }
+  );
+}
 
 
 export function BusinessCard({ navigation, business, pocket }: { navigation: any, business: any }) {
+  
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getBusinessImageURL(business.businessID, setImageURL);
+  }, []);
+
   return (
     <View style={styles.card}>
       <View style={styles.businessHeaderImageContainer}>
-        <Image
-          style={styles.businessHeaderImage}
-          source={businessImages[business.businessID]}
-        />
+        {imageURL ?
+          <Image
+            style={styles.businessHeaderImage}
+            source={{uri: imageURL}}
+          /> : <></>
+        }
+
       </View>
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
@@ -74,7 +101,13 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
 }
 
 export function BusinessCardSuggested({ navigation, business, pocket }: { navigation: any, business: any, pocket: any }) {
-  console.log(business.imageURL)
+  
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getBusinessImageURL(business.businessID, setImageURL);
+  }, []);
+
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
@@ -87,7 +120,7 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
         <View style={styles.businessHeaderImageContainer}>
           <Image
             style={styles.businessHeaderImage}
-            source={businessImages[business.businessID]}
+            source={{uri: imageURL}}
           />
         </View>
         <View style={styles.businessModalInfo}>
@@ -103,6 +136,11 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
 }
 
 export function BusinessCardSm({ navigation, business, pocket, showPocket=true}: { navigation: any, business: any, pocket: any, showPocket: boolean }) {
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getBusinessImageURL(business.businessID, setImageURL);
+  }, []);
 
   return (
     <Pressable
@@ -117,7 +155,7 @@ export function BusinessCardSm({ navigation, business, pocket, showPocket=true}:
         <View style={styles.businessListImageContainer}>
           <Image
             style={styles.businessListImage}
-            source={businessImages[business.businessID]}
+            source={{uri: imageURL}}
           />
         </View>
 
