@@ -10,15 +10,15 @@ import { useLazyQuery } from '@apollo/client';
 
 
 export enum RoleType {
-  Consumer,
-  Merchant,
-  Leader,
+  Consumer = 'CONSUMER',
+  Merchant = 'MERCHANT',
+  Leader = 'LEADER',
 }
 
 export enum RoleLevel {
-  Owner,
-  Manager,
-  Employee,
+  Owner = 'OWNER',
+  Manager = 'MANAGER',
+  Employee = 'EMPLOYEE',
 }
 
 export type Role = {
