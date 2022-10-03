@@ -28,7 +28,7 @@ export type Role = {
   entityName?: String, // name corresponding to above ID.
 };
 
-type AuthContextData = {
+export type AuthContextData = {
   userFirebase: User,
   userGQL: Object,
   setUserGQL(user): void,
