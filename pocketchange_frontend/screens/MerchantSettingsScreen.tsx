@@ -1,7 +1,7 @@
 
 import { Pressable, ScrollView, Button, Image } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
-import { BusinessCardSm, DivHeader, SettingPressable } from "../components/Cards";
+import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
 
 import { businesses, user } from "../dummy";
 import { Style } from "victory-core";
@@ -37,13 +37,19 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
         {// TODO: make drop down
         }
-        <View style={styles.card}>
+
+        <SwitchAccountDropdown
+          authContext={authContext}
+          roles_list={user.roles}
+        />
+
+        {/* <View style={styles.card}>
           <SettingPressable
             iconName='random'
             settingText={`Switch Accounts`}
             onPress={() => switchAccount()}
           />
-        </View>
+        </View> */}
 
         <Pressable
           onPress={() => navigation.navigate('Business', {

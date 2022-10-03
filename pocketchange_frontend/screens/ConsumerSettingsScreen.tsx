@@ -1,7 +1,7 @@
 
 import { Pressable, ScrollView, Button } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
-import { DivHeader, SettingPressable } from "../components/Cards";
+import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
 
 //import { useAuth } from '../contexts/Auth';
 import { user } from "../dummy";
@@ -9,23 +9,25 @@ import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useContext } from "react";
-import { AuthContext, RoleType } from "../contexts/Auth";
+import { useContext, useState } from "react";
+import { AuthContext, Role, RoleLevel, RoleType } from "../contexts/Auth";
+import DropDownPicker from "react-native-dropdown-picker";
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
+  // const [open, setOpen] = useState(false);
+  // const [role, setRole] = useState(authContext.activeRole);
+  // const [items, setItems] = useState(items_list);
+
   const signOut = async () => {
     await authContext.signOut();
   };
 
   // TODO: hook this up to authContext.switchActiveRole
-  const switchAccount = () => {
-    authContext.switchActiveRole({ type: RoleType.Merchant });
-    console.log(authContext.activeRole)
-  }
+
 
 
   return (
@@ -35,13 +37,33 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
 
         {// TODO: make drop down
         }
-        <View style={styles.card}>
-          <SettingPressable
-            iconName='random'
-            settingText={`Switch Accounts`}
-            onPress={() => switchAccount()}
-          />
-        </View>
+
+        <SwitchAccountDropdown
+          authContext={authContext}
+          roles_list={user.roles}
+        />
+
+        {/* <DropDownPicker
+          style={styles.card}
+          dropDownContainerStyle={styles.card}
+          textStyle={styles.settingText}
+          itemSeparator
+          itemSeparatorStyle={styles.horizontalLine}
+
+          // containerStyle={styles.card}
+
+          open={open}
+          value={role}
+          items={items}
+
+          setOpen={setOpen}
+          setValue={setRole}
+          setItems={setItems}
+
+          onSelectItem={switchAccount}
+
+          placeholder='Switch Account'
+        /> */}
 
         <View style={styles.card}>
           <SettingPressable
