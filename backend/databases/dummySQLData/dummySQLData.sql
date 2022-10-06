@@ -115,9 +115,9 @@ INSERT INTO loves (userID, businessID, createdAt, updatedAt)  VALUES ("12c", "7b
 INSERT INTO loves (userID, businessID, createdAt, updatedAt)  VALUES ("13c", "8b", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 
 -- insert geolocation 
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("1c", "2022-08-04 13:10:11", 43.6819014, -79.408669, "2022-08-04 13:10:11", "2022-08-04 13:10:11");
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("1c", "2022-08-04 13:15:15", 43.671845, -79.3740792, "2022-08-04 13:15:11", "2022-08-04 13:15:11");
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("1c", "2022-08-04 13:20:15", 43.661132, -79.3440358, "2022-08-04 13:20:11", "2022-08-04 13:20:11");
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("2c", "2022-08-04 13:10:11", 43.6613675, -79.3530894, "2022-08-04 13:10:11", "2022-08-04 13:10:11");
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("2c", "2022-08-04 13:15:15", 43.660452, -79.3457077, "2022-08-04 13:15:11", "2022-08-04 13:15:11");
-INSERT INTO geolocations (userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("2c", "2022-08-04 13:20:15", 43.661132, -79.3440358, "2022-08-04 13:20:11", "2022-08-04 13:20:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("1geo", "1c", "2022-08-04 13:10:11", 43.6819014, -79.408669, "2022-08-04 13:10:11", "2022-08-04 13:10:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("2geo","1c", "2022-08-04 13:15:15", 43.671845, -79.3740792, "2022-08-04 13:15:11", "2022-08-04 13:15:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("3geo","1c", "2022-08-04 13:20:15", 43.661132, -79.3440358, "2022-08-04 13:20:11", "2022-08-04 13:20:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("4geo","2c", "2022-08-04 13:10:11", 43.6613675, -79.3530894, "2022-08-04 13:10:11", "2022-08-04 13:10:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("5geo","2c", "2022-08-04 13:15:15", 43.660452, -79.3457077, "2022-08-04 13:15:11", "2022-08-04 13:15:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("6geo","2c", "2022-08-04 13:20:15", 43.661132, -79.3440358, "2022-08-04 13:20:11", "2022-08-04 13:20:11");

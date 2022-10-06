@@ -2,13 +2,13 @@
 module.exports = (sequelize, Sequelize) => {
     Business = require("./Business.model.js")(sequelize, Sequelize);
     User = require("./User.model.js")(sequelize, Sequelize);
-    Gelocation = require("./Geolocation.model.js")(sequelize, Sequelize);
+    Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
     const QRScans = sequelize.define("QRScans", {
         QRScanID: {
             type: Sequelize.UUID,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
-            primaryKey: true
+            primaryKey: true,
         },
         userID: {
             type: Sequelize.UUID,
