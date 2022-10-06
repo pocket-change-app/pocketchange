@@ -69,6 +69,7 @@ export type RootTabParamList = {
   // Wallet: undefined;
 
   // Merchant Tabs
+  Transactions: undefined;
   TransactionsStack: undefined;
   Analytics: undefined;
 
