@@ -14,6 +14,7 @@ import { Text, } from 'react-native';
 
 
 import * as Linking from 'expo-linking';
+import { LeaderNavigation } from './LeaderNavigation';
 const prefix = Linking.createURL('/');
 
 
@@ -32,12 +33,14 @@ export const Router = () => {
   var stack;
   if (isNilOrEmpty(authContext.userGQL)) {
     // stack = <AuthStack />;            //// UNCOMMENT to use AuthStack
-    stack = <ConsumerNavigation />;   //// UNCOMMENT to avoid AuthStack
+    stack = <LeaderNavigation />;   //// UNCOMMENT to avoid AuthStack
   } else {
     if (authContext.activeRole.type === RoleType.Merchant) {
       stack = <MerchantNavigation />;
     } else if (authContext.activeRole.type === RoleType.Consumer) {
       stack = <ConsumerNavigation />;
+    } else if (authContext.activeRole.type === RoleType.Leader) {
+      stack = <LeaderNavigation />;
     }
   }
 
