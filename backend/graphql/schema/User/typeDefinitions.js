@@ -14,6 +14,25 @@ module.exports = gql`
         emailAddress: String
     }
 
+    enum RoleType {
+        CONSUMER
+        MERCHANT
+        LEADER
+    }
+      
+    enum RoleLevel {
+        OWNER
+        MANAGER
+        EMPLOYEE
+    }
+
+    type UserRole{
+        type: RoleType,
+        level: RoleLevel,
+        entityID: String, 
+        entityName: String, 
+    }
+
     type Query {
         """
         Query a specific User from it's ID
@@ -35,6 +54,10 @@ module.exports = gql`
         Get a list of all the users that love a business
         """
         getUsersThatLove(businessID:ID):[User]
+        """
+        Get a list of all a users roles
+        """
+        getUserRoles(userID:ID):[UserRole]
     }
 
     type Mutation {
