@@ -813,7 +813,7 @@ export function CardHeader({ text }: { text: string }) {
   )
 }
 
-export function SwitchAccountDropdown({ authContext, roles_list }: { authContext: AuthContextData, roles_list: Role[] }) {
+export function SwitchAccountDropdown({ authContext, rolesList }: { authContext: AuthContextData, rolesList: Role[] }) {
 
   function makeLabel(r: Role): string {
     let label: string = ''
@@ -834,7 +834,7 @@ export function SwitchAccountDropdown({ authContext, roles_list }: { authContext
 
   const [open, setOpen] = useState(false);
   const [role, setRole] = useState(authContext.activeRole);
-  const [items, setItems] = useState(roles_list.map(r => ({ label: makeLabel(r), value: r })));
+  const [items, setItems] = useState(rolesList.map(r => ({ label: makeLabel(r), value: r })));
 
   return (
     <DropDownPicker

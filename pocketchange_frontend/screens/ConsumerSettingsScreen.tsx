@@ -9,14 +9,33 @@ import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext, Role, RoleLevel, RoleType } from "../contexts/Auth";
 import DropDownPicker from "react-native-dropdown-picker";
+
+import { useQuery } from '@apollo/react-hooks'
+import UserQueries from '../hooks-apollo/User/queries'
+
+import * as RA from 'ramda-adjunct'
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
+  const userID = "6c" //authContext.userFirebase.uid;
+
+  const [userRoles, setUserRoles] = useState([])
+
+  const { data, loading, error, refetch } = useQuery(UserQueries.getUserRoles, { variables: { userID } });
+  
+  useEffect(() => {
+    if (RA.isNotNil(data)) {
+      console.log('user data inside', data)
+      // allBusinesses query is aliased as getAllBusinesses
+      //const {user} = data
+      setUserRoles(data)
+    }
+  }, [data])
 
   // const [open, setOpen] = useState(false);
   // const [role, setRole] = useState(authContext.activeRole);
@@ -25,9 +44,6 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
   const signOut = async () => {
     await authContext.signOut();
   };
-
-  // TODO: hook this up to authContext.switchActiveRole
-
 
 
   return (
@@ -40,7 +56,7 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
 
         <SwitchAccountDropdown
           authContext={authContext}
-          roles_list={user.roles}
+          rolesList={user.roles}
         />
 
         {/* <DropDownPicker
