@@ -22,7 +22,7 @@ import * as RA from 'ramda-adjunct'
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
-  const userID = "6c" //authContext.userFirebase.uid;
+  const userID = authContext.userFirebase.uid;
 
   const [userRoles, setUserRoles] = useState([])
 
