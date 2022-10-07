@@ -109,7 +109,7 @@ function TransactionsStack() {
 function AnalyticsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='AnalyticsDashboard'
+      initialRouteName='MerchantAnalytics'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -119,10 +119,10 @@ function AnalyticsStack() {
       }}
     >
       <Stack.Screen
-        name="Analytics"
+        name="MerchantAnalytics"
         component={AnalyticsDashboardScreen}
         options={{
-          // title: ' Analytics '
+          title: ' Analytics '
         }}
       // screenOptions={{ headerShown: false }}
       />
