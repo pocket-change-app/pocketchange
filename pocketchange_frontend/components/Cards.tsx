@@ -22,9 +22,9 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const R = require('ramda');
 
-async function getBusinessImageURL(businessID: string, setImageURL) {
+async function getImageURL(entityType: string, entityID: string, fileName: string, setImageURL) {
   const storage = getStorage();
-  await getDownloadURL(ref(storage, "Business/".concat(businessID, "/businessProfile.jpg"))).then(
+  await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
     function (url) {
       console.log(url);
       setImageURL(url);
@@ -41,7 +41,7 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getBusinessImageURL(business.businessID, setImageURL);
+    getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
   return (
@@ -107,7 +107,7 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getBusinessImageURL(business.businessID, setImageURL);
+    getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
   return (
@@ -120,10 +120,12 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
     >
       <View style={styles.card}>
         <View style={styles.businessHeaderImageContainer}>
+        {imageURL ?
           <Image
             style={styles.businessHeaderImage}
             source={{ uri: imageURL }}
-          />
+          /> : <></>
+        }
         </View>
         <View style={styles.businessModalInfo}>
           <Text style={styles.businessNameLg}>{business.businessName}</Text>
@@ -141,7 +143,7 @@ export function BusinessCardSm({ navigation, business, pocket, showPocket = true
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getBusinessImageURL(business.businessID, setImageURL);
+    getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
   return (
@@ -155,10 +157,12 @@ export function BusinessCardSm({ navigation, business, pocket, showPocket = true
       <View style={[styles.card, styles.businessListItemCard]}>
 
         <View style={styles.businessListImageContainer}>
+        {imageURL ?
           <Image
             style={styles.businessListImage}
             source={{ uri: imageURL }}
-          />
+          /> : <></>
+        }
         </View>
 
         <View style={styles.businessListInfo}>
@@ -173,8 +177,14 @@ export function BusinessCardSm({ navigation, business, pocket, showPocket = true
   )
 }
 
-
 export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getImageURL("Pocket", pocket.pocketID, "pocketCard.png", setImageURL);
+  }, []);
+
   return (
     <Pressable
       onPress={() => navigation.navigate('Pocket', {
@@ -190,10 +200,12 @@ export function PocketListCard({ navigation, pocket }: { navigation: any, pocket
           </View> */}
 
           <View style={styles.pocketListImageContainer}>
+          {imageURL ?
             <Image
               style={styles.pocketListImage}
-              source={pocket.imageURL}
-            />
+              source={{ uri: imageURL }}
+            /> : <></>
+          }
           </View>
         </View>
 
@@ -236,15 +248,25 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
 }
 
 export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getImageURL("Pocket", pocket.pocketID, "pocketBanner.jpg", setImageURL);
+  }, []);
+  
   return (
     <>
 
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
-          <Image
-            style={[styles.image, styles.pocketHeaderImage]}
-            source={pocket.bannerURL}
-          />
+
+          {imageURL ?
+              <Image
+              style={[styles.image, styles.pocketHeaderImage]}
+              source={{uri: imageURL}}
+            /> : <></>
+          }
 
         </View>
         <View style={styles.container}>
