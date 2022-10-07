@@ -40,6 +40,18 @@ export default {
             }
         }
     `,
+    getUserRoles: gql`
+        query getUserRoles($userID:ID){
+            getUserRoles(userID:$userID) {
+                type
+                level
+                entityID
+                entityName
+            }
+        }
+    `,
+
+    
     getUsersThatLove: gql`
         query getUsersThatLove($businessID:ID){
             getUsersThatLove(businessID:$businessID) {
