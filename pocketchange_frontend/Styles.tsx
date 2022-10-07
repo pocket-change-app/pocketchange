@@ -759,6 +759,13 @@ export const styles = StyleSheet.create({
   analyticsMetricText: {
     fontFamily: 'metropolis bold',
     fontSize: 16,
-  }
+  },
+
+  competitionTitle: {
+    fontFamily: 'metropolis bold',
+    fontSize: 20,
+    color: colors.gold,
+    textAlign: 'center',
+  },
 
 })
