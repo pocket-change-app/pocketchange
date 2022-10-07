@@ -32,13 +32,14 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
           <Text style={styles.changeLg}>$8.94</Text>
         </View>
 
-        <View style={[styles.card, styles.container]}>
-          <Text style={[styles.prose, { marginBottom: MARGIN }]}>{business.bio}</Text>
-          {
-          // TODO: Need to make resolver for getting owner and signature
-          <Signature name={"TODO: business.people[0].name"} position={"business.people[0].position"} imageURL={"business.people[0].imageURL"} />
-          }
-        </View>
+        {
+          business.description ?
+            <View style={[styles.card, styles.container]}>
+              <Text style={[styles.prose]}>{business.description}</Text>
+            </View> :
+            <></>
+        }
+        
 
         <View style={{ height: MARGIN }} />
 
