@@ -972,13 +972,6 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange;
-show tables
-db.mongobusinesses.drop()
-db.mongocompetitions.drop()
-db.mongopockets.drop()
-db.mongousers.drop()
-show tables
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
@@ -990,10 +983,17 @@ db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
-use pocketchange;
-load('dummyMongoData.js')
-show tables
-db.mongobusinesses.find()
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
+db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok
 db.runCommand("ping").ok

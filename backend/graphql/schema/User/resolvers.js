@@ -88,6 +88,29 @@ module.exports = {
            }
           }
         },
+        getUserRoles: async (parent, { userID }, { mongoUser, WorksAt, IsMember, mongoBusiness, mongoPocket}) => {
+          let businessRoles = []
+          let pocketRoles = []
+          const worksAtInfo = await WorksAt.findAll({where:{userID: userID}})
+          //find all users who work somewhere
+          if(worksAtInfo){
+            businessRoles = (worksAtInfo.map(function(item){ return {type: 'MERCHANT', level: item.role == 'cashier'? 'EMPLOYEE' : item.role == 'manager' ? 'MANAGER' : 'OWNER', entityID: item.businessID, entityName: 'business'}}))
+          }
+          const isMemberInfo = await IsMember.findAll({where:{userID: userID}})
+          if(isMemberInfo){
+            pocketRoles =(isMemberInfo.filter(function(item) {
+              if (item.role === "customer") {
+                return false; // skip
+              }
+              return true;
+            }).map(function(item){ 
+              return {type: 'LEADER', entityID: item.pocketID, entityName: 'pocket'} 
+            }))
+          }
+          const roles = await businessRoles.concat(pocketRoles, [{type: 'CONSUMER'}])
+          console.log(roles)
+          return roles
+        },
         getUsersThatLove: async (parent, { businessID }, { mongoUser, Loves}) => {
           //find all users that love business
           const lovesInfo = await Loves.findAll({where:{businessID: businessID}})

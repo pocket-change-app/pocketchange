@@ -28,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             primaryKey: true,
             validate: {
-                isIn: [['customer', 'viewer', 'manager']] //customer of Pocket, viewer of Pocket-level data, manager of Pocket
+                isIn: [['customer', 'manager']] //customer of Pocket, viewer of Pocket-level data, manager of Pocket
             }
         }
     });

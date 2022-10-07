@@ -13,6 +13,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { MARGIN, styles } from '../Styles';
 
 import BusinessScreen from '../screens/BusinessScreen';
+import QRScanScreen from '../screens/QRScanScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketTabScreen from '../screens/PocketTabScreen';
 import PayTabScreen from '../screens/PayTabScreen';
@@ -430,13 +431,25 @@ const BottomTabConsumer = () => {
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
-      <BottomTab.Screen
+
+      {/* <BottomTab.Screen
         name="PayStack"
         component={PayStack}
         options={{
           // headerShown: false,
           // title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
+        }}
+      /> */}
+
+      <BottomTab.Screen
+        name="QRScanScreen"
+        component={QRScanScreen}
+        options={{
+          // title: 'Pockets',
+          // headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
+          // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
 
