@@ -40,7 +40,7 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
         <SwitchAccountDropdown
           authContext={authContext}
-          roles_list={user.roles}
+          rolesList={user.roles}
         />
 
         {/* <View style={styles.card}>
