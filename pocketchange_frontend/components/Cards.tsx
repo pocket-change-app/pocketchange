@@ -293,14 +293,18 @@ export function PocketListSeparator() {
   )
 }
 
-export function IdCard(
-  { name, imageURL, lifetimeChange, dateOfBirth }:
-    {
-      name: { [key: string]: string },
-      imageURL?: string,
-      lifetimeChange: number,
-      dateOfBirth: string
-    }) {
+export function IdCard({ user }: { user: any }) {
+
+  console.log(user)
+
+  const {userID, firstName, lastName, birthDate, totalChange} = user;
+
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getImageURL("User", userID, "userProfile.png", setImageURL);
+  }, []);
+
   return (
     <View style={[styles.card, styles.idCard]}>
       <View style={[styles.idHeader, { alignItems: 'flex-start' }]}>
@@ -313,19 +317,19 @@ export function IdCard(
           source={imageURL}
         />
         <View style={styles.idContent}>
-          <Text style={styles.idLastName}>{name.last}</Text>
-          <Text style={styles.idFirstName}>{name.first + ' ' + name.middle}</Text>
+          <Text style={styles.idLastName}>{lastName}</Text>
+          <Text style={styles.idFirstName}>{firstName}</Text>
           <View style={[styles.horizontalLine, {
             width: 130,
             marginHorizontal: 0,
             marginVertical: 5,
           }]} />
-          <Text style={styles.idLifeTimeChange}>{pad(lifetimeChange, 14)}</Text>
+          <Text style={styles.idLifeTimeChange}>{pad(totalChange, 14)}</Text>
         </View>
       </View>
       <View style={[styles.idHeader, { alignItems: 'flex-end' }]}>
         <Text style={styles.idText}>USER ID</Text>
-        <Text style={[styles.idDateOfBirth, styles.alignRight]}>{user.dateOfBirth}</Text>
+        <Text style={[styles.idDateOfBirth, styles.alignRight]}>{birthDate.split("T")[0]}</Text>
       </View>
     </View>
   )

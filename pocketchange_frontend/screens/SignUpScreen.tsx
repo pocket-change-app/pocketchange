@@ -23,7 +23,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const [lastName, setLastName] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [homePostalCode, setHomePostalCode] = useState('')
   const [password, setPassword] = useState('')
@@ -48,12 +48,12 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
          return f.format(t);
       }
       return a.map(format).join(s);
-   }
+    }
    
-   let a = [{year: 'numeric'}, {month: '2-digit'}, {day: '2-digit'}];
-   let s = join(selectedDate, a, '-');
-   // console.log(s);
-   setBirthDate(s)
+    let a = [{year: 'numeric'}, {month: '2-digit'}, {day: '2-digit'}];
+    let s = join(selectedDate, a, '-');
+    // console.log(s);
+    setBirthDate(s)
   };
 
   const auth = getAuth();
@@ -80,10 +80,22 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
     //setHomePostalCode("M4L3A2")
     //setPassword("password123")
 
-    if (emailAddress === '' || password === '') {
-      setSignUpError('Email and password are mandatory.')
+    if (firstName === '' || lastName === '') {
+      setSignUpError('First and last names are required.')
       return;
-    }
+    } else if (emailAddress === '') {
+      setSignUpError('Email address is required.')
+      return;
+    } else if (birthDate === '') {
+      setSignUpError('Birth date is required.')
+      return;
+    } else if (homePostalCode === '') {
+      setSignUpError('Postal code is required.')
+      return;
+    } else if (password === '') {
+      setSignUpError('Password is required.')
+      return;
+    } 
     try {
       await createUserWithEmailAndPassword(auth, emailAddress, password).then(
         (userCredential) => {
@@ -106,8 +118,13 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
         }
       );
     } catch (firebaseError) {
-      setSignUpError(firebaseError);
-      console.log(signUpError)
+      if (firebaseError.code === "auth/email-already-in-use") {
+        setSignUpError("This email is already registered. Please sign in.")
+      } else if (firebaseError.code === "auth/weak-password") {
+        setSignUpError("Please choose a stronger password.")
+      } else {
+        setSignUpError(firebaseError.code)
+      }
       return
     }
 
@@ -276,8 +293,8 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
           onPress={signUp}
         />
 
-        <Text style={[styles.prose, {color:"red"}]}>
-          {signUpError.code}
+        <Text style={[styles.prose, {color:"red", textAlign: 'center'}]}>
+          {signUpError}
         </Text>
 
       </KeyboardAvoidingView>
