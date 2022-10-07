@@ -45,6 +45,6 @@ module.exports = gql`
         Process a new transaction, where a user is either using up the change they have or earning change
         """
         processTransaction(consumerID: ID, merchantID: ID, businessID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal): Transaction
-        refundTransaction(transactionID, refundValue: Decimal): Transaction
+        refundTransaction(transactionID: ID, refundValue: Decimal): Transaction
     }
 `
