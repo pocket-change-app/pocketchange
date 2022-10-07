@@ -11,9 +11,17 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        userID: {
+        consumerID: {
             type: Sequelize.UUID,
             allowNull: false,
+            references: {
+                model: User,
+                key: 'userID'
+            }
+        },
+        merchantID: {
+            type: Sequelize.UUID,
+            allowNull: true,
             references: {
                 model: User,
                 key: 'userID'

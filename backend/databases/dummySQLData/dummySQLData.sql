@@ -32,26 +32,26 @@ INSERT INTO businesses (businessID, createdAt, updatedAt) VALUES ("7b","2022-02-
 INSERT INTO businesses (businessID, createdAt, updatedAt) VALUES ("8b", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 
 -- insert transactions
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
-("1t","1c", "20.00", "2022-06-04 09:22:11", "1b", "1p", 00.00, 01.60, false, null, "2021-03-04 09:22:11","2021-03-04 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
-("2t","2c", "30.00", "2022-06-04 09:22:11", "8b", "2p", 00.00, 03.00, false, null, "2021-03-04 09:22:11","2021-03-04 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
-("3t","1c", "50.00", "2022-06-04 09:22:11", "2b", "1p", 00.00, 04.00,false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
-("4t","2c", "16.00", "2022-06-04 09:22:11", "7b", "2p", 03.00, 00.00, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
-("5t","3c", "25.00", "2022-06-04 09:22:11", "2b", "1p", 00.00, 02.00, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
-("6t","4c", "25.00", "2022-06-04 09:22:11", "5b", "2p", 00.00, 02.50, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
-("7t","5c", "45.00", "2022-06-04 09:22:11", "3b", "1p", 00.00, 03.60, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate, createdAt,updatedAt) VALUES 
-("8t","1c", "60.00", "2022-06-04 09:22:11", "4b", "1p", 00.00, 04.80, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
-("9t","2c", "10.00", "2022-06-04 09:22:11", "6b", "2p", 00.00, 01.00, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
-INSERT INTO transactions (transactionID,userID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate, createdAt,updatedAt) VALUES 
-("10t","1c", "10.00", "2022-06-04 09:22:11", "6b", "2p", 00.00, 01.00, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
+("1t","1c", null, "20.00", "2022-06-04 09:22:11", "1b", "1p", 00.00, 01.60, false, null, "2021-03-04 09:22:11","2021-03-04 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
+("2t","2c", null, "30.00", "2022-06-04 09:22:11", "8b", "2p", 00.00, 03.00, false, null, "2021-03-04 09:22:11","2021-03-04 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
+("3t","1c", null, "50.00", "2022-06-04 09:22:11", "2b", "1p", 00.00, 04.00,false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
+("4t","2c", null, "16.00", "2022-06-04 09:22:11", "7b", "2p", 03.00, 00.00, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
+("5t","3c", null, "25.00", "2022-06-04 09:22:11", "2b", "1p", 00.00, 02.00, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
+("6t","4c", null, "25.00", "2022-06-04 09:22:11", "5b", "2p", 00.00, 02.50, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned,refunded, refundDate, createdAt,updatedAt) VALUES 
+("7t","5c", null, "45.00", "2022-06-04 09:22:11", "3b", "1p", 00.00, 03.60, false, null, "2021-03-06 09:22:11","2021-03-06 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate, createdAt,updatedAt) VALUES 
+("8t","1c", null, "60.00", "2022-06-04 09:22:11", "4b", "1p", 00.00, 04.80, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate,createdAt,updatedAt) VALUES 
+("9t","2c", null, "10.00", "2022-06-04 09:22:11", "6b", "2p", 00.00, 01.00, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
+INSERT INTO transactions (transactionID, consumerID, merchantID, value, date, businessID, pocketID, changeRedeemed, changeEarned, refunded, refundDate, createdAt,updatedAt) VALUES 
+("10t","1c", null, "10.00", "2022-06-04 09:22:11", "6b", "2p", 00.00, 01.00, false, null, "2021-03-10 09:22:11","2021-03-10 20:34:13");
 
 -- insert changes
 INSERT INTO changeBalances (changeBalanceID,pocketID, value, userID, expiryDate, createdAt, updatedAt) VALUES ("1change", "1p",  10.40, "1c", "2023-02-04 20:34:13","2022-02-04 09:22:11","2022-02-04 20:34:13");

@@ -33,13 +33,13 @@ export const Router = () => {
   var stack;
   if (isNilOrEmpty(authContext.userGQL)) {
     // stack = <AuthStack />;            //// UNCOMMENT to use AuthStack
-    stack = <LeaderNavigation />;   //// UNCOMMENT to avoid AuthStack
+    stack = <ConsumerNavigation />;   //// UNCOMMENT to avoid AuthStack
   } else {
-    if (authContext.activeRole.type === RoleType.Merchant) {
+    if (authContext.activeRole.type === "MERCHANT") {
       stack = <MerchantNavigation />;
-    } else if (authContext.activeRole.type === RoleType.Consumer) {
+    } else if (authContext.activeRole.type === "CONSUMER") {
       stack = <ConsumerNavigation />;
-    } else if (authContext.activeRole.type === RoleType.Leader) {
+    } else if (authContext.activeRole.type === "LEADER") {
       stack = <LeaderNavigation />;
     }
   }

@@ -14,10 +14,9 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   const authContext = useContext(AuthContext); 
   
   const userID = '1c'
-  const {allTransactions, loading} =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined)
-  if(R.isNil(allTransactions) ){
-    return null
-  }
+  const {allTransactions, loading, error} =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined, undefined)
+
+  if (error) console.log(error);
 
   return (
     <ScreenContainer>
@@ -26,10 +25,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
         nestedScrollEnabled={false}
       >
         <IdCard
-          name={user.name}
-          lifetimeChange={user.lifetimeChange}
-          dateOfBirth={user.dateOfBirth}
-          imageURL={user.imageURL}
+          user={authContext.userGQL}
         />
         <BalancesCard
           changeTotal={user.changeTotal}

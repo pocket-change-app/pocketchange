@@ -5,7 +5,8 @@ export default {
         query transaction($transactionID:ID){
             transaction(transactionID:$transactionID) {
                 transactionID
-                userID
+                consumerID
+                merchantID
                 value
                 date
                 businessID
@@ -19,10 +20,11 @@ export default {
         }
     `,
     getAllTransactions: gql`
-        query getAllTransactions($businessID:ID,$pocketID:ID, $userID:ID, $startDate: Date, $endDate: Date){
-            getAllTransactions(businessID:$businessID, pocketID:$pocketID, userID:$userID, startDate: $startDate, endDate: $endDate){
+        query getAllTransactions($businessID:ID, $pocketID:ID, $consumerID:ID, $merchantID:ID, $startDate: Date, $endDate: Date){
+            getAllTransactions(businessID:$businessID, pocketID:$pocketID, consumerID:$consumerID, merchantID:$merchantID, startDate: $startDate, endDate: $endDate){
                 transactionID
-                userID
+                consumerID
+                merchantID
                 value
                 date
                 businessID

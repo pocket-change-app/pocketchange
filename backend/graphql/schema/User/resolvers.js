@@ -19,8 +19,8 @@ module.exports = {
             if (mongoUserInfo) {
               return {
                 userID: mongoUserInfo.userID,
-                username: mongoUserInfo.username,
-                name: mongoUserInfo.name,
+                firstName: mongoUserInfo.firstName,
+                lastName: mongoUserInfo.lastName,
                 home: mongoUserInfo.home,
                 birthDate: mongoUserInfo.birthDate,
                 totalChange: parseFloat(mongoUserInfo.totalChange).toFixed(2),
@@ -197,6 +197,8 @@ module.exports = {
           emailAddress
         }, { User, mongoUser }) => {
 
+          console.log("BIRTH:", birthDate)
+
             console.log('IN USER REGISTER RESOLVER')
             console.log(userID, firstName, lastName)
             const existingUserID = await mongoUser.findOne({ userID })
@@ -215,7 +217,7 @@ module.exports = {
                 deactivated: false,
               })
               newMongoUser.save()
-              console.log('USER CREATED,', userID)
+              console.log('USER CREATED,', newMongoUser)
               return {
                 userID: newMongoUser.userID,
                 firstName: newMongoUser.firstName,
