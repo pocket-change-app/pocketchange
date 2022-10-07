@@ -6,7 +6,8 @@ module.exports = gql`
     """
     type Transaction {
       transactionID: ID 
-      userID: ID
+      consumerID: ID
+      merchantID: ID
       value: Decimal
       date: Date
       businessID: ID
@@ -35,15 +36,15 @@ module.exports = gql`
         """
         Query all Transactions given a businessID, between certain dates
         """
-        getAllTransactions(businessID:ID, pocketID:ID, userID:ID, startDate: Date, endDate: Date): [Transaction]
-        getAllChange(businessID:ID, userID:ID, pocketID:ID, startDate: Date, endDate: Date, earned: Boolean): ChangeFlow
+        getAllTransactions(businessID:ID, pocketID:ID, consumerID:ID, merchantID:ID, startDate: Date, endDate: Date): [Transaction]
+        getAllChange(businessID:ID, consumerID:ID, pocketID:ID, startDate: Date, endDate: Date, earned: Boolean): ChangeFlow
     }
 
     type Mutation {
         """
         Process a new transaction, where a user is either using up the change they have or earning change
         """
-        processTransaction(userID: ID, businessID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal): Transaction
-        refundTransaction(userID: ID, businessID: ID, pocketID: ID, refundValue: Decimal): Transaction
+        processTransaction(consumerID: ID, merchantID: ID, businessID: ID, pocketID: ID, value: Decimal, changeUsed: Decimal): Transaction
+        refundTransaction(transactionID, refundValue: Decimal): Transaction
     }
 `

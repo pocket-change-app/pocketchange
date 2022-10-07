@@ -11,7 +11,7 @@ const returnAllChange = require('../helpers/returnAllChange')
 //https://stackoverflow.com/questions/224462/storing-money-in-a-decimal-column-what-precision-and-scale
 
 
-const updateChangeAcross = async(ChangeBalance, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
+const updateChangeAcross = async(ChangeBalance, Pocket, pocketID, consumerID, updatedChange, updatedChangeCirculating, dateOfTransaction) => {
     transactionDate = new Date(dateOfTransaction)
     let expiryDate = (transactionDate).setMonth(transactionDate.getMonth() + 6)
     //store expiry date in yyyy-mm-dd format
@@ -21,7 +21,7 @@ const updateChangeAcross = async(ChangeBalance, Pocket, pocketID, userID, update
         value: updatedChange.toFixed(4),
         expiryDate: expiryDate
       }, {
-        where: { pocketID: pocketID, userID:userID }
+        where: { pocketID: pocketID, userID: consumerID }
       })
     //update pocket circulating change
     await Pocket.update({
@@ -43,7 +43,8 @@ module.exports = {
                 const decimalValue = (parseFloat(transactionInfo.dataValues.value).toFixed(2));
                 return {
                   transactionID: transactionInfo.dataValues.transactionID,
-                  userID: transactionInfo.dataValues.userID,
+                  consumerID: transactionInfo.dataValues.consumerID,
+                  merchantID: transactionInfo.dataValues.merchantID,
                   value: decimalValue,
                   date: transactionInfo.dataValues.Date,
                   businessID: transactionInfo.dataValues.businessID,
@@ -61,7 +62,7 @@ module.exports = {
               throw new ApolloError(`transactionID:${transactionID} doesn't exist`);
             }
         },
-        getAllTransactions: async (parent, { businessID, pocketID, userID, startDate, endDate }, { Transaction}) => {
+        getAllTransactions: async (parent, { businessID, pocketID, consumerID, merchantID, startDate, endDate }, { Transaction}) => {
           let filterTransactions = []
           if(startDate && endDate){
             filterTransactions.push({date: {
@@ -69,8 +70,12 @@ module.exports = {
             }})
           }
           //check to see if type is not null
-          if (userID != null) {
-            filterTransactions.push({'userID': userID})
+          if (consumerID != null) {
+            filterTransactions.push({'consumerID': consumerID})
+          }
+          //check to see if type is not null
+          if (merchantID != null) {
+            filterTransactions.push({'merchantID': merchantID})
           }
           //check to see if pocketID is not null
           if (pocketID != null) {
@@ -106,7 +111,7 @@ module.exports = {
             }
           }
       },
-      getAllChange: async (parent, { businessID, pocketID, userID, startDate, endDate, earned }, { Transaction, sequelizeConnection}) => {
+      getAllChange: async (parent, { businessID, pocketID, consumerID, startDate, endDate, earned }, { Transaction, sequelizeConnection}) => {
         const value = await returnAllChange (
           { userID: userID, pocketID:pocketID, businessID:businessID, startDate:startDate, endDate:endDate, earned: earned }, { Transaction, sequelizeConnection}
       )
@@ -115,27 +120,27 @@ module.exports = {
     },
   
     Mutation: {
-        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
-            if(userID, businessID, pocketID, value){
+        processTransaction: async (parent, {consumerID, merchantID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
+            if(consumerID, businessID, pocketID, value){
                 //check to make sure user is in pocket
                 //turn changeUsed into a float
                 const changeUsing = parseFloat(changeUsed)
-                const mongoUserInfo = await mongoUser.findOne({ userID })
+                const mongoUserInfo = await mongoUser.findOne({ consumerID })
                 if(mongoUserInfo){
                     //get IsMemberOf relationship table to check that the user is in the pocket
-                    const exists = await IsMemberOf.findOne({where:{userID: userID, pocketID: pocketID}})
+                    const exists = await IsMemberOf.findOne({where:{userID: consumerID, pocketID: pocketID}})
                     //the user is in this pocket so now find out if the business is in this pocket
                     if(exists){
                         //check to make sure business is in pocket, get IsIn relationship table to check 
-                        const businessPocket = await IsIn.findOne({where:{businessID:businessID, pocketID:pocketID }})
+                        const businessPocket = await IsIn.findOne({where:{businessID: businessID, pocketID: pocketID }})
                         //get the pocketID of the business
                         let changeEarned = 0
                         if(businessPocket){
                             //get pocket Info
-                            const pocketInfo = await Pocket.findOne({where:{pocketID:pocketID}})
+                            const pocketInfo = await Pocket.findOne({where:{pocketID: pocketID}})
                             //get change info
                             const userChangeInfo = await ChangeBalance.findOne({where:{
-                                userID: userID,
+                                userID: consumerID,
                                 pocketID: pocketID}
                               })
                             //get date 
@@ -157,12 +162,12 @@ module.exports = {
                                     const oldChangeCirculating = parseFloat(pocketInfo.dataValues.circulatingChange)
                                     //updated change circulating is a float
                                     const updatedChangeCirculating = oldChangeCirculating - changeRedeemed
-                                    await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
+                                    await updateChangeAcross(ChangeBalance, Pocket, pocketID, consumerID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                                     //the value the user can earn change on is now the value of the good minus the change used
                                     changeEarningValue = value - parseFloat(changeUsing)
                                 }
                                 else {
-                                    throw new ApolloError(`User:${userID} has insufficient change in Pocket: ${pocketID}`);
+                                    throw new ApolloError(`User:${consumerID} has insufficient change in Pocket: ${pocketID}`);
                                 }
                             }
                             if(changeEarningValue > 0.00){
@@ -176,11 +181,12 @@ module.exports = {
                               const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
                               //updatedChangeCirculating is a float
                               const updatedChangeCirculating = oldChangeCirculating + changeEarned
-                              await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, dateOfTransaction)
+                              await updateChangeAcross(ChangeBalance, Pocket, pocketID, consumerID, updatedChange, updatedChangeCirculating, dateOfTransaction)
                             }
                             //change is updated across
                             const newTransaction = await Transaction.create({
-                                userID: userID,
+                                consumerID: consumerID,
+                                merchantID: merchantID,
                                 value: parseFloat(value).toFixed(4),
                                 businessID: businessID,
                                 date: dateOfTransaction,
@@ -194,7 +200,8 @@ module.exports = {
                             })
                             return {
                                 transactionID: newTransaction.dataValues.transactionID,
-                                userID: newTransaction.dataValues.userID,
+                                consumerID: newTransaction.dataValues.consumerID,
+                                merchantID: newTransaction.dataValues.merchantID,
                                 value: parseFloat(newTransaction.dataValues.value).toFixed(2),
                                 date: newTransaction.dataValues.date,
                                 businessID: newTransaction.dataValues.businessID,
@@ -212,26 +219,23 @@ module.exports = {
                         }
                     }
                     else {
-                        throw new ApolloError(`User:${userID} is not in Pocket: ${pocketID}`);
+                        throw new ApolloError(`User:${consumerID} is not in Pocket: ${pocketID}`);
                     }
                 }
                 else {
-                    throw new ApolloError(`User:${userID} does not exist`);
+                    throw new ApolloError(`User:${consumerID} does not exist`);
                 }
             }
             else {
-              throw new ApolloError(`Not enough information about userID, businessID, pocketID` );
+              throw new ApolloError(`Not enough information about consumerID, businessID, pocketID` );
             }
         },
-        refundTransaction: async (parent, {userID, businessID, pocketID, date, refundValue}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
-          if(userID, businessID, pocketID, value){
+        refundTransaction: async (parent, {transactionID, refundValue}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
+          if(transactionID){
               //check to make sure the transaction exists
               const transactionInfo = await Transaction.findOne({
                 where:{
-                  userID: userID, 
-                  pocketID: pocketID, 
-                  businessID: businessID,
-                  date: date,
+                  transactionID: transactionID
                 }
               })
               let finalRefundValue = refundValue
@@ -246,8 +250,8 @@ module.exports = {
                   const newChangeEarned = 0
                   //get change info
                   const userChangeInfo = await ChangeBalance.findOne({where:{
-                    userID: userID,
-                    pocketID: pocketID}
+                    userID: transactionInfo.dataValues.consumerID,
+                    pocketID: transactionInfo.dataValues.pocketID}
                   })
                   //check to see if user redeemed change on the refunded transaction
                   const changeRedeemedBeforeRefund = transactionInfo.dataValues.changeRedeemed
@@ -268,7 +272,7 @@ module.exports = {
                     const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
                     //updatedChangeCirculating is a float
                     const updatedChangeCirculating = oldChangeCirculating + newChangeEarned
-                    await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, transactionRefundDate)
+                    await updateChangeAcross(ChangeBalance, Pocket, transactionInfo.dataValues.pocketID, transactionInfo.dataValues.consumerID, updatedChange, updatedChangeCirculating, transactionRefundDate)
                   }
                   newChangeEarned = changeEarnedBeforeRefund + finalRefundValue 
                   await transactionInfo.update({
@@ -281,7 +285,7 @@ module.exports = {
                   const oldChangeCirculating =  parseFloat(pocketInfo.dataValues.circulatingChange)
                   //updatedChangeCirculating is a float
                   const updatedChangeCirculating = oldChangeCirculating + newChangeEarned
-                  await updateChangeAcross(Change, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, transactionRefundDate)
+                  await updateChangeAcross(ChangeBalance, Pocket, pocketID, userID, updatedChange, updatedChangeCirculating, transactionRefundDate)
                   await transactionInfo.save()
                   //time to update the values of the transaction
                   await transactionInfo.update({
@@ -299,7 +303,7 @@ module.exports = {
                 }
               }
               else {
-                throw new ApolloError(`Transaction with user:${userID}, business: ${businessID}, date:${date}, pocket:${pocketID} doesn't exist  `);
+                throw new ApolloError(`Transaction with user:${consumerID}, business: ${businessID}, date:${date}, pocket:${pocketID} doesn't exist  `);
               }
              }
         }
