@@ -767,6 +767,12 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     top: 0,
+  }, 
+  competitionTitle: {
+    fontFamily: 'metropolis bold',
+    fontSize: 20,
+    color: colors.gold,
+    textAlign: 'center',
   },
 
 })

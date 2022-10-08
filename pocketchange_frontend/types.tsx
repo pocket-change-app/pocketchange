@@ -47,11 +47,16 @@ export type RootStackParamList = {
   Transactions: undefined;
   TransactionModal: undefined;
 
-  Analytics: undefined;
+  MerchantAnalytics: undefined;
 
   MerchantSettings: undefined;
   EditEmployees: undefined;
   SettingsTipping: undefined;
+
+  // Leader Screens
+  LeaderAnalytics: undefined;
+  Competitions: undefined;
+  LeaderSettings: undefined;
 
 };
 
@@ -66,14 +71,16 @@ export type RootTabParamList = {
   PocketStack: undefined;
   PayStack: undefined;
   WalletStack: undefined;
-  // Wallet: undefined;
 
   // Merchant Tabs
-  Transactions: undefined;
   TransactionsStack: undefined;
   Analytics: undefined;
+  MerchantSettingsStack: undefined;
 
-  Settings: undefined;
+  // Leader Tabs
+  LeaderAnalyticsStack: undefined;
+  CompetitionsStack: undefined;
+  LeaderSettingsStack: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

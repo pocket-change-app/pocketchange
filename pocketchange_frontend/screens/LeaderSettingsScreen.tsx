@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Button, Image } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
 
-import { businesses, user } from "../dummy";
+import { businesses, pockets, user } from "../dummy";
 import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
@@ -14,9 +14,9 @@ import { AuthContext, RoleType } from "../contexts/Auth";
 import businessImages from '../assets/images/businessImages';
 
 
-export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
+export default function LeaderSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const signOut = async () => {
     await authContext.signOut();
@@ -28,7 +28,7 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
     console.log(authContext.activeRole)
   }
 
-  const business = businesses.find(b => b.businessName == 'La Paella')
+  const pocket = pockets.find(p => p.name == 'Uptown Yonge')
 
   return (
     <ScreenContainer>
@@ -52,26 +52,24 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
         </View> */}
 
         <Pressable
-          onPress={() => navigation.navigate('Business', {
+          onPress={() => navigation.navigate('Pocket', {
             // navigation: navigation,
-            business: business,
+            pocket: pocket,
           })}
         >
-          <View style={[styles.card]}>
+          <View style={styles.card}>
 
             <View style={styles.businessListItemCard}>
 
-              <View style={styles.businessListImageContainer}>
+              {/* <View style={styles.businessListImageContainer}>
                 <Image
                   style={styles.businessListImage}
-                  source={businessImages[business.businessID]}
+                  source={pocketImages[business.businessID]}
                 />
-              </View>
+              </View> */}
 
               <View style={styles.businessListInfo}>
-                <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
-                <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                <Text style={styles.pocket}>Leslieville</Text>
+                <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocket.name}</Text>
               </View>
 
             </View>
@@ -80,16 +78,16 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
             <SettingPressable
               iconName='id-card'
-              settingText={`Edit Business Profile`}
-              onPress={() => navigation.navigate('EditBusinessProfile')}
+              settingText={`Edit Pocket Page`}
+              onPress={() => navigation.navigate('EditPocketPage')}
             />
 
             <HorizontalLine />
 
             <SettingPressable
               iconName='users'
-              settingText="Employees"
-              onPress={() => navigation.navigate('EditEmployees')}
+              settingText="Businesses"
+              onPress={() => navigation.navigate('PocketBusinessesList')}
             />
 
           </View>
@@ -121,12 +119,12 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
             settingText="Taxes"
           /> */}
 
-          <HorizontalLine />
+          {/* <HorizontalLine />
 
           <SettingPressable
             settingText="Tipping"
             onPress={() => navigation.navigate('SettingsTipping')}
-          />
+          /> */}
 
           {/* </View> */}
 
@@ -137,7 +135,7 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
         </View>
 
-        <DivHeader text="Privacy" />
+        {/* <DivHeader text="Privacy" />
 
         <View style={styles.card}>
           <SettingPressable
@@ -149,18 +147,14 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
             iconName='map-pin'
             settingText={"Location Data"}
           />
-        </View>
+        </View> */}
 
         <DivHeader text="Other" />
 
         {/* <FontAwesome name='key' */}
 
         <View style={styles.card}>
-          <SettingPressable
-            iconName='external-link-alt'
-            settingText={"Share PocketChange"}
-          />
-          <HorizontalLine />
+
           <SettingPressable
             iconName='info-circle'
             settingText={"About"}
