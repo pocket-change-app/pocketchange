@@ -1,6 +1,6 @@
 import { ScrollView } from 'react-native';
 
-import { MARGIN, styles } from '../Styles';
+import { CREDIT_CARD_ASPECT_RATIO, MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { BalancesCard, IdCard, TransactionHistoryCard } from '../components/Cards';
 import { user } from '../dummy';
@@ -37,7 +37,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           <BalancesCard
             changeTotal={user.changeTotal}
             allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
-            <></>
+          <View style={[styles.card, styles.balanceCard]} />
         }
         
         
