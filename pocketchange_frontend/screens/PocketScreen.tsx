@@ -1,14 +1,15 @@
-import { FlatList, Image, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
 import { businesses } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
+
 import { BusinessCard, BusinessCardSm, DivHeader, PocketDetailCard } from '../components/Cards';
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 
@@ -58,6 +59,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     >
       <ScreenContainer>
 
+
         <FlatList
           ListHeaderComponent={() => {
             if (searchQuery == '') {
@@ -77,7 +79,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
           contentContainerStyle={styles.businessFlatList}
           data={allBusinesses}
           renderItem={renderBusinessCard}
+          ListFooterComponent={loading && <ActivityIndicator size="large" color={colors.subtle} />}
         />
+
+         
       </ScreenContainer>
 
       <SearchBar

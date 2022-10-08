@@ -22,15 +22,16 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     <ScreenContainer>
       <ScrollView
         style={styles.container}
-        nestedScrollEnabled={false}
-      >
+        nestedScrollEnabled={false}>
+
         <IdCard
-          user={authContext.userGQL}
-        />
+          user={authContext.userGQL}/>
+        {// TODO: connect to change balance resolver
+        }
         <BalancesCard
           changeTotal={user.changeTotal}
-          topPockets={user.topPockets}
-        />
+          topPockets={user.topPockets} />
+        
         <TransactionHistoryCard
           navigation={navigation}
           transactions={allTransactions}
