@@ -54,16 +54,32 @@ export const AuthProvider = ({ children }: { children: any }) => {
     UserQueries.user,
     {
       onCompleted(data) { setUserGQL(data.user) },
-      onError(error) { console.log("AUTH ERROR: firebase user not found in GQL") }
+      onError(error) { 
+        console.log("ERROR: loadUserGQL ");  
+        console.log(error)
+      }
     });
+
+  // every time the App is opened, this runs
+  useEffect(() => {
+     // AsyncStorage.clear();
+     //and call de loadStorage function.
+     loadStorageData();
+   }, []);
 
   // run on when userFirebase changes
   useEffect(() => {
-    setActiveRole({ type: RoleType.Consumer });// change this to use saved state or check roles via a resolver
     if (!(isNilOrEmpty(userFirebase))) {
       loadUserGQL({ variables: { userID: userFirebase.uid } })
+    } else {
+      setActiveRole({ type: RoleType.Consumer });// change this to use saved state or check roles via a resolver
     }
   }, [userFirebase]) // <-- here put the parameter to listen 
+
+  // when activeRole changes, write it to local storage
+  useEffect(() => {
+    AsyncStorage.setItem('@ActiveRole', JSON.stringify(activeRole));
+  }, [activeRole]);
 
   // called when firebase auth state changes
   const handleAuthStateChanged = ((userFirebase: User) => {
@@ -77,7 +93,6 @@ export const AuthProvider = ({ children }: { children: any }) => {
   });
 
   const switchActiveRole = ((role: Role) => {
-
     // TODO: check here if signed in user has permission to switch to role
     setActiveRole(role);
 
@@ -93,6 +108,24 @@ export const AuthProvider = ({ children }: { children: any }) => {
     const subscriber = auth.onAuthStateChanged(handleAuthStateChanged);
     return subscriber;
   }, []);
+
+  async function loadStorageData(): Promise<void> {
+        try {
+          const activeRoleSerialized = await AsyncStorage.getItem('@ActiveRole');
+          if (activeRoleSerialized) {
+            const _activeRole: string = JSON.parse(activeRoleSerialized);
+            console.log("LOADING FROM STORE")
+            console.log(_activeRole)
+            console.log("____________")
+            switchActiveRole(_activeRole as Role);
+          }
+        } catch (error) {
+          console.log("ERROR: loading active role from async storage. ", error)
+        } finally {
+          //loading finished
+          setLoading(false);
+        }
+  }
 
   const authContextData = {
     userFirebase: userFirebase,

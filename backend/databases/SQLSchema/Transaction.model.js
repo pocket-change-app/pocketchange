@@ -1,5 +1,3 @@
-
-
 module.exports = (sequelize, Sequelize) => {
     Business = require("./Business.model.js")(sequelize, Sequelize);
     User = require("./User.model.js")(sequelize, Sequelize);
@@ -11,17 +9,9 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
-        consumerID: {
+        userID: {
             type: Sequelize.UUID,
             allowNull: false,
-            references: {
-                model: User,
-                key: 'userID'
-            }
-        },
-        merchantID: {
-            type: Sequelize.UUID,
-            allowNull: true,
             references: {
                 model: User,
                 key: 'userID'

@@ -8,21 +8,19 @@ import TransactionQueries from './queries'
 export default function useGetAllTransactionsQuery(
     pocketID?: String,
     businessID?: String,
-    consumerID?: String,
-    merchantID?: String,
+    userID?: String,
     startDate?: String,
     endDate?: String,
 ) {
   const [allTransactions, setAllTransactions] = useState([])
   const {loading, data, error, refetch} = useQuery(TransactionQueries.getAllTransactions, {
-    variables: {pocketID, businessID, consumerID, merchantID, startDate, endDate},
+    variables: {pocketID, businessID, userID, startDate, endDate},
     fetchPolicy: 'network-only',
   })
-
   //console.log(JSON.stringify(error, null, 2))
   useEffect(() => {
     if (RA.isNotNil(data)) {
-      console.log("transaction hook", data)
+      // allBusinesses query is aliased as getAllBusinesses
       const {getAllTransactions} = data
       setAllTransactions(getAllTransactions)
     }

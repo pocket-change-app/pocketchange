@@ -144,7 +144,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                   onPress={() => navigation.navigate('PaySummary', {
                     business: business,
                     amount: parseFloat(amount).toFixed(2),
-                    tip: 0,
+                    tip: '0.00',
                   })}
                 />
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,6 +13,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { MARGIN, styles } from '../Styles';
 
 import BusinessScreen from '../screens/BusinessScreen';
+import QRScanScreen from '../screens/QRScanScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import PocketTabScreen from '../screens/PocketTabScreen';
 import PayTabScreen from '../screens/PayTabScreen';
@@ -122,7 +123,7 @@ function PocketStack() {
         name="PaymentModalStack"
         component={PaymentModalStack}
         options={{
-          presentation: 'modal',
+          // presentation: 'modal',
           headerShown: false,
         }}
       />
@@ -280,14 +281,14 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PayConfirmation"
         component={PayConfirmationScreen}
         options={({ navigation }: any) => ({
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         })}
-      />
+      /> */}
     </Stack.Navigator >
   )
 }
@@ -385,14 +386,14 @@ function WalletStack() {
           title: '',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PayConfirmation"
         component={PayConfirmationScreen}
         options={({ navigation }: any) => ({
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         })}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }
@@ -426,17 +427,30 @@ const BottomTabConsumer = () => {
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name="map-pin" color={color} size={size}/>,
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
-      <BottomTab.Screen
+
+      {/* <BottomTab.Screen
         name="PayStack"
         component={PayStack}
         options={{
           // headerShown: false,
           // title: 'Pay',
           tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
+        }}
+      /> */}
+
+      <BottomTab.Screen
+        name="QRScanScreen"
+        component={QRScanScreen}
+        options={{
+          // title: 'Pockets',
+          // headerShown: false,
+          tabBarIcon: ({color, size}) => (
+              <TabBarIcon name="qrcode" color={color} size={size}/>
+          ),
         }}
       />
 
@@ -445,7 +459,7 @@ const BottomTabConsumer = () => {
         component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
-          tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name="id-card" color={color} size = {size}/>,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}
@@ -472,6 +486,7 @@ const BottomTabConsumer = () => {
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
+  size: number;
 }) {
-  return <FontAwesome size={30} {...props} />;
+  return <FontAwesome {...props} />;
 }

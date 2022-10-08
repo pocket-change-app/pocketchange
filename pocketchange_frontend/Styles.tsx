@@ -467,6 +467,18 @@ export const styles = StyleSheet.create({
     borderColor: colors.imageBorder,
   },
 
+  idIcon: {
+    //aspectRatio: 1,
+    width: 106,
+    height: 106,
+    borderRadius: 60,
+    marginLeft: 25,
+    alignContent: 'center',
+    borderWidth: BORDER_WIDTH,
+    borderColor: colors.imageBorder,
+  },
+
+
   idHeader: {
     // backgroundColor: 'rgba(0,0,0,0.1)',
     height: 20,
@@ -759,6 +771,20 @@ export const styles = StyleSheet.create({
   analyticsMetricText: {
     fontFamily: 'metropolis bold',
     fontSize: 16,
-  }
+  },
+
+  imageOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  }, 
+  competitionTitle: {
+    fontFamily: 'metropolis bold',
+    fontSize: 20,
+    color: colors.gold,
+    textAlign: 'center',
+  },
 
 })

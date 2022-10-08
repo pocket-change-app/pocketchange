@@ -31,7 +31,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
         <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
 
-          <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+          {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
 
           {/* <PayAmountCard
         name={name}

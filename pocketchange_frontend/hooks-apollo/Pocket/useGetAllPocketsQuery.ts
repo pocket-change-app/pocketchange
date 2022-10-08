@@ -13,7 +13,7 @@ export default function useGetAllPocketsQuery(
     variables: {userID},
     fetchPolicy: 'network-only',
   })
-  console.log('pocket data', data)
+  //console.log('pocket data', data)
   useEffect(() => {
     if (RA.isNotNil(data)) {
       // allBusinesses query is aliased as getAllBusinesses

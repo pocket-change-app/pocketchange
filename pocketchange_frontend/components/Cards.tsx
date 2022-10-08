@@ -1,4 +1,4 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch } from 'react-native';
+import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch, Settings, ActivityIndicator } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
@@ -7,7 +7,7 @@ import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { color } from '@rneui/base';
 import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/index';
 
@@ -15,7 +15,7 @@ import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthContextData, Role, RoleType } from '../contexts/Auth';
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -26,11 +26,11 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
   const storage = getStorage();
   await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
     function (url) {
-      console.log(url);
+      //console.log(url);
       setImageURL(url);
     },
     function (error) {
-      console.log(error);
+      console.log("ERROR: getDownloadURL: ", error);
     }
   );
 }
@@ -74,7 +74,7 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
             // imageURL: business.imageURL,
           }))}
         >
-          <Text style={styles.payButtonText}>PAY</Text>
+          <Text style={styles.payButtonText}>Redeem Change</Text>
         </Pressable>
 
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
@@ -295,7 +295,7 @@ export function PocketListSeparator() {
 
 export function IdCard({ user }: { user: any }) {
 
-  console.log(user)
+  //console.log(user)
 
   const {userID, firstName, lastName, birthDate, totalChange} = user;
 
@@ -312,10 +312,16 @@ export function IdCard({ user }: { user: any }) {
         <Text style={[styles.idText, styles.alignRight]}>USER ID</Text>
       </View>
       <View style={{ flexDirection: 'row' }}>
-        <Image
-          style={styles.idImage}
-          source={imageURL}
-        />
+        {imageURL ?
+          
+          <Image
+            style={styles.idImage}
+            source={{uri: imageURL}}
+          /> :
+          <View style={styles.idIcon}>
+            <FontAwesome name="user" color={colors.dark} style={{alignSelf: 'center'}} size={styles.idImage.width}/>
+          </View>
+        }
         <View style={styles.idContent}>
           <Text style={styles.idLastName}>{lastName}</Text>
           <Text style={styles.idFirstName}>{firstName}</Text>
@@ -335,7 +341,19 @@ export function IdCard({ user }: { user: any }) {
   )
 }
 
-export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string, topPockets: any }) {
+export function BalancesCard({ allChangeBalances }: { changeTotal: string, allChangeBalances: any }) {
+  
+  // order change balances by decreasing value
+  const allChangeBalancesSorted = allChangeBalances.slice().sort((a, b) => (parseFloat(a.value) < parseFloat(b.value)) ? 1 : -1);
+  
+  // TODO: get pocket names from ID
+
+
+  // sum up to get users total change value
+  const changeTotal = allChangeBalancesSorted.reduce((accumulator, object) => {
+    return accumulator + parseFloat(object.value);
+  }, 0).toFixed(2);
+
   return (
     <View style={[styles.card, styles.balanceCard]}>
       <View style={{ flexDirection: 'row', height: '100%' }}>
@@ -370,13 +388,13 @@ export function BalancesCard({ changeTotal, topPockets }: { changeTotal: string,
           />
           <View style={{ margin: MARGIN, flex: 1 }}>
             {R.map(
-              ({ key, pocket, change }: { key: string, pocket: string, change: string }) => (
+              ({ key, pocketID, value }: { key: string, pocketID: string, value: string }) => (
                 <TopPocket
                   key={key}
-                  pocket={pocket}
-                  change={change}
+                  pocket={pocketID}
+                  change={value}
                 />
-              ), topPockets
+              ), allChangeBalancesSorted
             )}
           </View>
 
@@ -435,7 +453,7 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function TransactionHistoryCard({ navigation, transactions }: { navigation: any, transactions: { [key: string]: any }[] }) {
+export function TransactionHistoryCard({ navigation, transactions, loading }: { navigation: any, transactions: { [key: string]: any }[], loading: boolean }) {
 
   const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <TransactionListed
@@ -454,6 +472,7 @@ export function TransactionHistoryCard({ navigation, transactions }: { navigatio
         ItemSeparatorComponent={HorizontalLine}
         data={transactions}
         renderItem={renderTransactions}
+        ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
       />
     </View>
   )
@@ -813,7 +832,7 @@ export function CardHeader({ text }: { text: string }) {
   )
 }
 
-export function SwitchAccountDropdown({ authContext, roles_list }: { authContext: AuthContextData, roles_list: Role[] }) {
+export function SwitchAccountDropdown({ authContext, rolesList }: { authContext: AuthContextData, rolesList: Role[] }) {
 
   function makeLabel(r: Role): string {
     let label: string = ''
@@ -829,12 +848,12 @@ export function SwitchAccountDropdown({ authContext, roles_list }: { authContext
 
   const switchAccount = (role: Role) => {
     authContext.switchActiveRole(role);
-    console.log(authContext.activeRole)
+    console.log("SWITCHED ROLE TO: ", authContext.activeRole)
   }
 
   const [open, setOpen] = useState(false);
   const [role, setRole] = useState(authContext.activeRole);
-  const [items, setItems] = useState(roles_list.map(r => ({ label: makeLabel(r), value: r })));
+  const [items, setItems] = useState(rolesList.map(r => ({ label: makeLabel(r), value: r })));
 
   return (
     <DropDownPicker

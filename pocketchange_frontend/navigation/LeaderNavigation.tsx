@@ -13,10 +13,8 @@ import { styles } from '../Styles';
 
 import TransactionModalScreen from '../screens/TransactionModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import PocketTabScreen from '../screens/PocketTabScreen';
-import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import TransactionsTabScreen from '../screens/TransactionsTabScreen';
-import WalletScreen from '../screens/WalletScreen';
+import LeaderAnalyticsScreen from '../screens/LeaderAnalyticsScreen';
+import CompetitionsTabScreen from '../screens/CompetitionsTabScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
@@ -24,6 +22,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 import SettingsTippingScreen from '../screens/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/EditEmployeesScreen';
+import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -64,19 +63,14 @@ export const LeaderNavigation = () => {
       >
 
       </Stack.Group>
-      <Stack.Screen
-        name="PocketScreen"
-        component={PocketScreen}
-      // options={{ title: '[pocket name here]' }}
-      />
     </Stack.Navigator>
   );
 }
 
-function TransactionsStack() {
+function CompetitionsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='Transactions'
+      initialRouteName='Competitions'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -87,10 +81,10 @@ function TransactionsStack() {
       }}
     >
       <Stack.Screen
-        name="Transactions"
-        component={TransactionsTabScreen}
-        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
-          title: 'Transactions',
+        name="Competitions"
+        component={CompetitionsTabScreen}
+        options={({ navigation }: RootTabScreenProps<'Competitions'>) => ({
+          title: 'Competitions',
           tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
         })}
       />
@@ -109,7 +103,7 @@ function TransactionsStack() {
 function AnalyticsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='AnalyticsDashboard'
+      initialRouteName='LeaderAnalytics'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -119,8 +113,8 @@ function AnalyticsStack() {
       }}
     >
       <Stack.Screen
-        name="Analytics"
-        component={AnalyticsDashboardScreen}
+        name="LeaderAnalytics"
+        component={LeaderAnalyticsScreen}
         options={{
           // title: ' Analytics '
         }}
@@ -132,13 +126,13 @@ function AnalyticsStack() {
 }
 
 
-function SettingsStack() {
+function LeaderSettingsStack() {
 
   //const auth = useAuth();
 
   return (
     <Stack.Navigator
-      initialRouteName="MerchantSettings"
+      initialRouteName="LeaderSettings"
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -147,28 +141,26 @@ function SettingsStack() {
       }}
     >
       <Stack.Screen
-        name="MerchantSettings"
-        component={MerchantSettingsScreen}
-        options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
+        name="LeaderSettings"
+        component={LeaderSettingsScreen}
+        options={({ navigation }: RootTabScreenProps<'LeaderSettingsStack'>) => ({
           title: "Settings",
         })}
       />
 
       <Stack.Screen
+        name="Pocket"
+        component={PocketScreen}
+        options={{ title: '' }}
+      />
+
+      {/* <Stack.Screen
         name="EditEmployees"
         component={EditEmployeesScreen}
         options={{
           title: "Employees",
         }}
-      />
-
-      <Stack.Screen
-        name="SettingsTipping"
-        component={SettingsTippingScreen}
-        options={{
-          title: "Tipping",
-        }}
-      />
+      /> */}
 
     </Stack.Navigator>
   )
@@ -207,18 +199,18 @@ const BottomTabLeader = () => {
       />
 
       <BottomTab.Screen
-        name="TransactionsStack"
-        component={TransactionsStack}
-        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
-          title: 'Transactions',
-          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
+        name="CompetitionsStack"
+        component={CompetitionsStack}
+        options={({ navigation }: RootTabScreenProps<'Competitions'>) => ({
+          title: 'Competitions',
+          tabBarIcon: ({ color }) => <TabBarIcon name='trophy' color={color} />,
         })}
       />
 
       <BottomTab.Screen
-        name="SettingsStack"
-        component={SettingsStack}
-        options={({ navigation }: RootTabScreenProps<'MerchantSettings'>) => ({
+        name="LeaderSettingsStack"
+        component={LeaderSettingsStack}
+        options={({ navigation }: RootTabScreenProps<'LeaderSettings'>) => ({
           title: 'Settings',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         })}
