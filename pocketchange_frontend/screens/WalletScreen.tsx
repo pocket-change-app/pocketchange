@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 
 import { CREDIT_CARD_ASPECT_RATIO, MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
@@ -11,6 +11,7 @@ const R = require('ramda');
 
 import { useQuery } from '@apollo/react-hooks'
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import { colors } from '../constants/Colors';
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
 
@@ -37,7 +38,12 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           <BalancesCard
             changeTotal={user.changeTotal}
             allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
-          <View style={[styles.card, styles.balanceCard]} />
+          <View style={[styles.card, styles.balanceCard, { justifyContent: 'center' }]}>
+            <ActivityIndicator
+              size="large"
+              color={colors.subtle}
+              style={{ margin: 10 }} />
+          </View>
         }
         
         
