@@ -123,7 +123,7 @@ function PocketStack() {
         name="PaymentModalStack"
         component={PaymentModalStack}
         options={{
-          presentation: 'modal',
+          // presentation: 'modal',
           headerShown: false,
         }}
       />
@@ -281,14 +281,14 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PayConfirmation"
         component={PayConfirmationScreen}
         options={({ navigation }: any) => ({
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         })}
-      />
+      /> */}
     </Stack.Navigator >
   )
 }
@@ -386,14 +386,14 @@ function WalletStack() {
           title: '',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PayConfirmation"
         component={PayConfirmationScreen}
         options={({ navigation }: any) => ({
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         })}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }

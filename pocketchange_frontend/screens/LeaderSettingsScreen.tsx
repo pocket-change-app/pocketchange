@@ -82,13 +82,13 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
               onPress={() => navigation.navigate('EditPocketPage')}
             />
 
-            <HorizontalLine />
+            {/* <HorizontalLine /> */}
 
-            <SettingPressable
+            {/* <SettingPressable
               iconName='users'
               settingText="Businesses"
               onPress={() => navigation.navigate('PocketBusinessesList')}
-            />
+            /> */}
 
           </View>
 

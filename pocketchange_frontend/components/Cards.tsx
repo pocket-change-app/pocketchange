@@ -74,7 +74,7 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
             // imageURL: business.imageURL,
           }))}
         >
-          <Text style={styles.payButtonText}>PAY</Text>
+          <Text style={styles.payButtonText}>Redeem Change</Text>
         </Pressable>
 
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>

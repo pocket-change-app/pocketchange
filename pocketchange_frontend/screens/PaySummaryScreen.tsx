@@ -16,19 +16,19 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const { business, amount, tip } = route.params;
 
-  const [useChange, setUseChange] = useState(true)
+  // const [useChange, setUseChange] = useState(true)
 
   const EARN_RATE = 0.1
   const FEE_RATE = 0.05
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  const changeToUse = (useChange ? 2.63 : 0)
-  const fee = ((amountNum + tipNum) * FEE_RATE)
-  const total = (amountNum + tipNum + fee)
+  // const changeToUse = (useChange ? 2.63 : 0)
+  // const fee = ((amountNum + tipNum) * FEE_RATE)
+  const total = amountNum + tipNum // (amountNum + tipNum + fee)
 
-  const consumerTotal = (total - changeToUse)
-  const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
+  // const consumerTotal = (total - changeToUse)
+  // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
 
   return (
     <ScreenContainer>
@@ -59,19 +59,19 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{fee.toFixed(2)}</Text>
-          </View>
+          </View> */}
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Total</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${total.toFixed(2)}</Text>
           </View>
         </View>
 
-        <View style={[styles.card, styles.container]}>
+        {/* <View style={[styles.card, styles.container]}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {"Leslieville"} Change?</Text>
+            <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {'[TODO: pocket ]'} Change?</Text>
             <Switch
               trackColor={{ false: colors.subtle, true: colors.gold }}
               thumbColor={colors.card}
@@ -80,9 +80,9 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               value={useChange}
             />
           </View>
-        </View>
+        </View> */}
 
-        <View style={[styles.card, styles.container]}>
+        {/* <View style={[styles.card, styles.container]}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Applied</Text>
             <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeToUse}</Text>
@@ -96,7 +96,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'left' }]}>You Earn</Text>
             <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'right' }]}>${youEarn.toFixed(2)}</Text>
           </View>
-        </View>
+        </View> */}
         {/* </View> */}
 
         <ButtonWithText
@@ -106,16 +106,20 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
             const d = new Date()
             const date = d.toDateString()
-            const time = d.toTimeString()
+            const time = d.toLocaleTimeString()
 
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Wallet' }],
-            })
-            //navigation.push("Wallet");
-            //navigation.goBack()
+            console.log(navigation.getState())
 
-            console.log('made it')
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{ name: 'Root', screen: 'Wallet' }],
+            // })
+            navigation.popToTop()
+            navigation.goBack()
+            // navigation.navigate("Root", { screen: 'Wallet' });
+            // navigation.goBack()
+
+            // console.log('made it')
 
             navigation.navigate("PayConfirmation", {
               // navigation: navigation,
@@ -125,7 +129,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               time: time,
             })
 
-            console.log('navigated to PayConfirmation')
+            // console.log('navigated to PayConfirmation')
           }}
         />
       </View>
