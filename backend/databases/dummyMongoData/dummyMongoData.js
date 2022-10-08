@@ -1,4 +1,5 @@
 db.mongousers.insertMany( [
+   //generic users
    {
       userID: '1c',
       firstName: 'Hugo',
@@ -16,7 +17,7 @@ db.mongousers.insertMany( [
       birthDate: '2022-08-11',
       totalChange: 0.00,
       emailAddress:'outreach@pocketchangeapp.ca',
-      home: 'Beaches',
+      home: 'Leslieville',
       deactivated: false,
    },
    {
@@ -26,7 +27,7 @@ db.mongousers.insertMany( [
       birthDate: '1998-12-16',
       totalChange: 40.50,
       emailAddress:'localrules@gmail.com',
-      home: 'Beaches',
+      home: 'Leslieville',
       deactivated: false,
    },
    {
@@ -51,71 +52,73 @@ db.mongousers.insertMany( [
    },
    {
       userID: '5c',
-      firstName: 'Dianna',
-      lastName: 'McAllister',
-      birthDate: '1999-09-09',
+      firstName: 'Mica',
+      lastName: 'Consens',
+      birthDate: '1999-05-27',
       totalChange: 8.50,
       emailAddress:'mmrewards@gmail.com',
-      home: 'Outside Toronto',
+      home: 'Leslieville',
       deactivated: false,
    },
+   //leslieville owners
    {
       userID: '6c',
-      firstName: 'avlingOwner',
-      lastName: 'Avling Owner',
+      firstName: 'Best Buns',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalavling@gmail.com',
+      emailAddress:'personalbuns@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '7c',
-      firstName: 'paellaOwner',
-      lastName: 'Paella Owner',
+      firstName: 'Get A Pet',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalpaella@gmail.com',
+      emailAddress:'personalpet@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '8c',
-      firstName: 'mercuryOwner',
-      lastName: 'Mercury Owner',
+      firstName: 'Handy Hardware',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalmercury@gmail.com',
+      emailAddress:'personalhardware@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '9c',
-      firstName: 'slowhandsOwner',
-      lastName: 'Slowhands Owner',
+      firstName: 'Happy Treats',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalslowhands@gmail.com',
+      emailAddress:'happytreats@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
+   //uptown owners
    {
       userID: '10c',
-      firstName: 'demelloOwner',
-      lastName: 'De Mello Owner',
+      firstName: 'Sweet Life',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personaldemello@gmail.com',
+      emailAddress:'personalsweet@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
    {
       userID: '11c',
-      firstName: 'himalayanOwner',
-      lastName: 'Himalayan Owner',
+      firstName: 'Love Game',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalhimalayanjava@gmail.com',
+      emailAddress:'personallovegame@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
@@ -130,384 +133,441 @@ db.mongousers.insertMany( [
       deactivated: false,
    },
    {
-      userID: '12c',
-      firstName: 'juicyOwner',
-      lastName: 'Juicy Dumplings Owner',
+      userID: '13c',
+      firstName: 'Coffee Time',
+      lastName: 'Owner',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personaljuicydumpling@gmail.com',
+      emailAddress:'personalcoffeetime@gmail.com',
       home: 'Uptown Yonge',
+      deactivated: false,
+   },
+   //riverside owners
+   {
+      userID: '14c',
+      firstName: 'Bites & Booze',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalbites@gmail.com',
+      home: 'Riverside',
+      deactivated: false,
+   },
+   {
+      userID: '15c',
+      firstName: 'Jasmine',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personaljasmine@gmail.com',
+      home: 'Riverside',
+      deactivated: false,
+   },
+   {
+      userID: '16c',
+      firstName: 'Fish Fare',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalfish@gmail.com',
+      home: 'Riverside',
+      deactivated: false,
+   },
+   {
+      userID: '17c',
+      firstName: 'Quikit Market',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalquikit@gmail.com',
+      home: 'Riverside',
+      deactivated: false,
+   },
+   //bloor west owners
+   {
+      userID: '18c',
+      firstName: 'Joey Beans',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalbeans@gmail.com',
+      home: 'Bloor West',
+      deactivated: false,
+   },
+   {
+      userID: '19c',
+      firstName: 'Spiffy Threads',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalspifft@gmail.com',
+      home: 'Bloor West',
+      deactivated: false,
+   },
+   {
+      userID: '20c',
+      firstName: 'Fromaggio’s',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personalfromaggio@gmail.com',
+      home: 'Bloor West',
+      deactivated: false,
+   },
+   {
+      userID: '21c',
+      firstName: 'Lovely',
+      lastName: 'Owner',
+      birthDate: '1980-01-01',
+      totalChange: 0.00,
+      emailAddress:'personallovely@gmail.com',
+      home: 'Bloor West',
       deactivated: false,
    },
    
 ] )
 
 db.mongobusinesses.insertMany( [
-    {
-       businessID: '1b',
-       businessName: 'Avling',
-       dateEstablished: '2017-01-01',
-       phoneNumber: '416-000-000',
-       website: 'avling.ca',
-       businessType: 'restaurant',
-       businessSubtype: 'brewery',
-       emailAddress:'avling@gmail.com',
-       address: {
-         streetName: 'Queen St E',
-         buildingNumber: '1042',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 1K4',
-        },
-       latitude: 43.6616134,
-       longitude:-79.3403008,
-       businessTags: ['sustainable', 'farm-to-table'],
-       stripeID: '1b',
-       description: 'Avling is the norwegian word for crop or harvest, and for us, it is all about our kitchen and brewery and farm working as one.',
-       hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false, 
-         approved: true, 
-         deactivated: false
-         },
-    },
-    {
-        businessID: '2b',
-        businessName: 'La Paella',
-        dateEstablished: '2015-01-01',
-        phoneNumber: '416-000-000',
-        website: 'paella.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'spanish',
-        emailAddress:'paella@gmail.com',
-        address: {
-         streetName: 'Queen St E',
-         buildingNumber: '1146', 
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 1L1',
-        },
-        latitude: 43.6625197,
-        longitude: -79.336471,
-        businessTags: [],
-        stripeID: '2b',
-        description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false, 
-         approved: true, 
-         deactivated: false
-         },
-     },
-     {
-        businessID: '3b',
-        businessName: 'Mercury Espresso Bar',
-        dateEstablished: '2020-01-01',
-        phoneNumber: '416-000-000',
-        website: 'mercury.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'cafe',
-        emailAddress:'mercury@gmail.com',
-        address: {
-         streetName: 'Queen St E',
-         buildingNumber: '915',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 1J4',
-        },
-        latitude: 43.6605726,
-        longitude: -79.3435212,
-        businessTags:[],
-        stripeID: '3b',
-        description: 'Indie multi-roaster cafe serving Leslieville since 2006.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false, 
-         approved: true, 
-         deactivated: false
-         },
-        
-     },
-     {
-        businessID: '4b',
-        businessName: 'Slowhands Pizza',
-        dateEstablished: '2022-01-01',
-        phoneNumber: '416-000-000',
-        website: 'slowhandspizza.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'pizza',
-        emailAddress:'slowhands@gmail.com',
-        address: {
-         streetName: 'Pape Ave',
-         buildingNumber: '99',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 2V7',
-        },
-        latitude: 43.6619347,
-        longitude: -79.3397946,
-        businessTags:['new'],
-        stripeID: '4b',
-        description: 'At Slowhand we have one obsession: making light, airy, and delicious sourdough pan pizza.Combining our favourite techniques from Italy and Detroit with sourdough culture from the San Francisco gold rush, we create a pizza like you’ve never had before.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false, 
-         approved: true, 
-         deactivated: false
-         },
-     },
-     {
-        businessID: '5b',
-        businessName: 'De Mello Coffee',
+   //LESLIEVILLE POCKET
+{
+        businessID: '1b',
+        businessName: 'Best Bun Bakery',
         dateEstablished: '2011-01-01',
-        phoneNumber: '416-000-000',
-        website: 'demello.ca',
+        phoneNumber: '416-100-000',
+        website: 'bestbunbakery.ca',
         businessType: 'restaurant',
-        businessSubtype: 'cafe',
-        emailAddress:'demello@gmail.com',
+        businessSubtype: 'bakery',
+        emailAddress:'bestbunbakery@gmail.com',
         address: {
-         streetName: 'Yonge St',
-         buildingNumber: '2489',
+         streetName: 'Greenwood Ave',
+         buildingNumber: '150',
          unitNumber: '',
          city: 'Toronto',
          region: 'ON',
-         postalCode: 'M4P 2H6',
+         postalCode: 'M4L 2R1',
         },
-        latitude: 43.7118501,
-        longitude: -79.4013567,
+        latitude: 43.6688949,
+        longitude: -79.3307535,
+        businessTags: [],
+        stripeID: '1b',
+        description: 'Our commitment to our craft is second to none and it shows in our buns! We provide premium breads and confectionaries to our customers. Come get your daily bread at Best Bun Bakery!',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 420,
+               end: 840,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 420,
+               end: 720,
+            },
+            {
+               start: 480,
+               end: 720,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 480,
+               end: 720,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '2b',
+        businessName: 'Get a Pet',
+        dateEstablished: '2010-01-01',
+        phoneNumber: '416-200-000',
+        website: 'getapet.ca',
+        businessType: 'retail',
+        businessSubtype: 'animal goods',
+        emailAddress:'getapet@gmail.com',
+        address: {
+         streetName: 'Audley Ave',
+         buildingNumber: '23',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 1P5',
+        },
+        latitude: 43.6646563,
+        longitude: -79.3390735,
+        businessTags: [],
+        stripeID: '1b',
+        description: 'We’ve got dogs, cats, birds, rats, ferrets, fish, lizards, and bugs. Bring part of the animal kingdom home with you today! We hold ourselves to high ethical standards in the sourcing and treatment of our animals; we love them first, so you can love them for life.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 900,
+            }            
+         ],
+         "Friday":[
+            {
+               start: 600,
+               end: 900,
+            },
+            {
+               start: 1020,
+               end: 1350,
+            }
+         ],
+         "Saturday":[],
+         "Sunday":[]
+      },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+      {
+        businessID: '3b',
+        businessName: 'Handy Hardware',
+        dateEstablished: '2011-01-01',
+        phoneNumber: '416-300-000',
+        website: 'hndyhrdwr.ca',
+        businessType: 'retail',
+        businessSubtype: 'hardware',
+        emailAddress:'hndyhrdwr@gmail.com',
+        address: {
+         streetName: 'Queen St',
+         buildingNumber: '1158',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 1L2',
+        },
+        latitude: 43.663147,
+        longitude: -79.3354164,
+        businessTags: [],
+        stripeID: '3b',
+        description:'Pick up anything you need for your projects. From casual home improvement to the professional worksite, we’ve got you covered. We have the tools and equipment to help you do your work right the first time.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '4b',
+        businessName: 'Happy Treats',
+        dateEstablished: '2015-01-01',
+        phoneNumber: '416-400-000',
+        website: 'happytreats.ca',
+        businessType: 'retail',
+        businessSubtype: 'animal goods',
+        emailAddress:'happytreats@gmail.com',
+        address: {
+         streetName: 'Gerrard St',
+         buildingNumber: '953',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 1Z4',
+        },
+        latitude: 43.6680567,
+        longitude: -79.340654,
+        businessTags: [],
+        stripeID: '4b',
+        description:"We provide delicious organic treats for your favorite animals. Our treats and food are packed with nutrients to keep your pets’ stomachs happy and their coats glossy. Swing by and grab some treats, your dog won't be disappointed!",
+        hours: {
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+//Uptown Yonge
+{
+        businessID: '5b',
+        businessName: 'Sweet Life',
+        dateEstablished: '2011-01-01',
+        phoneNumber: '416-500-000',
+        website: 'bestbunbakery.ca',
+        businessType: 'restaurant',
+        businessSubtype: 'desert',
+        emailAddress:'sweetlife@gmail.com',
+        address: {
+         streetName: 'Eglinton Ave',
+         buildingNumber: '200',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4R 1C3',
+        },
+        latitude: 43.7074465,
+        longitude: -79.4095224,
         businessTags: [],
         stripeID: '5b',
-        description:'Our cafe represents the soul of De Mello—an eclectic and playful gathering space where the local community gathers to share time over a great coffee.Aside from serving and retailing our freshly roasted coffees daily, all of the pastries at our cafe are baked in-house every morning thanks to our expert pastry chefs.',
+        description: 'Everything ice cream from your trusted classics like chocolate, vanilla, and strawberry, to novelty flavours like lemon grass, pretzel, and cinnamon. Come in and grab a scoop, or two, or three! Feel free to sit in our cozy diner style booths and share a banana split with your special someone or grab some cones at our takeout window and take them for a stoll.',
         hours:{
          "Monday": [],
          "Tuesday":[
             {
-               start: 1050,
+               start: 900,
                end: 1350,
             }
          ],
          "Wednesday":[
             {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
+               start: 900,
                end: 1350,
             }
          ],
          "Thursday":[
             {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
+               start: 600,
+               end: 1200,
             }
          ],
          "Friday":[
@@ -534,136 +594,173 @@ db.mongobusinesses.insertMany( [
          ]
        },
        status:{
-         pending: false, 
-         approved: true, 
+         pending: false,
+         approved: true,
          deactivated: false
          },
      },
      {
         businessID: '6b',
-        businessName: 'Himalayan Java House',
-        dateEstablished: '2009-01-01',
-        phoneNumber: '416-000-000',
-        website: 'himalayanjava.ca',
+        businessName: 'Pop’s',
+        dateEstablished: '1950-01-01',
+        phoneNumber: '416-200-000',
+        website: 'popsdiner.ca',
+        businessType: 'restaurant',
+        businessSubtype: 'diner',
+        emailAddress:'popsdiner@gmail.com',
+        address: {
+         streetName: 'Mt Pleasant Ave',
+         buildingNumber: '375',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4W 3X8',
+        },
+        latitude: 43.6918958,
+        longitude: -79.3907481,
+        businessTags: [],
+        stripeID: '6b',
+        description: 'A long time staple of the neighbourhood, we’ve been supplying quick and easy food to loyal customers for over 70 years. There may be a fresh coat of paint on our walls, but we’re still Pop’s!',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 900,
+            }            
+         ],
+         "Friday":[
+            {
+               start: 600,
+               end: 900,
+            },
+            {
+               start: 1020,
+               end: 1350,
+            }
+         ],
+         "Saturday":[],
+         "Sunday":[]
+      },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '7b',
+        businessName: 'For the Love of the Game',
+        dateEstablished: '2003-01-01',
+        phoneNumber: '416-700-000',
+        website: 'loveofthegame.ca',
+        businessType: 'retail',
+        businessSubtype: 'sporting goods',
+        emailAddress:'loveofthegame@gmail.com',
+        address: {
+         streetName: 'Rosehill Ave',
+         buildingNumber: '75',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4T 1G4',
+        },
+        latitude: 43.685118,
+        longitude: -79.3949814,
+        businessTags: [],
+        stripeID: '7b',
+        description:"We’ve got your sports needs covered. Need to pick up some skates for the hockey season? We’ve got ‘em. Basketballs for the hoopers? We’ve got ‘em. Looking for weights to deck out your home gym? We’ve got 'em. Come in and get all of this and much more at For the Love of the Game.",
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '8b',
+        businessName: 'Coffee Time',
+        dateEstablished: '2015-01-01',
+        phoneNumber: '416-800-000',
+        website: 'coffeetime.ca',
         businessType: 'restaurant',
         businessSubtype: 'cafe',
-        emailAddress:'himalayanjava@gmail.com',
-        address: {
-         streetName: 'Yonge St', 
-         buildingNumber: '2552',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4P 2J2',
-        },
-        latitude: 43.713383,
-        longitude: -79.4022449,
-        businessTags:[],
-        stripeID: '6b',
-        description: 'Cozy, brick-walled coffeehouse known for drinks with unique latte art, light bites & pastries.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false, 
-         approved: true, 
-         deactivated: false
-         },
-     },
-     {
-        businessID: '7b',
-        businessName: 'Isaan Der Yonge',
-        dateEstablished: '2019-01-01',
-        phoneNumber: '416-000-000',
-        website: 'isaander.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'thai',
-        emailAddress:'isaander@gmail.com',
+        emailAddress:'coffeetime@gmail.com',
         address: {
          streetName: 'Yonge St',
-         buildingNumber: '2013', 
+         buildingNumber: '1414',
          unitNumber: '',
          city: 'Toronto',
          region: 'ON',
-         postalCode: 'M4S 1Z8',
+         postalCode: 'M4T 1Y5',
         },
-        latitude: 43.7010608,
-        longitude: -79.3991778,
-        businessTags:[],
-        stripeID: '7b',
-        description: 'We are a not so traditional Thai restaurant bringing you flavours from The Isaan region of Thailand to everything in between. Simply Delish!',
-        deactivated: false,
-     },
-     {
-        businessID: '8b',
-        businessName: 'Juicy Dumplings Yonge',
-        dateEstablished: '2012-01-01',
-        phoneNumber: '416-000-000',
-        website: 'juicydumplings.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'chinese',
-        emailAddress:'juicydumpling@gmail.com',
-        address: {
-         streetName: 'Yonge St',
-         buildingNumber: '2150',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4S 2A8',
-        },
-        latitude: 43.7037168,
-        longitude: -79.4001231,
-        businessTags:[],
+        latitude: 43.686082,
+        longitude: -79.3983702,
+        businessTags: [],
         stripeID: '8b',
-        description: 'Best dumpling/ dimsum/ famous Toronto must try. Tasty and cheap.',
+        description:'Amazing cups of coffee for everyone’s morning ritual. Enjoy our meticulously brewed espresso drinks and house coffee in a cozy atmosphere. We also have decaf and tea for you aliens :).',
         hours:{
          "Monday": [],
          "Tuesday":[
@@ -716,11 +813,598 @@ db.mongobusinesses.insertMany( [
          ]
        },
        status:{
-         pending: false, 
-         approved: true, 
+         pending: false,
+         approved: true,
          deactivated: false
          },
      },
+//Riverside 
+{
+        businessID: '9b',
+        businessName: 'Bites and Booze',
+        dateEstablished: '2009-01-01',
+        phoneNumber: '416-900-000',
+        website: 'bitesandbooze.ca',
+        businessType: 'restaurant',
+        businessSubtype: 'bar',
+        emailAddress:'bitesandbooze@gmail.com',
+        address: {
+         streetName: 'Saulter St',
+         buildingNumber: '25',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 2H7',
+        },
+        latitude: 43.6575789,
+        longitude: -79.3486182,
+        businessTags: [],
+        stripeID: '9b',
+        description: 'Bites and Booze offers just that– we sell tapas for you to nibble on while you’re enjoying a drink with your pals. We’ve got a wide selection of brews on tap and specialty cocktails that our team of mixologists refreshes seasonally.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 900,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 900,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 1200,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+
+{
+        businessID: '10b',
+        businessName: 'Jasmine',
+        dateEstablished: '1999-01-01',
+        phoneNumber: '416-010-000',
+        website: 'jasmineflowershop.ca',
+        businessType: 'retail',
+        businessSubtype: 'flower shop',
+        emailAddress:'jasmineflowers@gmail.com',
+        address: {
+         streetName: 'Broadview Ave',
+         buildingNumber: '120',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 2E9',
+        },
+        latitude: 43.6593247,
+        longitude: -79.3528045,
+        businessTags: [],
+        stripeID: '10b',
+        description: 'Jasmine has beautiful fresh flowers and botanicals. We’re a great option to beautify your apartement, adorn your special events, and anything in between.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 900,
+            }            
+         ],
+         "Friday":[
+            {
+               start: 600,
+               end: 900,
+            },
+            {
+               start: 1020,
+               end: 1350,
+            }
+         ],
+         "Saturday":[],
+          "Sunday":[]
+      },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '11b',
+        businessName: 'Fish Fare',
+        dateEstablished: '2017-01-01',
+        phoneNumber: '416-120-000',
+        website: 'fishfare.ca',
+        businessType: 'retail',
+        businessSubtype: 'grocer',
+        emailAddress:'fishfare@gmail.com',
+        address: {
+         streetName: 'Thompson St',
+         buildingNumber: '10',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 1L9',
+        },
+        latitude: 43.6594918,
+        longitude: -79.3549587,
+        businessTags: [],
+        stripeID: '11b',
+        description:'Fresh fish received with deals that are a real catch-of-the-day. If you’re looking for premium fish and shellfish stop by and talk to our expert fishmongers.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+
+{
+        businessID: '12b',
+        businessName: 'Quikit Market',
+        dateEstablished: '2000-01-01',
+        phoneNumber: '416-130-000',
+        website: 'quikitmarket.ca',
+        businessType: 'retail',
+        businessSubtype: 'convenience',
+        emailAddress:'quikitmarket@gmail.com',
+        address: {
+         streetName: 'Queen St',
+         buildingNumber: '870',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M4M 3G9',
+        },
+        latitude: 43.6615414,
+        longitude: -79.3467604,
+        businessTags: [],
+        stripeID: '12b',
+        description:'Quikit Market offers basic groceries, snacks, beverages, home supplies, and tobacco products. We’re a quick and convenient stop for your spur of the moment needs.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+//Bloor West Village
+
+{
+        businessID: '13b',
+        businessName: 'Joey Beans',
+        dateEstablished: '2002-01-01',
+        phoneNumber: '416-140-000',
+        website: 'joeybeans.ca',
+        businessType: 'restaurant',
+        businessSubtype: 'cafe',
+        emailAddress:'joeybeans@gmail.com',
+        address: {
+         streetName: 'Durie St',
+         buildingNumber: '266',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M6S 3G3',
+        },
+        latitude: 43.6509,
+        longitude: -79.4821079,
+        businessTags: [],
+        stripeID: '13b',
+        description: 'Joey Beans offers quality coffee, delicious pastries, and warm lit tables for you to sit with some friends or your laptop. We’ve got a lot of space for you to set up and work for a few hours while enjoying a good bite and drink.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 900,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 900,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 1200,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+
+{
+        businessID: '14b',
+        businessName: 'Spiffy Threads',
+        dateEstablished: '1999-01-01',
+        phoneNumber: '416-150-000',
+        website: 'spiffythreads.ca',
+        businessType: 'retail',
+        businessSubtype: 'clothing',
+        emailAddress:'spiffythreads@gmail.com',
+        address: {
+         streetName: 'Beresford Ave',
+         buildingNumber: '263',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M6S 1N6',
+        },
+        latitude: 43.6515207,
+        longitude: -79.4793476,
+        businessTags: [],
+        stripeID: '14b',
+        description: 'We’ve got clothes that are good for everyone and good for the planet. Our tops and bottoms are made from a sustainable hemp composite that is durable, breathable, and stylish. We’ve got a variety of sizes and colors in stock so that you can find the Spiffy Threads that fit just right.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 600,
+               end: 900,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 600,
+               end: 900,
+            }            
+         ],
+         "Friday":[
+            {
+               start: 600,
+               end: 900,
+            },
+            {
+               start: 1020,
+               end: 1350,
+            }
+         ],
+         "Saturday":[],
+         "Sunday":[]
+      },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+
+{
+        businessID: '15b',
+        businessName: 'Fromaggio’s',
+        dateEstablished: '2017-01-01',
+        phoneNumber: '416-120-000',
+        website: 'fromaggio.ca',
+        businessType: 'retail',
+        businessSubtype: 'grocer',
+        emailAddress:'fromaggio@gmail.com',
+        address: {
+         streetName: 'Mayfield Ave',
+         buildingNumber: '55',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M6S 1J8',
+        },
+        latitude: 43.647898,
+        longitude: -79.4832883,
+        businessTags: [],
+        stripeID: '15b',
+        description:'Fromaggio’s provides fine cheeses and charcuterie. Our owner is the foremost cheesemonger in Canada and ensures our cheeses are of the highest quality and fashion.',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     },
+{
+        businessID: '16b',
+        businessName: 'Lovely',
+        dateEstablished: '2014-01-01',
+        phoneNumber: '416-150-000',
+        website: 'lovelyrestaurant.ca',
+        businessType: 'restaurant',
+        businessSubtype: 'full-service',
+        emailAddress:'lovelyrestaurant@gmail.com',
+        address: {
+         streetName: 'Mayfield Ave',
+         buildingNumber: '55',
+         unitNumber: '',
+         city: 'Toronto',
+         region: 'ON',
+         postalCode: 'M6S 1J8',
+        },
+        latitude: 43.648349,
+        longitude: -79.483675,
+        businessTags: [],
+        stripeID: '16b',
+        description:'Lovely is committed to offering a fine dining experience that is perfect no matter that occasion. Our menu is updated seasonally by Chef Charbonneau and his dedicated staff. Our space boasts exposed brick, chestnut beaming, candlelight, and two hearths making it a perfect spot to enjoy magnificent foods and libations in extraordinarily beautiful and comfortable setting',
+        hours:{
+         "Monday": [],
+         "Tuesday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Wednesday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Thursday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Friday":[
+            {
+               start: 720,
+               end: 900,
+            },
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Saturday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ],
+         "Sunday":[
+            {
+               start: 1050,
+               end: 1350,
+            }
+         ]
+       },
+       status:{
+         pending: false,
+         approved: true,
+         deactivated: false
+         },
+     }
  ] )
 
  db.mongopockets.insertMany( [
@@ -745,5 +1429,27 @@ db.mongobusinesses.insertMany( [
          approved: true, 
          deactivated: false
          },
-     }
+     },
+    {
+        pocketID: '3p',
+        pocketName: 'Bloor West Village',
+        region: 'Toronto',
+        description: 'Experience the Bloor West Village lifestyle, a small village in a big city!  Widely recognized as one of Toronto’s most popular dining and shopping districts, here you’ll find a great mix of over 400 cafes and tea rooms, pubs and restaurants, distinctive European bakeries and delicatessens, boutique retail shops and service providers.  ',
+        status:{
+         pending: false, 
+         approved: true, 
+         deactivated: false
+         },
+     },
+     {
+      pocketID: '4p',
+      pocketName: 'Riverside',
+      region: 'Toronto',
+      description: 'Come and explore Riverside neighbourhood: Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions – just across the bridge from Toronto’s downtown core along Queen Street East from the iconic Queen Street Viaduct (‘Riverside Bridge‘) to just east of the world famous De Grassi Street.',
+      status:{
+       pending: false, 
+       approved: true, 
+       deactivated: false
+       },
+   }
 ])
