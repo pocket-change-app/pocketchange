@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -427,7 +427,7 @@ const BottomTabConsumer = () => {
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="map-pin" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name="map-pin" color={color} size={size}/>,
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
@@ -448,8 +448,9 @@ const BottomTabConsumer = () => {
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
-          // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
+          tabBarIcon: ({color, size}) => (
+              <TabBarIcon name="qrcode" color={color} size={size}/>
+          ),
         }}
       />
 
@@ -458,7 +459,7 @@ const BottomTabConsumer = () => {
         component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
-          tabBarIcon: ({ color }) => <TabBarIcon name="id-card" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name="id-card" color={color} size = {size}/>,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}
@@ -485,6 +486,7 @@ const BottomTabConsumer = () => {
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
+  size: number;
 }) {
-  return <FontAwesome size={30} {...props} />;
+  return <FontAwesome {...props} />;
 }

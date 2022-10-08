@@ -761,6 +761,13 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  imageOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  }, 
   competitionTitle: {
     fontFamily: 'metropolis bold',
     fontSize: 20,

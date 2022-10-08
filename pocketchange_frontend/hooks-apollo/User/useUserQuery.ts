@@ -15,7 +15,7 @@ export default function useUserQuery(
   })
   useEffect(() => {
     if (RA.isNotNil(data)) {
-      console.log('user data inside', data.user)
+      //console.log('user data inside', data.user)
       // allBusinesses query is aliased as getAllBusinesses
       const {user} = data
       setUser(user)

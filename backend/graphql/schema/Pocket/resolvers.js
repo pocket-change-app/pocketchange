@@ -66,7 +66,6 @@ module.exports = {
           return finalPocketInfo
       },
       getBusinessPockets: async (parent, { businessID }, { mongoPocket, Pocket, mongoBusiness, IsIn, sequelizeConnection}) => {
-        //find the top n (n = businessNumbr) list of all businesses that have customer overlap with the business in question (businessID) within dates if specified
         if (businessID == null) {
           return null;
         }        

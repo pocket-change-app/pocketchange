@@ -26,11 +26,11 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
   const storage = getStorage();
   await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
     function (url) {
-      console.log(url);
+      //console.log(url);
       setImageURL(url);
     },
     function (error) {
-      console.log(error);
+      console.log("ERROR: getDownloadURL: ", error);
     }
   );
 }
@@ -295,7 +295,7 @@ export function PocketListSeparator() {
 
 export function IdCard({ user }: { user: any }) {
 
-  console.log(user)
+  //console.log(user)
 
   const {userID, firstName, lastName, birthDate, totalChange} = user;
 
@@ -829,7 +829,7 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
 
   const switchAccount = (role: Role) => {
     authContext.switchActiveRole(role);
-    console.log(authContext.activeRole)
+    console.log("SWITCHED ROLE TO: ", authContext.activeRole)
   }
 
   const [open, setOpen] = useState(false);

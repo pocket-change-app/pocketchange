@@ -12,11 +12,9 @@ import { MerchantNavigation } from './MerchantNavigation';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { Text, } from 'react-native';
 
-
 import * as Linking from 'expo-linking';
 import { LeaderNavigation } from './LeaderNavigation';
 const prefix = Linking.createURL('/');
-
 
 export const Router = () => {
 

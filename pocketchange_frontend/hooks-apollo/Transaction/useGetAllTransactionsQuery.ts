@@ -22,7 +22,7 @@ export default function useGetAllTransactionsQuery(
   //console.log(JSON.stringify(error, null, 2))
   useEffect(() => {
     if (RA.isNotNil(data)) {
-      console.log("transaction hook", data)
+      //console.log("transaction hook", data)
       const {getAllTransactions} = data
       setAllTransactions(getAllTransactions)
     }
