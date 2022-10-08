@@ -30,7 +30,7 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
   
   useEffect(() => {
     if (RA.isNotNil(data)) {
-      console.log('user data inside', data)
+      //console.log('user data inside', data)
       // allBusinesses query is aliased as getAllBusinesses
       //const {user} = data
       setUserRoles(data)

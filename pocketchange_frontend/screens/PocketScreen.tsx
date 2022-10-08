@@ -59,7 +59,6 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     >
       <ScreenContainer>
 
-
         <FlatList
           ListHeaderComponent={() => {
             if (searchQuery == '') {
@@ -79,7 +78,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
           contentContainerStyle={styles.businessFlatList}
           data={allBusinesses}
           renderItem={renderBusinessCard}
-          ListFooterComponent={loading && <ActivityIndicator size="large" color={colors.subtle} />}
+          ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
         />
 
          

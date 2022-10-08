@@ -467,6 +467,18 @@ export const styles = StyleSheet.create({
     borderColor: colors.imageBorder,
   },
 
+  idIcon: {
+    //aspectRatio: 1,
+    width: 106,
+    height: 106,
+    borderRadius: 60,
+    marginLeft: 25,
+    alignContent: 'center',
+    borderWidth: BORDER_WIDTH,
+    borderColor: colors.imageBorder,
+  },
+
+
   idHeader: {
     // backgroundColor: 'rgba(0,0,0,0.1)',
     height: 20,

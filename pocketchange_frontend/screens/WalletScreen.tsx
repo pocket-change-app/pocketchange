@@ -9,14 +9,19 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 const R = require('ramda');
 
+import { useQuery } from '@apollo/react-hooks'
+import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+
 export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
   
-  const userID = '1c'
-  const {allTransactions, loading, error} =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined, undefined)
-
-  if (error) console.log(error);
+  const userID = '1c' // change to get id from authContext
+  const { allTransactions, loading: transactionLoading, error: transactionError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: userID, pocketID: undefined } });
+  
+  if (transactionError) console.log(transactionError);
+  if (changeBalanceError) console.log(changeBalanceError);
 
   return (
     <ScreenContainer>
@@ -28,13 +33,18 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           user={authContext.userGQL}/>
         {// TODO: connect to change balance resolver
         }
-        <BalancesCard
-          changeTotal={user.changeTotal}
-          topPockets={user.topPockets} />
+        {changeBalanceData ?
+          <BalancesCard
+            changeTotal={user.changeTotal}
+            allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
+            <></>
+        }
+        
         
         <TransactionHistoryCard
           navigation={navigation}
           transactions={allTransactions}
+          loading={transactionLoading}
         />
         <View style={{ height: MARGIN }} />
       </ScrollView>
