@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
     UserQueries.user,
     {
       onCompleted(data) { setUserGQL(data.user) },
-      onError(error) { console.log("AUTH ERROR: firebase user not found in GQL") }
+      onError(error) { console.log("ERROR: loadUserGQL ", error) }
     });
 
   // run on when userFirebase changes

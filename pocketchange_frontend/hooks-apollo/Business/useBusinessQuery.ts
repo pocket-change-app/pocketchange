@@ -8,7 +8,7 @@ import BusinessQueries from './queries'
 export default function useBusinessQuery(
     businessID: String,
 ) {
-  console.log("USE GET BUSINESS QUERY BUSINESS ID", businessID)
+  //console.log("USE GET BUSINESS QUERY BUSINESS ID", businessID)
   const [business, setBusiness] = useState([])
   const {loading, data, error, refetch} = useQuery(BusinessQueries.business, {
     variables: {businessID},

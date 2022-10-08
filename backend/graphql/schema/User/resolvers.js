@@ -205,7 +205,7 @@ module.exports = {
             const existingEmail = await mongoUser.findOne({ emailAddress })
             if (!(existingUserID | existingEmail)) {
               const newUser = await User.create({userID: userID}); 
-              console.log(newUser.toJSON())
+              //console.log(newUser.toJSON())
               const newMongoUser = await mongoUser.create({ 
                 userID: userID, 
                 firstName: firstName,
