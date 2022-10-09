@@ -50,7 +50,6 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       key={item.businessID}
       navigation={navigation}
       business={item}
-      pocket={pocket.name}
       showPocket={false}
     />
 
@@ -99,7 +98,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
-        placeholder={'Search ' + pocket.name}
+        placeholder={'Search ' + pocket.pocketName}
         placeholderTextColor={colors.subtle}
 
         onChangeText={updateSearch}

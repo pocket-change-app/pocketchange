@@ -4,7 +4,7 @@ import { Platform, Image, Pressable, ScrollView } from 'react-native';
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
-import { PaySummaryCard, Receipt } from '../components/Cards';
+import { Receipt } from '../components/Cards';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 

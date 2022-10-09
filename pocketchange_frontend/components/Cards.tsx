@@ -306,8 +306,7 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
           {imageURL ?
               <Image
               style={[styles.image, styles.pocketHeaderImage]}
-              source={{uri: imageURL}}
-            /> : <></>
+              source={{uri: imageURL}} /> : <></>
           }
 
         </View>
@@ -315,7 +314,7 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
           <Text style={styles.pocketTitle}>{pocket.pocketName}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
-              {pocket.description}
+              { console.log(pocket)}
             </Text>
           </Hyphenated>
         </View>
@@ -426,9 +425,9 @@ export function BalancesCard({ allChangeBalances }: { changeTotal: string, allCh
           />
           <View style={{ margin: MARGIN, flex: 1 }}>
             {R.map(
-              ({ key, pocketID, value }: { key: string, pocketID: string, value: string }) => (
+              ({ pocketID, value }: { pocketID: string, value: string }) => (
                 <TopPocket
-                  key={key}
+                  key={pocketID}
                   pocket={pocketID}
                   change={value}
                 />
@@ -651,8 +650,6 @@ export function Receipt({ navigation, transaction }: any) {
     </>
   )
 }
-
-
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
@@ -736,118 +733,6 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function PayAmountCard({ name, address, pocket, imageURL, navigation }) {
-
-  // const { name, address, pocket, imageURL } = route.params;
-
-  return (
-    <View style={styles.card}>
-      {/* <CardHeader text='Pay' /> */}
-
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
-        </View>
-      </View>
-
-      <HorizontalLine />
-
-      <View style={styles.container}>
-        <Text>$ dollar amt editable</Text>
-      </View>
-    </View>
-  )
-}
-
-export function PayAmountCardSm({ name, address, pocket, imageURL, amount }: any) {
-
-  // const { name, address, pocket, imageURL } = route.params;
-
-  return (
-    <View style={styles.card}>
-      {/* <CardHeader text='Pay' /> */}
-
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
-        </View>
-      </View>
-
-      <HorizontalLine />
-
-      <View style={styles.container}>
-        <Text style={[styles.changeSm, { textAlign: 'center' }]}>${amount}</Text>
-      </View>
-    </View>
-  )
-}
-
-export function PayTipCard({ amount }: { amount: any }) {
-
-  // const { name, address, pocket, imageURL } = route.params;
-
-  return (
-    <View style={styles.card}>
-      <CardHeader text='Tip' />
-
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View style={styles.container}>
-          <Text style={[styles.changeSm, { textAlign: 'center' }]}>10%</Text>
-        </View>
-        <View style={styles.container}>
-          <Text style={[styles.changeSm, { textAlign: 'center' }]}>$6.20</Text>
-        </View>
-      </View>
-
-      {/* <HorizontalLine /> */}
-    </View>
-  )
-}
-
-export function PaySummaryCard({ name, address, pocket, imageURL, amount, tip }: any) {
-
-  // const { name, address, pocket, imageURL } = route.params;
-
-  return (
-    <View style={styles.card}>
-      {/* <CardHeader text='Summary' /> */}
-
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.businessListInfo}>
-          <Text style={styles.businessNameSm}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
-        </View>
-      </View>
-
-      <HorizontalLine />
-
-      <View style={styles.container}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ textAlign: 'left' }}>Subtotal</Text>
-          <Text style={{ textAlign: 'right' }}>${'12.50'}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ textAlign: 'left' }}>Tip</Text>
-          <Text style={{ textAlign: 'right' }}>${'2.00'}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ textAlign: 'left' }}>Change Used</Text>
-          <Text style={{ textAlign: 'right' }}>-${'2.63'}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ textAlign: 'left' }}>Total</Text>
-          <Text style={{ textAlign: 'right' }}>${'11.87'}</Text>
-        </View>
-      </View>
-    </View>
-  )
-}
-
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
     <View style={{ flex: 1 }}>
@@ -902,7 +787,6 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
       itemSeparatorStyle={styles.horizontalLine}
 
       // containerStyle={styles.card}
-
       open={open}
       value={null}    // set to null to always show placeholder text
       items={items}

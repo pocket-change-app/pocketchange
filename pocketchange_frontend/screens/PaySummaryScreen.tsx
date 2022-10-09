@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
-import { ButtonWithText, PaySummaryCard } from '../components/Cards'
+import { ButtonWithText } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
 import { colors } from "../constants/Colors";
 import { ConsumerNavigation } from "../navigation/ConsumerNavigation";
