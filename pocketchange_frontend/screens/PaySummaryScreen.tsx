@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
-import { ButtonWithText, PaySummaryCard } from '../components/Cards'
+import { ButtonWithText } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
 import { colors } from "../constants/Colors";
 import { ConsumerNavigation } from "../navigation/ConsumerNavigation";
@@ -9,12 +9,14 @@ import { getBackgroundColorAsync } from "expo-system-ui";
 import { Switch } from 'react-native'
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Auth";
+import { useQuery } from "@apollo/client";
+import PocketQueries from '../hooks-apollo/Pocket/queries'
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
-  const { business, amount, tip } = route.params;
+  const { business, pocket, amount, tip } = route.params;
 
   // const [useChange, setUseChange] = useState(true)
 
@@ -41,7 +43,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             <View style={styles.businessListInfo}>
               <Text style={styles.businessNameSm}>{business.businessName}</Text>
               <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-              <Text style={styles.pocket}>{"Leslieville"}</Text>
+              <Text style={styles.pocket}>{pocket.pocketName}</Text>
+
             </View>
 
           </View>

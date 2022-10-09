@@ -32,6 +32,7 @@ import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardUploadImage from '../screens/BusinessWizardUploadImage';
 import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
+import CompetitionScreen from '../screens/CompetitionScreen';
 
 import { AuthContext } from '../contexts/Auth';
 import { useContext, useEffect } from 'react';
@@ -125,6 +126,15 @@ function PocketStack() {
         options={{
           // presentation: 'modal',
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Competition"
+        component={CompetitionScreen}
+        options={{
+          // presentation: 'modal',
+          // headerShown: false,
+          // title: '',
         }}
       />
       {/* <Stack.Screen
@@ -449,7 +459,12 @@ const BottomTabConsumer = () => {
           // title: 'Pockets',
           // headerShown: false,
           tabBarIcon: ({color, size}) => (
-              <TabBarIcon name="qrcode" color={color} size={size}/>
+            <View style={{borderRadius:10, backgroundColor: color, width: 45, height: 45, justifyContent: 'center'}}>
+              <View style={{alignSelf: 'center'}}>
+                <TabBarIcon name="qrcode" color={"white"} size={1.25*size} />
+              </View>  
+            </View>
+              
           ),
         }}
       />

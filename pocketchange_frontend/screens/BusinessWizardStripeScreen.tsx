@@ -8,6 +8,9 @@ import { MARGIN, styles } from "../Styles";
 import * as WebBrowser from 'expo-web-browser';
 import { AuthContext } from "../contexts/Auth";
 
+import { useMutation } from '@apollo/react-hooks'
+import BusinessMutations from "../hooks-apollo/Business/mutations";
+
 
 export default function BusinessWizardStripeScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -16,11 +19,18 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
   const { businessID } = route.params
 
   const [result, setResult] = useState(null);
-  const handleStripeFlowRedirect = async () => {
 
-    // CALL CREATE STRIPE ACCOUNT FROM BACKEND
+  const [useCreateStripeLinkMutation, {loading, error}] = useMutation(
+    BusinessMutations.createStripeLink, {
+      onCompleted(data) {
+        handleStripeFlowRedirect(data.createStripeLink.url)
+        //navigation.navigate('BusinessWizardUploadImage', {businessID : data.createBusiness.businessID});
+      }, 
+      onError(error) {console.log(JSON.stringify(error, null, 2))}
+  })
 
-    let result = await WebBrowser.openBrowserAsync('https://expo.dev');
+  const handleStripeFlowRedirect = async (url) => {
+    let result = await WebBrowser.openBrowserAsync(url);
     setResult(result);
   };
 
@@ -49,7 +59,7 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
           <ButtonWithText
             text='Setup with Stripe'
-            onPress={handleStripeFlowRedirect}
+            onPress={() => useCreateStripeLinkMutation({variables: {userID: "6c", businessID: "1b"}})} //TODO: remoove buisnessID hardcoding
           />
 
           <Text>{result && JSON.stringify(result)}</Text>

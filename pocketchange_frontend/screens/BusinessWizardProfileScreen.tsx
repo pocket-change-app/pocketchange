@@ -100,7 +100,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.settingEditText}
               // keyboardType='numeric'
               // value={firstName}
               onChangeText={setBusinessName}
@@ -111,6 +111,9 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
           </View>
 
           <DropDownPicker
+            style={styles.card}
+            dropDownContainerStyle={styles.card}
+            textStyle={styles.settingEditText}
             placeholder="Business Type"
             open={open}
             value={businessType}
@@ -154,7 +157,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.settingEditText}
               keyboardType='numbers-and-punctuation'
               // value={lastName}
               onChangeText={setBusinessStreetAddress}
@@ -174,7 +177,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
               <Text
                 selectionColor={colors.gold}
-                style={styles.receipt}
+                style={styles.settingEditText}
               >
                 Toronto, ON
               </Text>
@@ -190,7 +193,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
                 // returnKeyType='default'
                 selectionColor={colors.gold}
                 autoCapitalize='characters'
-                style={styles.receipt}
+                style={styles.settingEditText}
                 // keyboardType='number-pad'
                 // value={businessPostalCode}
                 maxLength={6}
@@ -214,7 +217,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.settingEditText}
               keyboardType='number-pad'
               // value={lastName}
               maxLength={10}
@@ -236,7 +239,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.settingEditText}
               keyboardType='default'
               // value={lastName}
               onChangeText={setWebsite}
@@ -254,18 +257,19 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={() => useCreateBusinessMutation({
-              variables: {
-                userID: authContext.userGQL.userID, 
-                businessName: businessName, 
-                // dateEstablished:$dateEstablished, 
-                // emailAddress: $emailAddress, 
-                phoneNumber: businessPhoneNumber, 
-                website: website, 
-                businessType: businessType, 
-                //businessSubtype: $businessSubtype, 
-                pocketID: pocketID
-              }})}
+            onPress={() => 
+              navigation.navigate('BusinessWizardUploadImage', {businessID : "1b"}) //TODO: remove, this line is just for testing
+              // TODO: uncoment below
+              // useCreateBusinessMutation({
+              // variables: {
+              //   userID: authContext.userGQL.userID, 
+              //   businessName: businessName, 
+              //   phoneNumber: businessPhoneNumber, 
+              //   website: website, 
+              //   businessType: businessType, 
+              //   pocketID: pocketID
+              // }})
+            }
           />
         </ScrollView>
       </KeyboardAvoidingView>

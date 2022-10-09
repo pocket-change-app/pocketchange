@@ -1,12 +1,16 @@
-import { Platform, Image, Pressable, ScrollView } from 'react-native';
+import { Platform, Image, Pressable, ScrollView, ActivityIndicator } from 'react-native';
 
 import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
-import { BusinessCard } from '../components/Cards';
+import { BusinessCard, ChangeBalanceCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
+
+import { useQuery } from '@apollo/client';
+import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+
 
 export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -15,22 +19,23 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   // console.log(route)
   const { business, pocket } = route.params;
 
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
+  if (changeBalanceError) return <Text>{changeBalanceError}</Text>;
+  if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+
   return (
     <ScreenContainer>
       <ScrollView
-        style={styles.container}
-      >
+        style={styles.container}>
 
         <BusinessCard
           navigation={navigation}
-          business={business}
-          pocket={pocket}
-        />
+          business={business} 
+          changeBalance={changeBalanceData.getAllChangeBalances} />
 
-        <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-          <Text style={styles.pocketBig}>{pocket} Change</Text>
-          <Text style={styles.changeLg}>$8.94</Text>
-        </View>
+      <ChangeBalanceCard
+        changeBalance={changeBalanceData.getAllChangeBalances} 
+        pocket={pocket} />
 
         {
           business.description ?

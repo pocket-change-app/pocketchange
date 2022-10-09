@@ -21,10 +21,13 @@ export type RootStackParamList = {
   SignUp: undefined;
   ViewPDF: undefined;
 
+  // Consumer Screens
+
   Business: undefined;
 
   PocketSearch: undefined;
   Pocket: undefined;
+  Competition: undefined;
 
   NotFound: undefined;
 

@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
-import { CardHeader, ButtonWithText, PayAmountCard } from '../components/Cards'
+import { CardHeader, ButtonWithText,  } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { useContext, useState } from "react";
@@ -13,13 +13,14 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const authContext = useContext(AuthContext); 
   
-  const { business } = route.params;
+  const { business, pocket } = route.params;
 
   const [amount, setAmount] = useState('')
 
   function onChangeAmount(amt: string) {
     setAmount(amt)
   }
+
 
   return (
     <ScreenContainer>
@@ -33,13 +34,6 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
           {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
 
-          {/* <PayAmountCard
-        name={name}
-        address={address}
-        pocket={pocket}
-        imageURL={imageURL}
-        navigation={navigation}
-      /> */}
           <View>
             <View style={styles.card}>
               {/* <CardHeader text='Pay' /> */}
@@ -48,7 +42,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                 <View style={styles.businessListInfo}>
                   <Text style={styles.businessNameSm}>{business.businessName}</Text>
                   <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                  <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
+                  <Text style={styles.pocket}>{pocket.pocketName}</Text>
                 </View>
               </View>
             </View>
@@ -74,6 +68,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
               onPress={() => navigation.navigate("PayTip", {
                 // navigation: navigation,
                 business: business,
+                pocket: pocketData.getBusinessPockets[0],
                 amount: parseFloat(amount).toFixed(2),
               })}
             />

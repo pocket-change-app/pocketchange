@@ -7,7 +7,7 @@ import gold from '../constants/Colors';
 import { DivHeader, BusinessCardSm, ButtonWithText } from '../components/Cards';
 import { colors, colorScale } from '../constants/Colors';
 
-import { analytics } from '../dummy';
+import { leaderAnalytics } from '../dummy';
 
 import { useState, useContext } from 'react';
 import * as V from 'victory-native';
@@ -25,6 +25,8 @@ export default function LeaderAnalyticsScreen() {
   const [searchResults, setSearchResults] = useState('')
 
   const authContext = useContext(AuthContext);
+
+  const analytics = leaderAnalytics;
 
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)

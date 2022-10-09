@@ -3,6 +3,24 @@
 import { RoleLevel, RoleType } from "./contexts/Auth";
 
 
+//// COMPETITIONS ////
+
+export const snapItUp = {
+  competitionID: '000',
+  competitionName: 'Snap it UP!',
+  description: "To enter once, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one entry per day.",
+  startDate: '05-05-2022',
+  endDate: '12-12-2022',
+  prizeValue: 500.00,
+  participants: [
+    { name: 'Danny' },
+    { name: 'Ava' },
+    { name: 'Elrond' },
+    { name: 'Adar' },
+  ]
+}
+
+
 //// FOR CONSUMER SIDE ////
 
 export const user = {
@@ -393,17 +411,20 @@ export const analytics = [
   {
     sectionTitle: "Favourites",
     data: [{
-      title: "Sales",
-      type: 'text-sales',
-      rangeName: 'TODAY',
+      title: "Number of Competition Entries",
+      type: "bar",
+      rangeName: 'PAST WEEK',
       startDate: "9/16/2022",
       endDate: "9/16/2022",
-      data: {
-        gross_sales: 275.76,
-        change_issued: 20.53,
-        refunds_issued: 6.50,
-        net_sales: 248.73
-      }
+      data: [
+        { x: "mon", y: 60 },
+        { x: "tue", y: 34 },
+        { x: "wed", y: 27 },
+        { x: "thu", y: 60 },
+        { x: "fri", y: 88 },
+        { x: "sat", y: 122 },
+        { x: "sun", y: 170 },
+      ]
     },],
   },
   {
@@ -457,7 +478,7 @@ export const analytics = [
     sectionTitle: "Sales Analytics",
     data: [
       {
-        title: "Number of Transactions",
+        title: "Number of Scans",
         type: "bar",
         rangeName: 'PAST WEEK',
         startDate: "9/16/2022",
@@ -472,22 +493,22 @@ export const analytics = [
           { x: "sun", y: 170 },
         ]
       },
-      {
-        title: "Sales (dollars per day)",
-        type: "bar",
-        rangeName: 'PAST WEEK',
-        startDate: "9/16/2022",
-        endDate: "9/16/2022",
-        data: [
-          { x: "mon", y: 804.43 },
-          { x: "tue", y: 456.30 },
-          { x: "wed", y: 437.23 },
-          { x: "thu", y: 806.54 },
-          { x: "fri", y: 1122.10 },
-          { x: "sat", y: 1366.38 },
-          { x: "sun", y: 2505.76 },
-        ]
-      },
+      // {
+      //   title: "Sales (dollars per day)",
+      //   type: "bar",
+      //   rangeName: 'PAST WEEK',
+      //   startDate: "9/16/2022",
+      //   endDate: "9/16/2022",
+      //   data: [
+      //     { x: "mon", y: 804.43 },
+      //     { x: "tue", y: 456.30 },
+      //     { x: "wed", y: 437.23 },
+      //     { x: "thu", y: 806.54 },
+      //     { x: "fri", y: 1122.10 },
+      //     { x: "sat", y: 1366.38 },
+      //     { x: "sun", y: 2505.76 },
+      //   ]
+      // },
     ],
   },
   {
@@ -538,6 +559,111 @@ export const analytics = [
         data: businesses.slice(0, 3)
       },
 
+    ],
+  },
+]
+
+export const leaderAnalytics = [
+  {
+    sectionTitle: "Favourites",
+    data: [{
+      title: "Number of Competition Entries",
+      type: "bar",
+      rangeName: 'PAST WEEK',
+      startDate: "9/16/2022",
+      endDate: "9/16/2022",
+      data: [
+        { x: "mon", y: 60 },
+        { x: "tue", y: 34 },
+        { x: "wed", y: 27 },
+        { x: "thu", y: 60 },
+        { x: "fri", y: 88 },
+        { x: "sat", y: 122 },
+        { x: "sun", y: 170 },
+      ]
+    },],
+  },
+  {
+    sectionTitle: "Customer Analytics",
+    data: [
+      {
+        title: "Pocket Membership",
+        type: "text-participation-pocket",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          {
+            numCustomers: 126,
+            visitRate: 6.4,
+          }
+        ]
+      },
+      {
+        title: "Your Customers Come From",
+        type: "pie",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/1/2022",
+        endDate: "9/14/2022",
+        data: [
+          { x: "University-Rosedale", y: 54 },
+          { x: "Beaches-East York", y: 62 },
+          { x: "Toronto Centre", y: 43 },
+          { x: "Toronto-Danforth", y: 88 },
+          { x: "Other", y: 20 },
+        ]
+      },
+      {
+        title: "Your Top Customers",
+        type: "list-top-customers",
+        rangeName: 'PAST 30 DAYS',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          "Cole C.",
+          "Mica C.",
+          "Siku C.",
+          "Mia S.",
+          "Kanye W."
+        ]
+      },
+    ],
+  },
+  {
+    sectionTitle: "Competition Analytics",
+    data: [
+      {
+        title: "Number of Scans",
+        type: "bar",
+        rangeName: 'PAST WEEK',
+        startDate: "9/16/2022",
+        endDate: "9/16/2022",
+        data: [
+          { x: "mon", y: 60 },
+          { x: "tue", y: 34 },
+          { x: "wed", y: 27 },
+          { x: "thu", y: 60 },
+          { x: "fri", y: 88 },
+          { x: "sat", y: 122 },
+          { x: "sun", y: 170 },
+        ]
+      },
+      // {
+      //   title: "Sales (dollars per day)",
+      //   type: "bar",
+      //   rangeName: 'PAST WEEK',
+      //   startDate: "9/16/2022",
+      //   endDate: "9/16/2022",
+      //   data: [
+      //     { x: "mon", y: 804.43 },
+      //     { x: "tue", y: 456.30 },
+      //     { x: "wed", y: 437.23 },
+      //     { x: "thu", y: 806.54 },
+      //     { x: "fri", y: 1122.10 },
+      //     { x: "sat", y: 1366.38 },
+      //     { x: "sun", y: 2505.76 },
+      //   ]
+      // },
     ],
   },
 ]
