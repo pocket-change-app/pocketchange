@@ -13,13 +13,14 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const authContext = useContext(AuthContext); 
   
-  const { business } = route.params;
+  const { business, pocket } = route.params;
 
   const [amount, setAmount] = useState('')
 
   function onChangeAmount(amt: string) {
     setAmount(amt)
   }
+
 
   return (
     <ScreenContainer>
@@ -48,7 +49,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                 <View style={styles.businessListInfo}>
                   <Text style={styles.businessNameSm}>{business.businessName}</Text>
                   <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                  <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
+                  <Text style={styles.pocket}>{pocket.pocketName}</Text>
                 </View>
               </View>
             </View>
@@ -74,6 +75,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
               onPress={() => navigation.navigate("PayTip", {
                 // navigation: navigation,
                 business: business,
+                pocket: pocketData.getBusinessPockets[0],
                 amount: parseFloat(amount).toFixed(2),
               })}
             />

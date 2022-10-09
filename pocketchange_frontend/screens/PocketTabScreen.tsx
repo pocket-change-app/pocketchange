@@ -1,4 +1,4 @@
-import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
@@ -7,9 +7,11 @@ import { PocketListCard, PocketListSeparator, PocketSearchResult } from "../comp
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { ScreenContainer } from '../components/Themed';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
+import { useQuery } from '@apollo/client';
+import PocketQueries from '../hooks-apollo/Pocket/queries'
 
 const R = require('ramda');
 
@@ -17,19 +19,25 @@ const R = require('ramda');
 export default function PocketTabScreen({ navigation, route }: { navigation: any, route: any }) {
 
   const authContext = useContext(AuthContext); 
-  
+
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState(pockets)
+  const [searchResults, setSearchResults] = useState()
 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {
       const formattedQuery = text.toLowerCase().trim()
-      const results = pockets.filter(p => p.name.toLowerCase().includes(formattedQuery))
+      const results = pocketData.getAllPockets.filter(p => p.pocketName.toLowerCase().includes(formattedQuery))
       return results
     })
   };
 
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getAllPockets, { variables: { } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+  
+ 
   function PageContents() {
     if (searchQuery == '') {
       return (
@@ -44,7 +52,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
           ItemSeparatorComponent={PocketListSeparator}
 
-          data={pockets}
+          data={pocketData.getAllPockets}
           renderItem={({ item, index, separators }) => (
             <PocketListCard
               key={item.pocketID}

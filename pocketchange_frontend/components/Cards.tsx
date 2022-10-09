@@ -5,6 +5,9 @@ import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 import { user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
+import { useQuery } from '@apollo/client';
+import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import PocketQueries from '../hooks-apollo/Pocket/queries'
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -36,13 +39,17 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
 }
 
 
-export function BusinessCard({ navigation, business, pocket }: { navigation: any, business: any }) {
+export function BusinessCard({ navigation, business, changeBalance }: { navigation: any, business: any }) {
 
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
 
   return (
     <View style={styles.card}>
@@ -51,31 +58,38 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
           <Image
             style={styles.businessHeaderImage}
             source={{ uri: imageURL }}
-          /> : <></>
+          /> : 
+          <Image
+          style={styles.businessListImage}
+          source={require('../assets/images/defaults/businessProfile.png')}
+        />
         }
 
       </View>
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
         <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-        <Text style={styles.pocket}>{pocket}</Text>
-
-        <Pressable style={styles.payButton}
-          onPress={() => (navigation.navigate('PaymentModalStack', {
-            screen: "PayAmount",
-            params: {
-              // navigation: navigation,
-              business: business,
-            }
-            // businessID: business.businessID,
-            // name: business.name,
-            // address: business.address,
-            // pocket: business.pocket,
-            // imageURL: business.imageURL,
-          }))}
-        >
-          <Text style={styles.payButtonText}>Redeem Change</Text>
-        </Pressable>
+        <Text style={styles.pocket}>{pocketData.getBusinessPockets[0].pocketName}</Text>
+        
+        {(changeBalance.length > 0) ? 
+          <Pressable style={styles.payButton}
+            onPress={() => (
+              navigation.navigate('PaymentModalStack', {
+                screen: "PayAmount",
+                params: {
+                  // navigation: navigation,
+                  business: business,
+                  pocket: pocketData.getBusinessPockets[0]
+                }
+              }))}>
+            <Text style={styles.payButtonText}>Redeem Change</Text>
+          </Pressable> :
+          <Pressable style={[styles.payButton, {backgroundColor: colors.subtle}]}
+            onPress={() => (
+            alert(`You have no ${pocketData.getBusinessPockets[0].pocketName} Change to redeem!`))}>
+            <Text style={styles.payButtonText}>Redeem Change</Text>
+          </Pressable>
+        }
 
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
 
@@ -102,7 +116,7 @@ export function BusinessCard({ navigation, business, pocket }: { navigation: any
 
 }
 
-export function BusinessCardSuggested({ navigation, business, pocket }: { navigation: any, business: any, pocket: any }) {
+export function BusinessCardSuggested({ navigation, business }: { navigation: any, business: any }) {
 
   const [imageURL, setImageURL] = useState();
 
@@ -110,12 +124,16 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
         // navigation: navigation,
         business: business,
-        pocket: pocket
+        pocket: pocketData.getBusinessPockets[0]
       })}
     >
       <View style={styles.card}>
@@ -130,7 +148,7 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
         <View style={styles.businessModalInfo}>
           <Text style={styles.businessNameLg}>{business.businessName}</Text>
           <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-          <Text style={styles.pocket}>{pocket}</Text>
+          <Text style={styles.pocket}>{pocketData.getBusinessPockets[0]}</Text>
 
         </View>
       </View>
@@ -139,19 +157,24 @@ export function BusinessCardSuggested({ navigation, business, pocket }: { naviga
 
 }
 
-export function BusinessCardSm({ navigation, business, pocket, showPocket = true }: { navigation: any, business: any, pocket: any, showPocket: boolean }) {
+export function BusinessCardSm({ navigation, business, showPocket = true }: { navigation: any, business: any, showPocket: boolean }) {
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+
   return (
     <Pressable
       onPress={() => navigation.navigate('Business', {
         // navigation: navigation,
         business: business,
-        pocket: pocket
+        pocket:   pocketData.getBusinessPockets[0]
+
       })}
     >
       <View style={[styles.card, styles.businessListItemCard]}>
@@ -161,20 +184,39 @@ export function BusinessCardSm({ navigation, business, pocket, showPocket = true
           <Image
             style={styles.businessListImage}
             source={{ uri: imageURL }}
-          /> : <></>
+          /> : 
+          <Image
+            style={styles.businessListImage}
+            source={require('../assets/images/defaults/businessProfile.png')}
+          />
         }
         </View>
 
         <View style={styles.businessListInfo}>
           <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
           <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-          {showPocket ? <Text style={styles.pocket}>{pocket}</Text> : null}
+          {showPocket ? <Text style={styles.pocket}>{pocketData.getBusinessPockets[0].pocketName}</Text> : null}
         </View>
 
       </View>
 
     </Pressable>
   )
+}
+
+export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: any }) {
+  
+  return (
+    <View style={[styles.card, styles.pocketChangeBalanceCard]}>
+        <Text style={styles.pocketBig}>{pocket.pocketName} Change</Text>
+        <Text style={styles.changeLg}>
+        {(changeBalance.length == 0) ?
+          "$0.00" :
+          changeBalance.value
+        }
+        </Text>
+    </View>
+  );
 }
 
 export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
@@ -241,7 +283,7 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
       })}
     >
       <Text style={[styles.navigationHeaderTitle, { color: colors.medium }]}>
-        {pocket.name}
+        {pocket.pocketName}
       </Text>
     </Pressable>
   )
@@ -270,18 +312,13 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
 
         </View>
         <View style={styles.container}>
-          <Text style={styles.pocketTitle}>{pocket.name}</Text>
+          <Text style={styles.pocketTitle}>{pocket.pocketName}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
               {pocket.description}
             </Text>
           </Hyphenated>
         </View>
-      </View>
-
-      <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-        <Text style={styles.pocketBig}>{pocket.name} Change</Text>
-        <Text style={styles.changeLg}>$8.94</Text>
       </View>
     </>
   );
@@ -318,9 +355,10 @@ export function IdCard({ user }: { user: any }) {
             style={styles.idImage}
             source={{uri: imageURL}}
           /> :
-          <View style={styles.idIcon}>
-            <FontAwesome name="user" color={colors.dark} style={{alignSelf: 'center'}} size={styles.idImage.width}/>
-          </View>
+          <Image
+            style={styles.idImage}
+            source={require('../assets/images/defaults/userProfile.jpg')}
+          />
         }
         <View style={styles.idContent}>
           <Text style={styles.idLastName}>{lastName}</Text>

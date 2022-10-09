@@ -12,9 +12,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
   const authContext = useContext(AuthContext); 
 
-  const { business, amount } = route.params;
-
-  //const { businessID, name, address, pocket, imageURL } = business;
+  const { business, pocket, amount } = route.params;
 
   const [percentage, setPercentage] = useState('20')
   const [tip, setTip] = useState((amount * parseFloat(percentage) / 100).toString())
@@ -45,7 +43,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                 <View style={styles.businessListInfo}>
                   <Text style={styles.businessNameSm}>{business.businessName}</Text>
                   <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                  <Text style={styles.pocket}>{"TODO: get pocket of business"}</Text>
+                  <Text style={styles.pocket}>{pocket.pocketName}</Text>
                 </View>
               </View>
             </View>
@@ -143,6 +141,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                   text='No Tip'
                   onPress={() => navigation.navigate('PaySummary', {
                     business: business,
+                    pocket: pocket,
                     amount: parseFloat(amount).toFixed(2),
                     tip: '0.00',
                   })}
