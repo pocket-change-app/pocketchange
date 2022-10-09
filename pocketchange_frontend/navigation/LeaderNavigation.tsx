@@ -116,7 +116,7 @@ function AnalyticsStack() {
         name="LeaderAnalytics"
         component={LeaderAnalyticsScreen}
         options={{
-          // title: ' Analytics '
+          title: 'Pocket Analytics'
         }}
       // screenOptions={{ headerShown: false }}
       />

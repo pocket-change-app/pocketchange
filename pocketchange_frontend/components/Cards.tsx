@@ -367,7 +367,7 @@ export function IdCard({ user }: { user: any }) {
             marginHorizontal: 0,
             marginVertical: 5,
           }]} />
-          <Text style={styles.idLifeTimeChange}>{pad(totalChange, 14)}</Text>
+          <Text style={styles.idLifeTimeChange}>{pad(totalChange*100, 12)}</Text>
         </View>
       </View>
       <View style={[styles.idHeader, { alignItems: 'flex-end' }]}>
