@@ -2,10 +2,10 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView } from 'react-
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses } from '../dummy';
+import { businesses, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
-import { BusinessCard, BusinessCardSm, ChangeBalanceCard, DivHeader, PocketDetailCard } from '../components/Cards';
+import { BusinessCard, BusinessCardSm, ChangeBalanceCard, CompetitionCard, DivHeader, PocketDetailCard } from '../components/Cards';
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda';
@@ -74,6 +74,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   <PocketDetailCard
                     navigation={navigation}
                     pocket={pocket} />
+
+                  <CompetitionCard
+                    navigation={navigation}
+                    competition={snapItUp} />
                   
                   <ChangeBalanceCard
                     changeBalance={changeBalanceData.getAllChangeBalances} 
