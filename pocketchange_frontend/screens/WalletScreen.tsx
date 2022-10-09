@@ -1,6 +1,6 @@
 import { ActivityIndicator, ScrollView } from 'react-native';
 
-import { CREDIT_CARD_ASPECT_RATIO, MARGIN, styles } from '../Styles';
+import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { BalancesCard, IdCard, TransactionHistoryCard } from '../components/Cards';
 import { user } from '../dummy';
