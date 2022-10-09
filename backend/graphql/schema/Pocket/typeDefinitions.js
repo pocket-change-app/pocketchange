@@ -11,6 +11,7 @@ module.exports = gql`
       changeRate: Decimal
       circulatingChange: Decimal
       status: Status
+      description: String
     }
 
 

@@ -21,6 +21,7 @@ module.exports = {
                   region: mongoPocketInfo.region,
                   pocketName: mongoPocketInfo.pocketName,
                   status: mongoPocketInfo.status,
+                  description:mongoPocketInfo.description
                 }
               }
               else{
@@ -60,7 +61,8 @@ module.exports = {
                   changeRate: (parseFloat(pocketInfo.dataValues.changeRate).toFixed(2)),
               region: currMongoPocket.region,
               pocketName: currMongoPocket.pocketName,
-              status: currMongoPocket.status
+              status: currMongoPocket.status,
+              description:currMongoPocket.description
             })
           }
           return finalPocketInfo
@@ -93,7 +95,8 @@ module.exports = {
             changeRate: (parseFloat(pocketInfo.dataValues.changeRate).toFixed(2)),
             region: currMongoPocket.region,
             pocketName: currMongoPocket.pocketName,
-            status: currMongoPocket.status
+            status: currMongoPocket.status,
+            description:currMongoPocket.description
           })
         }
         return finalPocketInfo
@@ -106,7 +109,8 @@ module.exports = {
         pocketName, 
         region,
         changeRate,
-        managerID
+        managerID, 
+        description
       }, { Pocket, mongoPocket, IsMember}) => {
           //check to see the pocket name they want isn't taken by another pocket
           const existing = await mongoPocket.findOne({ pocketName: pocketName })
@@ -121,6 +125,7 @@ module.exports = {
                 pending: true,
                 approved: false,
                 deactivated: false},
+              description: description
             })
             //create the relationship where the user who made the pocket is the manager of the pocket if manager wasn't specified
             const manager = managerID? managerID: userID
@@ -137,6 +142,7 @@ module.exports = {
               region: newMongoPocket.region,
               pocketName: newMongoPocket.pocketName,
               status: newMongoPocket.status,
+              description:newMongoPocket.description,
             }
           } else {
             throw new ApolloError('Pocket already exists')
@@ -148,6 +154,7 @@ module.exports = {
           pocketName, 
           region,
           changeRate,
+          description
         }, { Pocket, mongoPocket, IsMember, mongoUser}) => {
             //check to make sure the userID is the pocket manager 
           //check to make sure the userID is the pocket manager 
@@ -156,8 +163,9 @@ module.exports = {
            //the user is the manager of this pocket, proceed (or its pocketchange admin)
               await mongoPocket.updateOne({ pocketID: pocketID },
                 {
-                  pocketName: pocketName == null ? mongoPocketInfo.dataValues.pocketName : pocketName,
-                  region: region == null ? mongoPocketInfo.dataValues.region : region,
+                  pocketName: pocketName == null ? mongoPocketInfo.pocketName : pocketName,
+                  region: region == null ? mongoPocketInfo.region : region,
+                  description: description == null ? mongoPocketInfo.description : description,
                 })
               const mongoPocketInfo = await mongoPocket.findOne({ pocketID })
               let pocketInfo;
@@ -180,6 +188,7 @@ module.exports = {
                 region: mongoPocketInfo.region,
                 pocketName: mongoPocketInfo.pocketName,
                 status: mongoPocketInfo.status,
+                description: mongoPocketInfo.description,
               }
             }
             else {
@@ -216,6 +225,7 @@ module.exports = {
                 region: mongoPocketInfo.region,
                 pocketName: mongoPocketInfo.pocketName,
                 status: mongoPocketInfo.status,
+                description: mongoPocketInfo.description
               }
             }
             else {
@@ -256,6 +266,7 @@ module.exports = {
                   region: mongoPocketInfo.region,
                   pocketName: mongoPocketInfo.pocketName,
                   status: mongoPocketInfo.status,
+                  description: mongoPocketInfo.description,
                 }
               }
               else {
@@ -302,6 +313,7 @@ module.exports = {
             region: newMongoPocketJoined.region,
             pocketName: newMongoPocketJoined.pocketName,
             status: newMongoPocketJoined.status,
+            description: newMongoPocketJoined.description,
           }
         },
         joinPocketAsBusiness: async (parent, { 
@@ -329,6 +341,7 @@ module.exports = {
                 region: newMongoPocketJoined.region,
                 pocketName: newMongoPocketJoined.pocketName,
                 status: newMongoPocketJoined.status,
+                description: newMongoPocketJoined.description,
               }
           }
           else{
@@ -363,6 +376,7 @@ module.exports = {
               region: newMongoPocketJoined.region,
               pocketName: newMongoPocketJoined.pocketName,
               status: newMongoPocketJoined.status,
+              description: newMongoPocketJoined.description,
             }
           }
           else{
@@ -410,6 +424,7 @@ module.exports = {
                     region: mongoPocketInfo.region,
                     pocketName: mongoPocketInfo.pocketName,
                     status: mongoPocketInfo.status,
+                    description: mongoPocketInfo.description,
                   }
                 }
               }

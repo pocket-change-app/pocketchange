@@ -14,6 +14,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }
     `,
@@ -30,6 +31,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }         
 `,
@@ -46,6 +48,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }         
     `,
@@ -62,6 +65,7 @@ export default {
                 approved
                 deactivated
               }
+            description
         }
     }         
     `,
@@ -78,6 +82,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }      
 `,
@@ -94,6 +99,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }      
     `,
@@ -110,6 +116,7 @@ export default {
                     approved
                     deactivated
                   }
+                description
             }
         }         
 `,
@@ -126,6 +133,7 @@ export default {
                         approved
                         deactivated
                       }
+                    description
                 }
             }         
     `,
