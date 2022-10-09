@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platfor
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
-import { user } from '../dummy';
+import { pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 import { useQuery } from '@apollo/client';
@@ -847,6 +847,57 @@ export function PaySummaryCard({ name, address, pocket, imageURL, amount, tip }:
     </View>
   )
 }
+
+export function CompetitionCard({ navigation, competition }: { navigation: any, competition: any }) {
+
+  const { competitionID, competitionName, description, prizeValue, endDate } = competition
+
+  return (
+    <Pressable
+      onPress={() => navigation.navigate('Competition', {
+        competition: competition
+      })}
+    >
+      <View style={[styles.card]}>
+        <View style={styles.container}>
+          <Text style={styles.competitionTitle}>
+            <FontAwesome name='trophy' style={styles.competitionTitle} />
+            {' ' + competitionName}
+          </Text>
+        </View>
+
+        <HorizontalLine />
+
+        <View style={styles.container}>
+          <Text style={styles.prose}>
+            {description}
+          </Text>
+        </View>
+
+        <HorizontalLine />
+
+        <View style={styles.container}>
+          <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
+            <Text>Prize:</Text>
+            <Text>{'$' + prizeValue}</Text>
+          </View>
+          <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
+            <Text>Competition ends:</Text>
+            <Text>{endDate}</Text>
+          </View>
+        </View>
+      </View>
+    </Pressable >
+  )
+}
+
+export const renderParticipant = ({ item, index, separators }: any) => (
+
+  <View style={[styles.card, styles.container]}>
+    <Text>{item.name}</Text>
+  </View>
+
+)
 
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (
