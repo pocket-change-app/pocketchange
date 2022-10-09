@@ -644,6 +644,14 @@ export const styles = StyleSheet.create({
     // marginLeft: MARGIN,
   },
 
+  settingEditText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 18,
+    lineHeight: 24,
+    color: colors.medium,
+    // marginLeft: MARGIN,
+  },
+
   transactionListed: {
     flexDirection: 'row',
     justifyContent: 'space-between',

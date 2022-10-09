@@ -260,147 +260,147 @@ module.exports = {
         } else {
           throw new ApolloError('Business already exists')
         }
-      },  
-      updateBusiness: async (parent, { 
-        userID,
-        businessID,
-        businessName, 
-        dateEstablished, 
-        emailAddress, 
-        phoneNumber, 
-        website, 
-        businessType,
-        businessSubtype,
-        hours,
-      }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
-          //check to make sure the userID is the business owner 
-          const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
-          if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-            //the user is the owner of this business, proceed (or its pocketchange admin)
-            //update the business with specified values
-            const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
-            await mongoBusiness.updateOne({ businessID: businessID },
-              {
-                businessName: businessName == null ? mongoBusinessInfo.businessName : businessName,
-                dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dateEstablished : dateEstablished ,
-                emailAddress: emailAddress ==null ? mongoBusinessInfo.emailAddress : emailAddress ,
-                phoneNumber: phoneNumber ==null ? mongoBusinessInfo.phoneNumber : phoneNumber ,
-                website: website ==null ? mongoBusinessInfo.website : website ,
-                businessType: businessType ==null ? mongoBusinessInfo.businessType : businessType ,
-                businessSubtype: businessSubtype ==null ? mongoBusinessInfo.businessSubtype : businessSubtype ,
-                address: address ==null ? mongoBusinessInfo.address : address ,
-                latitude: latitude ==null ? mongoBusinessInfo.latitude : latitude ,
-                longitude: longitude ==null ? mongoBusinessInfo.longitude : longitude ,
-                businessTags: businessTags ==null ? mongoBusinessInfo.businessTags : businessTags ,
-                description: description ==null ? mongoBusinessInfo.description : description ,
-                hours: hours ==null ? mongoBusinessInfo.hours : hours ,
-              })
-              mongoBusinessInfo.save()
-            return(mongoBusinessInfo)
-          }
-          else {
-            throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
-          }
-        }, 
-        createStripeLink: async (parent, { 
-          userID,
-          businessID
-        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
-            //check to make sure the userID is the business owner 
-            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
-            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-              //the user is the current owner of this business, proceed (or its pocketchange admin)
-              //create stripe account
-              const account = await stripe.accounts.create({
-                type: 'standard',  
-              });
-              await mongoBusiness.updateOne({ businessID: businessID }, {stripeID: account.id})
-              const accountLink = await stripe.accountLinks.create({
-                account: account.id,
-                refresh_url: 'https://example.com/reauth',
-                return_url: 'https://example.com/return',
-                type: 'account_onboarding',
-              });
-              return accountLink
+    },  
+    updateBusiness: async (parent, { 
+      userID,
+      businessID,
+      businessName, 
+      dateEstablished, 
+      emailAddress, 
+      phoneNumber, 
+      website, 
+      businessType,
+      businessSubtype,
+      hours,
+    }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+        //check to make sure the userID is the business owner 
+        const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+        if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+          //the user is the owner of this business, proceed (or its pocketchange admin)
+          //update the business with specified values
+          const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+          await mongoBusiness.updateOne({ businessID: businessID },
+            {
+              businessName: businessName == null ? mongoBusinessInfo.businessName : businessName,
+              dateEstablished: dateEstablished ==null ? mongoBusinessInfo.dateEstablished : dateEstablished ,
+              emailAddress: emailAddress ==null ? mongoBusinessInfo.emailAddress : emailAddress ,
+              phoneNumber: phoneNumber ==null ? mongoBusinessInfo.phoneNumber : phoneNumber ,
+              website: website ==null ? mongoBusinessInfo.website : website ,
+              businessType: businessType ==null ? mongoBusinessInfo.businessType : businessType ,
+              businessSubtype: businessSubtype ==null ? mongoBusinessInfo.businessSubtype : businessSubtype ,
+              address: address ==null ? mongoBusinessInfo.address : address ,
+              latitude: latitude ==null ? mongoBusinessInfo.latitude : latitude ,
+              longitude: longitude ==null ? mongoBusinessInfo.longitude : longitude ,
+              businessTags: businessTags ==null ? mongoBusinessInfo.businessTags : businessTags ,
+              description: description ==null ? mongoBusinessInfo.description : description ,
+              hours: hours ==null ? mongoBusinessInfo.hours : hours ,
+            })
+            mongoBusinessInfo.save()
+          return(mongoBusinessInfo)
+        }
+        else {
+          throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+        }
+    }, 
+    createStripeLink: async (parent, { 
+      userID,
+      businessID
+    }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+        //check to make sure the userID is the business owner 
+        const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+        if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+          //the user is the current owner of this business, proceed (or its pocketchange admin)
+          //create stripe account
+          const account = await stripe.accounts.create({
+            type: 'express',  
+          });
+          await mongoBusiness.updateOne({ businessID: businessID }, {stripeID: account.id})
+          const accountLink = await stripe.accountLinks.create({
+            account: account.id,
+            refresh_url: 'https://example.com/reauth',
+            return_url: 'https://example.com/return', //TODO: have this go to home page in pocketchange app
+            type: 'account_onboarding',
+          });
+          return accountLink
+        }
+        else {
+          throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+        }
+    },  
+    updateBusinessOwner: async (parent, { 
+      userID,
+      ownerID,
+      businessID
+    }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+        //check to make sure the userID is the business owner 
+        const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+        if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+          //the user is the current owner of this business, proceed (or its pocketchange admin)
+          //update the role of the business
+          const WorksAt = await WorksAt.update(
+            {
+              userID: ownerID,
+            },
+            {
+              where: { pocketID: pocketID, role: "owner" },
             }
-            else {
-              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
-            }
-          },  
-        updateBusinessOwner: async (parent, { 
-          userID,
-          ownerID,
-          businessID
-        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
-            //check to make sure the userID is the business owner 
-            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
-            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-              //the user is the current owner of this business, proceed (or its pocketchange admin)
-              //update the role of the business
-              const WorksAt = await WorksAt.update(
-                {
-                  userID: ownerID,
-                },
-                {
-                  where: { pocketID: pocketID, role: "owner" },
-                }
-              )
-              const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
-              return(mongoBusinessInfo)
-            }
-            else {
-              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
-            }
-          },  
-        deactivateBusiness: async (parent, { 
-          userID,
-          businessID
-        }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
-            //check to make sure the userID is the business owner 
-            const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
-            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-              //the user is the owner of this business, proceed (or its pocketchange admin)
-              //deactivate the business
-              await mongoBusiness.updateOne({ businessID: businessID },
-                {
-                  status: {
-                    pending: false,
-                    approved: false,
-                    deactivated: true
-                  },
-                })
-              const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
-              console.log(mongoBusinessInfo)
-              return(mongoBusinessInfo)
-            }
-            else {
-              throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
-            }
-          },  
-          approveBusiness: async (parent, { 
-            userID,
-            businessID
-          }, { Business, mongoBusiness,  WorksAt, IsIn}) => {
-            //check to make sure the userID is the business manager 
-            const worksAtInfo = await WorksAt.findOne({ where:{ userID:userID, businessID: businessID}})
-            if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-             //the user is the manager of this pocket, proceed (or its pocketchange admin)
-                //approve the business
-                await mongoBusiness.updateOne({ businessID: businessID },
-                  {
-                    status: {
-                      pending: false,
-                      approved: true,
-                      deactivated: false
-                    },
-                  })
-                const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
-                console.log(mongoBusinessInfo)
-                return(mongoBusinessInfo)
-              }
-              else {
-                throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
-              }
-            },  
+          )
+          const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+          return(mongoBusinessInfo)
+        }
+        else {
+          throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+        }
+    },  
+    deactivateBusiness: async (parent, { 
+      userID,
+      businessID
+    }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
+        //check to make sure the userID is the business owner 
+        const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+        if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+          //the user is the owner of this business, proceed (or its pocketchange admin)
+          //deactivate the business
+          await mongoBusiness.updateOne({ businessID: businessID },
+            {
+              status: {
+                pending: false,
+                approved: false,
+                deactivated: true
+              },
+            })
+          const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+          console.log(mongoBusinessInfo)
+          return(mongoBusinessInfo)
+        }
+        else {
+          throw new ApolloError('this isn\'t the owner of the business or pocketchange admin')
+        }
+    },  
+    approveBusiness: async (parent, { 
+      userID,
+      businessID
+    }, { Business, mongoBusiness,  WorksAt, IsIn}) => {
+      //check to make sure the userID is the business manager 
+      const worksAtInfo = await WorksAt.findOne({ where:{ userID:userID, businessID: businessID}})
+      if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
+        //the user is the manager of this pocket, proceed (or its pocketchange admin)
+          //approve the business
+          await mongoBusiness.updateOne({ businessID: businessID },
+            {
+              status: {
+                pending: false,
+                approved: true,
+                deactivated: false
+              },
+            })
+          const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+          console.log(mongoBusinessInfo)
+          return(mongoBusinessInfo)
+        }
+        else {
+          throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
+        }
+    },  
   }
 }

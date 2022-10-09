@@ -459,7 +459,12 @@ const BottomTabConsumer = () => {
           // title: 'Pockets',
           // headerShown: false,
           tabBarIcon: ({color, size}) => (
-              <TabBarIcon name="qrcode" color={color} size={size}/>
+            <View style={{borderRadius:10, backgroundColor: color, width: 45, height: 45, justifyContent: 'center'}}>
+              <View style={{alignSelf: 'center'}}>
+                <TabBarIcon name="qrcode" color={"white"} size={1.25*size} />
+              </View>  
+            </View>
+              
           ),
         }}
       />

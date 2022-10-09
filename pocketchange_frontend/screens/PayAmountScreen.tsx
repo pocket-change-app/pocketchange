@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
-import { CardHeader, ButtonWithText, PayAmountCard } from '../components/Cards'
+import { CardHeader, ButtonWithText,  } from '../components/Cards'
 import { HorizontalLine } from "../components/Lines";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { useContext, useState } from "react";
@@ -34,13 +34,6 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
           {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
 
-          {/* <PayAmountCard
-        name={name}
-        address={address}
-        pocket={pocket}
-        imageURL={imageURL}
-        navigation={navigation}
-      /> */}
           <View>
             <View style={styles.card}>
               {/* <CardHeader text='Pay' /> */}

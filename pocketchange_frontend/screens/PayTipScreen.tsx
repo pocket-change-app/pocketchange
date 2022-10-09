@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../Styles";
 import { View, Text, ScreenContainer } from '../components/Themed'
-import { ButtonWithText, PayAmountCardSm, CardHeader, PayTipCard } from '../components/Cards'
+import { ButtonWithText, CardHeader } from '../components/Cards'
 import { KeyboardAvoidingView, Platform, Pressable, TextInput, TimePickerAndroid } from "react-native";
 import { HorizontalLine } from "../components/Lines";
 import { useContext, useState } from "react";
