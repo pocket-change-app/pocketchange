@@ -12,20 +12,26 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
 
   return (
     <ScreenContainer>
-      <View style={styles.container}>
+      {/* <View style={styles.container}> */}
 
-        <CompetitionCard
-          navigation={navigation}
-          competition={competition}
-        />
+      <FlatList
+        contentContainerStyle={styles.container}
+        ListHeaderComponent={() => {
+          return (
+            <>
+              <CompetitionCard
+                navigation={navigation}
+                competition={competition}
+              />
 
-        <DivHeader text="Participants" />
-
-        <FlatList
+              <DivHeader text="Participants" />
+            </>
+          )
+        }}
           data={competition.participants}
           renderItem={renderParticipant} />
 
-      </View>
+      {/* </View> */}
     </ScreenContainer>
   )
 }
