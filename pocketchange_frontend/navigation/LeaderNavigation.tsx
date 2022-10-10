@@ -23,6 +23,7 @@ import { AuthContext } from '../contexts/Auth';
 import SettingsTippingScreen from '../screens/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/EditEmployeesScreen';
 import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
+import CompetitionScreen from '../screens/CompetitionScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -89,12 +90,18 @@ function CompetitionsStack() {
         })}
       />
       <Stack.Screen
+        name="Competition"
+        component={CompetitionScreen}
+        options={{}}
+      />
+
+      {/* <Stack.Screen
         name="TransactionModal"
         component={TransactionModalScreen}
         options={{
           presentation: 'modal',
         }}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }
