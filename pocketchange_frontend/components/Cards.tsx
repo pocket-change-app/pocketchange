@@ -733,7 +733,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function CompetitionCard({ navigation, competition }: { navigation: any, competition: any }) {
+export function CompetitionCard({ navigation, competition, showDescription = false }: { navigation: any, competition: any, showDescription: boolean }) {
 
   const { competitionID, competitionName, description, prizeValue, endDate } = competition
 
@@ -751,6 +751,8 @@ export function CompetitionCard({ navigation, competition }: { navigation: any, 
           </Text>
         </View>
 
+        {showDescription ? (
+          <>
         <HorizontalLine />
 
         <View style={styles.container}>
@@ -758,6 +760,10 @@ export function CompetitionCard({ navigation, competition }: { navigation: any, 
             {description}
           </Text>
         </View>
+          </>
+        ) : (
+          <></>
+        )}
 
         <HorizontalLine />
 
