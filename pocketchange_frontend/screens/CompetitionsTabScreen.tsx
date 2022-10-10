@@ -43,7 +43,10 @@ export default function CompetitionsTabScreen({ navigation }: { navigation: any 
         {/* COMPETITION CARD */}
         <View style={styles.container}>
 
-          <CompetitionCard competition={snapItUp} />
+          <CompetitionCard
+            navigation={navigation}
+            competition={snapItUp}
+          />
 
           <DivHeader text={'Participants'} />
 
