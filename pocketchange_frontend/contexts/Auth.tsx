@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   const switchActiveRole = ((role: Role) => {
     // TODO: check here if signed in user has permission to switch to role
     setActiveRole(role);
-
+    // console.log("SWITCHED ROLE TO: ", role)
   });
 
   const signOut = (() => {

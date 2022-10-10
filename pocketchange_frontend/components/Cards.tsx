@@ -822,7 +822,7 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
 
   const switchAccount = (role: Role) => {
     authContext.switchActiveRole(role);
-    console.log("SWITCHED ROLE TO: ", authContext.activeRole)
+    // console.log("SWITCHED ROLE TO: ", authContext.activeRole)
   }
 
   const [open, setOpen] = useState(false);

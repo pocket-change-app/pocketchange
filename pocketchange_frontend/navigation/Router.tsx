@@ -32,13 +32,15 @@ export const Router = () => {
   if (isNilOrEmpty(authContext.userGQL)) {
     stack = <AuthStack />;
   } else {
-    if (authContext.activeRole.type === "MERCHANT") {
+    if (authContext.activeRole.type === "MERCHANT") {      
       stack = <MerchantNavigation />;
     } else if (authContext.activeRole.type === "CONSUMER") {
       stack = <ConsumerNavigation />;
     } else if (authContext.activeRole.type === "LEADER") {
       stack = <LeaderNavigation />;
     }
+    console.log('\n~ ACTIVATING ROLE ~\n');
+    console.log(authContext.activeRole)
   }
 
   const linking = {
