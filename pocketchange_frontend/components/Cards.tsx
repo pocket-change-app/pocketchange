@@ -208,7 +208,7 @@ export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: an
 
   return (
     <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-      <Text style={styles.pocketBig}>{pocket.pocketName} Change</Text>
+      <Text style={styles.pocketBig}>Your {pocket.pocketName} Change</Text>
       <Text style={styles.changeLg}>
         {(changeBalance.length == 0) ?
           "$0.00" :
