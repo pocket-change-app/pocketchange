@@ -311,7 +311,7 @@ export const styles = StyleSheet.create({
 
   businessHeaderImageContainer: {
     width: '100%',
-    height: 125,
+    height: 200,
 
   },
 

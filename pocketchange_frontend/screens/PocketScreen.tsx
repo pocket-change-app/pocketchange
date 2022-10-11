@@ -16,6 +16,7 @@ import { AuthContext } from '../contexts/Auth';
 
 import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import { connectAuthEmulator } from 'firebase/auth';
 
 
 
