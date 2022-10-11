@@ -537,7 +537,7 @@ export function TransactionListed({ navigation, transaction }: any) {
           </Text>
           <Pressable
             style={{ aspectRatio: 1 }}
-            onPress={() => navigation.navigate('PayConfirmation', {
+            onPress={() => navigation.navigate('ScanConfirmation', {
               business: business,
               subtotal: transaction.value,
               date: transaction.date,
