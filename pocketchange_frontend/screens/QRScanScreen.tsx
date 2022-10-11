@@ -32,12 +32,14 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
             navigation.navigate('ScanConfirmation', {
                 businessID: businessID,
                 date: scan.date,
-              })};
-        }, 
+            })
+        },
           onError(error) { 
             alert(error.message)
         }
-      })
+    },
+
+    )
 
     useEffect(() => {
         (async () => {
