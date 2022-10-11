@@ -8,7 +8,7 @@ import { RoleLevel, RoleType } from "./contexts/Auth";
 export const snapItUp = {
   competitionID: '000',
   competitionName: 'Snap it UP!',
-  description: "To enter once, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one entry per day.",
+  description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
   startDate: '05-05-2022',
   endDate: '12-12-2022',
   prizeValue: 500.00,

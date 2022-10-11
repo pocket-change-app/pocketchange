@@ -22,7 +22,7 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
               <CompetitionCard
                 navigation={navigation}
                 competition={competition}
-                showDescription
+                showDetailedView
               />
 
               <DivHeader text="Participants" />

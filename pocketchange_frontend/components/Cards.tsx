@@ -25,7 +25,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const R = require('ramda');
 
-async function getImageURL(entityType: string, entityID: string, fileName: string, setImageURL) {
+async function getImageURL(entityType: string, entityID: string, fileName: string, setImageURL: any) {
   const storage = getStorage();
   await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
     function (url) {
@@ -39,7 +39,7 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
 }
 
 
-export function BusinessCard({ navigation, business, changeBalance }: { navigation: any, business: any }) {
+export function BusinessCard({ navigation, business, changeBalance }: { navigation: any, business: any, changeBalance: any }) {
 
   const [imageURL, setImageURL] = useState();
 
@@ -314,7 +314,7 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
           <Text style={styles.pocketTitle}>{pocket.pocketName}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
-              {console.log(pocket)}
+              {pocket.description}
             </Text>
           </Hyphenated>
         </View>
@@ -733,7 +733,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function CompetitionCard({ navigation, competition, showDescription = false }: { navigation: any, competition: any, showDescription: boolean }) {
+export function CompetitionCard({ navigation, competition, showDetailedView = false}: { navigation: any, competition: any, showDetailedView: boolean }) {
 
   const { competitionID, competitionName, description, prizeValue, endDate } = competition
 
@@ -751,7 +751,15 @@ export function CompetitionCard({ navigation, competition, showDescription = fal
           </Text>
         </View>
 
-        {showDescription ? (
+        <HorizontalLine />
+
+        <View style={styles.container}>
+          <Text style={[styles.prose, {lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5}]}>You have <Text style={{fontFamily: 'metropolis black'}}>{4} entries</Text> <Text>✅</Text> Keep it up! </Text>
+          <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center',}]}>Contest ends {"Dec 31st"}. Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text></Text>
+          {showDetailedView ? <></> : <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle}]}>See Details <FontAwesome name="angle-right"/> </Text>}
+        </View>
+
+        {showDetailedView ? (
           <>
         <HorizontalLine />
 
@@ -765,9 +773,11 @@ export function CompetitionCard({ navigation, competition, showDescription = fal
           <></>
         )}
 
-        <HorizontalLine />
-
-        <View style={styles.container}>
+        {/* <View style={styles.container}>
+          <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
+            <Text>Your entries:</Text>
+            <Text>{4}</Text>
+          </View>
           <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
             <Text>Prize:</Text>
             <Text>{'$' + prizeValue}</Text>
@@ -776,7 +786,7 @@ export function CompetitionCard({ navigation, competition, showDescription = fal
             <Text>Competition ends:</Text>
             <Text>{endDate}</Text>
           </View>
-        </View>
+        </View> */}
       </View>
     </Pressable >
   )
