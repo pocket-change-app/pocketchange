@@ -40,6 +40,8 @@ export type RootStackParamList = {
   PaySummary: undefined;
   PayConfirmation: undefined;
 
+  ScanConfirmation: undefined;
+
   Wallet: undefined;
   ConsumerSettings: undefined;
   EditProfile: undefined;
