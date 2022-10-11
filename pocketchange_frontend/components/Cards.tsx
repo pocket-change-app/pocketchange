@@ -487,25 +487,37 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function TransactionHistoryCard({ navigation, transactions, loading }: { navigation: any, transactions: { [key: string]: any }[], loading: boolean }) {
+export function HistoryCard({ navigation, items, loading }: { navigation: any, items: any, loading: boolean }) {
 
-  const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <TransactionListed
-      key={item.key}
-      navigation={navigation}
-      transaction={item}
-    />
+  const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+    <>
+      {
+        item.transaction == null ? (
+          <ScanListed
+            navigation={navigation}
+            key={item.key}
+            scan={item.scan}
+          />
+        ) : (
+          <TransactionListed
+              navigation={navigation}
+              key={item.key}
+              transaction={item.transaction}
+            />
+          )
+      }
+    </>
   )
 
   return (
     <View style={[styles.card]}>
-      <CardHeader text='Transaction History' />
+      <CardHeader text='History' />
       <FlatList
         // contentContainerStyle={styles.businessFlatList}
         scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
-        data={transactions}
-        renderItem={renderTransactions}
+        data={items}
+        renderItem={renderItem}
         ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
       />
     </View>
@@ -526,30 +538,69 @@ export function TransactionListed({ navigation, transaction }: any) {
         navigation: navigation,
         transaction: transaction
       }))}
-    >
+    > 
+
       <View style={styles.transactionListed}>
-        <Text style={styles.transactionListedMerchantText}>
-          {business.businessName}
-        </Text>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.transactionListedAmountText}>
-            ${transaction.value}
-          </Text>
           <Pressable
-            style={{ aspectRatio: 1 }}
-            onPress={() => navigation.navigate('ScanConfirmation', {
+            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+            onPress={() => navigation.navigate('PayConfirmation', {
               business: business,
               subtotal: transaction.value,
               date: transaction.date,
-              time: transaction.time,
             })}
           >
             <Image
-              style={{ flex: 1, width: undefined, height: undefined }}
+              style={{ aspectRatio: 1, height: 3 * MARGIN, width: undefined, }}
               source={require("../assets/images/icon.png")}
             />
           </Pressable>
+          <Text style={styles.transactionListedMerchantText}>
+            {business.businessName}
+          </Text>
         </View>
+        <Text style={styles.transactionListedAmountText}>
+          ${transaction.value}
+        </Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </Pressable >
+  )
+}
+
+export function ScanListed({ navigation, scan }: any) {
+  const businessID = scan.businessID
+  const { business, loading } = useBusinessQuery(businessID)
+
+  if (loading) {
+    return null
+  }
+  return (
+    // TODO: make pressable and navigatte to its own page
+    <Pressable
+      onPress={() => navigation.navigate('ScanConfirmation', {
+        business: business,
+        date: scan.date,
+      })}
+    >
+
+      <View style={styles.transactionListed}>
+        <View style={{ flexDirection: 'row' }}>
+          <View
+            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+          >
+            <FontAwesome
+              style={[styles.transactionListedAmountText, { fontSize: 3 * MARGIN, marginRight: 0 }]}
+              name='qrcode'
+            />
+          </View>
+          <Text style={styles.transactionListedMerchantText}>
+            {business.businessName}
+          </Text>
+        </View>
+        <Text style={styles.transactionListedAmountText}>
+          Snap it UP!
+        </Text>
       </View>
       {/* <HorizontalLine /> */}
     </Pressable >
