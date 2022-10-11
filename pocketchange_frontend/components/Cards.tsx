@@ -383,9 +383,6 @@ export function BalancesCard({ allChangeBalances }: { changeTotal: string, allCh
   // order change balances by decreasing value
   const allChangeBalancesSorted = allChangeBalances.slice().sort((a, b) => (parseFloat(a.value) < parseFloat(b.value)) ? 1 : -1);
 
-  // TODO: get pocket names from ID
-
-
   // sum up to get users total change value
   const changeTotal = allChangeBalancesSorted.reduce((accumulator, object) => {
     return accumulator + parseFloat(object.value);
@@ -428,7 +425,7 @@ export function BalancesCard({ allChangeBalances }: { changeTotal: string, allCh
               ({ pocketID, value }: { pocketID: string, value: string }) => (
                 <TopPocket
                   key={pocketID}
-                  pocket={pocketID}
+                  pocketID={pocketID}
                   change={value}
                 />
               ), allChangeBalancesSorted
@@ -818,10 +815,15 @@ export function UserCardSm({ user }: any) {
   )
 }
 
-function TopPocket({ pocket, change }: { pocket: string, change: string }) {
+function TopPocket({ pocketID, change }: { pocketID: string, change: string }) {
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.pocket, { variables: { pocketID: pocketID } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+
   return (
     <View style={{ flex: 1 }}>
-      <Text style={styles.pocket}>{pocket}</Text>
+      <Text style={styles.pocket}>{pocketData.pocket.pocketName}</Text>
       <Text style={styles.changeSm}>${change}</Text>
     </View >
   )

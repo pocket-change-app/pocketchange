@@ -11,8 +11,7 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
   const renderParticipant = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <UserCardSm
       user={item}/>
-)
-
+  )
 
   return (
     <ScreenContainer>
