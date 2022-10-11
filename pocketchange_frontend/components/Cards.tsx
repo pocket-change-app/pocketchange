@@ -356,7 +356,7 @@ export function IdCard({ user }: { user: any }) {
           /> :
           <Image
             style={styles.idImage}
-            source={require('../assets/images/defaults/userProfile.jpg')}
+            source={require('../assets/images/defaults/userProfile.png')}
           />
         }
         <View style={styles.idContent}>
@@ -808,7 +808,7 @@ export function UserCardSm({ user }: any) {
           <View style={{ flexDirection: 'row', width: 150, justifyContent: 'center'}}>
               <Image
                 style={[styles.idImage, {width: 30, height: 30, marginLeft: 0}]}
-                source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.jpg')}
+          source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
               />
               <View style={{justifyContent: 'center', marginLeft: 10, }}><Text style={{fontFamily: 'metropolis bold', color: colors.medium}}>{user.firstName} {user.lastName[0]}</Text></View>
               
