@@ -792,13 +792,31 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
   )
 }
 
-export const renderParticipant = ({ item, index, separators }: any) => (
+export function UserCardSm({ user }: any) {
 
-  <View style={[styles.card, styles.container]}>
-    <Text>{item.name}</Text>
-  </View>
+  const { userID, firstName, lastName, birthDate, totalChange } = user;
 
-)
+  const [imageURL, setImageURL] = useState();
+
+  useEffect(() => {
+    getImageURL("User", userID, "userProfile.png", setImageURL);
+  }, []);
+  
+  return (
+    
+        <View style={styles.container}>
+          <View style={{ flexDirection: 'row', width: 150, justifyContent: 'center'}}>
+              <Image
+                style={[styles.idImage, {width: 30, height: 30, marginLeft: 0}]}
+                source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.jpg')}
+              />
+              <View style={{justifyContent: 'center', marginLeft: 10, }}><Text style={{fontFamily: 'metropolis bold', color: colors.medium}}>{user.firstName} {user.lastName[0]}</Text></View>
+              
+          </View>
+      </View>
+
+  )
+}
 
 function TopPocket({ pocket, change }: { pocket: string, change: string }) {
   return (

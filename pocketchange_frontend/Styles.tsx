@@ -26,6 +26,13 @@ export const styles = StyleSheet.create({
     borderColor: colors.subtle,
   },
 
+  notFoundText: {
+    fontFamily: 'metropolis medium italic',
+    fontSize: 14,
+    color: colors.subtle,
+    textAlign: 'center'
+  },
+
   signUpInputText: {
     borderWidth: BORDER_WIDTH,
     borderColor: colors.light,

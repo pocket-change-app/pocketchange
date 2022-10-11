@@ -43,17 +43,17 @@ export default function CompetitionsTabScreen({ navigation }: { navigation: any 
         {/* COMPETITION CARD */}
         <View style={styles.container}>
 
+          <DivHeader text={'Active'} />
+
           <CompetitionCard
             navigation={navigation}
             competition={snapItUp}
           />
 
-          <DivHeader text={'Participants'} />
+          <DivHeader text={'Completed'} />
+          
+          <Text style={[styles.notFoundText, {margin: 10}]}>No competitions have completed yet...</Text>
 
-          <FlatList
-            data={snapItUp.participants}
-            renderItem={renderParticipant}
-          />
         </View>
 
       </ScreenContainer>
