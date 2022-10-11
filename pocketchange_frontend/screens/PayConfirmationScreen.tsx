@@ -14,7 +14,9 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext); 
 
-  const { business, subtotal, date, time } = route.params;
+  const { business, subtotal } = route.params;
+  const dateTimeString = route.params.date;
+  const dateTime = new Date(dateTimeString)
 
   console.log('inside confirmation component')
 
@@ -71,11 +73,11 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
             </View>
 
             <Text style={styles.payConfirmationDateTime}>
-              {date}
+              {dateTime.toLocaleDateString()}
             </Text>
 
             <Text style={styles.payConfirmationDateTime}>
-              {time}
+              {dateTime.toLocaleTimeString()}
             </Text>
           </View>
 

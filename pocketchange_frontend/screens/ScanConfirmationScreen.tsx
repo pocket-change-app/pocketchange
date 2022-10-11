@@ -17,9 +17,13 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
   const { business } = route.params;
   const dateTimeString = route.params.date
+  // console.log(dateTimeString);
+
   const dateTime = new Date(dateTimeString)
 
-  console.log('inside confirmation component')
+  // console.log(dateTime)
+
+  // console.log('inside confirmation component')
 
 
 
