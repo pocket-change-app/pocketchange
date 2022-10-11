@@ -79,9 +79,11 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                     navigation={navigation}
                     competition={snapItUp} />
                   
+                  {changeBalanceData.getAllChangeBalances.length != 0 ?
                   <ChangeBalanceCard
                     changeBalance={changeBalanceData.getAllChangeBalances} 
-                    pocket={pocket} />
+                    pocket={pocket} /> : null
+                  }
 
                   <DivHeader text='Businesses' />
                 </>
