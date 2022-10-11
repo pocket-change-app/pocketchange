@@ -662,6 +662,7 @@ export const styles = StyleSheet.create({
   transactionListed: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     height: 30,
     marginHorizontal: MARGIN,
     marginVertical: MARGIN / 2,
@@ -678,7 +679,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
-    alignSelf: 'center',
     marginRight: MARGIN / 2,
   },
 
