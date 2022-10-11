@@ -4,7 +4,7 @@ import { Platform, Image, Pressable, ScrollView } from 'react-native';
 import { styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { colors } from '../constants/Colors';
-import { Receipt } from '../components/Cards';
+import { Receipt, ReceiptContest } from '../components/Cards';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 
@@ -39,7 +39,12 @@ export default function ConsumerTransactionScreen({ route, navigation }: { route
 
         </View> */}
 
-        <Receipt
+        {/* <Receipt
+          navigation={navigation}
+          transaction={transaction}
+        /> */}
+
+        <ReceiptContest
           navigation={navigation}
           transaction={transaction}
         />

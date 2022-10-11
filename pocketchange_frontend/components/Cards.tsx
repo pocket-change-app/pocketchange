@@ -647,6 +647,88 @@ export function Receipt({ navigation, transaction }: any) {
     </>
   )
 }
+
+export function ReceiptContest({ navigation, transaction }: any) {
+
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
+
+  if (R.isNil(business)) {
+    return null
+  }
+
+  const address = business.address
+  const { pocketID } = transaction
+  const { pocket, loadingPockets } = usePocketQuery(pocketID)
+  if (R.isEmpty(pocket)) {
+    return null
+  }
+  //const address = business.address
+  //console.log(business, pocket)
+  return (
+    <>
+      <View style={[styles.container]}>
+        {/* <CardHeader text='Summary' /> */}
+
+        {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
+        <View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <Text style={styles.receipt}> X</Text>
+            </Pressable>
+          </View>
+          {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
+          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+        </View>
+        {/* </View> */}
+
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
+          ----------------
+        </Text>
+
+        {/* <View style={{ height: MARGIN }} /> */}
+        {/* <HorizontalLine /> */}
+        <View style={{ marginBottom: MARGIN }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Subtotal</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.subtotal}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Tip</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.tip}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN  }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Redeemed</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.changeRedeemed}</Text>
+          </View>
+        </View>
+
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
+          ----------------
+        </Text>
+
+        <View style={{ alignItems: 'center' }}>
+          <View style={{
+            alignSelf: 'center',
+            aspectRatio: 1,
+            width: 50,
+            margin: MARGIN,
+          }}>
+            <Image
+              source={require('../assets/images/icon_dark.png')}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </View>
+
+          <Text style={[styles.receipt, { textAlign: 'center' }]}>
+            PocketChange Loyalty Inc.
+          </Text>
+        </View>
+      </View>
+    </>
+  )
+}
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
