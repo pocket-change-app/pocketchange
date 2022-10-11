@@ -40,7 +40,7 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
         <SafeAreaView style={{
           flex: 1,
-          backgroundColor: colors.dark,
+          backgroundColor: colors.green,
           justifyContent: "space-between",
           alignItems: 'center',
           // paddingTop: 100,
