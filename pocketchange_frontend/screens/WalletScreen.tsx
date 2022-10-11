@@ -70,7 +70,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           user={authContext.userGQL}/>
         {// TODO: connect to change balance resolver
         }
-        {changeBalanceData ?
+        {/* {changeBalanceData ?
           <BalancesCard
             changeTotal={user.changeTotal}
             allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
@@ -80,7 +80,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
               color={colors.subtle}
               style={{ margin: 10 }} />
           </View>
-        }
+        } */}
         
         
         <HistoryCard
