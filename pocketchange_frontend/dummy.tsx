@@ -131,6 +131,22 @@ export const user = {
       change: '0.66',
     },
   ],
+  scans: [
+    {
+      QRScanID: '001',
+      userID: '000',
+      businessID: '2b',
+      geolocationID: '000',
+      date: '2022-06-04T09:20:11.000Z'
+    },
+    {
+      QRScanID: '002',
+      userID: '000',
+      businessID: '1b',
+      geolocationID: '000',
+      date: '2022-07-04T09:20:11.000Z'
+    }
+  ],
   transactions: [
     {
       key: '001',
