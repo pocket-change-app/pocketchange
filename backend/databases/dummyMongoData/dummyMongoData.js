@@ -1453,3 +1453,16 @@ db.mongobusinesses.insertMany( [
        },
    }
 ])
+
+db.mongocompetitions.insertMany([
+   {
+      competitionID: '1comp', // no auto since generated in SQL
+      competitionName: 'SNAP it UP',
+      description: 'Enter to win $500 uptown yonge gift cards! Simply shop at any business within the uptown yonge pocket, scan a QR code at these participating businesses to confirm your visit, and be entered to win!', //
+      status:{
+         pending: false,
+         approved: true,
+         deactivated: false,
+      },
+   }
+])

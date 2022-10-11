@@ -3,6 +3,7 @@ module.exports = (sequelize, Sequelize) => {
     const Geolocation = sequelize.define("geolocation", {
         geolocationID: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             allowNull: false,
             primaryKey: true,
         },

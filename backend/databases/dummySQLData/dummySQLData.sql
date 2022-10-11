@@ -102,7 +102,9 @@ INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("1
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("1c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("2c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("3c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("4c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("3c", "3p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("4c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("4c", "4p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("5c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
@@ -110,6 +112,8 @@ INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("7c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("10c", "2p","customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("10c", "2p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("14c", "3p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("18c", "4p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 
 -- insert worksAts
 INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("6c", "1b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
@@ -128,6 +132,7 @@ INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("
 INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("19c", "14b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("20c", "15b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("21c", "16b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+
 -- insert loves
 INSERT INTO loves (userID, businessID, createdAt, updatedAt)  VALUES ("1c", "1b", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 INSERT INTO loves (userID, businessID, createdAt, updatedAt)  VALUES ("1c", "2b", "2022-02-04 09:22:11","2022-02-04 20:34:13");
@@ -155,3 +160,36 @@ INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude,
 INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("4geo","2c", "2022-08-04 13:10:11", 43.6613675, -79.3530894, "2022-08-04 13:10:11", "2022-08-04 13:10:11");
 INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("5geo","2c", "2022-08-04 13:15:15", 43.660452, -79.3457077, "2022-08-04 13:15:11", "2022-08-04 13:15:11");
 INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("6geo","2c", "2022-08-04 13:20:15", 43.661132, -79.3440358, "2022-08-04 13:20:11", "2022-08-04 13:20:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("7geo","1c", "2022-08-04 13:20:15", 43.6688949, -79.3307535, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("8geo","2c", "2022-08-04 13:20:15", 43.6688949, -79.3307535, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("9geo","4c", "2022-08-04 13:20:15", 43.6509,  -79.4821079, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("10geo","4c", "2022-08-04 13:20:15", 43.6680567, -79.340654, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("11geo","3c", "2022-08-04 13:20:15", 43.6688949, -79.3307535, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("12geo","5c", "2022-08-04 13:20:15", 43.6646563, -79.3390735, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("13geo","1c", "2022-08-04 13:20:15",43.663147, -79.3354164, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("14geo","2c", "2022-08-04 13:20:15",43.685118, -79.3949814, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("15geo","1c", "2022-08-04 13:20:15", 43.6918958, -79.3907481, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("16geo","4c", "2022-08-04 13:20:15", 43.6680567, -79.340654, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("17geo","2c", "2022-08-05 13:20:15",43.6918958, -79.3907481, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("18geo","1c", "2022-08-05 13:20:15", 43.685118, -79.3949814, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("19geo","2c", "2022-08-06 13:20:15",43.6918958, -79.3907481, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("20geo","1c", "2022-08-06 13:20:15", 43.685118, -79.3949814, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+
+-- insert QR scan
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR1", "1c",  "1b", "7geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR2", "2c", "1b", "8geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR3", "4c", "13b", "9geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR4", "4c", "4b", "10geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR5", "3c", "1b", "11geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR6", "5c", "2b", "12geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR7", "1c", "3b", "13geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR8", "2c", "7b", "14geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR9", "1c", "6b", "15geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR10", "4c", "4b", "16geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR11", "2c", "6b", "17geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR12", "1c", "7b", "18geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR13", "2c", "6b", "19geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR14", "1c", "7b", "20geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+
+-- insert into competition
+INSERT INTO competitions (competitionID, prizeValue, pocketID, startDate, endDate, createdAt, updatedAt) VALUES ("1comp", 500.00, "2p", "2022-07-11 10:22:11", "2022-08-11 10:22:11", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
