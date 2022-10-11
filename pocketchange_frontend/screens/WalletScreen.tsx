@@ -17,7 +17,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
   
-  const userID = '1c' // authContext.userFirebase.uid // change to get id from authContext
+  const userID = authContext.userFirebase.uid // change to get id from authContext
   const { allTransactions, loading: transactionLoading, error: transactionError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: userID, pocketID: undefined } });
 

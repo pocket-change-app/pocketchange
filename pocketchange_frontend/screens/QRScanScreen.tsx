@@ -29,7 +29,10 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     const [useProcessQRScanMutation, {loading, error}] = useMutation(
         QRScanMutations.processQRScan, {
           onCompleted(data) {
-            alert(`Bar code with data ${data} has been scanned!`);
+            navigation.navigate('ScanConfirmation', {
+                businessID: businessID,
+                date: scan.date,
+              })};
         }, 
           onError(error) { 
             alert(error.message)

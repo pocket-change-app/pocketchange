@@ -9,17 +9,22 @@ import TextTicker from 'react-native-text-ticker'
 import { useContext } from "react";
 import { AuthContext } from "../contexts/Auth";
 import { FontAwesome } from "@expo/vector-icons";
+import { useBusinessQuery } from "../hooks-apollo";
+import { isNull } from "ramda-adjunct";
 
 
 export default function ScanConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { business } = route.params;
+  const { businessID } = route.params;
   const dateTimeString = route.params.date
   // console.log(dateTimeString);
 
   const dateTime = new Date(dateTimeString)
+
+  const { business, loading, error } = useBusinessQuery(businessID)
+
 
   // console.log(dateTime)
 
@@ -71,7 +76,8 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
             <View style={{ marginVertical: 2 * MARGIN }}>
               <Text style={styles.payConfirmationBusiness}>
-                {business.businessName}
+                {loading ? business.businessName : null}
+                {isNull(error) ? error : null}
               </Text>
             </View>
 
