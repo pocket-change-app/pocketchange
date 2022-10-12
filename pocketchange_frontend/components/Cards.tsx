@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import UserQueries from '../hooks-apollo/User/queries'
-
+import QRScanQueries from '../hooks-apollo/QRScan/queries'
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -20,8 +20,8 @@ import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import DropDownPicker from 'react-native-dropdown-picker';
-import React, { useState, useEffect } from 'react';
-import { AuthContextData, Role, RoleType } from '../contexts/Auth';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext, AuthContextData, Role, RoleType } from '../contexts/Auth';
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -493,7 +493,41 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation, items, loading }: { navigation: any, items: any, loading: boolean }) {
+export function HistoryCard({ navigation, allTransactions, allQRScans }: { navigation: any, allTransactions: any, allQRScans: any, loading: boolean }) {
+
+
+  // Construct list of all transactions and scans
+  let allItems = []
+  for (var i in allTransactions) {
+    const t = allTransactions[i]
+    const dateSecs = new Date(t.date).getTime()
+    allItems.push(
+      {
+        scan: null,
+        transaction: t,
+        dateSecs: dateSecs
+      }
+    )
+    console.log(t.date)
+    console.log(console.log(dateSecs))
+  }
+  for (var i in allQRScans.getAllQRScans) {
+    const s = allQRScans.getAllQRScans[i]
+    const dateSecs = new Date(s.date).getTime()
+    allItems.push(
+      {
+        scan: allQRScans.getAllQRScans[i],
+        transaction: null,
+        dateSecs: dateSecs
+      }
+    )
+    console.log(s.date)
+    console.log(dateSecs);
+
+  }
+
+  // Sort by date
+  allItems.sort((a, b) => (a.dateSecs - b.dateSecs))
 
   const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <>
@@ -868,8 +902,11 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 }
 
 export function CompetitionCard({ navigation, competition, showDetailedView = false}: { navigation: any, competition: any, showDetailedView: boolean }) {
+  const authContext = useContext(AuthContext); 
 
   const { competitionID, competitionName, description, prizeValue, endDate } = competition
+  const { data: scansData, loading: scansLoading, error: scansError } = useQuery(QRScanQueries.getAllQRScans, { variables: { userID: authContext.userFirebase.uid } });
+  if (scansError) return(<Text>{scansError.message}</Text>);
 
   return (
     <Pressable
@@ -888,7 +925,7 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
         <HorizontalLine />
 
         <View style={styles.container}>
-          <Text style={[styles.prose, {lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5}]}>You have <Text style={{fontFamily: 'metropolis black'}}>{4} entries</Text> <Text>✅</Text> Keep it up! </Text>
+          <Text style={[styles.prose, {lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5}]}>You have <Text style={{fontFamily: 'metropolis black'}}>{scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />  : scansData.getAllQRScans.length} entries</Text> <Text>✅</Text> Keep it up! </Text>
           <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center',}]}>Contest ends {"Dec 31st"}. Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text></Text>
           {showDetailedView ? <></> : <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle}]}>See Details <FontAwesome name="angle-right"/> </Text>}
         </View>

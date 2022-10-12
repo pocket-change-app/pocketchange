@@ -11,6 +11,7 @@ const R = require('ramda');
 
 import { useQuery } from '@apollo/react-hooks'
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import QRScanQueries from '../hooks-apollo/QRScan/queries'
 import { colors } from '../constants/Colors';
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -21,44 +22,12 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   const { allTransactions, loading: transactionLoading, error: transactionError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: userID, pocketID: undefined } });
 
-  const allScans = user.scans
+  //const allScans = user.scans
+  const { data: scansData, loading: scansLoading, error: scansError } = useQuery(QRScanQueries.getAllQRScans, { variables: { userID: userID } });
 
-
-  // Construct list of all transactions and scans
-  let allItems = []
-  for (var i in allTransactions) {
-    const t = allTransactions[i]
-    const dateSecs = new Date(t.date).getTime()
-    allItems.push(
-      {
-        scan: null,
-        transaction: t,
-        dateSecs: dateSecs
-      }
-    )
-    console.log(t.date)
-    console.log(console.log(dateSecs))
-  }
-  for (var i in allScans) {
-    const s = allScans[i]
-    const dateSecs = new Date(s.date).getTime()
-    allItems.push(
-      {
-        scan: allScans[i],
-        transaction: null,
-        dateSecs: dateSecs
-      }
-    )
-    console.log(s.date)
-    console.log(dateSecs);
-
-  }
-
-  // Sort by date
-  allItems.sort((a, b) => (a.dateSecs - b.dateSecs))
-
-  if (transactionError) console.log(transactionError);
-  if (changeBalanceError) console.log(changeBalanceError);
+  if (transactionError) return(<Text>{transactionError.message}</Text>);
+  if (changeBalanceError) return(<Text>{changeBalanceError.message}</Text>);
+  if (scansError) return(<Text>{scansError.message}</Text>);
 
   return (
     <ScreenContainer>
@@ -82,12 +51,16 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           </View>
         } */}
         
-        
+        {(transactionLoading || scansLoading) ?
+        <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> :
         <HistoryCard
-          navigation={navigation}
-          items={allItems}
-          loading={transactionLoading}
-        />
+        navigation={navigation}
+        allTransactions={allTransactions}
+        allQRScans={scansData}
+        
+      />
+        }
+        
         <View style={{ height: MARGIN }} />
       </ScrollView>
     </ScreenContainer>
