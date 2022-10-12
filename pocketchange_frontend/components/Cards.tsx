@@ -885,14 +885,6 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
           </Text>
         </View>
 
-        <HorizontalLine />
-
-        <View style={styles.container}>
-          <Text style={[styles.prose, {lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5}]}>You have <Text style={{fontFamily: 'metropolis black'}}>{4} entries</Text> <Text>✅</Text> Keep it up! </Text>
-          <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center',}]}>Contest ends {"Dec 31st"}. Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text></Text>
-          {showDetailedView ? <></> : <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle}]}>See Details <FontAwesome name="angle-right"/> </Text>}
-        </View>
-
         {showDetailedView ? (
           <>
         <HorizontalLine />
@@ -906,6 +898,18 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
         ) : (
           <></>
         )}
+
+        <HorizontalLine />
+
+        <View style={styles.container}>
+          <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>You have <Text style={{ fontFamily: 'metropolis black' }}>{4} entries</Text> <Text>✅</Text> Keep it up! </Text>
+          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
+            {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
+          </Text>
+          {showDetailedView ? <></> : <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>See Details <FontAwesome name="angle-right" /> </Text>}
+        </View>
+
+
 
         {/* <View style={styles.container}>
           <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
