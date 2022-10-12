@@ -1464,5 +1464,6 @@ db.mongocompetitions.insertMany([
          approved: true,
          deactivated: false,
       },
+      winner: null,
    }
 ])
