@@ -619,8 +619,7 @@ export function ScanListed({ navigation, scan }: any) {
     // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => navigation.navigate('ScanConfirmation', {
-        business: business,
-        date: scan.date,
+        QRScan: scan
       })}
     >
 
@@ -930,7 +929,8 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
           <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
             {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
           </Text>
-          {showDetailedView ? <View style={styles.container}>
+          {showDetailedView ? 
+          <View style={styles.container}>
             <Text style={styles.prose}>
             {description}
             </Text>

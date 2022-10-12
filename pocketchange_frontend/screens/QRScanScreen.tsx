@@ -30,12 +30,12 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
         QRScanMutations.processQRScan, {
           onCompleted(data) {
             navigation.navigate('ScanConfirmation', {
-                businessID: businessID,
-                date: scan.date,
+                QRScan: data.processQRScan
             })
         },
           onError(error) { 
-            alert(error.message)
+            //alert(error.message)
+            alert("You are not located at this business.")
         }
     },
 
@@ -91,7 +91,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
       // <ScreenContainer>
       <>
             {scanned ?
-                <View style={[styles.container,{marginTop:200}]}>
+                <View style={[styles.container,{marginTop:400}]}>
                     <ButtonWithText text="Scan Again" onPress={() => setScanned(false)}/>
                 </View> :
                 <BarCodeScanner
