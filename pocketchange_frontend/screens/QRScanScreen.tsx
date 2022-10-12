@@ -88,7 +88,8 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     }
 
     return (
-        <ScreenContainer>
+      // <ScreenContainer>
+      <>
             {scanned ?
                 <View style={[styles.container,{marginTop:200}]}>
                     <ButtonWithText text="Scan Again" onPress={() => setScanned(false)}/>
@@ -100,7 +101,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                     />
 
             }
-            
-        </ScreenContainer>
+      </>
+        // </ScreenContainer>
     );
 }
