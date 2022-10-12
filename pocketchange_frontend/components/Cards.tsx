@@ -176,13 +176,14 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
     <Pressable
       onPress={() => {
         navigation ?
-        navigation.navigate('Business', {
-          // navigation: navigation,
-          business: business,
-          pocket: pocketData.getBusinessPockets[0]})
-        : null
-    }
-    }>
+          navigation.navigate('Business', {
+            // navigation: navigation,
+            business: business,
+            pocket: pocketData.getBusinessPockets[0]
+          })
+          : null
+      }
+      }>
       <View style={[styles.card, styles.businessListItemCard]}>
 
         <View style={styles.businessListImageContainer}>
@@ -540,11 +541,11 @@ export function HistoryCard({ navigation, allTransactions, allQRScans, loading }
           />
         ) : (
           <TransactionListed
-              navigation={navigation}
-              key={item.key}
-              transaction={item.transaction}
-            />
-          )
+            navigation={navigation}
+            key={item.key}
+            transaction={item.transaction}
+          />
+        )
       }
     </>
   )
@@ -578,7 +579,7 @@ export function TransactionListed({ navigation, transaction }: any) {
         navigation: navigation,
         transaction: transaction
       }))}
-    > 
+    >
 
       <View style={styles.transactionListed}>
         <View style={{ flexDirection: 'row' }}>
@@ -788,7 +789,7 @@ export function ReceiptContest({ navigation, transaction }: any) {
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Tip</Text>
             <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.tip}</Text>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN  }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN }}>
             <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Redeemed</Text>
             <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.changeRedeemed}</Text>
           </View>
@@ -878,7 +879,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   return (
     <Pressable
       onPress={() => null//navigation.navigate('TransactionModal', {user,transaction})
-    }
+      }
     >
       <View style={styles.transactionListed}>
 
@@ -900,12 +901,12 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function CompetitionCard({ navigation, competition, showDetailedView = false}: { navigation: any, competition: any, showDetailedView: boolean }) {
-  const authContext = useContext(AuthContext); 
+export function CompetitionCard({ navigation, competition, showDetailedView = false }: { navigation: any, competition: any, showDetailedView: boolean }) {
+  const authContext = useContext(AuthContext);
 
   const { competitionID, competitionName, description, prizeValue, endDate } = competition
   const { data: scansData, loading: scansLoading, error: scansError } = useQuery(QRScanQueries.getAllQRScans, { variables: { userID: authContext.userFirebase.uid } });
-  if (scansError) return(<Text>{scansError.message}</Text>);
+  if (scansError) return (<Text>{scansError.message}</Text>);
 
   return (
     <Pressable
@@ -921,6 +922,20 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
           </Text>
         </View>
 
+        {
+          showDetailedView ? (
+            <>
+              <HorizontalLine />
+              <View style={styles.container}>
+                <Text style={styles.prose}>
+                  {description}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <></>
+          )
+        }
 
         <HorizontalLine />
 
@@ -933,27 +948,34 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
                   <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
                 ) : (
                   scansData.getAllQRScans.length
-                )
-                } entries
+                )} entries
               </Text>
               <Text> ✅ </Text>
               Keep it up!
             </Text>
           ) : (
             // {/* LEADER TEXT */}
-            <></>
+            <>
+              <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                {81} participants | {122} entries
+              </Text>
+            </>
           )
           }
           <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
             {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
           </Text>
-          {showDetailedView ? 
-          <View style={styles.container}>
-            <Text style={styles.prose}>
-            {description}
-            </Text>
-          </View> : 
-          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>See Details <FontAwesome name="angle-right" /> </Text>}
+
+          {
+            showDetailedView ? (
+              <></>
+            ) : (
+              <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>
+                See Details <FontAwesome name="angle-right" />
+              </Text>
+            )
+          }
+
         </View>
 
 
@@ -986,19 +1008,19 @@ export function UserCardSm({ user }: any) {
   useEffect(() => {
     getImageURL("User", userID, "userProfile.png", setImageURL);
   }, []);
-  
+
   return (
-    
-        <View style={styles.container}>
-          <View style={{ flexDirection: 'row', width: 100}}>
-              <Image
-                style={[styles.idImage, {width: 30, height: 30, marginLeft: 0}]}
+
+    <View style={styles.container}>
+      <View style={{ flexDirection: 'row', width: 100 }}>
+        <Image
+          style={[styles.idImage, { width: 30, height: 30, marginLeft: 0 }]}
           source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
-              />
-              <View style={{justifyContent: 'center', marginLeft: 10, }}><Text style={{fontFamily: 'metropolis bold', color: colors.medium}}>{user.firstName} {user.lastName[0]}</Text></View>
-              
-          </View>
+        />
+        <View style={{ justifyContent: 'center', marginLeft: 10, }}><Text style={{ fontFamily: 'metropolis bold', color: colors.medium }}>{user.firstName} {user.lastName[0]}</Text></View>
+
       </View>
+    </View>
 
   )
 }
@@ -1057,7 +1079,7 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
     <DropDownPicker
       style={styles.card}
       dropDownContainerStyle={styles.card}
-      textStyle={[styles.settingText, {textTransform: 'capitalize'}]}
+      textStyle={[styles.settingText, { textTransform: 'capitalize' }]}
       itemSeparator
       itemSeparatorStyle={styles.horizontalLine}
 
