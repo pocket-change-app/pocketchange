@@ -11,6 +11,7 @@ export default {
                 endDate
                 competitionName
                 description
+                winner
                 status{
                     pending
                     approved

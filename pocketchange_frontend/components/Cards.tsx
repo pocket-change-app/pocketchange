@@ -925,7 +925,25 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
         <HorizontalLine />
 
         <View style={styles.container}>
-          <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>You have <Text style={{ fontFamily: 'metropolis black' }}>{scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />  : scansData.getAllQRScans.length} entries</Text> <Text>✅</Text> Keep it up! </Text>
+          {authContext.activeRole.type == RoleType.Consumer ? (
+            // {/* CONSUMER TEXT */ }
+            < Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+              You have <Text style={{ fontFamily: 'metropolis black' }}>
+                {scansLoading ? (
+                  <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+                ) : (
+                  scansData.getAllQRScans.length
+                )
+                } entries
+              </Text>
+              <Text> ✅ </Text>
+              Keep it up!
+            </Text>
+          ) : (
+            // {/* LEADER TEXT */}
+            <></>
+          )
+          }
           <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
             {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
           </Text>
