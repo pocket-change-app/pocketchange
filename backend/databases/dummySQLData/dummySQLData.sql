@@ -178,7 +178,7 @@ INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude,
 -- insert QR scan
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR1", "QwduOsS2eBPOAFmVG69anKXIfGC3",  "1b", "7geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR2", "QwduOsS2eBPOAFmVG69anKXIfGC3", "1b", "8geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR3", "QwduOsS2eBPOAFmVG69anKXIfGC3", "13b", "9geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+-- INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR3", "QwduOsS2eBPOAFmVG69anKXIfGC3", "13b", "9geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR4", "QwduOsS2eBPOAFmVG69anKXIfGC3", "4b", "10geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR5", "QwduOsS2eBPOAFmVG69anKXIfGC3", "1b", "11geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR6", "QwduOsS2eBPOAFmVG69anKXIfGC3", "2b", "12geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
