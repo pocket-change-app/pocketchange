@@ -115,17 +115,20 @@ module.exports = {
     },
   
     Mutation: {
-        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
+        processTransaction: async (parent, {userID, businessID, pocketID, value, changeUsed}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMember}) => {
             if(userID, businessID, pocketID, value){
                 //check to make sure user is in pocket
                 //turn changeUsed into a float
                 const changeUsing = parseFloat(changeUsed)
                 const mongoUserInfo = await mongoUser.findOne({ userID })
                 if(mongoUserInfo){
-                    //get IsMemberOf relationship table to check that the user is in the pocket
-                    const exists = await IsMemberOf.findOne({where:{userID: userID, pocketID: pocketID}})
-                    //the user is in this pocket so now find out if the business is in this pocket
-                    if(exists){
+                    //get IsMember relationship table to check that the user is in the pocket
+                    const exists = await IsMember.findOne({where:{userID: userID, pocketID: pocketID}})
+                    //if the user is in this pocket find out if the business is in this pocket
+                    if(!exists){
+                      //add user to the pocket
+                      await IsMember.create({userID: userID, pocketID:pocketID, role:'customer'})
+                    }
                         //check to make sure business is in pocket, get IsIn relationship table to check 
                         const businessPocket = await IsIn.findOne({where:{businessID:businessID, pocketID:pocketID }})
                         //get the pocketID of the business
@@ -210,10 +213,6 @@ module.exports = {
                         else {
                             throw new ApolloError(`Business:${businessID} is not in Pocket: ${pocketID}`);
                         }
-                    }
-                    else {
-                        throw new ApolloError(`User:${userID} is not in Pocket: ${pocketID}`);
-                    }
                 }
                 else {
                     throw new ApolloError(`User:${userID} does not exist`);
@@ -223,7 +222,7 @@ module.exports = {
               throw new ApolloError(`Not enough information about userID, businessID, pocketID` );
             }
         },
-        refundTransaction: async (parent, {userID, businessID, pocketID, date, refundValue}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn, IsMemberOf}) => {
+        refundTransaction: async (parent, {userID, businessID, pocketID, date, refundValue}, { Pocket, mongoUser, Transaction, ChangeBalance, IsIn}) => {
           if(userID, businessID, pocketID, value){
               //check to make sure the transaction exists
               const transactionInfo = await Transaction.findOne({
@@ -302,6 +301,7 @@ module.exports = {
                 throw new ApolloError(`Transaction with user:${userID}, business: ${businessID}, date:${date}, pocket:${pocketID} doesn't exist  `);
               }
              }
-        }
+        },
+        //processWin transaction (need to let businessID allow Null?)
       }
   }
