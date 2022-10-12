@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { View, Text, StyleSheet, Platform, Button } from 'react-native';
+import { View, Text, StyleSheet, Platform, Button, ActivityIndicator } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -15,8 +15,9 @@ import { LocationSubscriber } from 'expo-location/build/LocationSubscribers';
 import { isNull } from 'ramda-adjunct';
 import { ButtonWithText } from '../components/Cards';
 import { ScreenContainer } from '../components/Themed';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function PayTabScreen({ navigation }: { navigation: any }) {
+export default function QRScanScreen({ navigation }: { navigation: any }) {
 
     const authContext = useContext(AuthContext); 
 
@@ -24,18 +25,19 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     const [scanned, setScanned] = useState(false);
 
     const [location, setLocation] = useState(null);
+    const [locationLoading, setLocationLoading] = useState(false);
     const [locationErrorMsg, setLocationErrorMsg] = useState(null);
 
     const [useProcessQRScanMutation, {loading, error}] = useMutation(
         QRScanMutations.processQRScan, {
           onCompleted(data) {
             navigation.navigate('ScanConfirmation', {
-                businessID: businessID,
-                date: scan.date,
+                QRScan: data.processQRScan
             })
         },
           onError(error) { 
-            alert(error.message)
+            //alert(error.message)
+            alert("You are not located at this business.")
         }
     },
 
@@ -55,15 +57,17 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
             setErrorMsg('Permission to access location was denied');
             return;
           }
-
+        
         let locationTemp = await Location.getCurrentPositionAsync({});
         setLocation(locationTemp);
+        setLocationLoading(false)
         })();
       }, []);
     
     const handleBarCodeScanned = async ({ type, data }) => {
         console.log("QR FOUND")
         if (!isNull(location)) {
+            setLocationLoading(false);
             console.log("LOCATION SCAN:", location)
             console.log("DATA RECEIVED: ", data)
             setScanned(true);
@@ -75,6 +79,8 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                     businessID: data,
                     
             }})
+        } else {
+            setLocationLoading(true)
         }
         
     };
@@ -90,15 +96,25 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     return (
       // <ScreenContainer>
       <>
-            {scanned ?
-                <View style={[styles.container,{marginTop:200}]}>
-                    <ButtonWithText text="Scan Again" onPress={() => setScanned(false)}/>
-                </View> :
-                <BarCodeScanner
-                    barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                    style={StyleSheet.absoluteFillObject}
-                    />
+            
+            {locationLoading ? 
+            <View>
+                <ActivityIndicator size="large" color={colors.subtle} style={{ marginTop: 300 }} />
+                <Text>Checking your location...</Text></View> : 
+                scanned ?
+            <ScreenContainer>
+              <View style={[styles.container, { flex: 1, justifyContent: 'space-between' }]}>
+                <View></View>
+                <FontAwesome style={{ fontSize: 200, textAlign: 'center', color: colors.light }} name='qrcode' />
+                <ButtonWithText text="Scan Again" onPress={() => setScanned(false)} />
+              </View>
+            </ScreenContainer>
+            :
+                    <BarCodeScanner
+                        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
+                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                        style={StyleSheet.absoluteFillObject}
+                        />
 
             }
       </>
