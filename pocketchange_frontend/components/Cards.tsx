@@ -922,6 +922,20 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
           </Text>
         </View>
 
+        {
+          showDetailedView ? (
+            <>
+              <HorizontalLine />
+              <View style={styles.container}>
+                <Text style={styles.prose}>
+                  {description}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <></>
+          )
+        }
 
         <HorizontalLine />
 
@@ -934,26 +948,34 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
                   <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
                 ) : (
                   scansData.getAllQRScans.length
-                )
-                } entries
+                )} entries
               </Text>
               <Text> ✅ </Text>
               Keep it up!
             </Text>
           ) : (
             // {/* LEADER TEXT */}
-            <></>
+              <>
+                <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                  {81} participants | {122} entries
+                </Text>
+              </>
           )
           }
           <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
             {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
           </Text>
-          {showDetailedView ? <View style={styles.container}>
-            <Text style={styles.prose}>
-            {description}
-            </Text>
-          </View> : 
-          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>See Details <FontAwesome name="angle-right" /> </Text>}
+
+          {
+            showDetailedView ? (
+              <></>
+            ) : (
+              <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>
+                See Details <FontAwesome name="angle-right" />
+              </Text>
+            )
+          }
+
         </View>
 
 
