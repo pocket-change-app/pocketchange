@@ -17,13 +17,13 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { business } = route.params;
-  const dateTimeString = route.params.date
+  const { QRScan } = route.params;
+  const dateTimeString = QRScan.date
   // console.log(dateTimeString);
 
   const dateTime = new Date(dateTimeString)
 
-  //const { business, loading, error } = useBusinessQuery(businessID)
+  const { business, loading, error } = useBusinessQuery(QRScan.businessID)
 
 
   // console.log(dateTime)
@@ -76,7 +76,8 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
             <View style={{ marginVertical: 2 * MARGIN }}>
               <Text style={styles.payConfirmationBusiness}>
-                {business.businessName}
+                {loading ? null : business.businessName}
+                {(error) ? error.message : null}
               </Text>
             </View>
 
