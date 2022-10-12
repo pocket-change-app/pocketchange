@@ -96,27 +96,29 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
     return (
       // <ScreenContainer>
       <>
-            
-            {locationLoading ? 
-            <View>
-                <ActivityIndicator size="large" color={colors.subtle} style={{ marginTop: 300 }} />
-                <Text>Checking your location...</Text></View> : 
-                scanned ?
-            <ScreenContainer>
-              <View style={[styles.container, { flex: 1, justifyContent: 'space-between' }]}>
-                <View></View>
-                <FontAwesome style={{ fontSize: 200, textAlign: 'center', color: colors.light }} name='qrcode' />
-                <ButtonWithText text="Scan Again" onPress={() => setScanned(false)} />
-              </View>
-            </ScreenContainer>
-            :
-                    <BarCodeScanner
-                        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                        style={StyleSheet.absoluteFillObject}
-                        />
+
+            {scanned ?
+                <ScreenContainer>
+                <View style={[styles.container, { flex: 1, justifyContent: 'space-between' }]}>
+                    <View></View>
+                    <FontAwesome style={{ fontSize: 200, textAlign: 'center', color: colors.light }} name='qrcode' />
+                    <ButtonWithText text="Scan Again" onPress={() => setScanned(false)} />
+                </View>
+                </ScreenContainer> :
+                <BarCodeScanner
+                    barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
+                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                    style={StyleSheet.absoluteFillObject}/>
 
             }
+
+            {locationLoading ? 
+                <View style={[styles.card, {marginTop:100}]}>
+                    <View style={styles.container}>
+                        <ActivityIndicator size="large" color={colors.subtle} />
+                        <Text style={[styles.cardHeaderText,{margin:10}]}>Hold while location is verified...</Text>
+                    </View>
+                </View> : null}
       </>
         // </ScreenContainer>
     );
