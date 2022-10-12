@@ -24,5 +24,5 @@ export default function useBusinessQuery(
     }
   }, [data])
 
-  return {business, loading, refetch}
+  return {business, loading, error, refetch}
 }

@@ -1,5 +1,5 @@
 
-import { Pressable, ScrollView, Button } from "react-native";
+import { Pressable, ScrollView, Button, ActivityIndicator } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
 
@@ -9,7 +9,7 @@ import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext, Role, RoleLevel, RoleType } from "../contexts/Auth";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -17,69 +17,43 @@ import { useQuery } from '@apollo/react-hooks'
 import UserQueries from '../hooks-apollo/User/queries'
 
 import * as RA from 'ramda-adjunct'
+import { colors } from "../constants/Colors";
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
-  const userID = authContext.userFirebase.uid;
 
   const [userRoles, setUserRoles] = useState([])
 
-  const { data, loading, error, refetch } = useQuery(UserQueries.getUserRoles, { variables: { userID } });
-  
-  useEffect(() => {
-    if (RA.isNotNil(data)) {
-      //console.log('user data inside', data)
-      // allBusinesses query is aliased as getAllBusinesses
-      //const {user} = data
-      setUserRoles(data)
-    }
-  }, [data])
+  let userID = authContext.userFirebase.uid;
+  //userID = "10c"
 
-  // const [open, setOpen] = useState(false);
-  // const [role, setRole] = useState(authContext.activeRole);
-  // const [items, setItems] = useState(items_list);
+  const rolesData = {}
+  rolesData.getUserRoles = [
+    {type: "CONSUMER"},
+    {type: "LEADER", entityID: "2p", entityName: "Uptown Yonge"},
+    {type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER"},
+  ]
+
+  //const { data: rolesData, loading: rolesLoading, error: rolesError } = useQuery(UserQueries.getUserRoles, { variables: { userID: userID } });
+  //if (rolesError) return <Text>{rolesError.message}</Text>;
+  //if (rolesLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+  
 
   const signOut = async () => {
     await authContext.signOut();
   };
-
 
   return (
     <ScreenContainer>
       <ScrollView
         contentContainerStyle={[styles.container]}>
 
-        {// TODO: make drop down
-        }
-
         <SwitchAccountDropdown
           authContext={authContext}
-          rolesList={user.roles}
+          rolesList={rolesData.getUserRoles}
         />
-
-        {/* <DropDownPicker
-          style={styles.card}
-          dropDownContainerStyle={styles.card}
-          textStyle={styles.settingText}
-          itemSeparator
-          itemSeparatorStyle={styles.horizontalLine}
-
-          // containerStyle={styles.card}
-
-          open={open}
-          value={role}
-          items={items}
-
-          setOpen={setOpen}
-          setValue={setRole}
-          setItems={setItems}
-
-          onSelectItem={switchAccount}
-
-          placeholder='Switch Account'
-        /> */}
 
         <View style={styles.card}>
           <SettingPressable

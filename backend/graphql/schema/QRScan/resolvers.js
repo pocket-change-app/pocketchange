@@ -42,7 +42,7 @@ module.exports = {
         //create date
         const date = new Date()
         //create geolocation
-        const currGeo = await Geolocation.create({userID: userID, latitude: latitude, longitude:longitude, timestamp: date})
+        const currGeo = await Geolocation.create({userID: userID, latitude: latitude, longitude: longitude, timestamp: date})
         //check to make sure current geolocation is close to businesses
         const currBusiness = await mongoBusiness.findOne({businessID: businessID})
         //check to make sure the distance between the business and the coordinates entered is less than the radius of 0.01

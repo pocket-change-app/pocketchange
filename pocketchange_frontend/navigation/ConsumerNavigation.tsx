@@ -36,6 +36,7 @@ import CompetitionScreen from '../screens/CompetitionScreen';
 
 import { AuthContext } from '../contexts/Auth';
 import { useContext, useEffect } from 'react';
+import ScanConfirmationScreen from '../screens/ScanConfirmationScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -69,6 +70,17 @@ export const ConsumerNavigation = () => {
         <Stack.Screen
           name="PayConfirmation"
           component={PayConfirmationScreen}
+          options={{
+            presentation: 'fullScreenModal',
+            // statusBarHidden: true,
+            headerShown: false,
+            autoHideHomeIndicator: true,
+          }}
+        />
+
+        <Stack.Screen
+          name="ScanConfirmation"
+          component={ScanConfirmationScreen}
           options={{
             presentation: 'fullScreenModal',
             // statusBarHidden: true,

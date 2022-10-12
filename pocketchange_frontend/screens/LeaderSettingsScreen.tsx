@@ -1,5 +1,5 @@
 
-import { Pressable, ScrollView, Button, Image } from "react-native";
+import { Pressable, ScrollView, Button, Image, ActivityIndicator } from "react-native";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
 
@@ -8,15 +8,23 @@ import { Style } from "victory-core";
 import { styles } from "../Styles";
 import { HorizontalLine } from "../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext, RoleType } from "../contexts/Auth";
 
 import businessImages from '../assets/images/businessImages';
+import { usePocketQuery } from "../hooks-apollo";
+import { isNilOrEmpty } from "ramda-adjunct";
+import { colors } from "../constants/Colors";
 
 
 export default function LeaderSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
+
+  let pocketID = authContext.activeRole.entityID
+
+  const { pocket, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  if (pocketError) {return <Text>{pocketError.message}</Text>;}
 
   const signOut = async () => {
     await authContext.signOut();
@@ -28,7 +36,12 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
     console.log(authContext.activeRole)
   }
 
-  const pocket = pockets.find(p => p.name == 'Uptown Yonge')
+  const rolesData = {}
+  rolesData.getUserRoles = [
+    {type: "CONSUMER"},
+    {type: "LEADER", entityID: "2p", entityName: "Uptown Yonge"},
+    {type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER"},
+  ]
 
   return (
     <ScreenContainer>
@@ -40,7 +53,7 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
 
         <SwitchAccountDropdown
           authContext={authContext}
-          rolesList={user.roles}
+          rolesList={rolesData.getUserRoles}
         />
 
         {/* <View style={styles.card}>
@@ -51,12 +64,7 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
           />
         </View> */}
 
-        <Pressable
-          onPress={() => navigation.navigate('Pocket', {
-            // navigation: navigation,
-            pocket: pocket,
-          })}
-        >
+
           <View style={styles.card}>
 
             <View style={styles.businessListItemCard}>
@@ -67,10 +75,13 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
                   source={pocketImages[business.businessID]}
                 />
               </View> */}
-
-              <View style={styles.businessListInfo}>
-                <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocket.name}</Text>
-              </View>
+              {isNilOrEmpty(pocket) ?
+                <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+                : <View style={styles.businessListInfo}>
+                  <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocket.pocketName}</Text>
+                </View>
+            
+              }
 
             </View>
 
@@ -93,8 +104,6 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
           </View>
 
 
-
-        </Pressable>
 
 
         {/* <DivHeader text="Permissions" />

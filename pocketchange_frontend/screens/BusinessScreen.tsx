@@ -20,7 +20,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   const { business, pocket } = route.params;
 
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
-  if (changeBalanceError) return <Text>{changeBalanceError}</Text>;
+  if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
   if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
 
   return (

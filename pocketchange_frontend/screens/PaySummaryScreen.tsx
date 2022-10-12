@@ -107,9 +107,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
           text={'Pay ' + business.businessName}
           onPress={() => {
 
-            const d = new Date()
-            const date = d.toDateString()
-            const time = d.toLocaleTimeString()
+            const date = new Date()
 
             console.log(navigation.getState())
 
@@ -129,7 +127,6 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
               business: business,
               subtotal: amount,
               date: date,
-              time: time,
             })
 
             // console.log('navigated to PayConfirmation')

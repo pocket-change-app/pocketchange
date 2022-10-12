@@ -8,6 +8,8 @@ import { colors } from '../constants/Colors';
 import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import PocketQueries from '../hooks-apollo/Pocket/queries'
+import UserQueries from '../hooks-apollo/User/queries'
+
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -160,6 +162,8 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 export function BusinessCardSm({ navigation, business, showPocket = true }: { navigation: any, business: any, showPocket: boolean }) {
   const [imageURL, setImageURL] = useState();
 
+  console.log(business)
+
   useEffect(() => {
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
@@ -170,13 +174,15 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Business', {
-        // navigation: navigation,
-        business: business,
-        pocket: pocketData.getBusinessPockets[0]
-
-      })}
-    >
+      onPress={() => {
+        navigation ?
+        navigation.navigate('Business', {
+          // navigation: navigation,
+          business: business,
+          pocket: pocketData.getBusinessPockets[0]})
+        : null
+    }
+    }>
       <View style={[styles.card, styles.businessListItemCard]}>
 
         <View style={styles.businessListImageContainer}>
@@ -356,7 +362,7 @@ export function IdCard({ user }: { user: any }) {
           /> :
           <Image
             style={styles.idImage}
-            source={require('../assets/images/defaults/userProfile.jpg')}
+            source={require('../assets/images/defaults/userProfile.png')}
           />
         }
         <View style={styles.idContent}>
@@ -382,9 +388,6 @@ export function BalancesCard({ allChangeBalances }: { changeTotal: string, allCh
 
   // order change balances by decreasing value
   const allChangeBalancesSorted = allChangeBalances.slice().sort((a, b) => (parseFloat(a.value) < parseFloat(b.value)) ? 1 : -1);
-
-  // TODO: get pocket names from ID
-
 
   // sum up to get users total change value
   const changeTotal = allChangeBalancesSorted.reduce((accumulator, object) => {
@@ -428,7 +431,7 @@ export function BalancesCard({ allChangeBalances }: { changeTotal: string, allCh
               ({ pocketID, value }: { pocketID: string, value: string }) => (
                 <TopPocket
                   key={pocketID}
-                  pocket={pocketID}
+                  pocketID={pocketID}
                   change={value}
                 />
               ), allChangeBalancesSorted
@@ -490,25 +493,37 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function TransactionHistoryCard({ navigation, transactions, loading }: { navigation: any, transactions: { [key: string]: any }[], loading: boolean }) {
+export function HistoryCard({ navigation, items, loading }: { navigation: any, items: any, loading: boolean }) {
 
-  const renderTransactions = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <TransactionListed
-      key={item.key}
-      navigation={navigation}
-      transaction={item}
-    />
+  const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+    <>
+      {
+        item.transaction == null ? (
+          <ScanListed
+            navigation={navigation}
+            key={item.key}
+            scan={item.scan}
+          />
+        ) : (
+          <TransactionListed
+              navigation={navigation}
+              key={item.key}
+              transaction={item.transaction}
+            />
+          )
+      }
+    </>
   )
 
   return (
     <View style={[styles.card]}>
-      <CardHeader text='Transaction History' />
+      <CardHeader text='History' />
       <FlatList
         // contentContainerStyle={styles.businessFlatList}
         scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
-        data={transactions}
-        renderItem={renderTransactions}
+        data={items}
+        renderItem={renderItem}
         ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
       />
     </View>
@@ -529,30 +544,69 @@ export function TransactionListed({ navigation, transaction }: any) {
         navigation: navigation,
         transaction: transaction
       }))}
-    >
+    > 
+
       <View style={styles.transactionListed}>
-        <Text style={styles.transactionListedMerchantText}>
-          {business.businessName}
-        </Text>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.transactionListedAmountText}>
-            ${transaction.value}
-          </Text>
           <Pressable
-            style={{ aspectRatio: 1 }}
+            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
             onPress={() => navigation.navigate('PayConfirmation', {
               business: business,
               subtotal: transaction.value,
               date: transaction.date,
-              time: transaction.time,
             })}
           >
             <Image
-              style={{ flex: 1, width: undefined, height: undefined }}
+              style={{ aspectRatio: 1, height: 3 * MARGIN, width: undefined, }}
               source={require("../assets/images/icon.png")}
             />
           </Pressable>
+          <Text style={styles.transactionListedMerchantText}>
+            {business.businessName}
+          </Text>
         </View>
+        <Text style={styles.transactionListedAmountText}>
+          ${transaction.value}
+        </Text>
+      </View>
+      {/* <HorizontalLine /> */}
+    </Pressable >
+  )
+}
+
+export function ScanListed({ navigation, scan }: any) {
+  const businessID = scan.businessID
+  const { business, loading } = useBusinessQuery(businessID)
+
+  if (loading) {
+    return null
+  }
+  return (
+    // TODO: make pressable and navigatte to its own page
+    <Pressable
+      onPress={() => navigation.navigate('ScanConfirmation', {
+        business: business,
+        date: scan.date,
+      })}
+    >
+
+      <View style={styles.transactionListed}>
+        <View style={{ flexDirection: 'row' }}>
+          <View
+            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+          >
+            <FontAwesome
+              style={[styles.transactionListedAmountText, { fontSize: 3 * MARGIN, marginRight: 0 }]}
+              name='qrcode'
+            />
+          </View>
+          <Text style={styles.transactionListedMerchantText}>
+            {business.businessName}
+          </Text>
+        </View>
+        <Text style={styles.transactionListedAmountText}>
+          Snap it UP!
+        </Text>
       </View>
       {/* <HorizontalLine /> */}
     </Pressable >
@@ -650,6 +704,88 @@ export function Receipt({ navigation, transaction }: any) {
     </>
   )
 }
+
+export function ReceiptContest({ navigation, transaction }: any) {
+
+  const businessID = transaction.businessID
+  const { business, loading } = useBusinessQuery(businessID)
+
+  if (R.isNil(business)) {
+    return null
+  }
+
+  const address = business.address
+  const { pocketID } = transaction
+  const { pocket, loadingPockets } = usePocketQuery(pocketID)
+  if (R.isEmpty(pocket)) {
+    return null
+  }
+  //const address = business.address
+  //console.log(business, pocket)
+  return (
+    <>
+      <View style={[styles.container]}>
+        {/* <CardHeader text='Summary' /> */}
+
+        {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
+        <View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <Text style={styles.receipt}> X</Text>
+            </Pressable>
+          </View>
+          {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
+          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+        </View>
+        {/* </View> */}
+
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
+          ----------------
+        </Text>
+
+        {/* <View style={{ height: MARGIN }} /> */}
+        {/* <HorizontalLine /> */}
+        <View style={{ marginBottom: MARGIN }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Subtotal</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.subtotal}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Tip</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.tip}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: MARGIN  }}>
+            <Text style={[styles.receipt, { textAlign: 'left' }]}>Change Redeemed</Text>
+            <Text style={[styles.receipt, { textAlign: 'right' }]}>{transaction.changeRedeemed}</Text>
+          </View>
+        </View>
+
+        <Text style={[styles.receipt, { textAlign: 'center', marginVertical: MARGIN }]}>
+          ----------------
+        </Text>
+
+        <View style={{ alignItems: 'center' }}>
+          <View style={{
+            alignSelf: 'center',
+            aspectRatio: 1,
+            width: 50,
+            margin: MARGIN,
+          }}>
+            <Image
+              source={require('../assets/images/icon_dark.png')}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </View>
+
+          <Text style={[styles.receipt, { textAlign: 'center' }]}>
+            PocketChange Loyalty Inc.
+          </Text>
+        </View>
+      </View>
+    </>
+  )
+}
 // to use for merchant side
 export function SettingsCard({ navigation }: { navigation: any }) {
   <View style={styles.card}>
@@ -708,10 +844,8 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('TransactionModal', {
-        user,
-        transaction
-      })}
+      onPress={() => null//navigation.navigate('TransactionModal', {user,transaction})
+    }
     >
       <View style={styles.transactionListed}>
 
@@ -792,18 +926,41 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
   )
 }
 
-export const renderParticipant = ({ item, index, separators }: any) => (
+export function UserCardSm({ user }: any) {
 
-  <View style={[styles.card, styles.container]}>
-    <Text>{item.name}</Text>
-  </View>
+  const { userID, firstName, lastName, birthDate, totalChange } = user;
 
-)
+  const [imageURL, setImageURL] = useState();
 
-function TopPocket({ pocket, change }: { pocket: string, change: string }) {
+  useEffect(() => {
+    getImageURL("User", userID, "userProfile.png", setImageURL);
+  }, []);
+  
+  return (
+    
+        <View style={styles.container}>
+          <View style={{ flexDirection: 'row', width: 100}}>
+              <Image
+                style={[styles.idImage, {width: 30, height: 30, marginLeft: 0}]}
+          source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
+              />
+              <View style={{justifyContent: 'center', marginLeft: 10, }}><Text style={{fontFamily: 'metropolis bold', color: colors.medium}}>{user.firstName} {user.lastName[0]}</Text></View>
+              
+          </View>
+      </View>
+
+  )
+}
+
+function TopPocket({ pocketID, change }: { pocketID: string, change: string }) {
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.pocket, { variables: { pocketID: pocketID } });
+  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+
   return (
     <View style={{ flex: 1 }}>
-      <Text style={styles.pocket}>{pocket}</Text>
+      <Text style={styles.pocket}>{pocketData.pocket.pocketName}</Text>
       <Text style={styles.changeSm}>${change}</Text>
     </View >
   )
@@ -827,11 +984,11 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
   function makeLabel(r: Role): string {
     let label: string = ''
     if (r.type === RoleType.Consumer) {
-      label = r.type
+      label = r.type?.toLowerCase()
     } else if (r.type === RoleType.Merchant) {
-      label = r.level + ' at ' + r.entityName
+      label = r.level?.toLowerCase() + ' of ' + r.entityName?.toLowerCase()
     } else if (r.type === RoleType.Leader) {
-      label = r.type + ' of ' + r.entityName
+      label = r.type?.toLowerCase() + ' of ' + r.entityName?.toLowerCase()
     }
     return label
   }
@@ -849,7 +1006,7 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
     <DropDownPicker
       style={styles.card}
       dropDownContainerStyle={styles.card}
-      textStyle={styles.settingText}
+      textStyle={[styles.settingText, {textTransform: 'capitalize'}]}
       itemSeparator
       itemSeparatorStyle={styles.horizontalLine}
 

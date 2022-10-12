@@ -6,7 +6,7 @@ db.mongousers.insertMany( [
       lastName: 'Hale',
       birthDate: '1997-03-11',
       totalChange: 30.00,
-      emailAddress:'ilovelocal@gmail.com',
+      emailAddress:'hugo@gmail.com',
       home: 'Riverside',
       deactivated: false,
    },
@@ -26,7 +26,7 @@ db.mongousers.insertMany( [
       lastName: 'Williams',
       birthDate: '1998-12-16',
       totalChange: 40.50,
-      emailAddress:'localrules@gmail.com',
+      emailAddress:'elias@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
@@ -36,7 +36,7 @@ db.mongousers.insertMany( [
       lastName: 'Seneviratna',
       birthDate: '1999-03-01',
       totalChange: 14.30,
-      emailAddress:'shop123@gmail.com',
+      emailAddress:'dewmi@gmail.com',
       home: 'North York',
       deactivated: false,
    },
@@ -46,7 +46,7 @@ db.mongousers.insertMany( [
       lastName: 'Charboneau',
       birthDate: '1999-05-16',
       totalChange: 10.15,
-      emailAddress:'loyalshop@gmail.com',
+      emailAddress:'cole@gmail.com',
       home: 'Outside Toronto',
       deactivated: false,
    },
@@ -56,45 +56,46 @@ db.mongousers.insertMany( [
       lastName: 'Consens',
       birthDate: '1999-05-27',
       totalChange: 8.50,
-      emailAddress:'mmrewards@gmail.com',
+      emailAddress:'mica@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
+
    //leslieville owners
    {
       userID: '6c',
-      firstName: 'Best Buns',
-      lastName: 'Owner',
+      firstName: 'Angela',
+      lastName: 'Bakker',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalbuns@gmail.com',
+      emailAddress:'bestbuns@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '7c',
-      firstName: 'Get A Pet',
-      lastName: 'Owner',
+      firstName: 'Will',
+      lastName: 'Nguyen',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalpet@gmail.com',
+      emailAddress:'getapet@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '8c',
-      firstName: 'Handy Hardware',
-      lastName: 'Owner',
+      firstName: 'Randy',
+      lastName: 'Phang',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalhardware@gmail.com',
+      emailAddress:'handyhardware@gmail.com',
       home: 'Leslieville',
       deactivated: false,
    },
    {
       userID: '9c',
-      firstName: 'Happy Treats',
-      lastName: 'Owner',
+      firstName: 'Siku',
+      lastName: 'Consens',
       birthDate: '1980-01-01',
       totalChange: 0.00,
       emailAddress:'happytreats@gmail.com',
@@ -103,124 +104,124 @@ db.mongousers.insertMany( [
    },
    //uptown owners
    {
-      userID: '10c',
-      firstName: 'Sweet Life',
-      lastName: 'Owner',
+      userID: 'QwduOsS2eBPOAFmVG69anKXIfGC3',
+      firstName: 'Sandy',
+      lastName: 'Roberts',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalsweet@gmail.com',
+      emailAddress:'sweetlife@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
    {
       userID: '11c',
-      firstName: 'Love Game',
-      lastName: 'Owner',
+      firstName: 'Priya',
+      lastName: 'Patel',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personallovegame@gmail.com',
+      emailAddress:'lovegame@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
    {
       userID: '12c',
-      firstName: 'isaanOwner',
-      lastName: 'Isaan Der Owner',
+      firstName: 'Pop',
+      lastName: 'Davidson',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalisaander@gmail.com',
+      emailAddress:'pops@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
    {
       userID: '13c',
-      firstName: 'Coffee Time',
-      lastName: 'Owner',
+      firstName: 'Mustafa',
+      lastName: 'Navid',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalcoffeetime@gmail.com',
+      emailAddress:'coffeetime@gmail.com',
       home: 'Uptown Yonge',
       deactivated: false,
    },
    //riverside owners
    {
       userID: '14c',
-      firstName: 'Bites & Booze',
-      lastName: 'Owner',
+      firstName: 'Molly',
+      lastName: 'Jones',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalbites@gmail.com',
+      emailAddress:'bitesandbooze@gmail.com',
       home: 'Riverside',
       deactivated: false,
    },
    {
       userID: '15c',
       firstName: 'Jasmine',
-      lastName: 'Owner',
+      lastName: 'Rose',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personaljasmine@gmail.com',
+      emailAddress:'jasmine@gmail.com',
       home: 'Riverside',
       deactivated: false,
    },
    {
       userID: '16c',
-      firstName: 'Fish Fare',
-      lastName: 'Owner',
+      firstName: 'Hirim',
+      lastName: 'Henkles',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalfish@gmail.com',
+      emailAddress:'fishfare@gmail.com',
       home: 'Riverside',
       deactivated: false,
    },
    {
       userID: '17c',
-      firstName: 'Quikit Market',
-      lastName: 'Owner',
+      firstName: 'Andrew',
+      lastName: 'Anderson',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalquikit@gmail.com',
+      emailAddress:'quikitmarket@gmail.com',
       home: 'Riverside',
       deactivated: false,
    },
    //bloor west owners
    {
       userID: '18c',
-      firstName: 'Joey Beans',
-      lastName: 'Owner',
+      firstName: 'Joey',
+      lastName: 'De Marco',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalbeans@gmail.com',
+      emailAddress:'joeybeans@gmail.com',
       home: 'Bloor West',
       deactivated: false,
    },
    {
       userID: '19c',
-      firstName: 'Spiffy Threads',
-      lastName: 'Owner',
+      firstName: 'Spiff',
+      lastName: 'Truman',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalspifft@gmail.com',
+      emailAddress:'spiffythreads@gmail.com',
       home: 'Bloor West',
       deactivated: false,
    },
    {
       userID: '20c',
-      firstName: 'Fromaggio’s',
-      lastName: 'Owner',
+      firstName: 'Roman',
+      lastName: 'Mars',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personalfromaggio@gmail.com',
+      emailAddress:'fromaggio@gmail.com',
       home: 'Bloor West',
       deactivated: false,
    },
    {
       userID: '21c',
-      firstName: 'Lovely',
-      lastName: 'Owner',
+      firstName: 'Brad',
+      lastName: 'Chadley',
       birthDate: '1980-01-01',
       totalChange: 0.00,
-      emailAddress:'personallovely@gmail.com',
+      emailAddress:'lovely@gmail.com',
       home: 'Bloor West',
       deactivated: false,
    },
@@ -818,299 +819,299 @@ db.mongobusinesses.insertMany( [
          deactivated: false
          },
      },
-//Riverside 
-{
-        businessID: '9b',
-        businessName: 'Bites and Booze',
-        dateEstablished: '2009-01-01',
-        phoneNumber: '416-900-000',
-        website: 'bitesandbooze.ca',
-        businessType: 'restaurant',
-        businessSubtype: 'bar',
-        emailAddress:'bitesandbooze@gmail.com',
-        address: {
-         streetName: 'Saulter St',
-         buildingNumber: '25',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 2H7',
-        },
-        latitude: 43.6575789,
-        longitude: -79.3486182,
-        businessTags: [],
-        stripeID: '9b',
-        description: 'Bites and Booze offers just that– we sell tapas for you to nibble on while you’re enjoying a drink with your pals. We’ve got a wide selection of brews on tap and specialty cocktails that our team of mixologists refreshes seasonally.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 900,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 900,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 600,
-               end: 1200,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false,
-         approved: true,
-         deactivated: false
-         },
-     },
+// //Riverside 
+// {
+//         businessID: '9b',
+//         businessName: 'Bites and Booze',
+//         dateEstablished: '2009-01-01',
+//         phoneNumber: '416-900-000',
+//         website: 'bitesandbooze.ca',
+//         businessType: 'restaurant',
+//         businessSubtype: 'bar',
+//         emailAddress:'bitesandbooze@gmail.com',
+//         address: {
+//          streetName: 'Saulter St',
+//          buildingNumber: '25',
+//          unitNumber: '',
+//          city: 'Toronto',
+//          region: 'ON',
+//          postalCode: 'M4M 2H7',
+//         },
+//         latitude: 43.6575789,
+//         longitude: -79.3486182,
+//         businessTags: [],
+//         stripeID: '9b',
+//         description: 'Bites and Booze offers just that– we sell tapas for you to nibble on while you’re enjoying a drink with your pals. We’ve got a wide selection of brews on tap and specialty cocktails that our team of mixologists refreshes seasonally.',
+//         hours:{
+//          "Monday": [],
+//          "Tuesday":[
+//             {
+//                start: 900,
+//                end: 1350,
+//             }
+//          ],
+//          "Wednesday":[
+//             {
+//                start: 900,
+//                end: 1350,
+//             }
+//          ],
+//          "Thursday":[
+//             {
+//                start: 600,
+//                end: 1200,
+//             }
+//          ],
+//          "Friday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Saturday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Sunday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ]
+//        },
+//        status:{
+//          pending: false,
+//          approved: true,
+//          deactivated: false
+//          },
+//      },
 
-{
-        businessID: '10b',
-        businessName: 'Jasmine',
-        dateEstablished: '1999-01-01',
-        phoneNumber: '416-010-000',
-        website: 'jasmineflowershop.ca',
-        businessType: 'retail',
-        businessSubtype: 'flower shop',
-        emailAddress:'jasmineflowers@gmail.com',
-        address: {
-         streetName: 'Broadview Ave',
-         buildingNumber: '120',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 2E9',
-        },
-        latitude: 43.6593247,
-        longitude: -79.3528045,
-        businessTags: [],
-        stripeID: '10b',
-        description: 'Jasmine has beautiful fresh flowers and botanicals. We’re a great option to beautify your apartement, adorn your special events, and anything in between.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 600,
-               end: 900,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 600,
-               end: 900,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 600,
-               end: 900,
-            }            
-         ],
-         "Friday":[
-            {
-               start: 600,
-               end: 900,
-            },
-            {
-               start: 1020,
-               end: 1350,
-            }
-         ],
-         "Saturday":[],
-          "Sunday":[]
-      },
-       status:{
-         pending: false,
-         approved: true,
-         deactivated: false
-         },
-     },
-{
-        businessID: '11b',
-        businessName: 'Fish Fare',
-        dateEstablished: '2017-01-01',
-        phoneNumber: '416-120-000',
-        website: 'fishfare.ca',
-        businessType: 'retail',
-        businessSubtype: 'grocer',
-        emailAddress:'fishfare@gmail.com',
-        address: {
-         streetName: 'Thompson St',
-         buildingNumber: '10',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 1L9',
-        },
-        latitude: 43.6594918,
-        longitude: -79.3549587,
-        businessTags: [],
-        stripeID: '11b',
-        description:'Fresh fish received with deals that are a real catch-of-the-day. If you’re looking for premium fish and shellfish stop by and talk to our expert fishmongers.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false,
-         approved: true,
-         deactivated: false
-         },
-     },
+// {
+//         businessID: '10b',
+//         businessName: 'Jasmine',
+//         dateEstablished: '1999-01-01',
+//         phoneNumber: '416-010-000',
+//         website: 'jasmineflowershop.ca',
+//         businessType: 'retail',
+//         businessSubtype: 'flower shop',
+//         emailAddress:'jasmineflowers@gmail.com',
+//         address: {
+//          streetName: 'Broadview Ave',
+//          buildingNumber: '120',
+//          unitNumber: '',
+//          city: 'Toronto',
+//          region: 'ON',
+//          postalCode: 'M4M 2E9',
+//         },
+//         latitude: 43.6593247,
+//         longitude: -79.3528045,
+//         businessTags: [],
+//         stripeID: '10b',
+//         description: 'Jasmine has beautiful fresh flowers and botanicals. We’re a great option to beautify your apartement, adorn your special events, and anything in between.',
+//         hours:{
+//          "Monday": [],
+//          "Tuesday":[
+//             {
+//                start: 600,
+//                end: 900,
+//             }
+//          ],
+//          "Wednesday":[
+//             {
+//                start: 600,
+//                end: 900,
+//             }
+//          ],
+//          "Thursday":[
+//             {
+//                start: 600,
+//                end: 900,
+//             }            
+//          ],
+//          "Friday":[
+//             {
+//                start: 600,
+//                end: 900,
+//             },
+//             {
+//                start: 1020,
+//                end: 1350,
+//             }
+//          ],
+//          "Saturday":[],
+//           "Sunday":[]
+//       },
+//        status:{
+//          pending: false,
+//          approved: true,
+//          deactivated: false
+//          },
+//      },
+// {
+//         businessID: '11b',
+//         businessName: 'Fish Fare',
+//         dateEstablished: '2017-01-01',
+//         phoneNumber: '416-120-000',
+//         website: 'fishfare.ca',
+//         businessType: 'retail',
+//         businessSubtype: 'grocer',
+//         emailAddress:'fishfare@gmail.com',
+//         address: {
+//          streetName: 'Thompson St',
+//          buildingNumber: '10',
+//          unitNumber: '',
+//          city: 'Toronto',
+//          region: 'ON',
+//          postalCode: 'M4M 1L9',
+//         },
+//         latitude: 43.6594918,
+//         longitude: -79.3549587,
+//         businessTags: [],
+//         stripeID: '11b',
+//         description:'Fresh fish received with deals that are a real catch-of-the-day. If you’re looking for premium fish and shellfish stop by and talk to our expert fishmongers.',
+//         hours:{
+//          "Monday": [],
+//          "Tuesday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Wednesday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Thursday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Friday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Saturday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Sunday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ]
+//        },
+//        status:{
+//          pending: false,
+//          approved: true,
+//          deactivated: false
+//          },
+//      },
 
-{
-        businessID: '12b',
-        businessName: 'Quikit Market',
-        dateEstablished: '2000-01-01',
-        phoneNumber: '416-130-000',
-        website: 'quikitmarket.ca',
-        businessType: 'retail',
-        businessSubtype: 'convenience',
-        emailAddress:'quikitmarket@gmail.com',
-        address: {
-         streetName: 'Queen St',
-         buildingNumber: '870',
-         unitNumber: '',
-         city: 'Toronto',
-         region: 'ON',
-         postalCode: 'M4M 3G9',
-        },
-        latitude: 43.6615414,
-        longitude: -79.3467604,
-        businessTags: [],
-        stripeID: '12b',
-        description:'Quikit Market offers basic groceries, snacks, beverages, home supplies, and tobacco products. We’re a quick and convenient stop for your spur of the moment needs.',
-        hours:{
-         "Monday": [],
-         "Tuesday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Wednesday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Thursday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Friday":[
-            {
-               start: 720,
-               end: 900,
-            },
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Saturday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ],
-         "Sunday":[
-            {
-               start: 1050,
-               end: 1350,
-            }
-         ]
-       },
-       status:{
-         pending: false,
-         approved: true,
-         deactivated: false
-         },
-     },
+// {
+//         businessID: '12b',
+//         businessName: 'Quikit Market',
+//         dateEstablished: '2000-01-01',
+//         phoneNumber: '416-130-000',
+//         website: 'quikitmarket.ca',
+//         businessType: 'retail',
+//         businessSubtype: 'convenience',
+//         emailAddress:'quikitmarket@gmail.com',
+//         address: {
+//          streetName: 'Queen St',
+//          buildingNumber: '870',
+//          unitNumber: '',
+//          city: 'Toronto',
+//          region: 'ON',
+//          postalCode: 'M4M 3G9',
+//         },
+//         latitude: 43.6615414,
+//         longitude: -79.3467604,
+//         businessTags: [],
+//         stripeID: '12b',
+//         description:'Quikit Market offers basic groceries, snacks, beverages, home supplies, and tobacco products. We’re a quick and convenient stop for your spur of the moment needs.',
+//         hours:{
+//          "Monday": [],
+//          "Tuesday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Wednesday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Thursday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Friday":[
+//             {
+//                start: 720,
+//                end: 900,
+//             },
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Saturday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ],
+//          "Sunday":[
+//             {
+//                start: 1050,
+//                end: 1350,
+//             }
+//          ]
+//        },
+//        status:{
+//          pending: false,
+//          approved: true,
+//          deactivated: false
+//          },
+//      },
 //Bloor West Village
 
 {
@@ -1347,7 +1348,7 @@ db.mongobusinesses.insertMany( [
         longitude: -79.483675,
         businessTags: [],
         stripeID: '16b',
-        description:'Lovely is committed to offering a fine dining experience that is perfect no matter that occasion. Our menu is updated seasonally by Chef Charbonneau and his dedicated staff. Our space boasts exposed brick, chestnut beaming, candlelight, and two hearths making it a perfect spot to enjoy magnificent foods and libations in extraordinarily beautiful and comfortable setting',
+        description:'Lovely is committed to offering a fine dining experience that is perfect no matter that occasion. Our menu is updated seasonally by Chef Charbonneau and his dedicated staff. Our space boasts exposed brick, chestnut beaming, candlelight, and two hearths making it a perfect spot to enjoy magnificent foods and libations in extraordinarily beautiful and comfortable setting.',
         hours:{
          "Monday": [],
          "Tuesday":[
@@ -1431,7 +1432,7 @@ db.mongobusinesses.insertMany( [
          },
      },
     {
-        pocketID: '3p',
+        pocketID: '4p',
         pocketName: 'Bloor West Village',
         region: 'Toronto',
         description: 'Experience the Bloor West Village lifestyle, a small village in a big city!  Widely recognized as one of Toronto’s most popular dining and shopping districts, here you’ll find a great mix of over 400 cafes and tea rooms, pubs and restaurants, distinctive European bakeries and delicatessens, boutique retail shops and service providers.  ',
@@ -1441,17 +1442,17 @@ db.mongobusinesses.insertMany( [
          deactivated: false
          },
      },
-     {
-      pocketID: '4p',
-      pocketName: 'Riverside',
-      region: 'Toronto',
-      description: 'Come and explore Riverside neighbourhood: Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions – just across the bridge from Toronto’s downtown core along Queen Street East from the iconic Queen Street Viaduct (‘Riverside Bridge‘) to just east of the world famous De Grassi Street.',
-      status:{
-       pending: false, 
-       approved: true, 
-       deactivated: false
-       },
-   }
+   //   {
+   //    pocketID: '3p',
+   //    pocketName: 'Riverside',
+   //    region: 'Toronto',
+   //    description: 'Come and explore Riverside neighbourhood: Toronto’s small town in the big city. Rich in culture, heritage, and art, the area has tons of unique eateries, cafes, shops and attractions – just across the bridge from Toronto’s downtown core along Queen Street East from the iconic Queen Street Viaduct (‘Riverside Bridge‘) to just east of the world famous De Grassi Street.',
+   //    status:{
+   //     pending: false, 
+   //     approved: true, 
+   //     deactivated: false
+   //     },
+   // }
 ])
 
 db.mongocompetitions.insertMany([

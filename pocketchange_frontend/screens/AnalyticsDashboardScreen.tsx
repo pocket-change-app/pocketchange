@@ -4,10 +4,10 @@ import { SearchBar } from '@rneui/base';
 import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import gold from '../constants/Colors';
-import { DivHeader, BusinessCardSm, ButtonWithText } from '../components/Cards';
+import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../components/Cards';
 import { colors, colorScale } from '../constants/Colors';
 
-import { analytics } from '../dummy';
+import { merchantAnalytics, leaderAnalytics } from '../dummy';
 
 import { useState, useContext } from 'react';
 import * as V from 'victory-native';
@@ -26,6 +26,13 @@ export default function AnalyticsDashboardScreen() {
 
   const authContext = useContext(AuthContext); 
 
+  let allAnalytics;
+  if (authContext.activeRole.type === "LEADER") {
+    allAnalytics = leaderAnalytics;
+  } else {
+    allAnalytics = merchantAnalytics;
+  }
+
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)
   } */ 
@@ -34,7 +41,7 @@ export default function AnalyticsDashboardScreen() {
     setSearchQuery(text)
     setSearchResults(() => {
         const formattedQuery = text.toLowerCase().trim()
-        const results = analytics.map((section) => 
+        const results = allAnalytics.map((section) => 
           ({
             sectionTitle: section.sectionTitle,
             data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
@@ -68,7 +75,7 @@ export default function AnalyticsDashboardScreen() {
       <ScreenContainer>
       
         <SectionList
-          sections={searchQuery ? searchResults : analytics}
+          sections={searchQuery ? searchResults : allAnalytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={({ section: { sectionTitle } }) => (
@@ -103,6 +110,8 @@ export default function AnalyticsDashboardScreen() {
 }
 
 export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
+
+  const authContext = useContext(AuthContext); 
 
   function renderChart() {
     if (type == 'bar') {
@@ -180,7 +189,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].numCustomers}
             </Text>
             <Text style={{color: colors.medium}}>
-              {" customers used PocketChange at La Paella."} 
+              {" customers used PocketChange at Sweet Life."} 
             </Text>
           </Text>
           <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
@@ -199,7 +208,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].pocketShare}%
             </Text>
             <Text style={{color: colors.medium}}>
-              {" of Leslieville Pocket members visited La Paella"}
+              {" of Uptown Yonge Pocket members visited Sweet Life."}
             </Text>
           </Text>
       </>
@@ -215,7 +224,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
             {data[0].numCustomers}
           </Text>
           <Text style={{color: colors.medium}}>
-            {" PocketChange users in Leslieville"} 
+            {" PocketChange users in Uptown Yonge"} 
           </Text>
         </Text>
         <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
@@ -232,7 +241,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
         
         </>
       );
-    }else if (type == 'text-sales') {
+    } else if (type == 'text-sales') {
       return (
         <View>
           <View style={{flexDirection: 'row'}}>
@@ -319,14 +328,14 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       );
     } else if (type == 'list-similar-businesses') {
       const listItems = data.map(
-        (item) => <BusinessCardSm navigation={undefined} business={item} pocket={"Leslieville"}/>
+        (item) => <BusinessCardSm navigation={undefined} business={item} showPocket/>
       );
       return (
         <View>{listItems}</View>
       );
     } else if (type == 'list-top-customers') {
       const listItems = data.map(
-        (item) => <Text>{item}</Text>
+        (item) => <UserCardSm user={item}/>
       );
       return (
         <View>{listItems}</View>

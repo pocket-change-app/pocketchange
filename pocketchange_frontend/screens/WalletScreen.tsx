@@ -2,7 +2,7 @@ import { ActivityIndicator, ScrollView } from 'react-native';
 
 import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
-import { BalancesCard, IdCard, TransactionHistoryCard } from '../components/Cards';
+import { BalancesCard, IdCard, HistoryCard } from '../components/Cards';
 import { user } from '../dummy';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
 import { useContext } from 'react';
@@ -17,10 +17,46 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
   
-  const userID = '1c' // change to get id from authContext
+  const userID = authContext.userFirebase.uid // change to get id from authContext
   const { allTransactions, loading: transactionLoading, error: transactionError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: userID, pocketID: undefined } });
-  
+
+  const allScans = user.scans
+
+
+  // Construct list of all transactions and scans
+  let allItems = []
+  for (var i in allTransactions) {
+    const t = allTransactions[i]
+    const dateSecs = new Date(t.date).getTime()
+    allItems.push(
+      {
+        scan: null,
+        transaction: t,
+        dateSecs: dateSecs
+      }
+    )
+    console.log(t.date)
+    console.log(console.log(dateSecs))
+  }
+  for (var i in allScans) {
+    const s = allScans[i]
+    const dateSecs = new Date(s.date).getTime()
+    allItems.push(
+      {
+        scan: allScans[i],
+        transaction: null,
+        dateSecs: dateSecs
+      }
+    )
+    console.log(s.date)
+    console.log(dateSecs);
+
+  }
+
+  // Sort by date
+  allItems.sort((a, b) => (a.dateSecs - b.dateSecs))
+
   if (transactionError) console.log(transactionError);
   if (changeBalanceError) console.log(changeBalanceError);
 
@@ -34,7 +70,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           user={authContext.userGQL}/>
         {// TODO: connect to change balance resolver
         }
-        {changeBalanceData ?
+        {/* {changeBalanceData ?
           <BalancesCard
             changeTotal={user.changeTotal}
             allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
@@ -44,12 +80,12 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
               color={colors.subtle}
               style={{ margin: 10 }} />
           </View>
-        }
+        } */}
         
         
-        <TransactionHistoryCard
+        <HistoryCard
           navigation={navigation}
-          transactions={allTransactions}
+          items={allItems}
           loading={transactionLoading}
         />
         <View style={{ height: MARGIN }} />

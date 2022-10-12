@@ -82,32 +82,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
 
       <ScreenContainer>
 
-      <View style={{padding: MARGIN,}}>
-      
-      <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{business.businessName}</Text>
-        <Text style={styles.address}>{business.address.buildingNumber} { business.address.streetName}</Text>
-        <Text style={styles.pocket}>{"Leslieville"}</Text> 
-
-        {/* <Pressable style={styles.payButton}
-          onPress={() => (navigation.navigate('PaymentModalStack', {
-            screen: "PayAmount",
-            params: {
-              // navigation: navigation,
-              business: business,
-            }
-            // businessID: business.businessID,
-            // name: business.name,
-            // address: business.address,
-            // pocket: business.pocket,
-            // imageURL: business.imageURL,
-          }))}
-        >
-          <Text style={styles.payButtonText}>NEW TRANSACTION</Text>
-        </Pressable> */}
-
-      </View>
-    </View>
+    
 
     
         {isNilOrEmpty(allTransactions) ? null : <>

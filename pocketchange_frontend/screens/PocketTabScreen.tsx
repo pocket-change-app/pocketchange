@@ -34,7 +34,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
 
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getAllPockets, { variables: { } });
-  if (pocketError) return <Text>{pocketError}</Text>;
+  if (pocketError) return <Text>{pocketError.message}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
   
  
