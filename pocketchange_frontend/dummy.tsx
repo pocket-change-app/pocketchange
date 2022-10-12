@@ -469,7 +469,7 @@ export const transactions = [
   },
 ]
 
-export const analytics = [
+export const merchantAnalytics = [
   {
     sectionTitle: "Favourites",
     data: [{
@@ -527,11 +527,57 @@ export const analytics = [
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
-          "Cole C.",
-          "Mica C.",
-          "Siku C.",
-          "Mia S.",
-          "Kanye W."
+          {
+            userID: '1c',
+            firstName: 'Hugo',
+            lastName: 'Hale',
+            birthDate: '1997-03-11',
+            totalChange: 30.00,
+            emailAddress:'hugo@gmail.com',
+            home: 'Riverside',
+            deactivated: false,
+         },
+         {
+            userID: '2c',
+            firstName: 'Elias',
+            lastName: 'Williams',
+            birthDate: '1998-12-16',
+            totalChange: 40.50,
+            emailAddress:'elias@gmail.com',
+            home: 'Leslieville',
+            deactivated: false,
+         },
+         {
+            userID: '3c',
+            firstName: 'Dewmi',
+            lastName: 'Seneviratna',
+            birthDate: '1999-03-01',
+            totalChange: 14.30,
+            emailAddress:'dewmi@gmail.com',
+            home: 'North York',
+            deactivated: false,
+         },
+         {
+            userID: '4c',
+            firstName: 'Cole',
+            lastName: 'Charboneau',
+            birthDate: '1999-05-16',
+            totalChange: 10.15,
+            emailAddress:'cole@gmail.com',
+            home: 'Outside Toronto',
+            deactivated: false,
+         },
+         {
+            userID: '5c',
+            firstName: 'Mica',
+            lastName: 'Consens',
+            birthDate: '1999-05-27',
+            totalChange: 8.50,
+            emailAddress:'mica@gmail.com',
+            home: 'Leslieville',
+            deactivated: false,
+         },
+      
         ]
       },
     ],
@@ -590,7 +636,7 @@ export const analytics = [
         ]
       },
       {
-        title: "Foot Traffic in Leslieville",
+        title: "Foot Traffic in Uptown Yonge",
         type: "bar",
         rangeName: 'PAST 2 WEEKS',
         startDate: "9/16/2022",
@@ -618,7 +664,150 @@ export const analytics = [
         type: "list-similar-businesses",
         startDate: "9/16/2022",
         endDate: "9/16/2022",
-        data: businesses.slice(0, 3)
+        data: [
+
+          {
+              businessID: '6b',
+              businessName: 'Pop’s',
+              dateEstablished: '1950-01-01',
+              phoneNumber: '416-200-000',
+              website: 'popsdiner.ca',
+              businessType: 'restaurant',
+              businessSubtype: 'diner',
+              emailAddress:'popsdiner@gmail.com',
+              address: {
+              streetName: 'Mt Pleasant Ave',
+              buildingNumber: '375',
+              unitNumber: '',
+              city: 'Toronto',
+              region: 'ON',
+              postalCode: 'M4W 3X8',
+              },
+              latitude: 43.6918958,
+              longitude: -79.3907481,
+              businessTags: [],
+              stripeID: '6b',
+              description: 'A long time staple of the neighbourhood, we’ve been supplying quick and easy food to loyal customers for over 70 years. There may be a fresh coat of paint on our walls, but we’re still Pop’s!',
+              hours:{
+              "Monday": [],
+              "Tuesday":[
+                  {
+                    start: 600,
+                    end: 900,
+                  }
+              ],
+              "Wednesday":[
+                  {
+                    start: 600,
+                    end: 900,
+                  }
+              ],
+              "Thursday":[
+                  {
+                    start: 600,
+                    end: 900,
+                  }            
+              ],
+              "Friday":[
+                  {
+                    start: 600,
+                    end: 900,
+                  },
+                  {
+                    start: 1020,
+                    end: 1350,
+                  }
+              ],
+              "Saturday":[],
+              "Sunday":[]
+            },
+            status:{
+              pending: false,
+              approved: true,
+              deactivated: false
+              },
+          },
+  
+          {
+          businessID: '8b',
+          businessName: 'Coffee Time',
+          dateEstablished: '2015-01-01',
+          phoneNumber: '416-800-000',
+          website: 'coffeetime.ca',
+          businessType: 'restaurant',
+          businessSubtype: 'cafe',
+          emailAddress:'coffeetime@gmail.com',
+          address: {
+           streetName: 'Yonge St',
+           buildingNumber: '1414',
+           unitNumber: '',
+           city: 'Toronto',
+           region: 'ON',
+           postalCode: 'M4T 1Y5',
+          },
+          latitude: 43.686082,
+          longitude: -79.3983702,
+          businessTags: [],
+          stripeID: '8b',
+          description:'Amazing cups of coffee for everyone’s morning ritual. Enjoy our meticulously brewed espresso drinks and house coffee in a cozy atmosphere. We also have decaf and tea for you aliens :).',
+          hours:{
+           "Monday": [],
+           "Tuesday":[
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ],
+           "Wednesday":[
+              {
+                 start: 720,
+                 end: 900,
+              },
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ],
+           "Thursday":[
+              {
+                 start: 720,
+                 end: 900,
+              },
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ],
+           "Friday":[
+              {
+                 start: 720,
+                 end: 900,
+              },
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ],
+           "Saturday":[
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ],
+           "Sunday":[
+              {
+                 start: 1050,
+                 end: 1350,
+              }
+           ]
+         },
+         status:{
+           pending: false,
+           approved: true,
+           deactivated: false
+           },
+          },
+        ]
       },
 
     ],
@@ -682,11 +871,57 @@ export const leaderAnalytics = [
         startDate: "9/16/2022",
         endDate: "9/16/2022",
         data: [
-          "Cole C.",
-          "Mica C.",
-          "Siku C.",
-          "Mia S.",
-          "Kanye W."
+          {
+            userID: '1c',
+            firstName: 'Hugo',
+            lastName: 'Hale',
+            birthDate: '1997-03-11',
+            totalChange: 30.00,
+            emailAddress:'hugo@gmail.com',
+            home: 'Riverside',
+            deactivated: false,
+         },
+         {
+            userID: '2c',
+            firstName: 'Elias',
+            lastName: 'Williams',
+            birthDate: '1998-12-16',
+            totalChange: 40.50,
+            emailAddress:'elias@gmail.com',
+            home: 'Leslieville',
+            deactivated: false,
+         },
+         {
+            userID: '3c',
+            firstName: 'Dewmi',
+            lastName: 'Seneviratna',
+            birthDate: '1999-03-01',
+            totalChange: 14.30,
+            emailAddress:'dewmi@gmail.com',
+            home: 'North York',
+            deactivated: false,
+         },
+         {
+            userID: '4c',
+            firstName: 'Cole',
+            lastName: 'Charboneau',
+            birthDate: '1999-05-16',
+            totalChange: 10.15,
+            emailAddress:'cole@gmail.com',
+            home: 'Outside Toronto',
+            deactivated: false,
+         },
+         {
+            userID: '5c',
+            firstName: 'Mica',
+            lastName: 'Consens',
+            birthDate: '1999-05-27',
+            totalChange: 8.50,
+            emailAddress:'mica@gmail.com',
+            home: 'Leslieville',
+            deactivated: false,
+         },
+      
         ]
       },
     ],

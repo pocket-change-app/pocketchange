@@ -42,7 +42,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   };
 
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
-  if (changeBalanceError) return <Text>{changeBalanceError}</Text>;
+  if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
   if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
@@ -74,10 +74,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   <PocketDetailCard
                     navigation={navigation}
                     pocket={pocket} />
-
+                  {(pocket.pocketID === "2p") ? 
                   <CompetitionCard
                     navigation={navigation}
-                    competition={snapItUp} />
+                    competition={snapItUp} /> : null}
                   
                   {changeBalanceData.getAllChangeBalances.length != 0 ?
                   <ChangeBalanceCard

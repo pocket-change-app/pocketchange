@@ -8,6 +8,8 @@ import { colors } from '../constants/Colors';
 import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import PocketQueries from '../hooks-apollo/Pocket/queries'
+import UserQueries from '../hooks-apollo/User/queries'
+
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -160,6 +162,8 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 export function BusinessCardSm({ navigation, business, showPocket = true }: { navigation: any, business: any, showPocket: boolean }) {
   const [imageURL, setImageURL] = useState();
 
+  console.log(business)
+
   useEffect(() => {
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
@@ -170,13 +174,15 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Business', {
-        // navigation: navigation,
-        business: business,
-        pocket: pocketData.getBusinessPockets[0]
-
-      })}
-    >
+      onPress={() => {
+        navigation ?
+        navigation.navigate('Business', {
+          // navigation: navigation,
+          business: business,
+          pocket: pocketData.getBusinessPockets[0]})
+        : null
+    }
+    }>
       <View style={[styles.card, styles.businessListItemCard]}>
 
         <View style={styles.businessListImageContainer}>
@@ -838,10 +844,8 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('TransactionModal', {
-        user,
-        transaction
-      })}
+      onPress={() => null//navigation.navigate('TransactionModal', {user,transaction})
+    }
     >
       <View style={styles.transactionListed}>
 
@@ -935,7 +939,7 @@ export function UserCardSm({ user }: any) {
   return (
     
         <View style={styles.container}>
-          <View style={{ flexDirection: 'row', width: 150, justifyContent: 'center'}}>
+          <View style={{ flexDirection: 'row', width: 100}}>
               <Image
                 style={[styles.idImage, {width: 30, height: 30, marginLeft: 0}]}
           source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
@@ -980,11 +984,11 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
   function makeLabel(r: Role): string {
     let label: string = ''
     if (r.type === RoleType.Consumer) {
-      label = r.type
+      label = r.type?.toLowerCase()
     } else if (r.type === RoleType.Merchant) {
-      label = r.level + ' at ' + r.entityName
+      label = r.level?.toLowerCase() + ' of ' + r.entityName?.toLowerCase()
     } else if (r.type === RoleType.Leader) {
-      label = r.type + ' of ' + r.entityName
+      label = r.type?.toLowerCase() + ' of ' + r.entityName?.toLowerCase()
     }
     return label
   }
@@ -1002,7 +1006,7 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
     <DropDownPicker
       style={styles.card}
       dropDownContainerStyle={styles.card}
-      textStyle={styles.settingText}
+      textStyle={[styles.settingText, {textTransform: 'capitalize'}]}
       itemSeparator
       itemSeparatorStyle={styles.horizontalLine}
 

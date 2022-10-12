@@ -13,7 +13,7 @@ import { styles } from '../Styles';
 
 import TransactionModalScreen from '../screens/TransactionModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import LeaderAnalyticsScreen from '../screens/LeaderAnalyticsScreen';
+import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
 import CompetitionsTabScreen from '../screens/CompetitionsTabScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
@@ -110,7 +110,7 @@ function CompetitionsStack() {
 function AnalyticsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='LeaderAnalytics'
+      initialRouteName='MerchantAnalytics'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -120,8 +120,8 @@ function AnalyticsStack() {
       }}
     >
       <Stack.Screen
-        name="LeaderAnalytics"
-        component={LeaderAnalyticsScreen}
+        name="MerchantAnalytics"
+        component={AnalyticsDashboardScreen}
         options={{
           title: 'Pocket Analytics'
         }}

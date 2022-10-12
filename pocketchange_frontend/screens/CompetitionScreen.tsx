@@ -19,7 +19,7 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
 
      
       <FlatList
-        contentContainerStyle={styles.container}
+        contentContainerStyle={[styles.container]}
         ListHeaderComponent={() => {
           return (
             <>

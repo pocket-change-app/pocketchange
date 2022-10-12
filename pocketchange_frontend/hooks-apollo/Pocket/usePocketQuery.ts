@@ -22,5 +22,5 @@ export default function usePocketQuery(
     }
   }, [data])
 
-  return {pocket, loading, refetch}
+  return {pocket, loading, refetch, error}
 }
