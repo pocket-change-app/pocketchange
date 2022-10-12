@@ -56,7 +56,7 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
             setErrorMsg('Permission to access location was denied');
             return;
           }
-
+        
         let locationTemp = await Location.getCurrentPositionAsync({});
         setLocation(locationTemp);
         setLocationLoading(false)
@@ -65,7 +65,6 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
     
     const handleBarCodeScanned = async ({ type, data }) => {
         console.log("QR FOUND")
-        setLocationLoading(true);
         if (!isNull(location)) {
             setLocationLoading(false);
             console.log("LOCATION SCAN:", location)
@@ -79,6 +78,8 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
                     businessID: data,
                     
             }})
+        } else {
+            setLocationLoading(true)
         }
         
     };
@@ -96,7 +97,9 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
       <>
             
             {locationLoading ? 
-                <ActivityIndicator size="large" color={colors.subtle} style={{ marginTop: 300 }} /> : 
+            <View>
+                <ActivityIndicator size="large" color={colors.subtle} style={{ marginTop: 300 }} />
+                <Text>Checking your location...</Text></View> : 
                 scanned ?
                     <View style={[styles.container,{marginTop:400}]}>
                         <ButtonWithText text="Scan Again" onPress={() => setScanned(false)}/>
