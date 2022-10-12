@@ -493,7 +493,7 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation, allTransactions, allQRScans }: { navigation: any, allTransactions: any, allQRScans: any, loading: boolean }) {
+export function HistoryCard({ navigation, allTransactions, allQRScans, loading }: { navigation: any, allTransactions: any, allQRScans: any, loading: boolean }) {
 
 
   // Construct list of all transactions and scans
@@ -556,7 +556,7 @@ export function HistoryCard({ navigation, allTransactions, allQRScans }: { navig
         // contentContainerStyle={styles.businessFlatList}
         scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
-        data={items}
+        data={allItems}
         renderItem={renderItem}
         ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
       />
@@ -922,36 +922,20 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
           </Text>
         </View>
 
-        <HorizontalLine />
-
-        <View style={styles.container}>
-          <Text style={[styles.prose, {lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5}]}>You have <Text style={{fontFamily: 'metropolis black'}}>{scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />  : scansData.getAllQRScans.length} entries</Text> <Text>✅</Text> Keep it up! </Text>
-          <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center',}]}>Contest ends {"Dec 31st"}. Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text></Text>
-          {showDetailedView ? <></> : <Text style={[styles.prose, {lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle}]}>See Details <FontAwesome name="angle-right"/> </Text>}
-        </View>
-
-        {showDetailedView ? (
-          <>
-        <HorizontalLine />
-
-        <View style={styles.container}>
-          <Text style={styles.prose}>
-            {description}
-          </Text>
-        </View>
-          </>
-        ) : (
-          <></>
-        )}
 
         <HorizontalLine />
 
         <View style={styles.container}>
-          <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>You have <Text style={{ fontFamily: 'metropolis black' }}>{4} entries</Text> <Text>✅</Text> Keep it up! </Text>
+          <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>You have <Text style={{ fontFamily: 'metropolis black' }}>{scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />  : scansData.getAllQRScans.length} entries</Text> <Text>✅</Text> Keep it up! </Text>
           <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
             {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
           </Text>
-          {showDetailedView ? <></> : <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>See Details <FontAwesome name="angle-right" /> </Text>}
+          {showDetailedView ? <View style={styles.container}>
+            <Text style={styles.prose}>
+            {description}
+            </Text>
+          </View> : 
+          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', marginTop: 7, color: colors.subtle }]}>See Details <FontAwesome name="angle-right" /> </Text>}
         </View>
 
 

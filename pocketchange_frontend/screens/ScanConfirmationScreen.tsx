@@ -17,13 +17,13 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { businessID } = route.params;
+  const { business } = route.params;
   const dateTimeString = route.params.date
   // console.log(dateTimeString);
 
   const dateTime = new Date(dateTimeString)
 
-  const { business, loading, error } = useBusinessQuery(businessID)
+  //const { business, loading, error } = useBusinessQuery(businessID)
 
 
   // console.log(dateTime)
@@ -76,8 +76,7 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
             <View style={{ marginVertical: 2 * MARGIN }}>
               <Text style={styles.payConfirmationBusiness}>
-                {loading ? business.businessName : null}
-                {isNull(error) ? error : null}
+                {business.businessName}
               </Text>
             </View>
 
