@@ -103,7 +103,22 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
                     <View></View>
                     <FontAwesome style={{ fontSize: 200, textAlign: 'center', color: colors.light }} name='qrcode' />
                     <ButtonWithText text="Scan Again" onPress={() => setScanned(false)} />
+                    
                 </View>
+                <View style={styles.container}>
+                    <ButtonWithText color={colors.gold} text="Pretend We're at This Business" onPress={() => {
+                        const loc1b = {
+                            coords: {
+                                latitude: 43.6688949,
+                                longitude: -79.3307535,
+                            }
+                        }
+                        setLocation(loc1b)
+                    }} />
+                </View>
+                <View>
+                
+             </View>
                 </ScreenContainer> :
                 <BarCodeScanner
                     barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
@@ -119,6 +134,9 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
                         <Text style={[styles.cardHeaderText,{margin:10}]}>Hold while location is verified...</Text>
                     </View>
                 </View> : null}
+
+
+            
       </>
         // </ScreenContainer>
     );

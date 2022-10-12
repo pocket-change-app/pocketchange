@@ -528,7 +528,7 @@ export function HistoryCard({ navigation, allTransactions, allQRScans, loading }
   }
 
   // Sort by date
-  allItems.sort((a, b) => (a.dateSecs - b.dateSecs))
+  allItems.sort((a, b) => (b.dateSecs - a.dateSecs))
 
   const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <>
