@@ -12,7 +12,6 @@ module.exports = {
         if (QRScanID === '') {
           return null;
         }
-        console.log(QRScan, QRScanID)
         //get the relevant info
         const QRScanInfo = await QRScan.findOne({ where : {QRScanID: QRScanID}});
         if(QRScanInfo){
@@ -30,6 +29,21 @@ module.exports = {
             return {};
           }
     },
+    getAllQRScans: async (parent, { userID }, { QRScan}) => {
+        //check to make sure nonempty QRScan was given
+        if (userID === '') {
+        return null;
+        }
+        //get the relevant info
+        const QRScanInfo = await QRScan.findAll({ where : {userID: userID}});
+        if(QRScanInfo){
+            return QRScanInfo
+        }
+        else {
+            throw new ApolloError(`This QRScan:${QRScan} does not exist`);
+            return {};
+        }
+      },
   },
 
   Mutation: {

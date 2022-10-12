@@ -17,6 +17,7 @@ module.exports = gql`
         Query a specific QRScan from it's ID
         """
         QRScan(QRScanID: ID): QRScan
+        getAllQRScans(userID: ID): [QRScan]
       }
       type Mutation {
         """

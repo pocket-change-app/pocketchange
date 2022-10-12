@@ -28,6 +28,7 @@ module.exports = {
               endDate: competitionInfo.dataValues.endDate,
               competitionName: mongoCompetitionInfo.competitionName, 
               description: mongoCompetitionInfo.description, 
+              winner: mongoCompetitionInfo.winner, 
               status:mongoCompetitionInfo.status, 
             }
           }
@@ -61,12 +62,13 @@ module.exports = {
             pocketID: pocketID,
             prizeValue: prizeValue,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
         });
           const newMongoComp = await mongoCompetition.create({ 
             competitionID: newComp.competitionID, 
             competitionName: competitionName,
             description: description,
+            winner: null,
             status: {
               pending: true,
               approved: false,
@@ -82,6 +84,7 @@ module.exports = {
             endDate: newComp.dataValues.endDate,
             competitionName: newMongoComp.competitionName, 
             description: newMongoComp.description, 
+            winner: newMongoComp.winner, 
             status:newMongoComp.status, 
           }
         } else {
@@ -133,8 +136,20 @@ module.exports = {
               },
             })
           const mongoCompetitionInfo = await mongoCompetition.findOne({ competitionID: competitionID })
+          const competitionInfo = await Competition.findOne({where:{ competitionID: competitionID }})
           console.log(mongoCompetitionInfo)
-          return(mongoCompetitionInfo)
+          return {
+            //return values described for business
+            competitionID: mongoCompetitionInfo.competitionID, 
+            pocketID: competitionInfo.dataValues.pocketID,
+            prizeValue: competitionInfo.dataValues.prizeValue,
+            startDate: competitionInfo.dataValues.startDate,
+            endDate: competitionInfo.dataValues.endDate,
+            competitionName: mongoCompetitionInfo.competitionName, 
+            description: mongoCompetitionInfo.description, 
+            winner: mongoCompetitionInfo.winner, 
+            status:mongoCompetitionInfo.status, 
+          }
         }
         else {
           throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')

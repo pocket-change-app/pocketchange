@@ -12,4 +12,15 @@ export default {
             }
         }
     `,
+    getAllQRScans: gql`
+        query getAllQRScans($userID: ID){
+            getAllQRScans(userID: $userID) {
+                QRScanID
+                userID
+                businessID
+                geolocationID
+                date
+            }
+        }
+    `,
 }
