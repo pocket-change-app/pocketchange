@@ -176,20 +176,20 @@ INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude,
 INSERT INTO geolocations (geolocationID, userID, timestamp, latitude, longitude, createdAt, updatedAt) VALUES ("20geo","1c", "2022-08-06 13:20:15", 43.685118, -79.3949814, "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 
 -- insert QR scan
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR1", "1c",  "1b", "7geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR2", "2c", "1b", "8geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR3", "4c", "13b", "9geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR4", "4c", "4b", "10geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR5", "3c", "1b", "11geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR6", "5c", "2b", "12geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR7", "1c", "3b", "13geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR8", "2c", "7b", "14geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR9", "1c", "6b", "15geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR10", "4c", "4b", "16geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR11", "2c", "6b", "17geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR12", "1c", "7b", "18geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR13", "2c", "6b", "19geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
-INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR14", "1c", "7b", "20geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR1", "QwduOsS2eBPOAFmVG69anKXIfGC3",  "1b", "7geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR2", "QwduOsS2eBPOAFmVG69anKXIfGC3", "1b", "8geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR3", "QwduOsS2eBPOAFmVG69anKXIfGC3", "13b", "9geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR4", "QwduOsS2eBPOAFmVG69anKXIfGC3", "4b", "10geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR5", "QwduOsS2eBPOAFmVG69anKXIfGC3", "1b", "11geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR6", "QwduOsS2eBPOAFmVG69anKXIfGC3", "2b", "12geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR7", "QwduOsS2eBPOAFmVG69anKXIfGC3", "3b", "13geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR8", "QwduOsS2eBPOAFmVG69anKXIfGC3", "7b", "14geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR9", "QwduOsS2eBPOAFmVG69anKXIfGC3", "6b", "15geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR10", "QwduOsS2eBPOAFmVG69anKXIfGC3", "4b", "16geo", "2022-08-04 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR11", "QwduOsS2eBPOAFmVG69anKXIfGC3", "6b", "17geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR12", "QwduOsS2eBPOAFmVG69anKXIfGC3", "7b", "18geo", "2022-08-05 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR13", "QwduOsS2eBPOAFmVG69anKXIfGC3", "6b", "19geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR14", "QwduOsS2eBPOAFmVG69anKXIfGC3", "7b", "20geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 
 -- insert into competition
 INSERT INTO competitions (competitionID, prizeValue, pocketID, startDate, endDate, createdAt, updatedAt) VALUES ("1comp", 500.00, "2p", "2022-07-11 10:22:11", "2022-08-11 10:22:11", "2022-06-04 9:22:11", "2022-06-04 9:22:11");

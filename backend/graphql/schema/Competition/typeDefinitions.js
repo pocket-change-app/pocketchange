@@ -13,6 +13,7 @@ module.exports = gql`
       competitionName: String
       description: String
       status:Status
+      winner: String
     }
 
     type Status{
