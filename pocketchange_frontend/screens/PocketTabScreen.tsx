@@ -21,11 +21,11 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   const authContext = useContext(AuthContext); 
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState()
+  const [pocketSearchResults, setPocketSearchResults] = useState()
 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
-    setSearchResults(() => {
+    setPocketSearchResults(() => {
       const formattedQuery = text.toLowerCase().trim()
       const results = pocketData.getAllPockets.filter(p => p.pocketName.toLowerCase().includes(formattedQuery))
       return results
@@ -71,7 +71,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
           // ItemSeparatorComponent={PocketListSeparator}
 
-          data={searchResults}
+          data={pocketSearchResults}
           renderItem={({ item, index, separators }) => (
             <PocketSearchResult
               key={item.pocketID}
