@@ -8,8 +8,8 @@ import { ScreenContainer } from '../components/Themed';
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, CompetitionCard, DivHeader, PocketDetailCard } from '../components/Cards';
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
-import * as R from 'ramda';
-import React, { useContext, useState } from 'react';
+import * as R from 'ramda-adjunct';
+import React, { useContext, useEffect, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 
@@ -30,16 +30,22 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const {allBusinesses, loading} =  useGetAllBusinessesQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState(allBusinesses)
 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = allBusinesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
-      return results
-    })
-  };
+  const searchResults = allBusinesses.filter(
+    b => b.businessName.toLowerCase().includes(
+      searchQuery.toLowerCase().trim()
+    )
+  )
+
+// function searchFilter(text: string) {
+//   const formattedQuery = text.toLowerCase().trim()
+//   return (
+//     allBusinesses.filter(
+//       b => b.businessName.toLowerCase().includes(formattedQuery)
+//     )
+//   )
+// }
+
 
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
   if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
@@ -55,9 +61,11 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     />
 
   )
-  if(R.isNil(allBusinesses) ){
-    return null
-  }
+
+  // useEffect(() => {
+  //   updateSearch('')
+  // }, [loading])
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -93,7 +101,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
             }
           }}
           contentContainerStyle={styles.businessFlatList}
-          data={allBusinesses}
+          data={searchResults}
           renderItem={renderBusinessCard}
           ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
         />
@@ -108,7 +116,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
         placeholder={'Search ' + pocket.pocketName}
         placeholderTextColor={colors.subtle}
 
-        onChangeText={updateSearch}
+        onChangeText={setSearchQuery}
         onClear={() => null}
         value={searchQuery}
       />
