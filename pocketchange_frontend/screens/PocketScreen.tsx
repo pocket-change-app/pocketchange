@@ -54,7 +54,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
     <BusinessCardSm
-      key={item.businessID}
+      // key={item.businessID}
       navigation={navigation}
       business={item}
       showPocket={false}
