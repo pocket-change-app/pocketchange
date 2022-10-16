@@ -102,9 +102,20 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
 
           <Pressable style={[styles.buttonBordered, { flex: 1 }]}
             onPress={() => {
-              const destination = encodeURIComponent(`${business.address}, $Toronto, Canada`);
+              const dString =
+                `${business.address.buildingNumber}`
+                + ` ${business.address.streetName}`
+                + (business.address.unitName ? ` ${business.address.unitName}` : '')
+                + ` ${business.address.city}`
+                + ` ${business.address.region},`
+                + ` ${business.address.postalCode}`
+
+              const destination = encodeURIComponent(dString);
               const provider = Platform.OS === 'ios' ? 'apple' : 'google'
               const link = `http://maps.${provider}.com/?q=${destination}`
+
+              // console.log(`${Object.values(business.address)}`);
+              // console.log(dString);
 
               Linking.openURL(link)
             }
