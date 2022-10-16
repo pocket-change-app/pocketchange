@@ -226,7 +226,7 @@ export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: an
   );
 }
 
-export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
 
   const [imageURL, setImageURL] = useState();
 
@@ -330,7 +330,7 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
   );
 }
 
-export function PocketListSeparator() {
+export function PocketCarouselSeparator() {
   return (
     <View style={{ width: MARGIN }} />
   )

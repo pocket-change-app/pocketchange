@@ -2,7 +2,7 @@ import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, P
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
-import { BusinessCardSm, PocketListCard, PocketListSeparator, PocketSearchResult } from "../components/Cards";
+import { BusinessCardSm, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { ScreenContainer } from '../components/Themed';
 import React, { useContext, useState } from 'react';
@@ -93,11 +93,11 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           snapToAlignment='start'
           snapToInterval={Dimensions.get('window').width - (2 * POCKET_CARD_SCREEN_MARGIN - MARGIN)}
 
-          ItemSeparatorComponent={PocketListSeparator}
+          ItemSeparatorComponent={PocketCarouselSeparator}
 
           data={pocketData.getAllPockets}
           renderItem={({ item, index, separators }) => (
-            <PocketListCard
+            <PocketCarouselCard
               key={item.pocketID}
               navigation={navigation}
               pocket={item}
