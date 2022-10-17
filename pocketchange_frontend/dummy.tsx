@@ -5,66 +5,68 @@ import { RoleLevel, RoleType } from "./contexts/Auth";
 
 //// CONTESTS ////
 
-export const snapItUp = {
-  contestID: '000',
-  contestName: 'Snap it UP!',
-  description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
-  startDate: '05-05-2022',
-  endDate: '12-12-2022',
-  prizeValue: 500.00,
-  participants: [
-    {
-      userID: '1c',
-      firstName: 'Hugo',
-      lastName: 'Hale',
-      birthDate: '1997-03-11',
-      totalChange: 30.00,
-      emailAddress:'ilovelocal@gmail.com',
-      home: 'Riverside',
-      deactivated: false,
-   },
-   {
-      userID: '2c',
-      firstName: 'Elias',
-      lastName: 'Williams',
-      birthDate: '1998-12-16',
-      totalChange: 40.50,
-      emailAddress:'localrules@gmail.com',
-      home: 'Leslieville',
-      deactivated: false,
-   },
-   {
-      userID: '3c',
-      firstName: 'Dewmi',
-      lastName: 'Seneviratna',
-      birthDate: '1999-03-01',
-      totalChange: 14.30,
-      emailAddress:'shop123@gmail.com',
-      home: 'North York',
-      deactivated: false,
-   },
-   {
-      userID: '4c',
-      firstName: 'Cole',
-      lastName: 'Charboneau',
-      birthDate: '1999-05-16',
-      totalChange: 10.15,
-      emailAddress:'loyalshop@gmail.com',
-      home: 'Outside Toronto',
-      deactivated: false,
-   },
-   {
-      userID: '5c',
-      firstName: 'Mica',
-      lastName: 'Consens',
-      birthDate: '1999-05-27',
-      totalChange: 8.50,
-      emailAddress:'mmrewards@gmail.com',
-      home: 'Leslieville',
-      deactivated: false,
-   },
-  ]
-}
+export const contests = [
+  {
+    contestID: '000',
+    contestName: 'Snap it UP!',
+    description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
+    startDate: '05-05-2022',
+    endDate: '12-12-2022',
+    prizeValue: 500.00,
+    participants: [
+      {
+        userID: '1c',
+        firstName: 'Hugo',
+        lastName: 'Hale',
+        birthDate: '1997-03-11',
+        totalChange: 30.00,
+        emailAddress: 'ilovelocal@gmail.com',
+        home: 'Riverside',
+        deactivated: false,
+      },
+      {
+        userID: '2c',
+        firstName: 'Elias',
+        lastName: 'Williams',
+        birthDate: '1998-12-16',
+        totalChange: 40.50,
+        emailAddress: 'localrules@gmail.com',
+        home: 'Leslieville',
+        deactivated: false,
+      },
+      {
+        userID: '3c',
+        firstName: 'Dewmi',
+        lastName: 'Seneviratna',
+        birthDate: '1999-03-01',
+        totalChange: 14.30,
+        emailAddress: 'shop123@gmail.com',
+        home: 'North York',
+        deactivated: false,
+      },
+      {
+        userID: '4c',
+        firstName: 'Cole',
+        lastName: 'Charboneau',
+        birthDate: '1999-05-16',
+        totalChange: 10.15,
+        emailAddress: 'loyalshop@gmail.com',
+        home: 'Outside Toronto',
+        deactivated: false,
+      },
+      {
+        userID: '5c',
+        firstName: 'Mica',
+        lastName: 'Consens',
+        birthDate: '1999-05-27',
+        totalChange: 8.50,
+        emailAddress: 'mmrewards@gmail.com',
+        home: 'Leslieville',
+        deactivated: false,
+      },
+    ]
+  }
+]
 
 
 //// FOR CONSUMER SIDE ////
