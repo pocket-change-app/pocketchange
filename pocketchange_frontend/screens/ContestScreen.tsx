@@ -1,12 +1,12 @@
 import { FlatList } from "react-native";
-import { CompetitionCard, DivHeader, UserCardSm } from "../components/Cards";
+import { ContestCard, DivHeader, UserCardSm } from "../components/Cards";
 import { ScreenContainer, View, Text } from "../components/Themed";
 import { styles } from "../Styles";
 
 
-export default function CompetitionScreen({ navigation, route }: { navigation: any, route: any }) {
+export default function ContestScreen({ navigation, route }: { navigation: any, route: any }) {
 
-  const { competition } = route.params
+  const { contest } = route.params
 
   const renderParticipant = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <UserCardSm
@@ -23,9 +23,9 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
         ListHeaderComponent={() => {
           return (
             <>
-              <CompetitionCard
+              <ContestCard
                 navigation={navigation}
-                competition={competition}
+                contest={contest}
                 showDetailedView
               />
 
@@ -33,7 +33,7 @@ export default function CompetitionScreen({ navigation, route }: { navigation: a
             </>
           )
         }}
-          data={competition.participants}
+        data={contest.participants}
           renderItem={renderParticipant}
           numColumns={2}
           keyExtractor={(item) => item.userID} />

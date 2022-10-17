@@ -5,7 +5,7 @@ import { styles } from '../Styles';
 import { businesses, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
-import { BusinessCard, BusinessCardSm, ChangeBalanceCard, CompetitionCard, DivHeader, PocketDetailCard } from '../components/Cards';
+import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda-adjunct';
@@ -83,9 +83,9 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                     navigation={navigation}
                     pocket={pocket} />
                   {(pocket.pocketID === "2p") ? 
-                  <CompetitionCard
+                    <ContestCard
                     navigation={navigation}
-                    competition={snapItUp} /> : null}
+                      contest={snapItUp} /> : null}
                   
                   {changeBalanceData.getAllChangeBalances.length != 0 ?
                   <ChangeBalanceCard

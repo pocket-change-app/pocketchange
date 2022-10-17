@@ -912,24 +912,24 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function CompetitionCard({ navigation, competition, showDetailedView = false }: { navigation: any, competition: any, showDetailedView: boolean }) {
+export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const { competitionID, competitionName, description, prizeValue, endDate } = competition
+  const { contestID, contestName, description, prizeValue, endDate } = contest
   const { data: scansData, loading: scansLoading, error: scansError } = useQuery(QRScanQueries.getAllQRScans, { variables: { userID: authContext.userFirebase.uid } });
   if (scansError) return (<Text>{scansError.message}</Text>);
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Competition', {
-        competition: competition
+      onPress={() => navigation.navigate('Contest', {
+        contest: contest
       })}
     >
       <View style={[styles.card]}>
         <View style={styles.container}>
-          <Text style={styles.competitionTitle}>
-            <FontAwesome name='trophy' style={styles.competitionTitle} />
-            {' ' + competitionName}
+          <Text style={styles.contestTitle}>
+            <FontAwesome name='trophy' style={styles.contestTitle} />
+            {' ' + contestName}
           </Text>
         </View>
 
@@ -1001,7 +1001,7 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
             <Text>{'$' + prizeValue}</Text>
           </View>
           <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
-            <Text>Competition ends:</Text>
+            <Text>contest ends:</Text>
             <Text>{endDate}</Text>
           </View>
         </View> */}

@@ -27,7 +27,7 @@ export type RootStackParamList = {
 
   PocketSearch: undefined;
   Pocket: undefined;
-  Competition: undefined;
+  Contest: undefined;
 
   NotFound: undefined;
 
@@ -60,7 +60,7 @@ export type RootStackParamList = {
 
   // Leader Screens
   LeaderAnalytics: undefined;
-  Competitions: undefined;
+  Contests: undefined;
   LeaderSettings: undefined;
 
 };
@@ -84,7 +84,7 @@ export type RootTabParamList = {
 
   // Leader Tabs
   LeaderAnalyticsStack: undefined;
-  CompetitionsStack: undefined;
+  ContestsStack: undefined;
   LeaderSettingsStack: undefined;
 };
 
