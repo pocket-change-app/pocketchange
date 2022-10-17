@@ -304,12 +304,12 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
   )
 }
 
-export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket?: any }) {
 
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getImageURL("Pocket", pocket.pocketID, "pocketBanner.jpg", setImageURL);
+    getImageURL("Pocket", pocket?.pocketID, "pocketBanner.jpg", setImageURL);
   }, []);
 
   return (
@@ -326,10 +326,10 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
 
         </View>
         <View style={styles.container}>
-          <Text style={styles.pocketTitle}>{pocket.pocketName}</Text>
+          <Text style={styles.pocketTitle}>{pocket?.pocketName}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
-              {pocket.description}
+              {pocket?.description}
             </Text>
           </Hyphenated>
         </View>
