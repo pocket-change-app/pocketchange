@@ -504,7 +504,7 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
 
 export function HistoryCard({ navigation, allTransactions, userID, loading }: { navigation: any, allTransactions: any, userID: any, loading: boolean }) {
 
-  const { data: scansData, loading: scansLoading, error: scansError, refetch } = useGetAllQRScansQuery(userID);
+  const { data: scansData, loading: scansLoading, error: scansError, refetch: refetchScans } = useGetAllQRScansQuery(userID);
 
   // Construct list of all transactions and scans
   let allItems = []

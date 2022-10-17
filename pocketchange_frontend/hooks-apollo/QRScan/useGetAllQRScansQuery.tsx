@@ -11,7 +11,7 @@ export default function useGetBusinessPocketsQuery(
 ) {
     const {loading, data, error, refetch} = useQuery(QRScanQueries.getAllQRScans, { 
         variables: { userID: userID }, 
-
+        pollInterval: 1000
     });
 
   return {data, loading, refetch, error}

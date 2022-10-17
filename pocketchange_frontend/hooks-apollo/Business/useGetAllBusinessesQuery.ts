@@ -12,18 +12,8 @@ export default function useGetAllBusinessesQuery(
     businessSubtype?: String,
     businessTag?: String,
 ) {
-  const [allBusinesses, setAllBusinesses] = useState([])
   const {loading, data, error, refetch} = useQuery(BusinessQueries.getAllBusinesses, {
     variables: {pocketID, businessID, businessType, businessSubtype, businessTag},
-    fetchPolicy: 'network-only',
   })
-  useEffect(() => {
-    if (RA.isNotNil(data)) {
-      // allBusinesses query is aliased as getAllBusinesses
-      const {getAllBusinesses} = data
-      setAllBusinesses(getAllBusinesses)
-    }
-  }, [data])
-
-  return {allBusinesses, loading, refetch}
+  return {data, loading, error, refetch}
 }
