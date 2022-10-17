@@ -4,8 +4,8 @@ import { useQuery } from '@apollo/react-hooks'
 import ChangeBalanceQueries from './queries'
 
 export default function useGetAllChangeBalances(
-    userID: String,
-    pocketID: String
+    userID?: String | undefined,
+    pocketID?: String | undefined
 ) {
     const {loading, data, error, refetch} = useQuery(ChangeBalanceQueries.getAllChangeBalances, {
         variables: { userID: userID, pocketID: pocketID },

@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks'
 import PocketQueries from './queries'
 
 export default function useGetAllPocketsQuery(
-    userID: String
+    userID?: String | undefined
 ) {
   const {loading, data, error, refetch} = useQuery(PocketQueries.getAllPockets, {
     variables: { userID },
