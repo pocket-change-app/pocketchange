@@ -332,7 +332,7 @@ export const styles = StyleSheet.create({
 
   pocketHeaderImageContainer: {
     width: '100%',
-    height: 150,
+    height: 200,
   },
 
   pocketHeaderImage: {
