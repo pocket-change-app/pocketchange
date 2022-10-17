@@ -38,7 +38,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
         {/* {changeBalanceData ?
           <BalancesCard
             changeTotal={user.changeTotal}
-            allChangeBalances={changeBalanceData.getAllChangeBalances} /> :
+            allChangeBalances={changeBalanceData?.getAllChangeBalances} /> :
           <View style={[styles.card, styles.balanceCard, { justifyContent: 'center' }]}>
             <ActivityIndicator
               size="large"

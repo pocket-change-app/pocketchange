@@ -3,11 +3,11 @@
 import { RoleLevel, RoleType } from "./contexts/Auth";
 
 
-//// COMPETITIONS ////
+//// CONTESTS ////
 
 export const snapItUp = {
-  competitionID: '000',
-  competitionName: 'Snap it UP!',
+  contestID: '000',
+  contestName: 'Snap it UP!',
   description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
   startDate: '05-05-2022',
   endDate: '12-12-2022',
@@ -473,7 +473,7 @@ export const merchantAnalytics = [
   {
     sectionTitle: "Favourites",
     data: [{
-      title: "Number of Competition Entries",
+      title: "Number of Contest Entries",
       type: "bar",
       rangeName: 'PAST WEEK',
       startDate: "9/16/2022",
@@ -818,7 +818,7 @@ export const leaderAnalytics = [
   {
     sectionTitle: "Favourites",
     data: [{
-      title: "Number of Competition Entries",
+      title: "Number of Contest Entries",
       type: "bar",
       rangeName: 'PAST WEEK',
       startDate: "9/16/2022",
@@ -927,7 +927,7 @@ export const leaderAnalytics = [
     ],
   },
   {
-    sectionTitle: "Competition Analytics",
+    sectionTitle: "Contest Analytics",
     data: [
       {
         title: "Number of Scans",

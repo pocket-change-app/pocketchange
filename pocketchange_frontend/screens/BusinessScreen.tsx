@@ -28,11 +28,11 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
         <BusinessCard
           navigation={navigation}
           business={business} 
-          changeBalance={changeBalanceData.getAllChangeBalances} />
+          changeBalance={changeBalanceData?.getAllChangeBalances} />
 
         <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
           <ChangeBalanceCard
-            changeBalance={changeBalanceData.getAllChangeBalances} 
+            changeBalance={changeBalanceData?.getAllChangeBalances} 
             pocket={pocket} />
         </QueryResult>
       

@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { styles, MARGIN } from '../Styles';
 //import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { CompetitionCard, ContestCard, DivHeader, renderParticipant, TranactionCardSm } from '../components/Cards';
+import { ContestCard, DivHeader } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
 import { colors } from '../constants/Colors';
@@ -18,7 +18,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { snapItUp } from '../dummy';
 const R = require('ramda');
 
-export default function CompetitionsTabScreen({ navigation }: { navigation: any }) {
+export default function ContestsTabScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
@@ -40,19 +40,19 @@ export default function CompetitionsTabScreen({ navigation }: { navigation: any 
 
       <ScreenContainer>
 
-        {/* COMPETITION CARD */}
+        {/* CONTEST CARD */}
         <View style={styles.container}>
 
           <DivHeader text={'Active'} />
 
-          <CompetitionCard
+          <ContestCard
             navigation={navigation}
-            competition={snapItUp}
+            contest={snapItUp}
           />
 
           <DivHeader text={'Completed'} />
-          
-          <Text style={[styles.notFoundText, {margin: 10}]}>No competitions have completed yet...</Text>
+
+          <Text style={[styles.notFoundText, { margin: 10 }]}>No contests have completed yet...</Text>
 
         </View>
 

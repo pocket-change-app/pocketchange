@@ -103,9 +103,20 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
 
           <Pressable style={[styles.buttonBordered, { flex: 1 }]}
             onPress={() => {
-              const destination = encodeURIComponent(`${business.address}, $Toronto, Canada`);
+              const dString =
+                `${business.address.buildingNumber}`
+                + ` ${business.address.streetName}`
+                + (business.address.unitName ? ` ${business.address.unitName}` : '')
+                + ` ${business.address.city}`
+                + ` ${business.address.region},`
+                + ` ${business.address.postalCode}`
+
+              const destination = encodeURIComponent(dString);
               const provider = Platform.OS === 'ios' ? 'apple' : 'google'
               const link = `http://maps.${provider}.com/?q=${destination}`
+
+              // console.log(`${Object.values(business.address)}`);
+              // console.log(dString);
 
               Linking.openURL(link)
             }
@@ -223,7 +234,7 @@ export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: an
   );
 }
 
-export function PocketListCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
 
   const [imageURL, setImageURL] = useState();
 
@@ -327,7 +338,7 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
   );
 }
 
-export function PocketListSeparator() {
+export function PocketCarouselSeparator() {
   return (
     <View style={{ width: MARGIN }} />
   )
@@ -903,24 +914,24 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function CompetitionCard({ navigation, competition, showDetailedView = false }: { navigation: any, competition: any, showDetailedView: boolean }) {
+export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const { competitionID, competitionName, description, prizeValue, endDate } = competition;
+  const { contestID, contestName, description, prizeValue, endDate } = contest;
   const { data: scansData, loading: scansLoading, error: scansError } = useGetAllQRScansQuery(authContext.userFirebase.uid);
   if (scansError) return (<Text>{scansError.message}</Text>);
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('Competition', {
-        competition: competition
+      onPress={() => navigation.navigate('Contest', {
+        contest: contest
       })}
     >
       <View style={[styles.card]}>
         <View style={styles.container}>
-          <Text style={styles.competitionTitle}>
-            <FontAwesome name='trophy' style={styles.competitionTitle} />
-            {' ' + competitionName}
+          <Text style={styles.contestTitle}>
+            <FontAwesome name='trophy' style={styles.contestTitle} />
+            {' ' + contestName}
           </Text>
         </View>
 
@@ -992,7 +1003,7 @@ export function CompetitionCard({ navigation, competition, showDetailedView = fa
             <Text>{'$' + prizeValue}</Text>
           </View>
           <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }]}>
-            <Text>Competition ends:</Text>
+            <Text>contest ends:</Text>
             <Text>{endDate}</Text>
           </View>
         </View> */}

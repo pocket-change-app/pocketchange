@@ -14,7 +14,7 @@ import { styles } from '../Styles';
 import TransactionModalScreen from '../screens/TransactionModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import CompetitionsTabScreen from '../screens/CompetitionsTabScreen';
+import ContestsTabScreen from '../screens/ContestsTabScreen';
 import PocketScreen from '../screens/PocketScreen';
 import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
 
@@ -23,7 +23,7 @@ import { AuthContext } from '../contexts/Auth';
 import SettingsTippingScreen from '../screens/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/EditEmployeesScreen';
 import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
-import CompetitionScreen from '../screens/CompetitionScreen';
+import ContestScreen from '../screens/ContestScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -68,10 +68,10 @@ export const LeaderNavigation = () => {
   );
 }
 
-function CompetitionsStack() {
+function ContestsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='Competitions'
+      initialRouteName='Contests'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -82,16 +82,16 @@ function CompetitionsStack() {
       }}
     >
       <Stack.Screen
-        name="Competitions"
-        component={CompetitionsTabScreen}
-        options={({ navigation }: RootTabScreenProps<'Competitions'>) => ({
-          title: 'Competitions',
+        name="Contests"
+        component={ContestsTabScreen}
+        options={({ navigation }: RootTabScreenProps<'Contests'>) => ({
+          title: 'Contests',
           tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
         })}
       />
       <Stack.Screen
-        name="Competition"
-        component={CompetitionScreen}
+        name="Contest"
+        component={ContestScreen}
         options={{}}
       />
 
@@ -206,10 +206,10 @@ const BottomTabLeader = () => {
       />
 
       <BottomTab.Screen
-        name="CompetitionsStack"
-        component={CompetitionsStack}
-        options={({ navigation }: RootTabScreenProps<'Competitions'>) => ({
-          title: 'Competitions',
+        name="ContestsStack"
+        component={ContestsStack}
+        options={({ navigation }: RootTabScreenProps<'Contests'>) => ({
+          title: 'Contests',
           tabBarIcon: ({ color }) => <TabBarIcon name='trophy' color={color} />,
         })}
       />
