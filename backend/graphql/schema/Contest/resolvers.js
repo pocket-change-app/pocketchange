@@ -65,7 +65,7 @@ module.exports = {
             endDate: endDate,
         });
           const newMongoContest = await mongoContest.create({ 
-            contestID: newComp.contestID, 
+            contestID: newContest.contestID, 
             contestName: contestName,
             description: description,
             winner: null,
@@ -82,7 +82,7 @@ module.exports = {
             prizeValue: newContest.dataValues.prizeValue,
             startDate: newContest.dataValues.startDate,
             endDate: newContest.dataValues.endDate,
-            contestID: newMongoContest.contestName, 
+            contestName: newMongoContest.contestName, 
             description: newMongoContest.description, 
             winner: newMongoContest.winner, 
             status:newMongoContest.status, 
