@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
@@ -19,9 +19,18 @@ import { connectAuthEmulator } from 'firebase/auth';
 import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
 import { QueryResult } from '../components/QueryResult';
 
-
+const wait = (timeout: number) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   const authContext = useContext(AuthContext); 
 
@@ -74,6 +83,12 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       <ScreenContainer>
 
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
           ListHeaderComponent={() => {
             if (searchQuery == '') {
               return (
