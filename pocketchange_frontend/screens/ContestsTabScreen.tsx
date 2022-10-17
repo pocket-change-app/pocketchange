@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { styles, MARGIN } from '../Styles';
 //import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
-import { ContestCard, DivHeader } from '../components/Cards';
+import { ButtonWithText, ContestCard, DivHeader } from '../components/Cards';
 import { Text, View } from '../components/Themed';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
 import { colors } from '../constants/Colors';
@@ -15,7 +15,7 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../contexts/Auth';
 import { HorizontalLine } from '../components/Lines';
 import { FontAwesome } from '@expo/vector-icons';
-import { snapItUp } from '../dummy';
+import { contests } from '../dummy';
 const R = require('ramda');
 
 export default function ContestsTabScreen({ navigation }: { navigation: any }) {
@@ -32,6 +32,15 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
     })
   };
 
+  const renderContest = ({ item, index, separators }: any) => {
+    return (
+      <ContestCard
+        navigation={navigation}
+        contest={item}
+      />
+    )
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -43,16 +52,28 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
         {/* CONTEST CARD */}
         <View style={styles.container}>
 
+          <FlatList
+            data={contests}
+            renderItem={renderContest}
+          />
+
           <DivHeader text={'Active'} />
 
-          <ContestCard
+          {/* <ContestCard
             navigation={navigation}
             contest={snapItUp}
-          />
+          /> */}
 
           <DivHeader text={'Completed'} />
 
           <Text style={[styles.notFoundText, { margin: 10 }]}>No contests have completed yet...</Text>
+
+          <ButtonWithText
+            text='Create Contest'
+            color={colors.gold}
+            // negativeStyle={true}
+            onPress={null}
+          />
 
         </View>
 

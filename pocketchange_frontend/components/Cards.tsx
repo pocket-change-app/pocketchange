@@ -914,7 +914,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView: boolean }) {
+export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView?: boolean }) {
   const authContext = useContext(AuthContext);
 
   const { contestID, contestName, description, prizeValue, endDate } = contest;
