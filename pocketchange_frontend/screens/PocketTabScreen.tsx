@@ -10,8 +10,8 @@ import { ScreenContainer } from '../components/Themed';
 import React, { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
-import { useQuery } from '@apollo/client';
 import PocketQueries from '../hooks-apollo/Pocket/queries'
+import useGetAllPocketsQuery from '../hooks-apollo/Pocket/useGetAllPocketsQuery';
 
 const R = require('ramda');
 
@@ -33,10 +33,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   };
 
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getAllPockets, { variables: { } });
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
   if (pocketError) return <Text>{pocketError.message}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
-  
+  if (!pocketData) return <Text>Error: pocketData empty.</Text>
  
   function PageContents() {
     if (searchQuery == '') {

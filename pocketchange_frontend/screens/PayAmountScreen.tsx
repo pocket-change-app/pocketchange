@@ -21,7 +21,6 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
     setAmount(amt)
   }
 
-
   return (
     <ScreenContainer>
       <KeyboardAvoidingView
@@ -68,7 +67,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
               onPress={() => navigation.navigate("PayTip", {
                 // navigation: navigation,
                 business: business,
-                pocket: pocketData.getBusinessPockets[0],
+                pocket: pocket,
                 amount: parseFloat(amount).toFixed(2),
               })}
             />

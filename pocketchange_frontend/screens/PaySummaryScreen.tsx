@@ -9,7 +9,6 @@ import { getBackgroundColorAsync } from "expo-system-ui";
 import { Switch } from 'react-native'
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Auth";
-import { useQuery } from "@apollo/client";
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {

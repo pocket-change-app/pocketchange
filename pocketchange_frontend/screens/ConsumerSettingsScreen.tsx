@@ -13,9 +13,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext, Role, RoleLevel, RoleType } from "../contexts/Auth";
 import DropDownPicker from "react-native-dropdown-picker";
 
-import { useQuery } from '@apollo/react-hooks'
-import UserQueries from '../hooks-apollo/User/queries'
-
 import * as RA from 'ramda-adjunct'
 import { colors } from "../constants/Colors";
 
@@ -35,8 +32,8 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
     {type: "LEADER", entityID: "2p", entityName: "Uptown Yonge"},
     {type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER"},
   ]
-
-  //const { data: rolesData, loading: rolesLoading, error: rolesError } = useQuery(UserQueries.getUserRoles, { variables: { userID: userID } });
+  // TODO: make roles not hard coded!!!!!!!!
+  //const { data: rolesData, loading: rolesLoading, error: rolesError } = useGetUserRolesQuery(userID);
   //if (rolesError) return <Text>{rolesError.message}</Text>;
   //if (rolesLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
   

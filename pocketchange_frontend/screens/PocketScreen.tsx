@@ -14,9 +14,10 @@ import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 
 
-import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import { connectAuthEmulator } from 'firebase/auth';
+import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import { QueryResult } from '../components/QueryResult';
 
 
 
@@ -27,7 +28,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const pocket = route.params.pocket;
 
   const pocketID = pocket.pocketID
-  const {allBusinesses, loading} =  useGetAllBusinessesQuery(pocketID)
+  const {allBusinesses, loading: businessesLoading} =  useGetAllBusinessesQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState(allBusinesses)
@@ -41,9 +42,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     })
   };
 
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
-  if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
-  if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
@@ -74,16 +73,21 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   <PocketDetailCard
                     navigation={navigation}
                     pocket={pocket} />
+                  {
+                    //TODO: make this not hard coded                    
+                  }
                   {(pocket.pocketID === "2p") ? 
                   <CompetitionCard
                     navigation={navigation}
                     competition={snapItUp} /> : null}
-                  
-                  {changeBalanceData.getAllChangeBalances.length != 0 ?
-                  <ChangeBalanceCard
-                    changeBalance={changeBalanceData.getAllChangeBalances} 
-                    pocket={pocket} /> : null
-                  }
+
+                  <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
+                    {changeBalanceData.getAllChangeBalances.length != 0 ?
+                      <ChangeBalanceCard
+                        changeBalance={changeBalanceData.getAllChangeBalances} 
+                        pocket={pocket} /> : null
+                    }
+                  </QueryResult>
 
                   <DivHeader text='Businesses' />
                 </>
@@ -95,7 +99,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
           contentContainerStyle={styles.businessFlatList}
           data={allBusinesses}
           renderItem={renderBusinessCard}
-          ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
+          ListFooterComponent={businessesLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
         />
 
          
