@@ -5,7 +5,7 @@ const LOCAL_SYSTEM_IP_ADDRESS = '10.0.0.188';
 const PORT = '4000';
 
 // see: https://github.com/graphql/swapi-graphql
-// const GRAPHQL_API_URL = 'http://localhost:4000/graphql';
+const GRAPHQL_API_URL = 'http://localhost:4000/graphql';
 
 const authLink = setContext((_, {headers}) => {
   return {
@@ -38,8 +38,8 @@ const asyncAuthLink = setContext(async () => {
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  //uri: GRAPHQL_API_URL
-  uri: 'http://8817-2600-387-f-4912-00-2.ngrok.io/graphql'
+  uri: GRAPHQL_API_URL
+  //uri: 'http://f0fd-2607-fea8-5e3-2900-a5b8-52f5-3821-e23d.ngrok.io/graphql'
   //link: httpLink,
   // link: asyncAuthLink.concat(httpLink),
 });
