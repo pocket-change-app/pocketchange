@@ -18,26 +18,22 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   const authContext = useContext(AuthContext);
 
-  const { allBusinesses, loading } = useGetAllBusinessesQuery(null)
-
   const [searchQuery, setSearchQuery] = useState('')
 
-
-
-  
-
+  const { data: businessesData, loading: businessesLoading, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
+
   if (pocketError) return <Text>{pocketError.message}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
   if (!pocketData) return <Text>Error: pocketData empty.</Text>
   
-  const pocketSearchResults = pocketData.getAllPockets.filter(
+  const pocketSearchResults = pocketData?.getAllPockets.filter(
     p => p.pocketName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
     )
   )
 
-  const businessSearchResults = allBusinesses.filter(
+  const businessSearchResults = businessesData?.getAllBusinesses.filter(
     b => b.businessName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
     )

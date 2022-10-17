@@ -37,27 +37,17 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const pocket = route.params.pocket;
 
   const pocketID = pocket.pocketID
-  const {allBusinesses, loading: businessesLoading} =  useGetAllBusinessesQuery(pocketID)
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
+
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  const searchResults = allBusinesses.filter(
+  const searchResults = businessesData?.getAllBusinesses.filter(
     b => b.businessName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
     )
   )
-
-// function searchFilter(text: string) {
-//   const formattedQuery = text.toLowerCase().trim()
-//   return (
-//     allBusinesses.filter(
-//       b => b.businessName.toLowerCase().includes(formattedQuery)
-//     )
-//   )
-// }
-
-
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
@@ -102,7 +92,8 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   {(pocket.pocketID === "2p") ? 
                     <ContestCard
                     navigation={navigation}
-                    contest={snapItUp} /> : null}
+                    contest={snapItUp} /> : null
+                  }
                   
                   <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
                     {changeBalanceData?.getAllChangeBalances?.length != 0 ?
