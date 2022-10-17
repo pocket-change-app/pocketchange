@@ -20,7 +20,7 @@ db.mongoose = mongoose;
 db.mongoUser =  require('./mongoUser')
 db.mongoPocket = require('./mongoPocket')
 db.mongoBusiness = require('./mongoBusiness')
-db.mongoCompetition = require('./mongoCompetition')
+db.mongoContest = require('./mongoContest')
 
 mongoose.on('error', console.error.bind(console, 'connection error'))
 

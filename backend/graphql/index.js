@@ -14,7 +14,7 @@ const Pocket = database.Pocket
 const ChangeBalance = database.ChangeBalance
 const Transaction = database.Transaction
 const Geolocation = database.Geolocation
-const Competition = database.Competition
+const Contest = database.Contest
 const QRScan = database.QRScan
 //relationships
 const IsIn = database.IsIn
@@ -28,7 +28,7 @@ const mongoose = mongodatabase.mongoose
 const mongoUser = mongoose.model('mongoUser')
 const mongoBusiness = mongoose.model('mongoBusiness')
 const mongoPocket = mongoose.model('mongoPocket')
-const mongoCompetition = mongoose.model('mongoCompetition')
+const mongoContest = mongoose.model('mongoContest')
 
 //get type definitions and resolvers
 const typeDefs = require('./typeDefinitions.js')
@@ -44,7 +44,7 @@ const context = async ({ req }) => {
     ChangeBalance,
     Transaction,
     Geolocation,
-    Competition,
+    Contest,
     QRScan,
     //relationship schema SQL
     IsIn,
@@ -57,7 +57,7 @@ const context = async ({ req }) => {
     mongoUser,
     mongoBusiness,
     mongoPocket,
-    mongoCompetition,
+    mongoContest,
     //mongoose connection
     mongoose,
 

@@ -6,67 +6,67 @@ const {Op} = require('sequelize')
                                                                                                                                                                                                                                                                                                        
 module.exports = {
   Query: {
-    competition: async (parent, { competitionID }, { Competition, mongoCompetition}) => {
+    contest: async (parent, { contestID }, { Contest, mongoContest}) => {
       //check to make sure nonempty businessID was given
-        if (competitionID === '') {
+        if (contestID === '') {
           return null;
         }
         //get the relevant business info from mongo, ensuring SQL exists
-        const competitionInfo = await Competition.findOne({ where : {competitionID: competitionID}});
-        const mongoCompetitionInfo = await mongoCompetition.findOne({ competitionID});
+        const contestInfo = await Contest.findOne({ where : {contestID: contestID}});
+        const mongoContestInfo = await mongoContest.findOne({ contestID});
         //if the schemas return with relevant info for both mongo and SQl proceed
-        if(competitionInfo && mongoCompetitionInfo){
-            if(mongoCompetitionInfo.status.deactivated == false){
+        if(contestInfo && mongoContestInfo){
+            if(mongoContestInfo.status.deactivated == false){
             //subset fields needed which are businessID, businessName, 
             //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
             return {
               //return values described for business
-              competitionID: mongoCompetitionInfo.competitionID, 
-              pocketID: competitionInfo.dataValues.pocketID,
-              prizeValue: competitionInfo.dataValues.prizeValue,
-              startDate: competitionInfo.dataValues.startDate,
-              endDate: competitionInfo.dataValues.endDate,
-              competitionName: mongoCompetitionInfo.competitionName, 
-              description: mongoCompetitionInfo.description, 
-              winner: mongoCompetitionInfo.winner, 
-              status:mongoCompetitionInfo.status, 
+              contestID: mongoContestInfo.contestID, 
+              pocketID: contestInfo.dataValues.pocketID,
+              prizeValue: contestInfo.dataValues.prizeValue,
+              startDate: contestInfo.dataValues.startDate,
+              endDate: contestInfo.dataValues.endDate,
+              contestName: mongoContestInfo.contestName, 
+              description: mongoContestInfo.description, 
+              winner: mongoContestInfo.winner, 
+              status:mongoContestInfo.status, 
             }
           }
           else {
-            throw new ApolloError(`This competitionID:${competitionID} no longer exists`);
+            throw new ApolloError(`This contestID:${contestID} no longer exists`);
             return {};
           }
         }
         else {
-          throw new ApolloError(`competitionID:${competitionID} doesn't exist`);
+          throw new ApolloError(`contestID:${contestID} doesn't exist`);
           return {};
         }
     },
   },
 
   Mutation: {
-    createCompetition: async (parent, { 
+    createContest: async (parent, { 
       userID,
       pocketID, 
       prizeValue,
       startDate,
       endDate,
-      competitionName,
+      contestName,
       description,
-    }, { Competition, mongoCompetition, IsIn, WorksAt}) => {
+    }, { Contest, mongoContest, IsIn, WorksAt}) => {
         //check to see the business name they want isn't taken by another business
-        const existing = await mongoCompetition.findOne({ competitionName: competitionName })
+        const existing = await mongoContest.findOne({ contestName: contestName })
         if (!existing) {
-          //create a new competition in Mongo and SQL
-          const newComp = await Competition.create({
+          //create a new contest in Mongo and SQL
+          const newContest = await Contest.create({
             pocketID: pocketID,
             prizeValue: prizeValue,
             startDate: startDate,
             endDate: endDate,
         });
-          const newMongoComp = await mongoCompetition.create({ 
-            competitionID: newComp.competitionID, 
-            competitionName: competitionName,
+          const newMongoContest = await mongoContest.create({ 
+            contestID: newComp.contestID, 
+            contestName: contestName,
             description: description,
             winner: null,
             status: {
@@ -75,33 +75,33 @@ module.exports = {
               deactivated: false,
             },
           })
-          newMongoComp.save()
+          newMongoContest.save()
           return {
-            competitionID: newComp.competitionID, 
-            pocketID: newComp.dataValues.pocketID,
-            prizeValue: newComp.dataValues.prizeValue,
-            startDate: newComp.dataValues.startDate,
-            endDate: newComp.dataValues.endDate,
-            competitionName: newMongoComp.competitionName, 
-            description: newMongoComp.description, 
-            winner: newMongoComp.winner, 
-            status:newMongoComp.status, 
+            contestID: newContest.contestID, 
+            pocketID: newContest.dataValues.pocketID,
+            prizeValue: newContest.dataValues.prizeValue,
+            startDate: newContest.dataValues.startDate,
+            endDate: newContest.dataValues.endDate,
+            contestID: newMongoContest.contestName, 
+            description: newMongoContest.description, 
+            winner: newMongoContest.winner, 
+            status:newMongoContest.status, 
           }
         } else {
-          throw new ApolloError('Competition already exists')
+          throw new ApolloError('Contest already exists')
         }
     },  
-    deactivateCompetition: async (parent, { 
+    deactivateContest: async (parent, { 
       userID,
-      competitionID,
+      contestID,
       pocketID,
-    }, { Competition, mongoCompetition, IsMember, WorksAt, mongoUser}) => {
+    }, { Contest, mongoContest, IsMember, WorksAt, mongoUser}) => {
         const isMemberInfo = await IsMember.findOne({ where:{ userID: userID, pocketID: pocketID}})
         if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
-        //the user is the current manager or is pocketChange admin so they can update the comp
+        //the user is the current manager or is pocketChange admin so they can update the contest
           //the user is the manger of the pocket proceed (or its pocketchange admin)
-          //deactivate the comp
-          await mongoCompetition.updateOne({ competitionID: competitionID },
+          //deactivate the contest
+          await mongoContest.updateOne({ contestID: contestID },
             {
               status: {
                 pending: false,
@@ -109,25 +109,25 @@ module.exports = {
                 deactivated: true
               },
             })
-          const mongoCompetitionInfo = await mongoCompetition.findOne({ competitionID: competitionID })
-          console.log(mongoCompetitionInfo)
-          return(mongoCompetitionInfo)
+          const mongoContestInfo = await mongoContest.findOne({ contestID: contestID })
+          console.log(mongoContestInfo)
+          return(mongoContestInfo)
         }
         else {
           throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
         }
     },  
-    approveCompetition: async (parent, { 
+    approveContest: async (parent, { 
       userID,
-      competitionID,
+      contestID,
       pocketID,
-    }, { Competition, mongoCompetition, IsMember, mongoUser}) => {
+    }, { Contest, mongoContest, IsMember, mongoUser}) => {
         const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
         if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
-        //the user is the current manager or is pocketChange admin so they can update the comp
+        //the user is the current manager or is pocketChange admin so they can update the contest
           //the user is the manger of the pocket proceed (or its pocketchange admin)
-          //approve the comp
-          await mongoCompetition.updateOne({ competitionID: competitionID },
+          //approve the contest
+          await mongoContest.updateOne({ contestID: contestID },
             {
               status: {
                 pending: false,
@@ -135,20 +135,20 @@ module.exports = {
                 deactivated: false
               },
             })
-          const mongoCompetitionInfo = await mongoCompetition.findOne({ competitionID: competitionID })
-          const competitionInfo = await Competition.findOne({where:{ competitionID: competitionID }})
-          console.log(mongoCompetitionInfo)
+          const mongoContestInfo = await mongoContest.findOne({ contestID: contestID })
+          const contestInfo = await Contest.findOne({where:{ contestID: contestID }})
+          console.log(mongoContestInfo)
           return {
-            //return values described for business
-            competitionID: mongoCompetitionInfo.competitionID, 
-            pocketID: competitionInfo.dataValues.pocketID,
-            prizeValue: competitionInfo.dataValues.prizeValue,
-            startDate: competitionInfo.dataValues.startDate,
-            endDate: competitionInfo.dataValues.endDate,
-            competitionName: mongoCompetitionInfo.competitionName, 
-            description: mongoCompetitionInfo.description, 
-            winner: mongoCompetitionInfo.winner, 
-            status:mongoCompetitionInfo.status, 
+            //return values described for contest
+            contestID: mongoContestInfo.contestID, 
+            pocketID: contestInfo.dataValues.pocketID,
+            prizeValue: contestInfo.dataValues.prizeValue,
+            startDate: contestInfo.dataValues.startDate,
+            endDate: contestInfo.dataValues.endDate,
+            contestName: mongoContestInfo.contestName, 
+            description: mongoContestInfo.description, 
+            winner: mongoContestInfo.winner, 
+            status:mongoContestInfo.status, 
           }
         }
         else {

@@ -1,15 +1,15 @@
 import {gql } from '@apollo/client';
 
 export default {
-    createCompetition: gql`
-        mutation createCompetition($userID: ID, $pocketID: ID, $prizeValue: Decimal, $startDate: Date, $endDate: Date, $competitionName: String, $description:String){
-            createCompetition(userID: $userID, pocketID: $pocketID, prizeValue: $prizeValue, startDate: $startDate, endDate: $endDate, competitionName: $competitionName, description:$description){
-                competitionID
+    createContest: gql`
+        mutation createContest($userID: ID, $pocketID: ID, $prizeValue: Decimal, $startDate: Date, $endDate: Date, $contestName: String, $description:String){
+            createContest(userID: $userID, pocketID: $pocketID, prizeValue: $prizeValue, startDate: $startDate, endDate: $endDate, contestName: $contestName, description:$description){
+                contestID
                 pocketID
                 prizeValue
                 startDate
                 endDate
-                competitionName
+                contestName
                 description
                 winner
                 status{
@@ -20,15 +20,15 @@ export default {
             }
         }
     `,
-    deactivateCompetition: gql`
-        mutation deactivateCompetition($userID: ID, $competitionID:ID, $pocketID: ID){
-            deactivateCompetition(userID: $userID, competitionID: $competitionID, pocketID: $pocketID){
-                competitionID
+    deactivateContest: gql`
+        mutation deactivateContest($userID: ID, $contestID:ID, $pocketID: ID){
+            deactivateContest(userID: $userID, contestID: $contestID, pocketID: $pocketID){
+                contestID
                 pocketID
                 prizeValue
                 startDate
                 endDate
-                competitionName
+                contestName
                 description
                 winner
                 status{
@@ -39,15 +39,15 @@ export default {
             }
         }
     `,
-    approveCompetition: gql`
-        mutation approveCompetition($userID: ID, $competitionID:ID, $pocketID: ID){
-            approveCompetition(userID: $userID, competitionID: $competitionID, pocketID: $pocketID){
-                competitionID
+    approveContest: gql`
+        mutation approveContest($userID: ID, $contestID:ID, $pocketID: ID){
+            approveContest(userID: $userID, contestID: $contestID, pocketID: $pocketID){
+                contestID
                 pocketID
                 prizeValue
                 startDate
                 endDate
-                competitionName
+                contestName
                 description
                 winner
                 status{

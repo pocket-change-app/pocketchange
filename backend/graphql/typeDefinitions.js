@@ -9,7 +9,7 @@ const ChangeBalanceTypeDefs = require('./schema/ChangeBalance/typeDefinitions')
 const PocketTypeDefs = require('./schema/Pocket/typeDefinitions')
 const TransactionTypeDefs = require('./schema/Transaction/typeDefinitions')
 const UserTypeDefs= require('./schema/User/typeDefinitions')
-const CompetitionTypeDefs= require('./schema/Competition/typeDefinitions')
+const ContestTypeDefs= require('./schema/Contest/typeDefinitions')
 const QRScanTypeDefs= require('./schema/QRScan/typeDefinitions')
 
 // Type definitions for graph nodes as returned structures
@@ -21,7 +21,7 @@ module.exports = mergeTypeDefs([
   PocketTypeDefs,
   TransactionTypeDefs,
   UserTypeDefs,
-  CompetitionTypeDefs,
+  ContestTypeDefs,
   QRScanTypeDefs
 
 ])

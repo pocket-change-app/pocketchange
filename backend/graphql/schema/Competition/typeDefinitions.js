@@ -2,15 +2,15 @@ const gql = require('graphql-tag')
 
 module.exports = gql`
     """
-    Competition, associated with a Pocket
+    Contest, associated with a Pocket
     """
-    type Competition {
-      competitionID: ID
+    type Contest {
+      contestID: ID
       pocketID: ID
       prizeValue: Decimal
       startDate: Date
       endDate: Date
-      competitionName: String
+      contestName: String
       description: String
       status:Status
       winner: String
@@ -24,16 +24,16 @@ module.exports = gql`
 
     type Query {
         """
-        Query a specific competition from it's ID
+        Query a specific contest from it's ID
         """
-        competition(competitionID: ID): Competition
+        contest(contestID: ID): Contest
       }
       type Mutation {
         """
-        Create a new competition
+        Create a new contest
         """
-        createCompetition(userID: ID, pocketID: ID, prizeValue: Decimal, startDate: Date, endDate: Date, competitionName: String, description: String): Competition
-        deactivateCompetition(userID:ID, competitionID:ID, pocketID: ID): Competition
-        approveCompetition(userID:ID, competitionID:ID, pocketID: ID): Competition
+        createContest(userID: ID, pocketID: ID, prizeValue: Decimal, startDate: Date, endDate: Date, contestName: String, description: String): Contest
+        deactivateContest(userID:ID, contestID:ID, pocketID: ID): Contest
+        approveContest(userID:ID, contestID:ID, pocketID: ID): Contest
       }
 `

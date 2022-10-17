@@ -29,13 +29,28 @@ module.exports = {
             return {};
           }
     },
-    getAllQRScans: async (parent, { userID }, { QRScan}) => {
+    getAllQRScans: async (parent, { userID, startDate, endDate, businessID}, { QRScan}) => {
         //check to make sure nonempty QRScan was given
         if (userID === '') {
         return null;
         }
+        let filterScans = []
+        //check if dates specified
+        if(startDate && endDate){
+            filterScans.push({date: {
+            [Op.between]: [startDate, endDate]
+            }})
+        }
+        //check to see if type is not null
+        if (userID != null) {
+            filterScans.push({'userID': userID})
+        }
+        //check to see if businessID is not null
+        if (businessID != null) {
+            filterScans.push({'businessID' : businessID})
+        }
         //get the relevant info
-        const QRScanInfo = await QRScan.findAll({ where : {userID: userID}});
+        const QRScanInfo = await QRScan.findAll({ where: filterScans});
         if(QRScanInfo){
             return QRScanInfo
         }

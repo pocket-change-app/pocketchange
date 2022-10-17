@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
-    const Competition = sequelize.define("competition", {
-        competitionID: {
+    const Contest = sequelize.define("contest", {
+        contestID: {
             type: Sequelize.UUID,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
@@ -29,5 +29,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
   
-    return Competition;
+    return Contest;
 };

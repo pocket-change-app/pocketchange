@@ -1,15 +1,15 @@
 import {gql } from '@apollo/client';
 
 export default {
-    competition: gql`
-        query competition($competitionID: ID){
-            competition(competitionID: $competitionID) {
-                competitionID
+    contest: gql`
+        query contest($contestID: ID){
+            contest(contestID: $contestID) {
+                contestID
                 pocketID
                 prizeValue
                 startDate
                 endDate
-                competitionName
+                contestName
                 description
                 winner
                 status{
