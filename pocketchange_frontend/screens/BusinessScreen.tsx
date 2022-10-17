@@ -8,20 +8,17 @@ import { colors } from '../constants/Colors';
 import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 
-import { useQuery } from '@apollo/client';
-import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import { QueryResult } from '../components/QueryResult';
 
 
 export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
-  // console.log(route)
   const { business, pocket } = route.params;
 
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
-  if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
-  if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
 
   return (
     <ScreenContainer>
@@ -31,12 +28,14 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
         <BusinessCard
           navigation={navigation}
           business={business} 
-          changeBalance={changeBalanceData.getAllChangeBalances} />
+          changeBalance={changeBalanceData?.getAllChangeBalances} />
 
-      <ChangeBalanceCard
-        changeBalance={changeBalanceData.getAllChangeBalances} 
-        pocket={pocket} />
-
+        <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
+          <ChangeBalanceCard
+            changeBalance={changeBalanceData?.getAllChangeBalances} 
+            pocket={pocket} />
+        </QueryResult>
+      
         {
           business.description ?
             <View style={[styles.card, styles.container]}>
@@ -44,7 +43,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
             </View> :
             <></>
         }
-        
+      
 
         <View style={{ height: MARGIN }} />
 

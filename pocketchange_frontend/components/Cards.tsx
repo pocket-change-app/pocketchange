@@ -5,7 +5,6 @@ import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 import { pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
-import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import UserQueries from '../hooks-apollo/User/queries'
@@ -13,7 +12,7 @@ import QRScanQueries from '../hooks-apollo/QRScan/queries'
 
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { color } from '@rneui/base';
+import { Button, color } from '@rneui/base';
 import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/index';
 
 import businessImages from '../assets/images/businessImages';
@@ -24,6 +23,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext, AuthContextData, Role, RoleType } from '../contexts/Auth';
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import useGetBusinessPocketsQuery from '../hooks-apollo/Pocket/useGetBusinessPocketsQuery';
+import { QueryResult } from './QueryResult';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 
 const R = require('ramda');
 
@@ -49,9 +52,7 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
-  if (pocketError) return <Text>{pocketError}</Text>;
-  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
 
   return (
     <View style={styles.card}>
@@ -71,7 +72,7 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{business.businessName}</Text>
         <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-        <Text style={styles.pocket}>{pocketData.getBusinessPockets[0].pocketName}</Text>
+        <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult>
 
         {(changeBalance.length > 0) ?
           <Pressable style={styles.payButton}
@@ -137,9 +138,7 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
-  if (pocketError) return <Text>{pocketError}</Text>;
-  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
 
   return (
     <Pressable
@@ -161,7 +160,7 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
         <View style={styles.businessModalInfo}>
           <Text style={styles.businessNameLg}>{business.businessName}</Text>
           <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-          <Text style={styles.pocket}>{pocketData.getBusinessPockets[0]}</Text>
+          <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult>
 
         </View>
       </View>
@@ -179,9 +178,7 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.getBusinessPockets, { variables: { businessID: business.businessID } });
-  if (pocketError) return <Text>{pocketError}</Text>;
-  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
 
   return (
     <Pressable
@@ -213,7 +210,7 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         <View style={styles.businessListInfo}>
           <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
           <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-          {showPocket ? <Text style={styles.pocket}>{pocketData.getBusinessPockets[0].pocketName}</Text> : null}
+          {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
         </View>
 
       </View>
@@ -222,7 +219,7 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
   )
 }
 
-export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: any }) {
+export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: any, pocket: any }) {
 
   return (
     <View style={[styles.card, styles.pocketChangeBalanceCard]}>
@@ -505,8 +502,9 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation, allTransactions, allQRScans, loading }: { navigation: any, allTransactions: any, allQRScans: any, loading: boolean }) {
+export function HistoryCard({ navigation, allTransactions, userID, loading }: { navigation: any, allTransactions: any, userID: any, loading: boolean }) {
 
+  const { data: scansData, loading: scansLoading, error: scansError, refetch } = useGetAllQRScansQuery(userID);
 
   // Construct list of all transactions and scans
   let allItems = []
@@ -523,19 +521,21 @@ export function HistoryCard({ navigation, allTransactions, allQRScans, loading }
     console.log(t.date)
     console.log(console.log(dateSecs))
   }
-  for (var i in allQRScans.getAllQRScans) {
-    const s = allQRScans.getAllQRScans[i]
-    const dateSecs = new Date(s.date).getTime()
-    allItems.push(
-      {
-        scan: allQRScans.getAllQRScans[i],
-        transaction: null,
-        dateSecs: dateSecs
-      }
-    )
-    console.log(s.date)
-    console.log(dateSecs);
+  if (scansData) {
+    for (var i in scansData.getAllQRScans) {
+      const s = scansData.getAllQRScans[i]
+      const dateSecs = new Date(s.date).getTime()
+      allItems.push(
+        {
+          scan: scansData.getAllQRScans[i],
+          transaction: null,
+          dateSecs: dateSecs
+        }
+      )
+      console.log(s.date)
+      console.log(dateSecs);
 
+    }
   }
 
   // Sort by date
@@ -560,6 +560,8 @@ export function HistoryCard({ navigation, allTransactions, allQRScans, loading }
       }
     </>
   )
+  if (scansError) return(<Text>{scansError.message}</Text>);
+
 
   return (
     <View style={[styles.card]}>
@@ -570,7 +572,7 @@ export function HistoryCard({ navigation, allTransactions, allQRScans, loading }
         ItemSeparatorComponent={HorizontalLine}
         data={allItems}
         renderItem={renderItem}
-        ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
+        ListFooterComponent={scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
       />
     </View>
   )
@@ -915,8 +917,8 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView?: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const { contestID, contestName, description, prizeValue, endDate } = contest
-  const { data: scansData, loading: scansLoading, error: scansError } = useQuery(QRScanQueries.getAllQRScans, { variables: { userID: authContext.userFirebase.uid } });
+  const { contestID, contestName, description, prizeValue, endDate } = contest;
+  const { data: scansData, loading: scansLoading, error: scansError } = useGetAllQRScansQuery(authContext.userFirebase.uid);
   if (scansError) return (<Text>{scansError.message}</Text>);
 
   return (
@@ -1038,7 +1040,7 @@ export function UserCardSm({ user }: any) {
 
 function TopPocket({ pocketID, change }: { pocketID: string, change: string }) {
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useQuery(PocketQueries.pocket, { variables: { pocketID: pocketID } });
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID);
   if (pocketError) return <Text>{pocketError}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
 

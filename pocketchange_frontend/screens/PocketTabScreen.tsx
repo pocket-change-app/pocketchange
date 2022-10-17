@@ -8,7 +8,6 @@ import { ScreenContainer } from '../components/Themed';
 import React, { useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
-import { useQuery } from '@apollo/client';
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../hooks-apollo';
 
@@ -24,10 +23,14 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   const [searchQuery, setSearchQuery] = useState('')
 
 
-  const { data: pocketData, loading: pocketsLoading, error: pocketError } = useQuery(PocketQueries.getAllPockets, { variables: {} });
-  if (pocketError) return <Text>{pocketError.message}</Text>;
-  if (pocketsLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
 
+  
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
+  if (pocketError) return <Text>{pocketError.message}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+  if (!pocketData) return <Text>Error: pocketData empty.</Text>
+  
   const pocketSearchResults = pocketData.getAllPockets.filter(
     p => p.pocketName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
@@ -55,8 +58,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   }
 
   // console.log(allSearchResults);
-
-
+  
   const renderSearchResult = ({ item, index, separators }: any) => {
     switch (item.__typename) {
       case "Pocket":
@@ -79,7 +81,8 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         return
     }
   }
-  console.log(' ');
+
+
  
   function PageContents() {
     if (searchQuery == '') {

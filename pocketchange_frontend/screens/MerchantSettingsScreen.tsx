@@ -17,7 +17,6 @@ import businessImages from '../assets/images/businessImages';
 import { useBusinessQuery } from "../hooks-apollo";
 import { colors } from "../constants/Colors";
 import { isNilOrEmpty } from "ramda-adjunct";
-import { useQuery } from "@apollo/client";
 
 
 export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -27,7 +26,8 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
   let businessID = authContext.activeRole.entityID
 
   const { business, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
-  //const { data: rolesData, loading: rolesLoading, error: rolesError } = useQuery(UserQueries.getUserRoles, { variables: { userID: authContext.userFirebase.uid } });
+  // TODO: make roles not hard coded!!!!
+  //const { data: rolesData, loading: rolesLoading, error: rolesError } = useGetUserRolesQuery(authContext.userFirebase.uid);
   //if (rolesError) return <Text>{rolesError.message}</Text>;
   //if (rolesLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
   const rolesData = {}
