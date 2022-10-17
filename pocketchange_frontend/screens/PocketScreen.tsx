@@ -1,63 +1,69 @@
-import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
 import { businesses, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
-import { BusinessCard, BusinessCardSm, ChangeBalanceCard, CompetitionCard, DivHeader, PocketDetailCard } from '../components/Cards';
+import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
 import { useGetAllBusinessesQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
-import * as R from 'ramda';
-import React, { useContext, useState } from 'react';
+import * as R from 'ramda-adjunct';
+import React, { useContext, useEffect, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 
 
-import { useQuery } from '@apollo/client';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import { connectAuthEmulator } from 'firebase/auth';
+import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import { QueryResult } from '../components/QueryResult';
 
-
+const wait = (timeout: number) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   const authContext = useContext(AuthContext); 
 
   const pocket = route.params.pocket;
 
   const pocketID = pocket.pocketID
-  const {allBusinesses, loading} =  useGetAllBusinessesQuery(pocketID)
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
+
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState(allBusinesses)
 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = allBusinesses.filter(b => b.businessName.toLowerCase().includes(formattedQuery))
-      return results
-    })
-  };
-
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError } = useQuery(ChangeBalanceQueries.getAllChangeBalances, { variables: { userID: authContext.userFirebase.uid, pocketID: pocket.pocketID} });
-  if (changeBalanceError) return <Text>{changeBalanceError.message}</Text>;
-  if (changeBalanceLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
+  const searchResults = businessesData?.getAllBusinesses.filter(
+    b => b.businessName.toLowerCase().includes(
+      searchQuery.toLowerCase().trim()
+    )
+  )
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
     <BusinessCardSm
-      key={item.businessID}
+      // key={item.businessID}
       navigation={navigation}
       business={item}
       showPocket={false}
     />
 
   )
-  if(R.isNil(allBusinesses) ){
-    return null
-  }
+
+  // useEffect(() => {
+  //   updateSearch('')
+  // }, [loading])
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -67,6 +73,12 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       <ScreenContainer>
 
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
           ListHeaderComponent={() => {
             if (searchQuery == '') {
               return (
@@ -74,16 +86,22 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   <PocketDetailCard
                     navigation={navigation}
                     pocket={pocket} />
-                  {(pocket.pocketID === "2p") ? 
-                  <CompetitionCard
-                    navigation={navigation}
-                    competition={snapItUp} /> : null}
-                  
-                  {changeBalanceData.getAllChangeBalances.length != 0 ?
-                  <ChangeBalanceCard
-                    changeBalance={changeBalanceData.getAllChangeBalances} 
-                    pocket={pocket} /> : null
+                  {
+                    //TODO: make this not hard coded                    
                   }
+                  {(pocket.pocketID === "2p") ? 
+                    <ContestCard
+                    navigation={navigation}
+                    contest={snapItUp} /> : null
+                  }
+                  
+                  <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
+                    {changeBalanceData?.getAllChangeBalances?.length != 0 ?
+                      <ChangeBalanceCard
+                        changeBalance={changeBalanceData?.getAllChangeBalances} 
+                        pocket={pocket} /> : null
+                    }
+                  </QueryResult>
 
                   <DivHeader text='Businesses' />
                 </>
@@ -93,9 +111,9 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
             }
           }}
           contentContainerStyle={styles.businessFlatList}
-          data={allBusinesses}
+          data={searchResults}
           renderItem={renderBusinessCard}
-          ListFooterComponent={loading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
+          ListFooterComponent={businessesLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
         />
 
          
@@ -108,7 +126,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
         placeholder={'Search ' + pocket.pocketName}
         placeholderTextColor={colors.subtle}
 
-        onChangeText={updateSearch}
+        onChangeText={setSearchQuery}
         onClear={() => null}
         value={searchQuery}
       />

@@ -332,7 +332,7 @@ export const styles = StyleSheet.create({
 
   pocketHeaderImageContainer: {
     width: '100%',
-    height: 150,
+    height: 200,
   },
 
   pocketHeaderImage: {
@@ -795,7 +795,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     top: 0,
   }, 
-  competitionTitle: {
+  contestTitle: {
     fontFamily: 'metropolis bold',
     fontSize: 20,
     color: colors.gold,

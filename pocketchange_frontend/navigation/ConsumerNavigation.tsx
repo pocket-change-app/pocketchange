@@ -32,7 +32,7 @@ import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
 import BusinessWizardUploadImage from '../screens/BusinessWizardUploadImage';
 import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
-import CompetitionScreen from '../screens/CompetitionScreen';
+import ContestScreen from '../screens/ContestScreen';
 
 import { AuthContext } from '../contexts/Auth';
 import { useContext, useEffect } from 'react';
@@ -141,8 +141,8 @@ function PocketStack() {
         }}
       />
       <Stack.Screen
-        name="Competition"
-        component={CompetitionScreen}
+        name="Contest"
+        component={ContestScreen}
         options={{
           // presentation: 'modal',
           // headerShown: false,
