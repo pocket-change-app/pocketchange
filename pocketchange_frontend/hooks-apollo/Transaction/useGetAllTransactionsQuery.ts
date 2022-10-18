@@ -12,19 +12,9 @@ export default function useGetAllTransactionsQuery(
     startDate?: String,
     endDate?: String,
 ) {
-  const [allTransactions, setAllTransactions] = useState([])
   const {loading, data, error, refetch} = useQuery(TransactionQueries.getAllTransactions, {
     variables: {pocketID, businessID, userID, startDate, endDate},
-    fetchPolicy: 'network-only',
   })
-  //console.log(JSON.stringify(error, null, 2))
-  useEffect(() => {
-    if (RA.isNotNil(data)) {
-      // allBusinesses query is aliased as getAllBusinesses
-      const {getAllTransactions} = data
-      setAllTransactions(getAllTransactions)
-    }
-  }, [data])
 
-  return {allTransactions, loading, refetch, error}
+  return {data, loading, refetch, error}
 }

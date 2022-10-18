@@ -27,6 +27,7 @@ import useGetBusinessPocketsQuery from '../hooks-apollo/Pocket/useGetBusinessPoc
 import { QueryResult } from './QueryResult';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
+import { BusinessName } from './BusinessName';
 
 const R = require('ramda');
 
@@ -42,7 +43,6 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
     }
   );
 }
-
 
 export function BusinessCard({ navigation, business, changeBalance }: { navigation: any, business: any, changeBalance: any }) {
 
@@ -502,18 +502,17 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation, allTransactions, userID, loading }: { navigation: any, allTransactions: any, userID: any, loading: boolean }) {
-
-  const { data: scansData, loading: scansLoading, error: scansError, refetch: refetchScans } = useGetAllQRScansQuery(userID);
+export function HistoryCard({ navigation, allTransactions, allQRScans }: { navigation: any, allTransactions: any, allQRScans: any}) {
 
   // Construct list of all transactions and scans
-  let allItems = []
+  var allItems = []
+
   for (var i in allTransactions) {
     const t = allTransactions[i]
     const dateSecs = new Date(t.date).getTime()
     allItems.push(
       {
-        scan: null,
+        QRScan: null,
         transaction: t,
         dateSecs: dateSecs
       }
@@ -521,21 +520,18 @@ export function HistoryCard({ navigation, allTransactions, userID, loading }: { 
     console.log(t.date)
     console.log(console.log(dateSecs))
   }
-  if (scansData) {
-    for (var i in scansData.getAllQRScans) {
-      const s = scansData.getAllQRScans[i]
-      const dateSecs = new Date(s.date).getTime()
-      allItems.push(
-        {
-          scan: scansData.getAllQRScans[i],
-          transaction: null,
-          dateSecs: dateSecs
-        }
-      )
-      console.log(s.date)
-      console.log(dateSecs);
 
-    }
+  for (var i in allQRScans) {
+    const s = allQRScans[i]
+    const dateSecs = new Date(s.date).getTime()
+    allItems.push(
+      {
+        QRScan: s,
+        transaction: null,
+        dateSecs: dateSecs
+      }
+    )
+
   }
 
   // Sort by date
@@ -545,10 +541,10 @@ export function HistoryCard({ navigation, allTransactions, userID, loading }: { 
     <>
       {
         item.transaction == null ? (
-          <ScanListed
+          <QRScanListed
             navigation={navigation}
             key={item.key}
-            scan={item.scan}
+            QRScan={item.QRScan}
           />
         ) : (
           <TransactionListed
@@ -560,39 +556,29 @@ export function HistoryCard({ navigation, allTransactions, userID, loading }: { 
       }
     </>
   )
-  if (scansError) return(<Text>{scansError.message}</Text>);
-
 
   return (
     <View style={[styles.card]}>
       <CardHeader text='History' />
       <FlatList
-        // contentContainerStyle={styles.businessFlatList}
         scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
         data={allItems}
-        renderItem={renderItem}
-        ListFooterComponent={scansLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
-      />
+        renderItem={renderItem}/>
     </View>
   )
 }
 
 export function TransactionListed({ navigation, transaction }: any) {
   const businessID = transaction.businessID
-  const { business, loading } = useBusinessQuery(businessID)
 
-  if (loading) {
-    return null
-  }
   return (
     // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => (navigation.navigate("Receipt", {
         navigation: navigation,
         transaction: transaction
-      }))}
-    >
+      }))}>
 
       <View style={styles.transactionListed}>
         <View style={{ flexDirection: 'row' }}>
@@ -609,9 +595,7 @@ export function TransactionListed({ navigation, transaction }: any) {
               source={require("../assets/images/icon.png")}
             />
           </Pressable>
-          <Text style={styles.transactionListedMerchantText}>
-            {business.businessName}
-          </Text>
+          <BusinessName businessID={businessID} style={styles.transactionListedMerchantText}/>
         </View>
         <Text style={styles.transactionListedAmountText}>
           ${transaction.value}
@@ -622,20 +606,13 @@ export function TransactionListed({ navigation, transaction }: any) {
   )
 }
 
-export function ScanListed({ navigation, scan }: any) {
-  const businessID = scan.businessID
-  const { business, loading } = useBusinessQuery(businessID)
+export function QRScanListed({ navigation, QRScan }: any) {
 
-  if (loading) {
-    return null
-  }
   return (
-    // TODO: make pressable and navigatte to its own page
     <Pressable
       onPress={() => navigation.navigate('ScanConfirmation', {
-        QRScan: scan
-      })}
-    >
+        QRScan: QRScan
+      })}>
 
       <View style={styles.transactionListed}>
         <View style={{ flexDirection: 'row' }}>
@@ -647,9 +624,7 @@ export function ScanListed({ navigation, scan }: any) {
               name='qrcode'
             />
           </View>
-          <Text style={styles.transactionListedMerchantText}>
-            {business.businessName}
-          </Text>
+          <BusinessName businessID={QRScan.businessID} style={styles.transactionListedMerchantText}/>
         </View>
         <Text style={styles.transactionListedAmountText}>
           Snap it UP!

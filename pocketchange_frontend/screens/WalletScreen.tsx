@@ -13,16 +13,19 @@ import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import QRScanQueries from '../hooks-apollo/QRScan/queries'
 import { colors } from '../constants/Colors';
 import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
   
   const userID = authContext.userFirebase.uid;
-  const { allTransactions, loading: transactionLoading, error: transactionError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
+  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = useGetAllQRScansQuery(userID);
+  const { data: transactionsData, loading: transactionsLoading, error: transactionsError } =  useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined);
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(userID, undefined);
 
-  if (transactionError) return(<Text>{transactionError.message}</Text>);
+  if (QRScansError) return(<Text>{QRScansError.message}</Text>);
+  if (transactionsError) return(<Text>{transactionsError.message}</Text>);
   if (changeBalanceError) return(<Text>{changeBalanceError.message}</Text>);
 
   return (
@@ -47,14 +50,12 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           </View>
         } */}
         
-        {(transactionLoading) ?
-        <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> :
-        <HistoryCard
-        navigation={navigation}
-        allTransactions={allTransactions}
-        userID={userID}
-        
-      />
+        {(transactionsLoading || QRScansLoading) ?
+          <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> :
+          <HistoryCard
+            navigation={navigation}
+            allTransactions={transactionsData?.getAllTransactions}
+            allQRScans={QRScansData?.getAllQRScans}/>
         }
         
         <View style={{ height: MARGIN }} />
