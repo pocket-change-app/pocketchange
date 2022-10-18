@@ -28,6 +28,7 @@ import { QueryResult } from './QueryResult';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 import { BusinessName } from './BusinessName';
+import useGetAllChangeBalances from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
 
 const R = require('ramda');
 
@@ -44,15 +45,27 @@ async function getImageURL(entityType: string, entityID: string, fileName: strin
   );
 }
 
-export function BusinessCard({ navigation, business, changeBalance }: { navigation: any, business: any, changeBalance: any }) {
+export function BusinessCard({ navigation, businessID, pocketID }: { navigation: any, businessID: string, pocketID: string }) {
+
+  const authContext = useContext(AuthContext); 
 
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
+    getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
+  const pocketsQuery = useGetBusinessPocketsQuery(businessID)
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketsQuery
+
+  const businessQuery = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+
+  const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+
+  if (pocketError) return (<Text>Pocket error: {pocketError.message}</Text>)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   return (
     <View style={styles.card}>
@@ -70,26 +83,30 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
 
       </View>
       <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{business.businessName}</Text>
-        <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-        <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult>
+        <Text style={styles.businessNameLg}>{businessData?.business?.businessName}</Text>
+        <Text style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
+        <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}>
+          <Text style={styles.pocket}>
+            {pocketData?.getBusinessPockets[0]?.pocketName}
+          </Text>
+        </QueryResult>
 
-        {(changeBalance.length > 0) ?
+        {(changeBalanceData?.changeBalance?.length > 0) ?
           <Pressable style={styles.payButton}
             onPress={() => (
               navigation.navigate('PaymentModalStack', {
                 screen: "PayAmount",
                 params: {
                   // navigation: navigation,
-                  business: business,
-                  pocket: pocketData.getBusinessPockets[0]
+                  business: businessData?.business,
+                  pocket: pocketData?.getBusinessPockets[0]
                 }
               }))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable> :
           <Pressable style={[styles.payButton, { backgroundColor: colors.subtle }]}
             onPress={() => (
-              alert(`You have no ${pocketData.getBusinessPockets[0].pocketName} Change to redeem!`))}>
+              alert(`You have no ${pocketData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable>
         }
@@ -97,19 +114,19 @@ export function BusinessCard({ navigation, business, changeBalance }: { navigati
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
 
           <Pressable style={[styles.buttonBordered, { flex: 1, marginRight: MARGIN }]}
-            onPress={() => Linking.openURL(`tel:${business.phoneNumber}`)}>
+            onPress={() => Linking.openURL(`tel:${businessData?.business?.phoneNumber}`)}>
             <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>CALL</Text>
           </Pressable>
 
           <Pressable style={[styles.buttonBordered, { flex: 1 }]}
             onPress={() => {
               const dString =
-                `${business.address.buildingNumber}`
-                + ` ${business.address.streetName}`
-                + (business.address.unitName ? ` ${business.address.unitName}` : '')
-                + ` ${business.address.city}`
-                + ` ${business.address.region},`
-                + ` ${business.address.postalCode}`
+                `${businessData?.business?.address.buildingNumber}`
+                + ` ${businessData?.business?.address.streetName}`
+                + (businessData?.business?.address.unitName ? ` ${businessData?.business?.address.unitName}` : '')
+                + ` ${businessData?.business?.address.city}`
+                + ` ${businessData?.business?.address.region},`
+                + ` ${businessData?.business?.address.postalCode}`
 
               const destination = encodeURIComponent(dString);
               const provider = Platform.OS === 'ios' ? 'apple' : 'google'
@@ -186,8 +203,8 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         navigation ?
           navigation.navigate('Business', {
             // navigation: navigation,
-            business: business,
-            pocket: pocketData.getBusinessPockets[0]
+            businessID: business.businessID,
+            pocketID: pocketData?.getBusinessPockets[0].pocketID
           })
           : null
       }
@@ -219,16 +236,23 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
   )
 }
 
-export function ChangeBalanceCard({ changeBalance, pocket }: { changeBalance: any, pocket: any }) {
+export function ChangeBalanceCard({ pocketID }: { pocketID: string }) {
+
+  const authContext = useContext(AuthContext)
+
+  const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+
+  const pocketQuery = usePocketQuery(pocketID)
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketQuery
+
+  if (!changeBalanceData?.changeBalance) return (<></>)
 
   return (
     <View style={[styles.card, styles.pocketChangeBalanceCard]}>
-      <Text style={styles.pocketBig}>Your {pocket.pocketName} Change</Text>
+      <Text style={styles.pocketBig}>Your {pocketData?.pocket?.pocketName} Change</Text>
       <Text style={styles.changeLg}>
-        {(changeBalance.length == 0) ?
-          "$0.00" :
-          changeBalance.value
-        }
+        {changeBalanceData?.changeBalance?.value}
       </Text>
     </View>
   );

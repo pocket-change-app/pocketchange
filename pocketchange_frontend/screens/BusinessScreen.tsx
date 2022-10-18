@@ -1,45 +1,61 @@
-import { Platform, Image, Pressable, ScrollView, ActivityIndicator } from 'react-native';
+import { Platform, Image, Pressable, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 
 import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
 import { BusinessCard, ChangeBalanceCard } from '../components/Cards';
 
 import { colors } from '../constants/Colors';
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth';
 
 import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
 import { QueryResult } from '../components/QueryResult';
+import { useBusinessQuery } from '../hooks-apollo';
+import wait, { waitTimes } from '../utils/wait';
 
 
 export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
-  const { business, pocket } = route.params;
+  const businessID = route.params.businessID
+  const pocketID = route.params.pocketID
 
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
+  const changeBalancesQuery = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
+  const businessQuery = useBusinessQuery(businessID)
+
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = businessQuery
+
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      refetchBusiness,
+      refetchChangeBalances,
+    ]).then(() => setRefreshing(false));
+  }, []);
 
   return (
     <ScreenContainer>
       <ScrollView
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         style={styles.container}>
 
         <BusinessCard
           navigation={navigation}
-          business={business} 
-          changeBalance={changeBalanceData?.getAllChangeBalances} />
+          businessID={businessID}
+          pocketID={pocketID} />
 
-        <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
-          <ChangeBalanceCard
-            changeBalance={changeBalanceData?.getAllChangeBalances} 
-            pocket={pocket} />
-        </QueryResult>
+        {/* <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}> */}
+        <ChangeBalanceCard pocketID={pocketID} />
+        {/* </QueryResult> */}
       
         {
-          business.description ?
+          businessData?.business?.description ?
             <View style={[styles.card, styles.container]}>
-              <Text style={[styles.prose]}>{business.description}</Text>
+              <Text style={[styles.prose]}>{businessData?.business?.description}</Text>
             </View> :
             <></>
         }
