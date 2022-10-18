@@ -2,11 +2,11 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses, snapItUp } from '../dummy';
+import { businesses, contests, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
-import { useGetAllBusinessesQuery } from '../hooks-apollo';
+import { useGetAllBusinessesQuery, usePocketQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda-adjunct';
 import React, { useContext, useEffect, useState } from 'react';
@@ -18,36 +18,40 @@ import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
 import { connectAuthEmulator } from 'firebase/auth';
 import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
 import { QueryResult } from '../components/QueryResult';
+import wait, { waitTimes } from '../utils/wait';
 
-const wait = (timeout: number) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
+
+  const authContext = useContext(AuthContext); 
+
+  const pocket = route.params.pocket;
+  const pocketID = pocket.pocketID
+
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const searchResults = businessesData?.getAllBusinesses?.filter(
+    b => b.businessName.toLowerCase().includes(
+      searchQuery.toLowerCase().trim()
+    )
+  )
 
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      refetchPocket,
+      refetchBusinesses,
+      refetchChangeBalances,
+    ]).then(() => setRefreshing(false));
   }, []);
 
-  const authContext = useContext(AuthContext); 
-
-  const pocket = route.params.pocket;
-
-  const pocketID = pocket.pocketID
-  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocket.pocketID);
-
-
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const searchResults = businessesData?.getAllBusinesses.filter(
-    b => b.businessName.toLowerCase().includes(
-      searchQuery.toLowerCase().trim()
-    )
-  )
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
 
@@ -85,14 +89,14 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                 <>
                   <PocketDetailCard
                     navigation={navigation}
-                    pocket={pocket} />
+                    pocket={pocketData?.pocket} />
                   {
                     //TODO: make this not hard coded                    
                   }
                   {(pocket.pocketID === "2p") ? 
                     <ContestCard
                     navigation={navigation}
-                    contest={snapItUp} /> : null
+                      contest={contests[0]} /> : null
                   }
                   
                   <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
