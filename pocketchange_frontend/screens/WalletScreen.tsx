@@ -24,7 +24,8 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const changeBalanceQuery = useGetAllChangeBalancesQuery(userID, undefined)
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalanceQuery
-  
+  if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
+
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = useCallback(() => {
