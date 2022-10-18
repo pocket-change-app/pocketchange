@@ -18,26 +18,14 @@ import wait, { waitTimes } from '../utils/wait';
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
-  
-  const userID = authContext.userFirebase.uid;
-
-  const changeBalanceQuery = useGetAllChangeBalancesQuery(userID, undefined)
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalanceQuery
-  if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
-
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     Promise.all([
       wait(waitTimes.RefreshScreen),
-      refetchChangeBalances,
     ]).then(() => setRefreshing(false));
   }, []);
-
-
-  if (changeBalanceError) return(<Text>{changeBalanceError.message}</Text>);
 
   return (
     <ScreenContainer>
@@ -52,25 +40,11 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
         nestedScrollEnabled={false}>
 
         <IdCard />
-        {// TODO: connect to change balance resolver
-        }
-        {/* {changeBalanceData ?
-          <BalancesCard
-            changeTotal={user.changeTotal}
-            allChangeBalances={changeBalanceData?.getAllChangeBalances} /> :
-          <View style={[styles.card, styles.balanceCard, { justifyContent: 'center' }]}>
-            <ActivityIndicator
-              size="large"
-              color={colors.subtle}
-              style={{ margin: 10 }} />
-          </View>
-        } */}
-        
-
+        {/* // TODO: connect to change balance resolver  */}
+        {/* <BalancesCard /> */}
 
         <HistoryCard navigation={navigation} />
 
-        
         <View style={{ height: MARGIN }} />
       </ScrollView>
     </ScreenContainer>
