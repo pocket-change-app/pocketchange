@@ -9,7 +9,7 @@ import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader
 import { useGetAllBusinessesQuery, usePocketQuery } from '../hooks-apollo';
 import { Text, View } from '../components/Themed';
 import * as R from 'ramda-adjunct';
-import React, { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 
@@ -42,7 +42,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const [refreshing, setRefreshing] = useState(false)
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     Promise.all([
       wait(waitTimes.RefreshScreen),
