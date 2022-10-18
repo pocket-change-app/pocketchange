@@ -24,10 +24,11 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const transactionsQuery = useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined)
   const changeBalanceQuery = useGetAllChangeBalancesQuery(userID, undefined)
+  const QRScansQuery = useGetAllQRScansQuery(userID)
 
-  const { data: transactionData, loading: transactionLoading, error: transactionError, refetch: refetchTransactions } = transactionsQuery
+  const { data: transactionsData, loading: transactionsLoading, error: transactionsError, refetch: refetchTransactions } = transactionsQuery
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalanceQuery
-  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = useGetAllQRScansQuery(userID);
+  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = QRScansQuery
   
   const [refreshing, setRefreshing] = useState(false)
 
@@ -37,6 +38,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       wait(waitTimes.RefreshScreen),
       refetchChangeBalances,
       refetchTransactions,
+      refetchQRScans,
     ]).then(() => setRefreshing(false));
   }, []);
 
@@ -56,8 +58,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
         style={styles.container}
         nestedScrollEnabled={false}>
 
-        <IdCard
-          user={authContext.userGQL}/>
+        <IdCard />
         {// TODO: connect to change balance resolver
         }
         {/* {changeBalanceData ?

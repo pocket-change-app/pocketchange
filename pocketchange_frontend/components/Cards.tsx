@@ -368,11 +368,13 @@ export function PocketCarouselSeparator() {
   )
 }
 
-export function IdCard({ user }: { user: any }) {
+export function IdCard() {
 
+  const authContext = useContext(AuthContext)
+  // const user = authContext.userGQL
   //console.log(user)
 
-  const { userID, firstName, lastName, birthDate, totalChange } = user;
+  const { userID, firstName, lastName, birthDate, totalChange } = authContext.userGQL;
 
   const [imageURL, setImageURL] = useState();
 
