@@ -22,13 +22,8 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   
   const userID = authContext.userFirebase.uid;
 
-  const transactionsQuery = useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined)
   const changeBalanceQuery = useGetAllChangeBalancesQuery(userID, undefined)
-  const QRScansQuery = useGetAllQRScansQuery(userID)
-
-  const { data: transactionsData, loading: transactionsLoading, error: transactionsError, refetch: refetchTransactions } = transactionsQuery
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalanceQuery
-  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = QRScansQuery
   
   const [refreshing, setRefreshing] = useState(false)
 
@@ -37,13 +32,10 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     Promise.all([
       wait(waitTimes.RefreshScreen),
       refetchChangeBalances,
-      refetchTransactions,
-      refetchQRScans,
     ]).then(() => setRefreshing(false));
   }, []);
 
-  if (QRScansError) return(<Text>{QRScansError.message}</Text>);
-  if (transactionsError) return(<Text>{transactionsError.message}</Text>);
+
   if (changeBalanceError) return(<Text>{changeBalanceError.message}</Text>);
 
   return (
@@ -73,13 +65,10 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           </View>
         } */}
         
-        {(transactionsLoading || QRScansLoading) ?
-          <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> :
-          <HistoryCard
-            navigation={navigation}
-            allTransactions={transactionsData?.getAllTransactions}
-            allQRScans={QRScansData?.getAllQRScans}/>
-        }
+
+
+        <HistoryCard navigation={navigation} />
+
         
         <View style={{ height: MARGIN }} />
       </ScrollView>
