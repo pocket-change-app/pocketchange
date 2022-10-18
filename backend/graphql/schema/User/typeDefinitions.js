@@ -72,5 +72,6 @@ module.exports = gql`
         addUserRole(userID: ID, role: String, businessID: ID): User
         removeUserRole(userID: ID, role: String, businessID: ID): User
         updateUserLocations(userID:ID, latitude: Float, longitude: Float): User
+        pickWinner(contestID: ID, userID:ID): User
     }
 `

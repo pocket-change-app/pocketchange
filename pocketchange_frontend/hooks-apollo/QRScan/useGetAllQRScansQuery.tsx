@@ -4,7 +4,6 @@ import * as RA from 'ramda-adjunct'
 import { useQuery } from '@apollo/react-hooks'
 
 import QRScanQueries from './queries'
-import { ReactNativeBlobUtilFetchPolyfill } from 'react-native-blob-util'
 
 export default function useGetBusinessPocketsQuery(
     userID: String

@@ -1,4 +1,4 @@
-//date, businessID, consumerID, pocketID, competitionID
+//date, businessID, consumerID, pocketID
 module.exports = (sequelize, Sequelize) => {
     Business = require("./Business.model.js")(sequelize, Sequelize);
     User = require("./User.model.js")(sequelize, Sequelize);

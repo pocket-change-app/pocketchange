@@ -23,7 +23,7 @@ db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
 db.ChangeBalance = require("./ChangeBalance.model.js")(sequelize, Sequelize);
 db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
 db.Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
-db.Competition = require("./Competition.model.js")(sequelize, Sequelize);
+db.Contest = require("./Contest.model.js")(sequelize, Sequelize);
 db.QRScan = require("./QRScans.model.js")(sequelize, Sequelize);
 
 //relationships

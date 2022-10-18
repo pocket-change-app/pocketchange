@@ -13,8 +13,8 @@ export default {
         }
     `,
     getAllQRScans: gql`
-        query getAllQRScans($userID: ID){
-            getAllQRScans(userID: $userID) {
+        query getAllQRScans($userID: ID, $startDate: Date, $endDate: Date, $businessID: ID){
+            getAllQRScans(userID: $userID, startDate: $startDate, endDate: $endDate, businessID: $businessID) {
                 QRScanID
                 userID
                 businessID

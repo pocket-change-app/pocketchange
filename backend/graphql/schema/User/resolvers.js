@@ -444,5 +444,71 @@ module.exports = {
                 throw new ApolloError(`the userID:${userID} or businessID: ${businessID} is invalid or no longer active`)
               }
           },
+          pickWinner: async (parent, { 
+            contestID, 
+            userID,
+          }, { Contest, mongoContest, IsMember, WorksAt, mongoUser}) => {
+            const isMemberInfo = await IsMember.findOne({ where:{ userID: userID, pocketID: pocketID}})
+            if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+            //the user is the current manager or is pocketChange admin so they can update the comp to pick winner and close the comp
+            //the user is the manger of the pocket proceed (or its pocketchange admin)
+            //deactivate the comp (?)
+              // await mongoContest.updateOne({ contestID: contestID },
+              //   {
+              //     status: {
+              //       pending: false,
+              //       approved: false,
+              //       deactivated: true
+              //     },
+              //   })
+                //get contest
+                const contest = await Contest.findOne({where:{contestID: contestID}})
+                const startDate = contest.dataValues.startDate
+                const endDate = contest.dataValues.endDate
+                //get a list of all the userIDs from the QRscan table within a date
+                let filterScans = []
+                filterScans.push({date: {
+                  [Op.between]: [startDate, endDate]
+                }})
+                filterScans.push({'userID': userID})
+                let QRScanInfo;
+
+                // WITH MinTranstable AS
+                //       (SELECT [UserName],
+                //               min([TransDate]) AS MinDate
+                //       FROM [dbo]. [Transactions]
+                //       GROUP BY [UserName])
+                //     SELECT [Transactions].UserName,
+                //           [Transactions].TransDate,
+                //           [Transactions].Amount
+                //     FROM [dbo].[Transactions]
+                //     INNER JOIN MinTranstable ON [Transactions].username = MinTranstable.username
+                //     AND [Transactions].TransDate = MinTranstable.MinDate
+                QRScanInfo = await QRScan.findAll({ 
+                  where: filterTransactions,
+                })
+                const userIDs = R.pluck("userID", QRScanInfo);
+                const randomWinner = userIDs[Math.floor(Math.random() * userIDs.length)];
+                const winnerInfo = User.find({userID:randomWinner})
+                //update the winner in the mongocontest data
+                await mongoContest.updateOne({ contestID: contestID },
+                {
+                  winner: randomWinner,
+                })
+                return {
+                  userID: winnerInfo.userID,
+                  firstName: winnerInfo.firstName,
+                  lastName: winnerInfo.lastName,
+                  home: winnerInfo.home,
+                  birthDate: winnerInfo.birthDate,
+                  totalChange:  parseFloat(winnerInfo.totalChange).toFixed(2),
+                  emailAddress: winnerInfo.emailAddress,
+                  deactivated:  winnerInfo.deactivated,
+                }
+              } 
+              else {
+                throw new ApolloError(`the userID:${userID} or businessID: ${businessID} is invalid or no longer active`)
+              }
+          },
     }
   }
