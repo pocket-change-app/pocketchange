@@ -13,7 +13,7 @@ import QRScanQueries from '../hooks-apollo/QRScan/queries'
 import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { Button, color } from '@rneui/base';
-import { usePocketQuery, useBusinessQuery, useUserQuery } from '../hooks-apollo/index';
+import { usePocketQuery, useBusinessQuery, useUserQuery, useGetAllTransactionsQuery } from '../hooks-apollo/index';
 
 import businessImages from '../assets/images/businessImages';
 
@@ -528,13 +528,24 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation, allTransactions, allQRScans }: { navigation: any, allTransactions: any, allQRScans: any}) {
+export function HistoryCard({ navigation }: { navigation: any }) {
+
+  const authContext = useContext(AuthContext)
+  const userID = authContext.userFirebase.uid
+
+  const transactionsQuery = useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined)
+  const { data: transactionsData, loading: transactionsLoading, error: transactionsError, refetch: refetchTransactions } = transactionsQuery
+  if (transactionsError) return (<Text>{transactionsError.message}</Text>)
+
+  const QRScansQuery = useGetAllQRScansQuery(userID)
+  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = QRScansQuery
+  if (QRScansError) return (<Text>{QRScansError.message}</Text>)
 
   // Construct list of all transactions and scans
   var allItems = []
 
-  for (var i in allTransactions) {
-    const t = allTransactions[i]
+  for (var i in transactionsData?.getAllTransactions) {
+    const t = transactionsData?.getAllTransactions[i]
     const dateSecs = new Date(t.date).getTime()
     allItems.push(
       {
@@ -547,8 +558,8 @@ export function HistoryCard({ navigation, allTransactions, allQRScans }: { navig
     console.log(console.log(dateSecs))
   }
 
-  for (var i in allQRScans) {
-    const s = allQRScans[i]
+  for (var i in QRScansData?.getAllQRScans) {
+    const s = QRScansData?.getAllQRScans[i]
     const dateSecs = new Date(s.date).getTime()
     allItems.push(
       {
