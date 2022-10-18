@@ -23,14 +23,12 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
   const dateTime = new Date(dateTimeString)
 
-  const { business, loading, error } = useBusinessQuery(QRScan.businessID)
-
+  const businessQuery = useBusinessQuery(QRScan.businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>{businessError.message}</Text>)
 
   // console.log(dateTime)
-
   // console.log('inside confirmation component')
-
-
 
   return (
     <>
@@ -76,8 +74,8 @@ export default function ScanConfirmationScreen({ route, navigation }: any) {
 
             <View style={{ marginVertical: 2 * MARGIN }}>
               <Text style={styles.payConfirmationBusiness}>
-                {loading ? null : business.businessName}
-                {(error) ? error.message : null}
+                {businessLoading ? null : businessData?.business.businessName}
+                {(businessError) ? businessError.message : null}
               </Text>
             </View>
 
