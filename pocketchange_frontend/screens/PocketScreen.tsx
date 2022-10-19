@@ -29,7 +29,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   const pocketID = pocket.pocketID
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  if (businessesError) return (<Text>{businessesError.message}</Text>)
+
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
+  if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
   // const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -57,7 +60,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     <BusinessCardSm
       // key={item.businessID}
       navigation={navigation}
-      business={item}
+      businessID={item.businessID}
       showPocket={false}
     />
 

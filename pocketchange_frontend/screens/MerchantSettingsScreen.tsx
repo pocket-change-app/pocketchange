@@ -76,7 +76,7 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
           ? (<ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
           ) : (  */}
           <BusinessCardSm
-          business={businessData?.business}
+          businessID={businessID}
             showPocket
         />
         {/* )

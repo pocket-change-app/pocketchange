@@ -20,9 +20,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data: businessesData, loading: businessesLoading, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
+  if (businessesError) return (<Text>{businessesError.message}</Text>)
 
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
   if (pocketError) return <Text>{pocketError.message}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
   if (!pocketData) return <Text>Error: pocketData empty.</Text>
@@ -77,7 +78,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         return (
           <BusinessCardSm
             navigation={navigation}
-            business={item}
+            businessID={item.businessID}
           />
         )
       default:
