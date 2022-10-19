@@ -619,7 +619,7 @@ export const styles = StyleSheet.create({
   },
 
   pocketSearchResultContainer: {
-    marginVertical: MARGIN,
+    marginBottom: MARGIN * 2,
     marginHorizontal: MARGIN,
   },
 

@@ -1,8 +1,8 @@
-import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
-import { BusinessCardSm, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../components/Cards";
+import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { ScreenContainer } from '../components/Themed';
 import { useContext, useState } from 'react';
@@ -39,23 +39,33 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     )
   )
 
-  let allSearchResults = []
+
+  let allSearchResults: any[] = [{ title: '', data: [] }, { title: 'Businesses', data: [] }]
+
   for (var i in pocketSearchResults) {
     const p = pocketSearchResults[i]
-    allSearchResults.push(
+    allSearchResults[0].data.push(
       p
     )
   }
   for (var i in businessSearchResults) {
     const b = businessSearchResults[i]
-    allSearchResults.push(
+    allSearchResults[1].data.push(
       b
     )
   }
 
   // console.log(allSearchResults);
-  
-  const renderSearchResult = ({ item, index, separators }: any) => {
+
+  const renderPocketCarouselCard = ({ item, index, separators }) => (
+    <PocketCarouselCard
+      key={item.pocketID}
+      navigation={navigation}
+      pocket={item}
+    />
+  )
+
+  const renderSearchResult = ({ item }: any) => {
     switch (item.__typename) {
       case "Pocket":
         return (
@@ -78,7 +88,13 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
-
+  const renderSectionHeader = ({ section: { title } }) => {
+    if (allSearchResults.find(sec => sec.title === title)) {
+      return (<DivHeader text={title} />)
+    } else {
+      return (<></>)
+    }
+  }
  
   function PageContents() {
     if (searchQuery == '') {
@@ -95,26 +111,22 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           ItemSeparatorComponent={PocketCarouselSeparator}
 
           data={pocketData.getAllPockets}
-          renderItem={({ item, index, separators }) => (
-            <PocketCarouselCard
-              key={item.pocketID}
-              navigation={navigation}
-              pocket={item}
-            />
-          )
-          }
+          renderItem={renderPocketCarouselCard}
         />
       )
     } else {
       return (
-        <FlatList
+        <SectionList
           // style={styles.pocketFlatList}
           contentContainerStyle={styles.pocketSearchResultFlatList}
 
           // ItemSeparatorComponent={PocketListSeparator}
 
-          data={allSearchResults}
+          sections={allSearchResults}
+          keyExtractor={(item, index) => item + index}
           renderItem={renderSearchResult}
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled={false}
         />
       )
     }
@@ -136,7 +148,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         inputContainerStyle={styles.searchBarInputContainer}
         inputStyle={styles.searchBarInput}
         // round
-        placeholder="Search Pockets and Merchants"
+        placeholder="Search Pockets and Businesses"
         placeholderTextColor={colors.subtle}
 
         onChangeText={setSearchQuery}
