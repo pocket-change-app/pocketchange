@@ -328,13 +328,16 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
   )
 }
 
-export function PocketDetailCard({ navigation, pocket }: { navigation: any, pocket?: any }) {
+export function PocketDetailCard({ navigation, pocketID }: { navigation: any, pocketID: string }) {
 
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getImageURL("Pocket", pocket?.pocketID, "pocketBanner.jpg", setImageURL);
+    getImageURL("Pocket", pocketData?.pocket?.pocketID, "pocketBanner.jpg", setImageURL);
   }, []);
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <>
@@ -342,18 +345,23 @@ export function PocketDetailCard({ navigation, pocket }: { navigation: any, pock
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
 
-          {imageURL ?
+          {imageURL ? (
             <Image
               style={[styles.image, styles.pocketHeaderImage]}
-              source={{ uri: imageURL }} /> : <></>
+              source={{ uri: imageURL }} />
+          ) : (
+            <Image
+              style={[styles.image, styles.pocketHeaderImage]}
+              source={require('../assets/images/defaults/businessProfile.png')} />
+          )
           }
 
         </View>
         <View style={styles.container}>
-          <Text style={styles.pocketTitle}>{pocket?.pocketName}</Text>
+          <Text style={styles.pocketTitle}>{pocketData?.pocket?.pocketName}</Text>
           <Hyphenated>
             <Text style={styles.prose}>
-              {pocket?.description}
+              {pocketData?.pocket?.description}
             </Text>
           </Hyphenated>
         </View>

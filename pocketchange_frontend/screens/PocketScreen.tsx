@@ -30,7 +30,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
-  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+  // const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -46,7 +46,6 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     setRefreshing(true);
     Promise.all([
       wait(waitTimes.RefreshScreen),
-      refetchPocket,
       refetchBusinesses,
       refetchChangeBalances,
     ]).then(() => setRefreshing(false));
@@ -89,7 +88,8 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                 <>
                   <PocketDetailCard
                     navigation={navigation}
-                    pocket={pocketData?.pocket} />
+                    pocketID={pocketID}
+                  />
                   {
                     //TODO: make this not hard coded                    
                   }
