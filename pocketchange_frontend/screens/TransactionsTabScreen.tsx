@@ -1,6 +1,6 @@
-import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image } from 'react-native';
+import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import { styles, MARGIN } from '../Styles';
 //import { transactions } from '../dummy';
@@ -13,11 +13,22 @@ import { colors } from '../constants/Colors';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../contexts/Auth';
-const R = require('ramda');
+import wait, { waitTimes } from '../utils/wait';
+// const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
+
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      // refetchTransactions // once query is in
+    ]).then(() => setRefreshing(false));
+  }, []);
 
   // TODO: remove hard coded value, get logged in business
   const business = {
@@ -46,34 +57,46 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
  };
 
 
-  const {allTransactions, error, loading} =  useGetAllTransactionsQuery(undefined, business.businessID)
+  const { data: transactionsData, error: transactionsError, loading: transactionsLoading, refetch: refetchTransactions } = useGetAllTransactionsQuery(undefined, business.businessID)
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState('')
 
-  if(R.isNil(allTransactions) ){
-    return null
-  }
+  const searchResults = transactionsData?.getAllTransactions?.filter(
+    t => {
+      return true
+      // t.userName.toLowerCase().includes(
+      //   searchQuery.toLowerCase().trim()
+      // )
+    }
+  )
+
+  // if(R.isNil(allTransactions) ){
+  //   return null
+  // }
 
   // TODO: search wont work unitl we find a way to use the users names 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {
         const formattedQuery = text.toLowerCase().trim()
-        const results = allTransactions.filter(t => t.userID.toLowerCase().includes(formattedQuery))
+      const results = transactionsData?.getAllTransactions?.filter(t => t.userID.toLowerCase().includes(formattedQuery))
         return results
     })
 };
 
 
-  const renderTransactionCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+  const renderTransactionCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => {
 
+    console.log('rendering transaxtion');
+
+    return (
     <TranactionCardSm
       key={item.transactionID}
       navigation={navigation}
       transaction={item}
-    />
+      />
+    )
+  }
 
-  )
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -82,19 +105,13 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
 
       <ScreenContainer>
 
-    
-
-    
-        {isNilOrEmpty(allTransactions) ? null : <>
-
-          <FlatList
-            ListHeaderComponent={<DivHeader text="Transaction History"/>}
-            contentContainerStyle={styles.businessFlatList}
-            data={(!searchResults) ? allTransactions : searchResults}
-            renderItem={renderTransactionCard}
-          />
-
-        </>}
+        <FlatList
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          // ListHeaderComponent={<DivHeader text="Transaction History" />}
+          contentContainerStyle={styles.businessFlatList}
+          data={searchResults}
+          renderItem={renderTransactionCard}
+        />
 
       </ScreenContainer>
 
@@ -107,7 +124,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
                 placeholder="Search Transactions"
                 placeholderTextColor={colors.subtle}
 
-                onChangeText={updateSearch}
+        onChangeText={setSearchQuery}
                 onClear={() => null}
                 value={searchQuery}
             />
