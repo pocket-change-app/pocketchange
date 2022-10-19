@@ -166,9 +166,12 @@ export const styles = StyleSheet.create({
   },
 
   divHeader: {
-    paddingBottom: MARGIN_SM,
+    height: 50,
+    // marginBottom: MARGIN,
     justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
+    // backgroundColor: colors.testing
   },
 
   divHeaderTextContainer: {
@@ -619,7 +622,8 @@ export const styles = StyleSheet.create({
   },
 
   pocketSearchResultContainer: {
-    marginBottom: MARGIN * 2,
+    marginTop: MARGIN * 1.5,
+    marginBottom: MARGIN,
     marginHorizontal: MARGIN,
   },
 

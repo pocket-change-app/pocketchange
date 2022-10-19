@@ -40,7 +40,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   )
 
 
-  let allSearchResults: any[] = [{ title: '', data: [] }, { title: 'Businesses', data: [] }]
+  let allSearchResults: any[] = [{ title: null, data: [] }, { title: 'Businesses', data: [] }]
 
   for (var i in pocketSearchResults) {
     const p = pocketSearchResults[i]
@@ -81,15 +81,15 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           />
         )
       default:
-        // return (
-        //   <Text> UNSUPPORTED OBJECT </Text>
-        // )
+        return (
+          <Text> UNSUPPORTED OBJECT </Text>
+        )
         return
     }
   }
 
-  const renderSectionHeader = ({ section: { title } }) => {
-    if (allSearchResults.find(sec => sec.title === title)) {
+  const renderSectionHeader = ({ section: { title } }: string) => {
+    if (title && allSearchResults.find(sec => sec.title === title).data.length > 0) {
       return (<DivHeader text={title} />)
     } else {
       return (<></>)
@@ -146,10 +146,13 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
+
         inputStyle={styles.searchBarInput}
-        // round
         placeholder="Search Pockets and Businesses"
         placeholderTextColor={colors.subtle}
+
+        showCancel={true}
+        cancelButtonTitle='cancel'
 
         onChangeText={setSearchQuery}
         value={searchQuery}
