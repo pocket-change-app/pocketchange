@@ -23,9 +23,10 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
 
   const authContext = useContext(AuthContext); 
 
-  let businessID = authContext.activeRole.entityID
+  const businessID = authContext.activeRole.entityID
 
-  const { business, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
+
   // TODO: make roles not hard coded!!!!
   //const { data: rolesData, loading: rolesLoading, error: rolesError } = useGetUserRolesQuery(authContext.userFirebase.uid);
   //if (rolesError) return <Text>{rolesError.message}</Text>;
@@ -71,11 +72,15 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
         </View> */}
 
 
-          {isNilOrEmpty(business) ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> :
+        {/* {isNilOrEmpty(businessData?.business)
+          ? (<ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+          ) : (  */}
           <BusinessCardSm
-            business={business}
+          business={businessData?.business}
             showPocket
-            />}
+        />
+        {/* )
+        } */}
           <View style={[styles.card]}>
 
             <SettingPressable
