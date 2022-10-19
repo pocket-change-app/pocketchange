@@ -159,6 +159,7 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
   }, []);
 
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business?.businessID);
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <Pressable
@@ -189,16 +190,21 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessCardSm({ navigation, business, showPocket = true }: { navigation: any, business: any, showPocket: boolean }) {
+export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket: boolean }) {
   const [imageURL, setImageURL] = useState();
 
-  console.log(business)
+  // console.log(business)
 
   useEffect(() => {
-    getImageURL("Business", business?.businessID, "businessProfile.jpg", setImageURL);
+    getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business?.businessID);
+  const businessQuery = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <Pressable
@@ -206,8 +212,8 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         navigation ?
           navigation.navigate('Business', {
             // navigation: navigation,
-            businessID: business?.businessID,
-            pocketID: pocketData?.getBusinessPockets[0].pocketID
+            businessID: businessData?.business?.businessID,
+            pocketID: pocketData?.getBusinessPockets[0]?.pocketID
           })
           : null
       }
@@ -228,8 +234,8 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text numberOfLines={1} style={styles.businessNameSm}>{business?.businessName}</Text>
-          <Text numberOfLines={1} style={styles.address}>{business?.address.buildingNumber} {business?.address.streetName}</Text>
+          <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
+          <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
           {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
         </View>
 
