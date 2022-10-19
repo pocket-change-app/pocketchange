@@ -93,17 +93,22 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   {
                     //TODO: make this not hard coded                    
                   }
-                  {(pocket.pocketID === "2p") ? 
+                  {
+                    (pocket.pocketID === "2p") ? (
                     <ContestCard
                     navigation={navigation}
-                      contest={contests[0]} /> : null
+                        contest={contests[0]}
+                      />
+                    ) : (null)
                   }
                   
                   <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
-                    {changeBalanceData?.getAllChangeBalances?.length != 0 ?
-                      <ChangeBalanceCard
-                        changeBalance={changeBalanceData?.getAllChangeBalances} 
-                        pocket={pocket} /> : null
+                    {
+                      (changeBalanceData?.getAllChangeBalances?.length != 0) ? (
+                        <ChangeBalanceCard 
+                          pocketID={pocketID}
+                        />
+                      ) : (null)
                     }
                   </QueryResult>
 
