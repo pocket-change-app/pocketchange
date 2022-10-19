@@ -1135,11 +1135,9 @@ export function SwitchAccountDropdown({ authContext, rolesList }: { authContext:
 export function DivHeader({ text }: { text: string }) {
   return (
     <View style={styles.divHeader}>
-      <View style={styles.divHeaderTextContainer}>
-        <Text style={styles.cardHeaderText}>
-          {text}
-        </Text>
-      </View>
+      <Text style={styles.cardHeaderText}>
+        {text}
+      </Text>
     </View>
   )
 }

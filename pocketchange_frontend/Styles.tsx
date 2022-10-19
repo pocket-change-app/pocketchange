@@ -175,11 +175,11 @@ export const styles = StyleSheet.create({
   },
 
   divHeaderTextContainer: {
-    borderColor: colors.light,
+    // borderColor: colors.light,
     // borderBottomWidth: BORDER_WIDTH,
     // borderRadius: CARD_RADIUS,
     paddingVertical: MARGIN / 4,
-    paddingHorizontal: MARGIN / 2,
+    // paddingHorizontal: MARGIN / 2,
   },
 
   cardHeader: {
@@ -194,7 +194,6 @@ export const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'metropolis regular',
     fontSize: 18,
-    textAlign: 'center',
     color: colors.subtle,
   },
 
