@@ -1,4 +1,4 @@
-import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, } from 'react-native';
+import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, RefreshControl, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../Styles';
@@ -9,11 +9,12 @@ import { colors, colorScale } from '../constants/Colors';
 
 import { merchantAnalytics, leaderAnalytics } from '../dummy';
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
 import { AuthContext } from '../contexts/Auth';
+import wait, { waitTimes } from '../utils/wait';
 
 const R = require('ramda');
 
@@ -21,10 +22,20 @@ const R = require('ramda');
 
 export default function AnalyticsDashboardScreen() {
 
+  const authContext = useContext(AuthContext); 
+
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState('')
 
-  const authContext = useContext(AuthContext); 
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      // refetchAnalytics // once query is in
+    ]).then(() => setRefreshing(false));
+  }, []);
 
   let allAnalytics;
   if (authContext.activeRole.type === "LEADER") {
@@ -75,6 +86,7 @@ export default function AnalyticsDashboardScreen() {
       <ScreenContainer>
       
         <SectionList
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={searchQuery ? searchResults : allAnalytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
