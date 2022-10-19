@@ -340,7 +340,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       );
     } else if (type == 'list-similar-businesses') {
       const listItems = data.map(
-        (item) => <BusinessCardSm navigation={undefined} business={item} showPocket/>
+        (item) => <BusinessCardSm navigation={undefined} businessID={item.businessID} showPocket />
       );
       return (
         <View>{listItems}</View>
