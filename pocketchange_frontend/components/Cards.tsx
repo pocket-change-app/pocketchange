@@ -1,7 +1,7 @@
 import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch, Settings, ActivityIndicator } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
+import { styles, MARGIN, BUTTON_HEIGHT, MARGIN_SM } from '../Styles';
 import { pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
@@ -603,8 +603,8 @@ export function HistoryCard({ navigation }: { navigation: any }) {
   )
 
   return (
-    <View style={[styles.card]}>
-      <CardHeader text='History' />
+    <View style={[styles.card, { paddingVertical: MARGIN_SM / 2 }]}>
+      {/* <CardHeader text='History' /> */}
       <FlatList
         scrollEnabled={false}
         ItemSeparatorComponent={HorizontalLine}
