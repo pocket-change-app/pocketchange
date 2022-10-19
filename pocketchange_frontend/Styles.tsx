@@ -669,7 +669,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     height: 30,
     marginHorizontal: MARGIN,
-    marginVertical: MARGIN / 2,
+    marginVertical: MARGIN * 2 / 3,
   },
 
   transactionListedMerchantText: {

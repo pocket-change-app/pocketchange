@@ -2,7 +2,7 @@ import { ActivityIndicator, RefreshControl, ScrollView } from 'react-native';
 
 import { MARGIN, styles } from '../Styles';
 import { ScreenContainer, Text, View } from '../components/Themed';
-import { BalancesCard, IdCard, HistoryCard } from '../components/Cards';
+import { BalancesCard, IdCard, HistoryCard, DivHeader } from '../components/Cards';
 import { user } from '../dummy';
 import { useGetAllTransactionsQuery } from '../hooks-apollo';
 import { useCallback, useContext, useState } from 'react';
@@ -42,6 +42,8 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
         <IdCard />
         {/* // TODO: connect to change balance resolver  */}
         {/* <BalancesCard /> */}
+
+        <DivHeader text='History' />
 
         <HistoryCard navigation={navigation} />
 
