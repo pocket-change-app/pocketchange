@@ -19,6 +19,11 @@ import wait, { waitTimes } from '../utils/wait';
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext); 
+  const businessID = authContext.activeRole.entityID
+
+  const { data: transactionsData, error: transactionsError, loading: transactionsLoading, refetch: refetchTransactions } = useGetAllTransactionsQuery(undefined, businessID)
+  if (transactionsError) return (<Text>{transactionsError.message}</Text>)
+
 
   const [refreshing, setRefreshing] = useState(false)
 
@@ -57,7 +62,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
  };
 
 
-  const { data: transactionsData, error: transactionsError, loading: transactionsLoading, refetch: refetchTransactions } = useGetAllTransactionsQuery(undefined, business.businessID)
+
   const [searchQuery, setSearchQuery] = useState('')
 
   const searchResults = transactionsData?.getAllTransactions?.filter(
@@ -73,15 +78,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
   //   return null
   // }
 
-  // TODO: search wont work unitl we find a way to use the users names 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-        const formattedQuery = text.toLowerCase().trim()
-      const results = transactionsData?.getAllTransactions?.filter(t => t.userID.toLowerCase().includes(formattedQuery))
-        return results
-    })
-};
+
 
 
   const renderTransactionCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => {

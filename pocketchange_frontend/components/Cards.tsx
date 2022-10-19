@@ -56,16 +56,18 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
   }, []);
 
   const pocketsQuery = useGetBusinessPocketsQuery(businessID)
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketsQuery
+  const { data: pocketsData, loading: pocketsLoading, error: pocketsError, refetch: refetchPockets } = pocketsQuery
+  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+  if (changeBalancesError) return (<Text>Business error: {changeBalancesError.message}</Text>)
 
-  if (pocketError) return (<Text>Pocket error: {pocketError.message}</Text>)
-  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
+
 
   return (
     <View style={styles.card}>
@@ -88,13 +90,13 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{businessData?.business?.businessName}</Text>
         <Text style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
-        <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}>
+        <QueryResult loading={pocketsLoading} error={pocketsError} data={pocketsData}>
           <Text style={styles.pocket}>
-            {pocketData?.getBusinessPockets[0]?.pocketName}
+            {pocketsData?.getBusinessPockets[0]?.pocketName}
           </Text>
         </QueryResult>
 
-        {(changeBalanceData?.changeBalance?.length > 0) ?
+        {(changeBalancesData?.changeBalance?.length > 0) ?
           <Pressable style={styles.payButton}
             onPress={() => (
               navigation.navigate('PaymentModalStack', {
@@ -102,14 +104,14 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
                 params: {
                   // navigation: navigation,
                   business: businessData?.business,
-                  pocket: pocketData?.getBusinessPockets[0]
+                  pocket: pocketsData?.getBusinessPockets[0]
                 }
               }))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable> :
           <Pressable style={[styles.payButton, { backgroundColor: colors.subtle }]}
             onPress={() => (
-              alert(`You have no ${pocketData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
+              alert(`You have no ${pocketsData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable>
         }
@@ -250,24 +252,28 @@ export function ChangeBalanceCard({ pocketID }: { pocketID: string }) {
   const authContext = useContext(AuthContext)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+  if (changeBalancesError) return (<Text>{changeBalancesError.message}</Text>)
 
   const pocketQuery = usePocketQuery(pocketID)
   const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketQuery
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
-  if (!changeBalanceData?.changeBalance) return (<></>)
+  if (!changeBalancesData?.changeBalance) return (<></>)
 
   return (
     <View style={[styles.card, styles.pocketChangeBalanceCard]}>
       <Text style={styles.pocketBig}>Your {pocketData?.pocket?.pocketName} Change</Text>
       <Text style={styles.changeLg}>
-        {changeBalanceData?.changeBalance?.value}
+        {changeBalancesData?.changeBalance?.value}
       </Text>
     </View>
   );
 }
 
 export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+
+  // TODO: take ID and use query
 
   const [imageURL, setImageURL] = useState();
 
@@ -695,18 +701,22 @@ export function QRScanListed({ navigation, QRScan }: any) {
 export function Receipt({ navigation, transaction }: any) {
 
   const businessID = transaction.businessID
-  const { business, loading } = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>{businessError.message}</Text>)
 
-  if (R.isNil(business)) {
-    return null
-  }
-
-  const address = business.address
   const { pocketID } = transaction
-  const { pocket, loadingPockets } = usePocketQuery(pocketID)
-  if (R.isEmpty(pocket)) {
-    return null
-  }
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
+
+  // if (R.isNil(business)) {
+  //   return null
+  // }
+
+  const address = businessData?.business?.address
+
+  // if (R.isEmpty(pocket)) {
+  //   return null
+  // }
   //const address = business.address
   //console.log(business, pocket)
   return (
@@ -717,13 +727,13 @@ export function Receipt({ navigation, transaction }: any) {
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Text style={styles.receipt}>{businessData?.business?.businessName}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Text style={styles.receipt}> X</Text>
             </Pressable>
           </View>
           {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
-          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+          <Text style={styles.receipt}>{pocketData?.pocket?.pocketName}</Text>
         </View>
         {/* </View> */}
 
@@ -786,19 +796,23 @@ export function Receipt({ navigation, transaction }: any) {
 
 export function ReceiptContest({ navigation, transaction }: any) {
 
-  const businessID = transaction.businessID
-  const { business, loading } = useBusinessQuery(businessID)
-
-  if (R.isNil(business)) {
-    return null
-  }
-
-  const address = business.address
   const { pocketID } = transaction
-  const { pocket, loadingPockets } = usePocketQuery(pocketID)
-  if (R.isEmpty(pocket)) {
-    return null
-  }
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
+
+  const businessID = transaction.businessID
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  // if (R.isNil(business)) {
+  //   return null
+  // }
+
+  const address = businessData?.business?.address
+
+  // if (R.isEmpty(pocket)) {
+  //   return null
+  // }
   //const address = business.address
   //console.log(business, pocket)
   return (
@@ -809,13 +823,13 @@ export function ReceiptContest({ navigation, transaction }: any) {
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Text style={styles.receipt}>{businessData?.business?.businessName}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Text style={styles.receipt}> X</Text>
             </Pressable>
           </View>
           {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
-          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+          <Text style={styles.receipt}>{pocketData?.pocket?.pocketName}</Text>
         </View>
         {/* </View> */}
 
@@ -915,7 +929,7 @@ export function ButtonWithText({
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
 
-  const { user, loading, refetch } = useUserQuery(transaction.userID)
+  const { user, loading: userLoading, refetch: refetchUser } = useUserQuery(transaction.userID)
 
   if (isNilOrEmpty(user)) {
     return (null)
