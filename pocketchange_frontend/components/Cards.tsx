@@ -70,15 +70,18 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
   return (
     <View style={styles.card}>
       <View style={styles.businessHeaderImageContainer}>
-        {imageURL ?
-          <Image
-            style={styles.businessHeaderImage}
-            source={{ uri: imageURL }}
-          /> :
-          <Image
-            style={styles.businessListImage}
-            source={require('../assets/images/defaults/businessProfile.png')}
-          />
+        {imageURL
+          ? (
+            <Image
+              style={styles.businessHeaderImage}
+              source={{ uri: imageURL }}
+            />
+          ) : (
+            <Image
+              style={styles.businessListImage}
+              source={require('../assets/images/defaults/businessProfile.png')}
+            />
+          )
         }
 
       </View>
@@ -333,7 +336,7 @@ export function PocketDetailCard({ navigation, pocketID }: { navigation: any, po
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
-    getImageURL("Pocket", pocketData?.pocket?.pocketID, "pocketBanner.jpg", setImageURL);
+    getImageURL("Pocket", pocketID, "pocketBanner.jpg", setImageURL);
   }, []);
 
   const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
@@ -345,15 +348,18 @@ export function PocketDetailCard({ navigation, pocketID }: { navigation: any, po
       <View style={styles.card}>
         <View style={[styles.pocketHeaderImageContainer]}>
 
-          {imageURL ? (
-            <Image
-              style={[styles.image, styles.pocketHeaderImage]}
-              source={{ uri: imageURL }} />
-          ) : (
-            <Image
-              style={[styles.image, styles.pocketHeaderImage]}
-              source={require('../assets/images/defaults/businessProfile.png')} />
-          )
+          {imageURL
+            ? (
+              <Image
+                style={[styles.image, styles.pocketHeaderImage]}
+                source={{ uri: imageURL }}
+              />
+            ) : (
+              <Image
+                style={[styles.image, styles.pocketHeaderImage]}
+                source={require('../assets/images/defaults/businessProfile.png')}
+              />
+            )
           }
 
         </View>
