@@ -18,7 +18,9 @@ export const colors = {
   green: '#71A77B',
   blue: '#7C90DB',
   purple: '#6F4A92',
-  
+
+  testing: 'rgba(0,0,0,0.1)',
+
 }
 
 export const colorScale = [colors.gold, colors.green, colors.blue, colors.tomato, colors.purple]
