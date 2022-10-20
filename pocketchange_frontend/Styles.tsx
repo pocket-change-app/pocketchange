@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     // borderBottomWidth: BORDER_WIDTH,
-    borderColor: colors.subtle,
+    // borderColor: colors.subtle,
   },
 
   notFoundText: {
@@ -43,12 +43,25 @@ export const styles = StyleSheet.create({
 
   textInputContainer: {
     padding: MARGIN / 2,
+    flexDirection: 'row',
+  },
+
+  inputFieldContainer: {
+    padding: MARGIN / 2,
   },
 
   inputText: {
     fontFamily: 'metropolis medium',
     fontSize: 18,
     lineHeight: 20,
+    color: colors.medium,
+    // paddingBottom: MARGIN,
+  },
+
+  inputNumber: {
+    fontFamily: 'money',
+    fontSize: 30,
+    // lineHeight: 20,
     color: colors.medium,
     // paddingBottom: MARGIN,
   },
