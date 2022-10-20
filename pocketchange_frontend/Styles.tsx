@@ -624,7 +624,7 @@ export const styles = StyleSheet.create({
 
   pocketSearchResultFlatList: {
     padding: MARGIN,
-    flex: 1,
+    // flex: 1,
   },
 
   pocketSearchResultContainer: {
