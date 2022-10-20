@@ -11,6 +11,7 @@ import { AuthContext } from '../contexts/Auth';
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../hooks-apollo';
 
+
 // const R = require('ramda');
 
 
@@ -41,7 +42,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   )
 
 
-  let allSearchResults: any[] = [{ title: null, data: [] }, { title: 'Businesses', data: [] }]
+  let allSearchResults: any[] = [
+    { title: null, data: [] },
+    { title: 'Businesses', data: [] }
+  ]
 
   for (var i in pocketSearchResults) {
     const p = pocketSearchResults[i]
@@ -89,15 +93,15 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
-  const renderSectionHeader = ({ section: { title } }: string) => {
-    if (title && allSearchResults.find(sec => sec.title === title).data.length > 0) {
+  const renderSectionHeader = ({ section: { title, data } }: { section: { title: string, data: any[] } }) => {
+    if (title && data.length > 0) {
       return (<DivHeader text={title} />)
     } else {
       return (<></>)
     }
   }
  
-  function PageContents() {
+  const PageContents = () => {
     if (searchQuery == '') {
       return (
         <FlatList
