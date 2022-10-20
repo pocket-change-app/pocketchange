@@ -71,6 +71,13 @@ export const styles = StyleSheet.create({
     padding: MARGIN,
   },
 
+  floatingButtonContainer: {
+    padding: MARGIN * 2 / 3,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+  },
+
   image: {
     borderWidth: BORDER_WIDTH,
     borderColor: colors.imageBorder,
@@ -166,7 +173,7 @@ export const styles = StyleSheet.create({
   },
 
   divHeader: {
-    height: 50,
+    height: MARGIN * 3.5,
     // marginBottom: MARGIN,
     justifyContent: 'center',
     alignItems: 'center',
@@ -195,6 +202,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis regular',
     fontSize: 18,
     color: colors.subtle,
+    textAlign: 'center',
   },
 
   cardHeaderTextContainer: {
@@ -424,8 +432,6 @@ export const styles = StyleSheet.create({
     // marginTop: MARGIN,
     height: BUTTON_HEIGHT,
     backgroundColor: 'transparent',
-
-    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -618,6 +624,7 @@ export const styles = StyleSheet.create({
 
   pocketSearchResultFlatList: {
     padding: MARGIN,
+    flex: 1,
   },
 
   pocketSearchResultContainer: {
