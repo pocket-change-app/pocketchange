@@ -91,13 +91,11 @@ export default function AnalyticsDashboardScreen() {
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={({ section: { sectionTitle } }) => (
-            <View style={styles.analyticsSectionHeaderContainer}>
-              <Text style={styles.analyticsSectionHeader}>{sectionTitle}</Text>
-            </View>
+            <DivHeader text={sectionTitle} />
           )}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
-          SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
+          // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
           ListFooterComponent={<SuggestAnalyticForm/>}
         />
 
