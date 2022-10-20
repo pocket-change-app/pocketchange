@@ -41,6 +41,18 @@ export const styles = StyleSheet.create({
     padding: MARGIN / 2,
   },
 
+  textInputContainer: {
+    padding: MARGIN / 2,
+  },
+
+  inputText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 18,
+    lineHeight: 20,
+    color: colors.medium,
+    // paddingBottom: MARGIN,
+  },
+
   paymentFocusText: {
     fontFamily: 'receipt',
     fontSize: 50,
