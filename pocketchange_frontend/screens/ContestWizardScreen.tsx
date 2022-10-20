@@ -1,6 +1,7 @@
+import { isEmpty } from '@firebase/util';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, TextInput, Touchable, TouchableWithoutFeedback } from "react-native";
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
@@ -13,8 +14,18 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
+  const formatPrizeAmount = () => {
+
+    if (prizeAmount == '') return
+
+    const formattedAmt = parseFloat(prizeAmount).toFixed(2)
+    setPrizeAmount(formattedAmt)
+  }
 
   return (
+    <TouchableWithoutFeedback
+      onPress={() => Keyboard.dismiss()}
+    >
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={100}
@@ -111,6 +122,7 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                 placeholder={'3.2B'}
                 placeholderTextColor={colors.subtle}
               // onSubmitEditing={() => ref_address.current.focus()}
+                  onEndEditing={formatPrizeAmount}
               />
             </View>
           </View>
@@ -154,5 +166,6 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
 
       </ScreenContainer>
     </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   )
 }
