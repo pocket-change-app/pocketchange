@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platfor
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT, MARGIN_SM } from '../Styles';
-import { pockets, user } from '../dummy';
+import { contestData, pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
@@ -960,10 +960,11 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView?: boolean }) {
+export function ContestCard({ navigation, contestID, showDetailedView = false }: { navigation: any, contestID: string, showDetailedView?: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const { contestID, contestName, description, prizeValue, endDate } = contest;
+  const contest = (contestData[0].data.find(c => c.contestID === contestID) ? self : contestData[1].data.find(c => c.contestID === contestID))
+
   const { data: scansData, loading: scansLoading, error: scansError } = useGetAllQRScansQuery(authContext.userFirebase.uid);
   if (scansError) return (<Text>{scansError.message}</Text>);
 
@@ -977,7 +978,7 @@ export function ContestCard({ navigation, contest, showDetailedView = false }: {
         <View style={styles.container}>
           <Text style={styles.contestTitle}>
             <FontAwesome name='trophy' style={styles.contestTitle} />
-            {' ' + contestName}
+            {' ' + contest?.contestName}
           </Text>
         </View>
 
@@ -987,7 +988,7 @@ export function ContestCard({ navigation, contest, showDetailedView = false }: {
               <HorizontalLine />
               <View style={styles.container}>
                 <Text style={styles.prose}>
-                  {description}
+                  {contest?.description}
                 </Text>
               </View>
             </>
