@@ -86,7 +86,7 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
             text='Create Contest'
             color={colors.gold}
             // negativeStyle={true}
-            onPress={null}
+            onPress={() => navigation.navigate('ContestWizard')}
           />
         </View>
 
