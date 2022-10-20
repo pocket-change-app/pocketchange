@@ -2,7 +2,7 @@ import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshCo
 import { SearchBar } from '@rneui/base';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 //import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { ButtonWithText, ContestCard, DivHeader } from '../components/Cards';
@@ -60,14 +60,15 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
       <ScreenContainer>
 
         <SectionList
-          contentContainerStyle={[styles.pocketSearchResultFlatList, { zIndex: 0 }]}
+          contentContainerStyle={[styles.pocketSearchResultFlatList]}
           keyExtractor={(item, index) => item + index}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={contestData}
-            renderItem={renderContest}
+          renderItem={renderContest}
           renderSectionHeader={renderSectionHeader}
           stickySectionHeadersEnabled={false}
-          />
+          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT }} />}
+        />
 
         {/* <DivHeader text={'Active'} /> */}
 
