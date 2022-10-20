@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses, contests, snapItUp } from '../dummy';
+import { businesses, contestData, contests, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
@@ -96,11 +96,11 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   {
                     //TODO: make this not hard coded                    
                   }
-                  {
-                    (pocket.pocketID === "2p") ? (
-                    <ContestCard
-                    navigation={navigation}
-                        contest={contests[0]}
+                  {(pocket.pocketID === "2p")
+                    ? (
+                      <ContestCard
+                        navigation={navigation}
+                        contest={contestData[0].data[0]}
                       />
                     ) : (null)
                   }
