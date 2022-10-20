@@ -24,6 +24,7 @@ import SettingsTippingScreen from '../screens/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/EditEmployeesScreen';
 import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
 import ContestScreen from '../screens/ContestScreen';
+import ContestWizardScreen from '../screens/ContestWizardScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -86,13 +87,19 @@ function ContestsStack() {
         component={ContestsTabScreen}
         options={({ navigation }: RootTabScreenProps<'Contests'>) => ({
           title: 'Contests',
-          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
         })}
       />
       <Stack.Screen
         name="Contest"
         component={ContestScreen}
         options={{}}
+      />
+      <Stack.Screen
+        name="ContestWizard"
+        component={ContestWizardScreen}
+        options={{
+          title: 'Contest Wizard'
+        }}
       />
 
       {/* <Stack.Screen
