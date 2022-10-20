@@ -1,3 +1,4 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { ScreenContainer, Text, View } from "../components/Themed";
@@ -7,7 +8,10 @@ import { MARGIN, styles } from "../Styles";
 export default function ContestWizardScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const [contestName, setContestName] = useState('')
-  const [contestDescription, setContestDescription] = useState('')
+  const [description, setDescription] = useState('')
+  const [prizeAmount, setPrizeAmount] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
 
   return (
@@ -20,7 +24,7 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
 
         <View style={styles.container}>
 
-          <View style={[styles.card, styles.textInputContainer, { marginBottom: MARGIN }]}>
+          {/* <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
             <Text style={[styles.prose]}>
               prompt
             </Text>
@@ -40,32 +44,32 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
               // onSubmitEditing={() => ref_address.current.focus()}
               />
             </View>
-          </View>
+          </View> */}
 
-          <View style={[styles.card, styles.textInputContainer, { marginBottom: MARGIN }]}>
+          <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
             <Text style={[styles.prose]}>
               Contest Name
             </Text>
 
-            <View style={styles.textInputContainer}>
+            <View style={[styles.textInputContainer, { justifyContent: 'center' }]}>
               <TextInput
                 // autoFocus={true}
-                multiline
+                // multiline
                 returnKeyType="next"
                 selectionColor={colors.gold}
                 autoCapitalize='words'
-                style={styles.inputText}
+                style={[styles.inputText, { textAlign: 'center' }]}
                 // keyboardType='numeric'
                 value={contestName}
                 onChangeText={setContestName}
-                placeholder={'type something...'}
+                placeholder={'Name Goes Here (/^-^)/'}
                 placeholderTextColor={colors.subtle}
               // onSubmitEditing={() => ref_address.current.focus()}
               />
             </View>
           </View>
 
-          <View style={[styles.card, styles.textInputContainer, { marginBottom: MARGIN }]}>
+          <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
             <Text style={[styles.prose]}>
               Description and Rules
             </Text>
@@ -79,14 +83,68 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                 autoCapitalize='sentences'
                 style={styles.inputText}
                 // keyboardType='numeric'
-                value={contestDescription}
-                onChangeText={setContestDescription}
+                value={description}
+                onChangeText={setDescription}
                 placeholder={'type something...'}
                 placeholderTextColor={colors.subtle}
               // onSubmitEditing={() => ref_address.current.focus()}
               />
             </View>
           </View>
+
+          <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
+            <Text style={[styles.prose]}>
+              Prize Amount
+            </Text>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputNumber}>$</Text>
+              <TextInput
+                // autoFocus={true}
+                returnKeyType="next"
+                selectionColor={colors.gold}
+                autoCapitalize='sentences'
+                style={styles.inputNumber}
+                keyboardType='numeric'
+                value={prizeAmount}
+                onChangeText={setPrizeAmount}
+                placeholder={'3.2B'}
+                placeholderTextColor={colors.subtle}
+              // onSubmitEditing={() => ref_address.current.focus()}
+              />
+            </View>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <View style={[styles.card, styles.inputFieldContainer, { flex: 1, marginRight: MARGIN }]}>
+              <Text style={[styles.prose]}>
+                Start Date
+              </Text>
+
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={startDate}
+                mode="date"
+                onChange={(event, date) => setStartDate}
+              // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
+              />
+            </View>
+
+            <View style={[styles.card, styles.inputFieldContainer, { flex: 1 }]}>
+              <Text style={[styles.prose]}>
+                End Date
+              </Text>
+
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={endDate}
+                mode="date"
+                onChange={(event, date) => setEndDate}
+              // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
+              />
+            </View>
+          </View>
+
 
 
 
