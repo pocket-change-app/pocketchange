@@ -5,7 +5,7 @@ const LOCAL_SYSTEM_IP_ADDRESS = '10.0.0.188';
 const PORT = '4000';
 
 // see: https://github.com/graphql/swapi-graphql
-const GRAPHQL_API_URL = 'http://localhost:4000/graphql';
+const GRAPHQL_API_URL = 'http://147.182.151.212';
 
 const authLink = setContext((_, {headers}) => {
   return {
