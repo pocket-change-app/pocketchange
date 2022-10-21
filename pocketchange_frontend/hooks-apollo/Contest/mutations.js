@@ -11,7 +11,7 @@ export default {
                 endDate
                 contestName
                 description
-                winner
+                winners
                 status{
                     pending
                     approved
@@ -30,7 +30,7 @@ export default {
                 endDate
                 contestName
                 description
-                winner
+                winners
                 status{
                     pending
                     approved
@@ -49,12 +49,24 @@ export default {
                 endDate
                 contestName
                 description
-                winner
+                winners
                 status{
                     pending
                     approved
                     deactivated
                 }
+            }
+        }
+    `,
+    chooseWinningEntries: gql`
+        mutation chooseWinningEntries($userID: ID, $contestID:ID, $winnerNumber: Int){
+            chooseWinningEntries(userID: $userID, contestID: $contestID, winnerNumber: $winnerNumber){
+                contestID
+                QRScanID
+                userID
+                businessID
+                geolocationID
+                date
             }
         }
     `

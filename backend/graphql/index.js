@@ -21,6 +21,7 @@ const IsIn = database.IsIn
 const IsMember = database.IsMember
 const Loves = database.Loves
 const WorksAt = database.WorksAt
+const ParticipatingIn = database.ParticipatingIn
 
 //get Mongo Data
 const mongodatabase = require('../databases/mongoSchema/mongodb')
@@ -51,6 +52,7 @@ const context = async ({ req }) => {
     IsMember,
     Loves,
     WorksAt,
+    ParticipatingIn,
     //sequelize connection for functions
     sequelizeConnection,
     //schema Mongo

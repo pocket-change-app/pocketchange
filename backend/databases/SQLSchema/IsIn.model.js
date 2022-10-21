@@ -13,7 +13,6 @@ module.exports = (sequelize, Sequelize) => {
                 model: Business,
                 key: 'businessID'
             },
-            unique: true
         },
         pocketID:{
             type: Sequelize.UUID,

@@ -2,25 +2,26 @@ const { gql, ApolloError } = require('apollo-server');
 const R = require('ramda')
 const math = require('mathjs')
 const {Op} = require('sequelize')
+const returnAllEntries = require('../helpers/returnAllEntries')
 
                                                                                                                                                                                                                                                                                                        
 module.exports = {
   Query: {
     contest: async (parent, { contestID }, { Contest, mongoContest}) => {
-      //check to make sure nonempty businessID was given
+      //check to make sure nonempty contestID was given
         if (contestID === '') {
           return null;
         }
-        //get the relevant business info from mongo, ensuring SQL exists
+        //get the relevant info from mongo, ensuring SQL exists
         const contestInfo = await Contest.findOne({ where : {contestID: contestID}});
         const mongoContestInfo = await mongoContest.findOne({ contestID});
         //if the schemas return with relevant info for both mongo and SQl proceed
         if(contestInfo && mongoContestInfo){
             if(mongoContestInfo.status.deactivated == false){
-            //subset fields needed which are businessID, businessName, 
-            //dateEstablished, emailAddress, phoneNumber, website, businessType,businessSubtype
+            //subset fields needed
+              console.log(mongoContestInfo)
             return {
-              //return values described for business
+              //return values described for contest
               contestID: mongoContestInfo.contestID, 
               pocketID: contestInfo.dataValues.pocketID,
               prizeValue: contestInfo.dataValues.prizeValue,
@@ -28,7 +29,7 @@ module.exports = {
               endDate: contestInfo.dataValues.endDate,
               contestName: mongoContestInfo.contestName, 
               description: mongoContestInfo.description, 
-              winner: mongoContestInfo.winner, 
+              winners: mongoContestInfo.winners, 
               status:mongoContestInfo.status, 
             }
           }
@@ -41,6 +42,12 @@ module.exports = {
           throw new ApolloError(`contestID:${contestID} doesn't exist`);
           return {};
         }
+    },
+    getAllEntries: async (parent, { contestID, userID }, { Contest, mongoContest, QRScan, Business, Pocket}) => {
+      const allEntriesInfo = await returnAllEntries({
+        contestID: contestID, userID: userID
+      },{Business, QRScan, Contest, mongoContest, Pocket}) 
+      return allEntriesInfo
     },
   },
 
@@ -68,7 +75,7 @@ module.exports = {
             contestID: newContest.contestID, 
             contestName: contestName,
             description: description,
-            winner: null,
+            winners: null,
             status: {
               pending: true,
               approved: false,
@@ -84,7 +91,7 @@ module.exports = {
             endDate: newContest.dataValues.endDate,
             contestName: newMongoContest.contestName, 
             description: newMongoContest.description, 
-            winner: newMongoContest.winner, 
+            winners: newMongoContest.winners, 
             status:newMongoContest.status, 
           }
         } else {
@@ -147,9 +154,43 @@ module.exports = {
             endDate: contestInfo.dataValues.endDate,
             contestName: mongoContestInfo.contestName, 
             description: mongoContestInfo.description, 
-            winner: mongoContestInfo.winner, 
+            winners: mongoContestInfo.winners, 
             status:mongoContestInfo.status, 
           }
+        }
+        else {
+          throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
+        }
+    },   
+    chooseWinningEntries: async (parent, { 
+      userID,
+      contestID,
+      winnerNumber,
+    }, { Contest, mongoContest, Business, IsMember, QRScan, Pocket, ParticipatingIn, mongoUser}) => {
+        const pocketInfo = await ParticipatingIn.findOne({where:{contestID: contestID}, raw: true})
+        const pocketID = pocketInfo.pocketID
+        const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
+        if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+        //the user is the current manager or is pocketChange admin so they can select the contest winner
+          //the user is the manger of the pocket proceed (or its pocketchange admin)
+          //get all entries, do not pass userID
+          const allEntriesInfo = await returnAllEntries({
+            contestID: contestID,
+          },{Business, QRScan, Contest, mongoContest, Pocket}) 
+          // shuffle entry info
+          const shuffledEntries = allEntriesInfo.sort(() => 0.5 - Math.random());
+
+          // Get sub-array of first n elements after shuffled
+          const winningEntries = shuffledEntries.slice(0, winnerNumber);
+          console.log(winningEntries)
+          const winningUserIDs= winningEntries.map(entry => entry.userID);
+          console.log(winningUserIDs)
+          const mongoContestInfo = await mongoContest.updateOne({ contestID: contestID },
+            {
+              winners: winningUserIDs
+            })
+          return winningEntries
+          //return winning entries
         }
         else {
           throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
