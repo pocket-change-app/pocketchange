@@ -899,8 +899,8 @@ export function ButtonWithText({
   onPress
 }: {
   text: string,
-  color: string,
-  negativeStyle: boolean,
+    color?: string,
+    negativeStyle?: boolean,
   // flexing: boolean,
   onPress: any
 }) {
