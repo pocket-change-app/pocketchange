@@ -11,6 +11,7 @@ import { AuthContext } from '../contexts/Auth';
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../hooks-apollo';
 
+
 // const R = require('ramda');
 
 
@@ -20,9 +21,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data: businessesData, loading: businessesLoading, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
+  if (businessesError) return (<Text>{businessesError.message}</Text>)
 
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
   if (pocketError) return <Text>{pocketError.message}</Text>;
   if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
   if (!pocketData) return <Text>Error: pocketData empty.</Text>
@@ -40,7 +42,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   )
 
 
-  let allSearchResults: any[] = [{ title: null, data: [] }, { title: 'Businesses', data: [] }]
+  let allSearchResults: any[] = [
+    { title: null, data: [] },
+    { title: 'Businesses', data: [] }
+  ]
 
   for (var i in pocketSearchResults) {
     const p = pocketSearchResults[i]
@@ -77,7 +82,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         return (
           <BusinessCardSm
             navigation={navigation}
-            business={item}
+            businessID={item.businessID}
           />
         )
       default:
@@ -88,15 +93,15 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
-  const renderSectionHeader = ({ section: { title } }: string) => {
-    if (title && allSearchResults.find(sec => sec.title === title).data.length > 0) {
+  const renderSectionHeader = ({ section: { title, data } }: { section: { title: string, data: any[] } }) => {
+    if (title && data.length > 0) {
       return (<DivHeader text={title} />)
     } else {
       return (<></>)
     }
   }
  
-  function PageContents() {
+  const PageContents = () => {
     if (searchQuery == '') {
       return (
         <FlatList

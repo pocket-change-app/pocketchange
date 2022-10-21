@@ -1,8 +1,8 @@
-import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image } from 'react-native';
+import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshControl, SectionList } from 'react-native';
 import { SearchBar } from '@rneui/base';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
 //import { transactions } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 import { ButtonWithText, ContestCard, DivHeader } from '../components/Cards';
@@ -15,30 +15,52 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../contexts/Auth';
 import { HorizontalLine } from '../components/Lines';
 import { FontAwesome } from '@expo/vector-icons';
-import { contests } from '../dummy';
+import { contestsData } from '../dummy';
+import wait, { waitTimes } from '../utils/wait';
 const R = require('ramda');
 
 export default function ContestsTabScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
-  // TODO: search wont work unitl we find a way to use the users names 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = allTransactions.filter(t => t.userID.toLowerCase().includes(formattedQuery))
-      return results
-    })
-  };
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      // refetchContests // once queried
+    ]).then(() => setRefreshing(false));
+  }, []);
+
+
+  const allSections = [
+    {
+      title: 'Active',
+      data: [contestsData.getAllContests[0]]
+    },
+    {
+      title: 'Completed',
+      data: contestsData.getAllContests.slice(1)
+    }
+  ]
+
 
   const renderContest = ({ item, index, separators }: any) => {
     return (
       <ContestCard
         navigation={navigation}
-        contest={item}
+        contestID={item.contestID}
       />
     )
+  }
+
+  const renderSectionHeader = ({ section: { title, data } }: { section: { title: string, data: any[] } }) => {
+    if (title && data.length > 0) {
+      return (<DivHeader text={title} />)
+    } else {
+      return (<></>)
+    }
   }
 
   return (
@@ -49,32 +71,35 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
 
       <ScreenContainer>
 
-        {/* CONTEST CARD */}
-        <View style={styles.container}>
+        <SectionList
+          contentContainerStyle={[styles.pocketSearchResultFlatList]}
+          keyExtractor={(item, index) => item + index}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          sections={allSections}
+          renderItem={renderContest}
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled={false}
+          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT }} />}
+        />
 
-          <FlatList
-            data={contests}
-            renderItem={renderContest}
-          />
-
-          <DivHeader text={'Active'} />
+        {/* <DivHeader text={'Active'} /> */}
 
           {/* <ContestCard
             navigation={navigation}
             contest={snapItUp}
           /> */}
 
-          <DivHeader text={'Completed'} />
+        {/* <DivHeader text={'Completed'} /> */}
 
-          <Text style={[styles.notFoundText, { margin: 10 }]}>No contests have completed yet...</Text>
+        {/* <Text style={[styles.notFoundText, { margin: 10 }]}>No contests have completed yet...</Text> */}
 
+        <View style={styles.floatingButtonContainer}>
           <ButtonWithText
             text='Create Contest'
             color={colors.gold}
             // negativeStyle={true}
-            onPress={null}
+            onPress={() => navigation.navigate('ContestWizard')}
           />
-
         </View>
 
       </ScreenContainer>

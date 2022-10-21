@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses, contests, snapItUp } from '../dummy';
+import { businesses, contestData, contests, contestsData, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
@@ -25,11 +25,16 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const authContext = useContext(AuthContext); 
 
+  const contestData = { contest: contestsData.getAllContests[0] }
+
   const pocket = route.params.pocket;
   const pocketID = pocket.pocketID
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  if (businessesError) return (<Text>{businessesError.message}</Text>)
+
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
+  if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
   // const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -57,7 +62,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     <BusinessCardSm
       // key={item.businessID}
       navigation={navigation}
-      business={item}
+      businessID={item.businessID}
       showPocket={false}
     />
 
@@ -93,11 +98,11 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   {
                     //TODO: make this not hard coded                    
                   }
-                  {
-                    (pocket.pocketID === "2p") ? (
-                    <ContestCard
-                    navigation={navigation}
-                        contest={contests[0]}
+                  {(pocket.pocketID === "2p")
+                    ? (
+                      <ContestCard
+                        navigation={navigation}
+                        contestID={contestData?.contest?.contestID}
                       />
                     ) : (null)
                   }

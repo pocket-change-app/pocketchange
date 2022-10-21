@@ -23,7 +23,7 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
 
   let pocketID = authContext.activeRole.entityID
 
-  const { pocket, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
   if (pocketError) {return <Text>{pocketError.message}</Text>;}
 
   const signOut = async () => {
@@ -56,34 +56,13 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
           rolesList={rolesData.getUserRoles}
         />
 
-        {/* <View style={styles.card}>
-          <SettingPressable
-            iconName='random'
-            settingText={`Switch Accounts`}
-            onPress={() => switchAccount()}
-          />
-        </View> */}
-
-
           <View style={styles.card}>
 
-            <View style={styles.businessListItemCard}>
+          <View style={[styles.businessListItemCard, { alignItems: 'center', justifyContent: 'center' }]}>
+            <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocketData?.pocket.pocketName}</Text>
 
-              {/* <View style={styles.businessListImageContainer}>
-                <Image
-                  style={styles.businessListImage}
-                  source={pocketImages[business.businessID]}
-                />
-              </View> */}
-              {isNilOrEmpty(pocket) ?
-                <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
-                : <View style={styles.businessListInfo}>
-                  <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocket.pocketName}</Text>
-                </View>
-            
-              }
 
-            </View>
+          </View>
 
             <HorizontalLine />
 

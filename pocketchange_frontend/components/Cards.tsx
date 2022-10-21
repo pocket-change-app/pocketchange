@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platfor
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT, MARGIN_SM } from '../Styles';
-import { pockets, user } from '../dummy';
+import { contestsData, pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
@@ -56,16 +56,18 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
   }, []);
 
   const pocketsQuery = useGetBusinessPocketsQuery(businessID)
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketsQuery
+  const { data: pocketsData, loading: pocketsLoading, error: pocketsError, refetch: refetchPockets } = pocketsQuery
+  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+  if (changeBalancesError) return (<Text>Business error: {changeBalancesError.message}</Text>)
 
-  if (pocketError) return (<Text>Pocket error: {pocketError.message}</Text>)
-  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
+
 
   return (
     <View style={styles.card}>
@@ -88,13 +90,13 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
       <View style={styles.businessModalInfo}>
         <Text style={styles.businessNameLg}>{businessData?.business?.businessName}</Text>
         <Text style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
-        <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}>
+        <QueryResult loading={pocketsLoading} error={pocketsError} data={pocketsData}>
           <Text style={styles.pocket}>
-            {pocketData?.getBusinessPockets[0]?.pocketName}
+            {pocketsData?.getBusinessPockets[0]?.pocketName}
           </Text>
         </QueryResult>
 
-        {(changeBalanceData?.changeBalance?.length > 0) ?
+        {(changeBalancesData?.changeBalance?.length > 0) ?
           <Pressable style={styles.payButton}
             onPress={() => (
               navigation.navigate('PaymentModalStack', {
@@ -102,14 +104,14 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
                 params: {
                   // navigation: navigation,
                   business: businessData?.business,
-                  pocket: pocketData?.getBusinessPockets[0]
+                  pocket: pocketsData?.getBusinessPockets[0]
                 }
               }))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable> :
           <Pressable style={[styles.payButton, { backgroundColor: colors.subtle }]}
             onPress={() => (
-              alert(`You have no ${pocketData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
+              alert(`You have no ${pocketsData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
             <Text style={styles.payButtonText}>Redeem Change</Text>
           </Pressable>
         }
@@ -158,7 +160,8 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
     getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business?.businessID);
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <Pressable
@@ -189,16 +192,21 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessCardSm({ navigation, business, showPocket = true }: { navigation: any, business: any, showPocket: boolean }) {
+export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket: boolean }) {
   const [imageURL, setImageURL] = useState();
 
-  console.log(business)
+  // console.log(business)
 
   useEffect(() => {
-    getImageURL("Business", business.businessID, "businessProfile.jpg", setImageURL);
+    getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(business.businessID);
+  const businessQuery = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <Pressable
@@ -206,8 +214,8 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         navigation ?
           navigation.navigate('Business', {
             // navigation: navigation,
-            businessID: business.businessID,
-            pocketID: pocketData?.getBusinessPockets[0].pocketID
+            businessID: businessData?.business?.businessID,
+            pocketID: pocketData?.getBusinessPockets[0]?.pocketID
           })
           : null
       }
@@ -228,8 +236,8 @@ export function BusinessCardSm({ navigation, business, showPocket = true }: { na
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text numberOfLines={1} style={styles.businessNameSm}>{business.businessName}</Text>
-          <Text numberOfLines={1} style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
+          <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
+          <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
           {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
         </View>
 
@@ -244,24 +252,28 @@ export function ChangeBalanceCard({ pocketID }: { pocketID: string }) {
   const authContext = useContext(AuthContext)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
-  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+  if (changeBalancesError) return (<Text>{changeBalancesError.message}</Text>)
 
   const pocketQuery = usePocketQuery(pocketID)
   const { data: pocketData, loading: pocketLoading, error: pocketError } = pocketQuery
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
 
-  if (!changeBalanceData?.changeBalance) return (<></>)
+  if (!changeBalancesData?.changeBalance) return (<></>)
 
   return (
     <View style={[styles.card, styles.pocketChangeBalanceCard]}>
       <Text style={styles.pocketBig}>Your {pocketData?.pocket?.pocketName} Change</Text>
       <Text style={styles.changeLg}>
-        {changeBalanceData?.changeBalance?.value}
+        {changeBalancesData?.changeBalance?.value}
       </Text>
     </View>
   );
 }
 
 export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
+
+  // TODO: take ID and use query
 
   const [imageURL, setImageURL] = useState();
 
@@ -689,18 +701,22 @@ export function QRScanListed({ navigation, QRScan }: any) {
 export function Receipt({ navigation, transaction }: any) {
 
   const businessID = transaction.businessID
-  const { business, loading } = useBusinessQuery(businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>{businessError.message}</Text>)
 
-  if (R.isNil(business)) {
-    return null
-  }
-
-  const address = business.address
   const { pocketID } = transaction
-  const { pocket, loadingPockets } = usePocketQuery(pocketID)
-  if (R.isEmpty(pocket)) {
-    return null
-  }
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
+
+  // if (R.isNil(business)) {
+  //   return null
+  // }
+
+  const address = businessData?.business?.address
+
+  // if (R.isEmpty(pocket)) {
+  //   return null
+  // }
   //const address = business.address
   //console.log(business, pocket)
   return (
@@ -711,13 +727,13 @@ export function Receipt({ navigation, transaction }: any) {
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Text style={styles.receipt}>{businessData?.business?.businessName}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Text style={styles.receipt}> X</Text>
             </Pressable>
           </View>
           {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
-          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+          <Text style={styles.receipt}>{pocketData?.pocket?.pocketName}</Text>
         </View>
         {/* </View> */}
 
@@ -780,19 +796,23 @@ export function Receipt({ navigation, transaction }: any) {
 
 export function ReceiptContest({ navigation, transaction }: any) {
 
-  const businessID = transaction.businessID
-  const { business, loading } = useBusinessQuery(businessID)
-
-  if (R.isNil(business)) {
-    return null
-  }
-
-  const address = business.address
   const { pocketID } = transaction
-  const { pocket, loadingPockets } = usePocketQuery(pocketID)
-  if (R.isEmpty(pocket)) {
-    return null
-  }
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
+
+  const businessID = transaction.businessID
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  // if (R.isNil(business)) {
+  //   return null
+  // }
+
+  const address = businessData?.business?.address
+
+  // if (R.isEmpty(pocket)) {
+  //   return null
+  // }
   //const address = business.address
   //console.log(business, pocket)
   return (
@@ -803,13 +823,13 @@ export function ReceiptContest({ navigation, transaction }: any) {
         {/* <View style={{ flexDirection: 'row', marginBottom: MARGIN }}> */}
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.receipt}>{business.businessName}</Text>
+            <Text style={styles.receipt}>{businessData?.business?.businessName}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Text style={styles.receipt}> X</Text>
             </Pressable>
           </View>
           {/* <Text style={styles.receipt}>{address.buildingNumber}{address.streetName}</Text> */}
-          <Text style={styles.receipt}>{pocket.pocketName}</Text>
+          <Text style={styles.receipt}>{pocketData?.pocket?.pocketName}</Text>
         </View>
         {/* </View> */}
 
@@ -879,8 +899,8 @@ export function ButtonWithText({
   onPress
 }: {
   text: string,
-  color: string,
-  negativeStyle: boolean,
+    color?: string,
+    negativeStyle?: boolean,
   // flexing: boolean,
   onPress: any
 }) {
@@ -909,7 +929,7 @@ export function ButtonWithText({
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
 
-  const { user, loading, refetch } = useUserQuery(transaction.userID)
+  const { user, loading: userLoading, refetch: refetchUser } = useUserQuery(transaction.userID)
 
   if (isNilOrEmpty(user)) {
     return (null)
@@ -940,24 +960,27 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
   )
 }
 
-export function ContestCard({ navigation, contest, showDetailedView = false }: { navigation: any, contest: any, showDetailedView?: boolean }) {
+export function ContestCard({ navigation, contestID, showDetailedView = false }: { navigation: any, contestID: string, showDetailedView?: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const { contestID, contestName, description, prizeValue, endDate } = contest;
+  // use dummy data like query will be used
+  const c = contestsData?.getAllContests?.find(c => c.contestID === contestID)
+  const contestData = { contest: c }
+
   const { data: scansData, loading: scansLoading, error: scansError } = useGetAllQRScansQuery(authContext.userFirebase.uid);
   if (scansError) return (<Text>{scansError.message}</Text>);
 
   return (
     <Pressable
       onPress={() => navigation.navigate('Contest', {
-        contest: contest
+        contestID: contestID
       })}
     >
       <View style={[styles.card]}>
         <View style={styles.container}>
           <Text style={styles.contestTitle}>
             <FontAwesome name='trophy' style={styles.contestTitle} />
-            {' ' + contestName}
+            {' ' + contestData?.contest?.contestName}
           </Text>
         </View>
 
@@ -967,7 +990,7 @@ export function ContestCard({ navigation, contest, showDetailedView = false }: {
               <HorizontalLine />
               <View style={styles.container}>
                 <Text style={styles.prose}>
-                  {description}
+                  {contestData?.contest?.description}
                 </Text>
               </View>
             </>
@@ -979,30 +1002,32 @@ export function ContestCard({ navigation, contest, showDetailedView = false }: {
         <HorizontalLine />
 
         <View style={styles.container}>
-          {authContext.activeRole.type == RoleType.Consumer ? (
-            // {/* CONSUMER TEXT */ }
-            < Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
-              You have <Text style={{ fontFamily: 'metropolis black' }}>
-                {scansLoading ? (
-                  <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
-                ) : (
-                  scansData.getAllQRScans.length
-                )} entries
+          {authContext.activeRole.type == RoleType.Consumer
+            ? (
+              // {/* CONSUMER TEXT */ }
+              < Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                You have <Text style={{ fontFamily: 'metropolis black' }}>
+                  {scansLoading ? (
+                    <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+                  ) : (
+                    scansData.getAllQRScans.length
+                  )} entries
+                </Text>
+                <Text> ✅ </Text>
+                Keep it up!
               </Text>
-              <Text> ✅ </Text>
-              Keep it up!
-            </Text>
-          ) : (
-            // {/* LEADER TEXT */}
-            <>
-              <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
-                {81} participants | {122} entries
-              </Text>
-            </>
-          )
+            ) : authContext.activeRole.type == RoleType.Leader
+              ? (
+                // {/* LEADER TEXT */}
+                <>
+                  <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                    {81} participants | {122} entries
+                  </Text>
+                </>
+              ) : null
           }
-          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
-            {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
+          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>
+            Contest ends {contestData?.contest?.endDate}.
           </Text>
 
           {
