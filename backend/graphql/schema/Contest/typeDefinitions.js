@@ -13,7 +13,16 @@ module.exports = gql`
       contestName: String
       description: String
       status:Status
-      winner: String
+      winners: [String]
+    }
+
+    type Entry{
+      contestID: ID
+      QRScanID: ID
+      userID: ID
+      businessID: ID
+      geolocationID: ID
+      date: Date
     }
 
     type Status{
@@ -27,6 +36,7 @@ module.exports = gql`
         Query a specific contest from it's ID
         """
         contest(contestID: ID): Contest
+        getAllEntries(contestID: ID, userID: ID): [Entry]
       }
       type Mutation {
         """
@@ -35,5 +45,6 @@ module.exports = gql`
         createContest(userID: ID, pocketID: ID, prizeValue: Decimal, startDate: Date, endDate: Date, contestName: String, description: String): Contest
         deactivateContest(userID:ID, contestID:ID, pocketID: ID): Contest
         approveContest(userID:ID, contestID:ID, pocketID: ID): Contest
+        chooseWinningEntries(contestID: ID, userID: ID, winnerNumber: Int): [Entry]
       }
 `
