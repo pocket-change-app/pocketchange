@@ -2,6 +2,7 @@ import { isEmpty } from '@firebase/util';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, TextInput, Touchable, TouchableWithoutFeedback } from "react-native";
+import { ButtonWithText } from '../components/Cards';
 import { ScreenContainer, Text, View } from "../components/Themed";
 import { colors } from "../constants/Colors";
 import { MARGIN, styles } from "../Styles";
@@ -13,6 +14,14 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
   const [prizeAmount, setPrizeAmount] = useState('')
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
+
+  const allFieldsFilled = (
+    contestName !== '' &&
+    description !== '' &&
+    prizeAmount !== '' &&
+    startDate &&
+    endDate
+  )
 
   const formatPrizeAmount = () => {
 
@@ -33,29 +42,7 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
     >
       <ScreenContainer>
 
-        <View style={styles.container}>
-
-          {/* <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
-            <Text style={[styles.prose]}>
-              prompt
-            </Text>
-
-            <View style={styles.textInputContainer}>
-              <TextInput
-                // autoFocus={true}
-                returnKeyType="next"
-                selectionColor={colors.gold}
-                autoCapitalize='sentences'
-                style={styles.inputText}
-                // keyboardType='numeric'
-                // value={firstName}
-                // onChangeText={setBusinessName}
-                placeholder={'type something...'}
-                placeholderTextColor={colors.subtle}
-              // onSubmitEditing={() => ref_address.current.focus()}
-              />
-            </View>
-          </View> */}
+          <View style={[styles.container, { flex: 1 }]}>
 
           <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
             <Text style={[styles.prose]}>
@@ -157,12 +144,21 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
             </View>
           </View>
 
+          </View>
 
-
-
-        </View>
-
-
+          <View style={styles.container}>
+            <ButtonWithText
+              text='Next'
+              onPress={null}
+              color={allFieldsFilled ?
+                (
+                  colors.gold
+                ) : (
+                  colors.subtle
+                )
+              }
+            />
+          </View>
 
       </ScreenContainer>
     </KeyboardAvoidingView>
