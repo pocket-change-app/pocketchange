@@ -15,7 +15,7 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../contexts/Auth';
 import { HorizontalLine } from '../components/Lines';
 import { FontAwesome } from '@expo/vector-icons';
-import { contestData } from '../dummy';
+import { contestsData } from '../dummy';
 import wait, { waitTimes } from '../utils/wait';
 const R = require('ramda');
 
@@ -32,6 +32,18 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
       // refetchContests // once queried
     ]).then(() => setRefreshing(false));
   }, []);
+
+
+  const allSections = [
+    {
+      title: 'Active',
+      data: [contestsData.getAllContests[0]]
+    },
+    {
+      title: 'Completed',
+      data: contestsData.getAllContests.slice(1)
+    }
+  ]
 
 
   const renderContest = ({ item, index, separators }: any) => {
@@ -63,7 +75,7 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
           contentContainerStyle={[styles.pocketSearchResultFlatList]}
           keyExtractor={(item, index) => item + index}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-          sections={contestData}
+          sections={allSections}
           renderItem={renderContest}
           renderSectionHeader={renderSectionHeader}
           stickySectionHeadersEnabled={false}

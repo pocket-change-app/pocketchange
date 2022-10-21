@@ -2,13 +2,17 @@ import { useState, useCallback } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import { ContestCard, DivHeader, UserCardSm } from "../components/Cards";
 import { ScreenContainer, View, Text } from "../components/Themed";
+import { contestsData } from "../dummy";
 import { styles } from "../Styles";
 import wait, { waitTimes } from "../utils/wait";
 
 
 export default function ContestScreen({ navigation, route }: { navigation: any, route: any }) {
 
-  const { contest } = route.params
+  const { contestID } = route.params
+
+  const contestData = { contest: contestsData.getAllContests.find(c => c.contestID === contestID) }
+
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = useCallback(() => {
@@ -23,7 +27,8 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
 
   const renderParticipant = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
     <UserCardSm
-      user={item}/>
+      user={item}
+    />
   )
 
   return (
@@ -32,19 +37,14 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
 
      
       <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         contentContainerStyle={[styles.container]}
         ListHeaderComponent={() => {
           return (
             <>
               <ContestCard
                 navigation={navigation}
-                contest={contest}
+                contestID={contestID}
                 showDetailedView
               />
 
@@ -52,10 +52,10 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
             </>
           )
         }}
-        data={contest.participants}
-          renderItem={renderParticipant}
-          numColumns={2}
-          keyExtractor={(item) => item.userID} />
+        data={contestData?.contest?.participants}
+        renderItem={renderParticipant}
+        numColumns={2}
+        keyExtractor={(item) => item.userID} />
   
     </ScreenContainer>
   )

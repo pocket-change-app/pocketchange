@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../Styles';
-import { businesses, contestData, contests, snapItUp } from '../dummy';
+import { businesses, contestData, contests, contestsData, snapItUp } from '../dummy';
 import { ScreenContainer } from '../components/Themed';
 
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
@@ -24,6 +24,8 @@ import wait, { waitTimes } from '../utils/wait';
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
 
   const authContext = useContext(AuthContext); 
+
+  const contestData = { contest: contestsData.getAllContests[0] }
 
   const pocket = route.params.pocket;
   const pocketID = pocket.pocketID
@@ -100,7 +102,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                     ? (
                       <ContestCard
                         navigation={navigation}
-                        contest={contestData[0].data[0]}
+                        contestID={contestData?.contest?.contestID}
                       />
                     ) : (null)
                   }
