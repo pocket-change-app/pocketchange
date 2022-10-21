@@ -57,17 +57,17 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
 
   const pocketsQuery = useGetBusinessPocketsQuery(businessID)
   const { data: pocketsData, loading: pocketsLoading, error: pocketsError, refetch: refetchPockets } = pocketsQuery
-  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
-  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
   const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+
+  // Return query errors
+  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
   if (changeBalancesError) return (<Text>Business error: {changeBalancesError.message}</Text>)
-
-
 
   return (
     <View style={styles.card}>
@@ -203,9 +203,14 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
-  if (businessError) return (<Text>{businessError.message}</Text>)
+
 
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+
+  // Return query errors AFTER ALL query calls
+  // this avoids Error: 'Rendered fewer hooks than expected'
+
+  if (businessError) return (<Text>{businessError.message}</Text>)
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
