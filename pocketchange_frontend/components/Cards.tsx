@@ -2,7 +2,7 @@ import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platfor
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
 import { styles, MARGIN, BUTTON_HEIGHT, MARGIN_SM } from '../Styles';
-import { contestData, pockets, user } from '../dummy';
+import { contestsData, pockets, user } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
 import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
@@ -963,7 +963,9 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 export function ContestCard({ navigation, contestID, showDetailedView = false }: { navigation: any, contestID: string, showDetailedView?: boolean }) {
   const authContext = useContext(AuthContext);
 
-  const contest = (contestData[0].data.find(c => c.contestID === contestID) ? self : contestData[1].data.find(c => c.contestID === contestID))
+  // use dummy data like query will be used
+  const c = contestsData?.getAllContests?.find(c => c.contestID === contestID)
+  const contestData = { contest: c }
 
   const { data: scansData, loading: scansLoading, error: scansError } = useGetAllQRScansQuery(authContext.userFirebase.uid);
   if (scansError) return (<Text>{scansError.message}</Text>);
@@ -971,14 +973,14 @@ export function ContestCard({ navigation, contestID, showDetailedView = false }:
   return (
     <Pressable
       onPress={() => navigation.navigate('Contest', {
-        contest: contest
+        contestID: contestID
       })}
     >
       <View style={[styles.card]}>
         <View style={styles.container}>
           <Text style={styles.contestTitle}>
             <FontAwesome name='trophy' style={styles.contestTitle} />
-            {' ' + contest?.contestName}
+            {' ' + contestData?.contest?.contestName}
           </Text>
         </View>
 
@@ -988,7 +990,7 @@ export function ContestCard({ navigation, contestID, showDetailedView = false }:
               <HorizontalLine />
               <View style={styles.container}>
                 <Text style={styles.prose}>
-                  {contest?.description}
+                  {contestData?.contest?.description}
                 </Text>
               </View>
             </>
@@ -1000,30 +1002,32 @@ export function ContestCard({ navigation, contestID, showDetailedView = false }:
         <HorizontalLine />
 
         <View style={styles.container}>
-          {authContext.activeRole.type == RoleType.Consumer ? (
-            // {/* CONSUMER TEXT */ }
-            < Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
-              You have <Text style={{ fontFamily: 'metropolis black' }}>
-                {scansLoading ? (
-                  <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
-                ) : (
-                  scansData.getAllQRScans.length
-                )} entries
+          {authContext.activeRole.type == RoleType.Consumer
+            ? (
+              // {/* CONSUMER TEXT */ }
+              < Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                You have <Text style={{ fontFamily: 'metropolis black' }}>
+                  {scansLoading ? (
+                    <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+                  ) : (
+                    scansData.getAllQRScans.length
+                  )} entries
+                </Text>
+                <Text> ✅ </Text>
+                Keep it up!
               </Text>
-              <Text> ✅ </Text>
-              Keep it up!
-            </Text>
-          ) : (
-            // {/* LEADER TEXT */}
-            <>
-              <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
-                {81} participants | {122} entries
-              </Text>
-            </>
-          )
+            ) : authContext.activeRole.type == RoleType.Leader
+              ? (
+                // {/* LEADER TEXT */}
+                <>
+                  <Text style={[styles.prose, { lineHeight: 22, fontSize: 16, textAlign: 'center', marginBottom: 5 }]}>
+                    {81} participants | {122} entries
+                  </Text>
+                </>
+              ) : null
           }
-          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>Contest ends {"Dec 31st"}.
-            {/* Scan the QR code at participating businesses for a chance to win up to <Text style={{fontFamily: 'metropolis black'}}>${500}</Text> */}
+          <Text style={[styles.prose, { lineHeight: 18, fontSize: 12, textAlign: 'center', }]}>
+            Contest ends {contestData?.contest?.endDate}.
           </Text>
 
           {
