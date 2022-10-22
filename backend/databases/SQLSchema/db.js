@@ -1,15 +1,16 @@
 const dbConfig = require("./db_config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-    dbConfig.DB, //name of db
-    dbConfig.USER, //username
-    dbConfig.PASSWORD, //password
-    {
-        dialect: dbConfig.dialect,
-        host: dbConfig.HOST
-    }
-);
+const sequelize = new Sequelize(dbConfig.URL)
+// const sequelize = new Sequelize(
+//     dbConfig.DB, //name of db
+//     dbConfig.USER, //username
+//     dbConfig.PASSWORD, //password
+//     {
+//         dialect: dbConfig.dialect,
+//         host: dbConfig.HOST
+//     }
+// );
 
 const db = {};
 
@@ -55,8 +56,11 @@ db.Business.belongsToMany(db.User, { through : db.WorksAt , unique: false,  fore
 //do not drop databases, do not set force to true
 sequelize.sync({})
 .then(() => {
-    console.log("\n\n\nDatabase is up and running!\n\n\n");
+    console.log("\n\n\nsuccessfully connected to the SQL database\n\n\n");
 })
-.catch((error) => console.log(error));
+.catch((error) => {
+    console.log('error connecting to the SQL database');
+    console.log(error)
+});
 
 module.exports = db;

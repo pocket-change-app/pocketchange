@@ -42,6 +42,7 @@ export default {
       firebaseAppId: process.env.FIREBASE_APP_ID,
       firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
       firebaseDatabaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
+      graphQLURL: process.env.GRAPHQL_URL,
     }
   },
 

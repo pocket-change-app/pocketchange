@@ -79,7 +79,7 @@ server.start().then(res => {
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
 const port = process.env.PORT || 4000;
 mongoose.once('open', () => {
-  console.log('Database connection open')
+  console.log('Mongo connection open')
   sequelizeConnection.authenticate().then(() => {
     console.log('mySQL database connection established successfully')
         app.listen(port, () => {
