@@ -11,12 +11,24 @@ export default {
                 endDate
                 contestName
                 description
-                winner
+                winners
                 status{
                     pending
                     approved
                     deactivated
                 }
+            }
+        }
+    `,
+    getAllEntries: gql`
+        query getAllEntries($contestID: ID, $userID: ID){
+            getAllEntries(contestID: $contestID, userID: $userID) {
+                contestID
+                QRScanID
+                userID
+                businessID
+                geolocationID
+                date
             }
         }
     `,

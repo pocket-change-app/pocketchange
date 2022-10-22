@@ -60,7 +60,10 @@ export type RootStackParamList = {
 
   // Leader Screens
   LeaderAnalytics: undefined;
+
   Contests: undefined;
+  ContestWizard: undefined;
+
   LeaderSettings: undefined;
 
 };
@@ -86,6 +89,7 @@ export type RootTabParamList = {
   LeaderAnalyticsStack: undefined;
   ContestsStack: undefined;
   LeaderSettingsStack: undefined;
+
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     // borderBottomWidth: BORDER_WIDTH,
-    borderColor: colors.subtle,
+    // borderColor: colors.subtle,
   },
 
   notFoundText: {
@@ -39,6 +39,31 @@ export const styles = StyleSheet.create({
     borderRadius: CARD_RADIUS,
     backgroundColor: colors.card,
     padding: MARGIN / 2,
+  },
+
+  textInputContainer: {
+    padding: MARGIN / 2,
+    flexDirection: 'row',
+  },
+
+  inputFieldContainer: {
+    padding: MARGIN / 2,
+  },
+
+  inputText: {
+    fontFamily: 'metropolis medium',
+    fontSize: 18,
+    lineHeight: 20,
+    color: colors.medium,
+    // paddingBottom: MARGIN,
+  },
+
+  inputNumber: {
+    fontFamily: 'money',
+    fontSize: 30,
+    // lineHeight: 20,
+    color: colors.medium,
+    // paddingBottom: MARGIN,
   },
 
   paymentFocusText: {
@@ -69,6 +94,13 @@ export const styles = StyleSheet.create({
 
   container: {
     padding: MARGIN,
+  },
+
+  floatingButtonContainer: {
+    padding: MARGIN * 2 / 3,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
   },
 
   image: {
@@ -166,17 +198,20 @@ export const styles = StyleSheet.create({
   },
 
   divHeader: {
-    paddingBottom: MARGIN_SM,
+    height: MARGIN * 3.5,
+    // marginBottom: MARGIN,
     justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
+    // backgroundColor: colors.testing
   },
 
   divHeaderTextContainer: {
-    borderColor: colors.light,
+    // borderColor: colors.light,
     // borderBottomWidth: BORDER_WIDTH,
     // borderRadius: CARD_RADIUS,
     paddingVertical: MARGIN / 4,
-    paddingHorizontal: MARGIN / 2,
+    // paddingHorizontal: MARGIN / 2,
   },
 
   cardHeader: {
@@ -191,8 +226,8 @@ export const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'metropolis regular',
     fontSize: 18,
-    textAlign: 'center',
     color: colors.subtle,
+    textAlign: 'center',
   },
 
   cardHeaderTextContainer: {
@@ -422,8 +457,6 @@ export const styles = StyleSheet.create({
     // marginTop: MARGIN,
     height: BUTTON_HEIGHT,
     backgroundColor: 'transparent',
-
-    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -616,10 +649,12 @@ export const styles = StyleSheet.create({
 
   pocketSearchResultFlatList: {
     padding: MARGIN,
+    // flex: 1,
   },
 
   pocketSearchResultContainer: {
-    marginBottom: MARGIN * 2,
+    marginTop: MARGIN * 1.5,
+    marginBottom: MARGIN,
     marginHorizontal: MARGIN,
   },
 
@@ -665,7 +700,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     height: 30,
     marginHorizontal: MARGIN,
-    marginVertical: MARGIN / 2,
+    marginVertical: MARGIN * 2 / 3,
   },
 
   transactionListedMerchantText: {

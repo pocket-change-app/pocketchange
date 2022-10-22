@@ -32,8 +32,9 @@ db.IsIn = require("./IsIn.model.js")(sequelize, Sequelize);
 db.IsMember = require("./IsMember.model.js")(sequelize, Sequelize);
 db.Loves = require("./Loves.model.js")(sequelize, Sequelize);
 db.WorksAt = require("./WorksAt.model.js")(sequelize, Sequelize);
+db.ParticipatingIn = require("./ParticipatingIn.model.js")(sequelize, Sequelize);
 
-//a business belongs to one pocket ( we have businessId as unique in IsIn ), a pocket has many businesses
+//a business belongs to many pockets a pocket has many businesses
 db.Business.belongsToMany(db.Pocket, { through : db.IsIn, unique: false,  foreignKey: 'businessID'});
 db.Pocket.belongsToMany(db.Business, { through : db.IsIn, unique: false,  foreignKey: 'pocketID' });
 
@@ -50,8 +51,11 @@ db.User.belongsToMany(db.Business, { through : db.WorksAt, unique: false,  forei
 db.Business.belongsToMany(db.User, { through : db.WorksAt , unique: false,  foreignKey: 'businessID'  });
 
 //QRScans belong to many users, users can have many QR scans
-db.User.belongsToMany(db.Business, { through : db.WorksAt, unique: false,  foreignKey: 'userID'   });
-db.Business.belongsToMany(db.User, { through : db.WorksAt , unique: false,  foreignKey: 'businessID'  });
+
+//Pockets belong to many contests, contests can have many pockets
+db.Pocket.belongsToMany(db.Contest, { through : db.ParticipatingIn, unique: true,  foreignKey: 'pocketID'   });
+db.Contest.belongsToMany(db.Pocket, { through : db.ParticipatingIn , unique: true,  foreignKey: 'contestID'  });
+
 
 //do not drop databases, do not set force to true
 sequelize.sync({})

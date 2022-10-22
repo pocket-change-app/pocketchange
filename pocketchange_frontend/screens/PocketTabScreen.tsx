@@ -1,15 +1,17 @@
-import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../components/Cards";
 import { Text, View } from '../components/Themed';
 import { ScreenContainer } from '../components/Themed';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { colors } from '../constants/Colors';
 import { AuthContext } from '../contexts/Auth';
 import PocketQueries from '../hooks-apollo/Pocket/queries'
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../hooks-apollo';
+import wait, { waitTimes } from '../utils/wait';
+
 
 // const R = require('ramda');
 
@@ -20,27 +22,37 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data: businessesData, loading: businessesLoading, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
-  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetAllPocketsQuery(undefined);
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPockets } = useGetAllPocketsQuery(undefined);
 
-  if (pocketError) return <Text>{pocketError.message}</Text>;
-  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/>
-  if (!pocketData) return <Text>Error: pocketData empty.</Text>
-  
-  const pocketSearchResults = pocketData?.getAllPockets.filter(
+  // const [refreshingSearchResults, setRefreshingSearchResults] = useState(false)
+
+  // const onRefreshSearchResults = useCallback(() => {
+  //   setRefreshingSearchResults(true);
+  //   Promise.all([
+  //     wait(waitTimes.RefreshScreen),
+  //     refetchBusinesses,
+  //     refetchPockets,
+  //   ]).then(() => setRefreshingSearchResults(false));
+  // }, []);
+
+  const pocketSearchResults = pocketData?.getAllPockets?.filter(
     p => p.pocketName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
     )
   )
 
-  const businessSearchResults = businessesData?.getAllBusinesses.filter(
+  const businessSearchResults = businessesData?.getAllBusinesses?.filter(
     b => b.businessName.toLowerCase().includes(
       searchQuery.toLowerCase().trim()
     )
   )
 
 
-  let allSearchResults: any[] = [{ title: '', data: [] }, { title: 'Businesses', data: [] }]
+  let allSearchResults: any[] = [
+    { title: null, data: [] },
+    { title: 'Businesses', data: [] }
+  ]
 
   for (var i in pocketSearchResults) {
     const p = pocketSearchResults[i]
@@ -57,7 +69,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
   // console.log(allSearchResults);
 
-  const renderPocketCarouselCard = ({ item, index, separators }) => (
+  const renderPocketCarouselCard = ({ item }) => (
     <PocketCarouselCard
       key={item.pocketID}
       navigation={navigation}
@@ -65,7 +77,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     />
   )
 
-  const renderSearchResult = ({ item }: any) => {
+  const renderSearchResult = ({ item, index, separators }: any) => {
     switch (item.__typename) {
       case "Pocket":
         return (
@@ -77,26 +89,26 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         return (
           <BusinessCardSm
             navigation={navigation}
-            business={item}
+            businessID={item.businessID}
           />
         )
       default:
-        // return (
-        //   <Text> UNSUPPORTED OBJECT </Text>
-        // )
+        return (
+          <Text> UNSUPPORTED OBJECT </Text>
+        )
         return
     }
   }
 
-  const renderSectionHeader = ({ section: { title } }) => {
-    if (allSearchResults.find(sec => sec.title === title)) {
+  const renderSectionHeader = ({ section: { title, data } }: { section: { title: string, data: any[] } }) => {
+    if (title && data.length > 0) {
       return (<DivHeader text={title} />)
     } else {
-      return (<></>)
+      return (null)
     }
   }
  
-  function PageContents() {
+  const PageContents = () => {
     if (searchQuery == '') {
       return (
         <FlatList
@@ -110,13 +122,19 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
           ItemSeparatorComponent={PocketCarouselSeparator}
 
-          data={pocketData.getAllPockets}
+          data={pocketData?.getAllPockets}
           renderItem={renderPocketCarouselCard}
         />
       )
     } else {
       return (
         <SectionList
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={refreshingSearchResults}
+          //     onRefresh={onRefreshSearchResults}
+          //   />
+          // }
           // style={styles.pocketFlatList}
           contentContainerStyle={styles.pocketSearchResultFlatList}
 
@@ -132,6 +150,11 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
+  if (businessesError) return (<Text>{businessesError.message}</Text>)
+  if (pocketError) return <Text>{pocketError.message}</Text>;
+  if (pocketLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
+  if (!pocketData) return <Text>Error: pocketData empty.</Text>
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -146,10 +169,13 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
+
         inputStyle={styles.searchBarInput}
-        // round
         placeholder="Search Pockets and Businesses"
         placeholderTextColor={colors.subtle}
+
+        showCancel={true}
+        cancelButtonTitle='cancel'
 
         onChangeText={setSearchQuery}
         value={searchQuery}

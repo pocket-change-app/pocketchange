@@ -22,10 +22,12 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
   const pocketID = route.params.pocketID
 
   const changeBalancesQuery = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
-  const businessQuery = useBusinessQuery(businessID)
-
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = changeBalancesQuery
+  if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
+
+  const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = businessQuery
+  if (businessError) return (<Text>{businessError.message}</Text>)
 
   const [refreshing, setRefreshing] = useState(false)
   const onRefresh = useCallback(() => {

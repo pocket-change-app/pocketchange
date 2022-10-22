@@ -192,4 +192,7 @@ INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdA
 INSERT INTO QRScans (QRScanID, userID, businessID, geolocationID, date, createdAt, updatedAt) VALUES ("QR14", "QwduOsS2eBPOAFmVG69anKXIfGC3", "7b", "20geo", "2022-08-06 13:20:15", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
 
 -- insert into contest
-INSERT INTO contests (contestID, prizeValue, pocketID, startDate, endDate, createdAt, updatedAt) VALUES ("1contest", 500.00, "2p", "2022-07-11 10:22:11", "2022-08-11 10:22:11", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+INSERT INTO contests (contestID, prizeValue, startDate, endDate, createdAt, updatedAt) VALUES ("1contest", 500.00, "2022-07-11 10:22:11", "2022-08-11 10:22:11", "2022-06-04 9:22:11", "2022-06-04 9:22:11");
+
+-- insert into participatingIn
+INSERT INTO participatingIns (contestID, pocketID, createdAt, updatedAt) VALUES ("1contest", "2p", "2022-06-04 9:22:11", "2022-06-04 9:22:11");

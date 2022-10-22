@@ -72,6 +72,24 @@ module.exports = {
         const date = new Date()
         //create geolocation
         const currGeo = await Geolocation.create({userID: userID, latitude: latitude, longitude: longitude, timestamp: date})
+        //check to make sure QRscan hasn't been processed in the last minute at this business for this user already
+        //check most recent entry for this business and this user
+        const lastEntry= await QRScan.findOne({
+            where: { businessID: businessID, userID: userID },
+            order: [ [ 'date', 'DESC' ]],
+        });
+        let enoughTimePassed; 
+        if(lastEntry){
+          console.log("new date", new Date(lastEntry.dataValues.date))
+          const lastEntryTime = (new Date(lastEntry.dataValues.date).getTime()) / 1000; 
+          const currEntryTime = (date.getTime()) / 1000; 
+          console.log("curr: ", currEntryTime, " last: ", lastEntryTime)
+          enoughTimePassed = currEntryTime - lastEntryTime >= 60  // more than a minute has elapsed
+        }
+        else{
+          enoughTimePassed = true
+        }
+        if (enoughTimePassed) {
         //check to make sure current geolocation is close to businesses
         const currBusiness = await mongoBusiness.findOne({businessID: businessID})
         //check to make sure the distance between the business and the coordinates entered is less than the radius of 0.01
@@ -121,7 +139,11 @@ module.exports = {
             throw new ApolloError(`You are not near business:${businessID}`);
             return {};
           }
-        
+        }
+        else{
+          throw new ApolloError(`Less than a minute has passed since userID:${userID} last scanned business:${businessID}`);
+            return {};
+          }
+        }
     },   
-  }
 }

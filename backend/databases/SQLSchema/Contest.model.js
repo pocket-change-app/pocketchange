@@ -11,14 +11,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DECIMAL(19,4),
             allowNull: false
         },
-        pocketID: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-                model: Pocket,
-                key: 'pocketID'
-            }
-        },
         startDate: {
             type: Sequelize.DATE,
             allowNull: false
@@ -28,6 +20,5 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         }
     });
-  
     return Contest;
 };
