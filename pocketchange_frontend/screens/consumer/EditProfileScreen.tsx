@@ -1,23 +1,23 @@
 import { useContext, useRef, useState } from "react";
 import { Button, TextInput } from "react-native";
 import { Picker } from '@react-native-picker/picker';
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { user } from "../dummy";
-import { MARGIN, styles } from "../Styles";
-import {useCreateUploadFileMutation} from '../hooks-apollo/index';
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { user } from "../../dummy";
+import { MARGIN, styles } from "../../Styles";
+import { useCreateUploadFileMutation } from '../../hooks-apollo/index';
 //import DateTimePicker from '@react-native-community/datetimepicker';
-import { ButtonWithText } from "../components/Cards";
+import { ButtonWithText } from "../../components/Cards";
 import * as ImagePicker from 'expo-image-picker';
 //import * as mime from 'react-native-mime-types';
 
 
 const R = require('ramda');
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext } from "../../contexts/Auth";
 
 export default function EditProfileScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const [firstName, setFirstName] = useState(user.name.first)
   const [lastName, setLastName] = useState(user.name.last)
@@ -28,7 +28,7 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
 
 
   const ref_inputLast = useRef();
-  const objectID ='1c'
+  const objectID = '1c'
 
   const showImagePicker = async () => {
     // Ask the user for the permission to access the media library 
@@ -52,10 +52,10 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
   return (
     <ScreenContainer>
       <View style={styles.container}>
-      <ButtonWithText
+        <ButtonWithText
           color={colors.gold}
           text={'Upload photo '}
-          onPress={ showImagePicker}/>
+          onPress={showImagePicker} />
         <View style={[{ flexDirection: 'row' }]}>
           <View style={[styles.signUpInputText, { flex: 2, marginBottom: MARGIN, marginRight: MARGIN }]}>
             <Text style={styles.prose}>
@@ -108,12 +108,12 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
               Birthday
             </Text>
             {
-            //<DateTimePicker
+              //<DateTimePicker
               //style={{ width: 90 }}
               //value={birthday}
               //display='compact'
               //onChange={null}
-            
+
               // autoFocus={true}
               // returnKeyType="next"
               // selectionColor={colors.gold}
@@ -126,8 +126,8 @@ export default function EditProfileScreen({ route, navigation }: { route: any, n
               // placeholder={'Jane'}
               // placeholderTextColor={colors.subtle}
               // onSubmitEditing={() => ref_inputLast.current.focus()}
-            ///>
-          }
+              ///>
+            }
           </View>
 
           <View style={[styles.signUpInputText, { flex: 1 }]}>

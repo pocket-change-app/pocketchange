@@ -1,36 +1,36 @@
 import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { styles } from '../Styles';
-import { businesses, contestData, contests, contestsData, snapItUp } from '../dummy';
-import { ScreenContainer } from '../components/Themed';
+import { styles } from '../../Styles';
+import { businesses, contestData, contests, contestsData, snapItUp } from '../../dummy';
+import { ScreenContainer } from '../../components/Themed';
 
-import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../components/Cards';
-import { useGetAllBusinessesQuery, usePocketQuery } from '../hooks-apollo';
-import { Text, View } from '../components/Themed';
+import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../../components/Cards';
+import { useGetAllBusinessesQuery, usePocketQuery } from '../../hooks-apollo';
+import { Text, View } from '../../components/Themed';
 import * as R from 'ramda-adjunct';
 import { useCallback, useContext, useState } from 'react';
-import { colors } from '../constants/Colors';
-import { AuthContext } from '../contexts/Auth';
+import { colors } from '../../constants/Colors';
+import { AuthContext } from '../../contexts/Auth';
 
 
-import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
+import ChangeBalanceQueries from '../../hooks-apollo/ChangeBalance/queries'
 import { connectAuthEmulator } from 'firebase/auth';
-import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
-import { QueryResult } from '../components/QueryResult';
-import wait, { waitTimes } from '../utils/wait';
+import useGetAllChangeBalancesQuery from '../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import { QueryResult } from '../../components/QueryResult';
+import wait, { waitTimes } from '../../utils/wait';
 
 
 export default function PocketScreen({ navigation, route }: { navigation: any, route: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const contestData = { contest: contestsData.getAllContests[0] }
 
   const pocket = route.params.pocket;
   const pocketID = pocket.pocketID
 
-  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } =  useGetAllBusinessesQuery(pocketID)
+  const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(pocketID)
 
 
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
@@ -106,11 +106,11 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                       />
                     ) : (null)
                   }
-                  
+
                   <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}>
                     {
                       (changeBalanceData?.getAllChangeBalances?.length != 0) ? (
-                        <ChangeBalanceCard 
+                        <ChangeBalanceCard
                           pocketID={pocketID}
                         />
                       ) : (null)
@@ -127,10 +127,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
           contentContainerStyle={styles.businessFlatList}
           data={searchResults}
           renderItem={renderBusinessCard}
-          ListFooterComponent={businessesLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{margin: 10}}/> : <></>}
+          ListFooterComponent={businessesLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
         />
 
-         
+
       </ScreenContainer>
 
       <SearchBar

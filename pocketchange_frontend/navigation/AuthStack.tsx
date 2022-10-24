@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from '../constants/Colors';
 
-import LandingScreen from '../screens/LandingScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import LandingScreen from '../screens/shared/LandingScreen';
+import SignUpScreen from '../screens/shared/SignUpScreen';
 import SignInScreen from '../screens/SignInScreen';
 import { styles } from '../Styles';
 

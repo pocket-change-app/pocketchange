@@ -3,7 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 import { Router } from './navigation/Router';
-import { SplashScreen } from './screens/SplashScreen';
+import { SplashScreen } from './screens/shared/SplashScreen';
 
 import { user } from './dummy';
 import { AuthProvider } from './contexts/Auth';

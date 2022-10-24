@@ -1,22 +1,22 @@
 import { Platform, Image, Pressable, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 
-import { MARGIN, styles } from '../Styles';
-import { ScreenContainer, Text, View } from '../components/Themed';
-import { BusinessCard, ChangeBalanceCard } from '../components/Cards';
+import { MARGIN, styles } from '../../Styles';
+import { ScreenContainer, Text, View } from '../../components/Themed';
+import { BusinessCard, ChangeBalanceCard } from '../../components/Cards';
 
-import { colors } from '../constants/Colors';
+import { colors } from '../../constants/Colors';
 import React, { useCallback, useContext, useState } from 'react';
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext } from '../../contexts/Auth';
 
-import useGetAllChangeBalancesQuery from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
-import { QueryResult } from '../components/QueryResult';
-import { useBusinessQuery } from '../hooks-apollo';
-import wait, { waitTimes } from '../utils/wait';
+import useGetAllChangeBalancesQuery from '../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import { QueryResult } from '../../components/QueryResult';
+import { useBusinessQuery } from '../../hooks-apollo';
+import wait, { waitTimes } from '../../utils/wait';
 
 
 export default function BusinessScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const businessID = route.params.businessID
   const pocketID = route.params.pocketID
@@ -53,7 +53,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
         {/* <QueryResult loading={changeBalanceLoading} error={changeBalanceError} data={changeBalanceData}> */}
         <ChangeBalanceCard pocketID={pocketID} />
         {/* </QueryResult> */}
-      
+
         {
           businessData?.business?.description ?
             <View style={[styles.card, styles.container]}>
@@ -61,7 +61,7 @@ export default function BusinessScreen({ route, navigation }: { route: any, navi
             </View> :
             <></>
         }
-      
+
 
         <View style={{ height: MARGIN }} />
 

@@ -1,14 +1,14 @@
 import { isNumber } from "ramda-adjunct";
 import { useContext, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
-import { ButtonWithText } from "../components/Cards";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { AuthContext } from "../contexts/Auth";
-import { MARGIN, styles } from "../Styles";
+import { ButtonWithText } from "../../components/Cards";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { AuthContext } from "../../contexts/Auth";
+import { MARGIN, styles } from "../../Styles";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useMutation } from '@apollo/react-hooks'
-import BusinessMutations from '../hooks-apollo/Business/mutations'
+import BusinessMutations from '../../hooks-apollo/Business/mutations'
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from 'expo-image-picker';
 //import * as mime from 'react-native-mime-types';
@@ -20,7 +20,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
   const { pocketID } = route.params
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const storage = getStorage();
 
@@ -41,12 +41,12 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const [businessType, setBusinessType] = useState(null);
   //console.log(businessType)
   const [items, setItems] = useState([
-    {label: 'Restaurant', value: 'restaurant'},
+    { label: 'Restaurant', value: 'restaurant' },
     //{label: 'Cafe', value: 'cafe', parent: 'restaurant'},
     //{label: 'Indian', value: 'indian', parent: 'restaurant'},
-    {label: 'Grocery', value: 'grocery'},
-  
-    {label: 'Retail', value: 'retail'},
+    { label: 'Grocery', value: 'grocery' },
+
+    { label: 'Retail', value: 'retail' },
     //{label: 'Clothing', value: 'clothing', parent: 'retail'},
     //{label: 'Toys', value: 'toys', parent: 'retail'},
   ]);
@@ -57,16 +57,16 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
   const ref_phone = useRef();
   const ref_website = useRef();
 
-  const [useCreateBusinessMutation, {loading, error}] = useMutation(
+  const [useCreateBusinessMutation, { loading, error }] = useMutation(
     BusinessMutations.createBusiness, {
-      onCompleted(data) {
-        // const businessImageRef = ref(storage, "Business/".concat(data.createBusiness.businessID, "/businessProfile.jpg"));
-        // uploadBytes(businessImageRef, blob).then((snapshot) => {
-        //   console.log('Uploaded business profile image!');
-        // });
-        navigation.navigate('BusinessWizardUploadImage', {businessID : data.createBusiness.businessID});
-      }, 
-      onError(error) {console.log(JSON.stringify(error, null, 2))}
+    onCompleted(data) {
+      // const businessImageRef = ref(storage, "Business/".concat(data.createBusiness.businessID, "/businessProfile.jpg"));
+      // uploadBytes(businessImageRef, blob).then((snapshot) => {
+      //   console.log('Uploaded business profile image!');
+      // });
+      navigation.navigate('BusinessWizardUploadImage', { businessID: data.createBusiness.businessID });
+    },
+    onError(error) { console.log(JSON.stringify(error, null, 2)) }
   })
 
 
@@ -246,7 +246,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
               placeholder={'yourwebsite.com'}
               placeholderTextColor={colors.subtle}
               ref={ref_website}
-              //onSubmitEditing={() => ref_postalCode.current.focus()}
+            //onSubmitEditing={() => ref_postalCode.current.focus()}
             />
           </View>
 
@@ -257,8 +257,8 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={() => 
-              navigation.navigate('BusinessWizardUploadImage', {businessID : "1b"}) //TODO: remove, this line is just for testing
+            onPress={() =>
+              navigation.navigate('BusinessWizardUploadImage', { businessID: "1b" }) //TODO: remove, this line is just for testing
               // TODO: uncoment below
               // useCreateBusinessMutation({
               // variables: {

@@ -1,16 +1,16 @@
 import React, { useState, useRef, useContext } from 'react';
 import { ActivityIndicator, Image, Dimensions, Text, View, TextInput } from 'react-native';
 
-import { BUTTON_HEIGHT, MARGIN, styles } from '../Styles';
+import { BUTTON_HEIGHT, MARGIN, styles } from '../../Styles';
 //import { useAuth } from '../contexts/Auth';
-import { ButtonWithText } from '../components/Cards';
-import { colors } from '../constants/Colors';
+import { ButtonWithText } from '../../components/Cards';
+import { colors } from '../../constants/Colors';
 import { StatusBar } from 'react-native';
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext } from '../../contexts/Auth';
 
 export default function LandingScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const SCREEN_WIDTH = Dimensions.get('screen').width
 
@@ -40,7 +40,7 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
           />
         </View>
         <Text style={[styles.logoText, { marginBottom: MARGIN }]}>pocketchange</Text>
-      
+
 
         <View style={{ paddingHorizontal: SCREEN_WIDTH / 6 }}>
 

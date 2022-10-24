@@ -2,21 +2,21 @@ import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshCo
 import { SearchBar } from '@rneui/base';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN, BUTTON_HEIGHT } from '../Styles';
+import { styles, MARGIN, BUTTON_HEIGHT } from '../../Styles';
 //import { transactions } from '../dummy';
-import { ScreenContainer } from '../components/Themed';
-import { ButtonWithText, ContestCard, DivHeader } from '../components/Cards';
-import { Text, View } from '../components/Themed';
-import { useGetAllTransactionsQuery } from '../hooks-apollo';
-import { colors } from '../constants/Colors';
+import { ScreenContainer } from '../../components/Themed';
+import { ButtonWithText, ContestCard, DivHeader } from '../../components/Cards';
+import { Text, View } from '../../components/Themed';
+import { useGetAllTransactionsQuery } from '../../hooks-apollo';
+import { colors } from '../../constants/Colors';
 
 
 import { isNilOrEmpty } from 'ramda-adjunct';
-import { AuthContext } from '../contexts/Auth';
-import { HorizontalLine } from '../components/Lines';
+import { AuthContext } from '../../contexts/Auth';
+import { HorizontalLine } from '../../components/Lines';
 import { FontAwesome } from '@expo/vector-icons';
-import { contestsData } from '../dummy';
-import wait, { waitTimes } from '../utils/wait';
+import { contestsData } from '../../dummy';
+import wait, { waitTimes } from '../../utils/wait';
 const R = require('ramda');
 
 export default function ContestsTabScreen({ navigation }: { navigation: any }) {
@@ -84,7 +84,7 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
 
         {/* <DivHeader text={'Active'} /> */}
 
-          {/* <ContestCard
+        {/* <ContestCard
             navigation={navigation}
             contest={snapItUp}
           /> */}

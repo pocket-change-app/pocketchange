@@ -1,28 +1,28 @@
 import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, RefreshControl, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { MARGIN, styles } from '../Styles';
-import { ScreenContainer, Text, View } from '../components/Themed';
-import gold from '../constants/Colors';
-import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../components/Cards';
-import { colors, colorScale } from '../constants/Colors';
+import { MARGIN, styles } from '../../Styles';
+import { ScreenContainer, Text, View } from '../../components/Themed';
+import gold from '../../constants/Colors';
+import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../../components/Cards';
+import { colors, colorScale } from '../../constants/Colors';
 
-import { merchantAnalytics, leaderAnalytics } from '../dummy';
+import { merchantAnalytics, leaderAnalytics } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
-import { AuthContext } from '../contexts/Auth';
-import wait, { waitTimes } from '../utils/wait';
+import { AuthContext } from '../../contexts/Auth';
+import wait, { waitTimes } from '../../utils/wait';
 
 const R = require('ramda');
 
 // TODO: add hook call to query all analytics
 
-export default function AnalyticsDashboardScreen() {
+export default function MerchantAnalyticsScreen() {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState('')
@@ -46,45 +46,45 @@ export default function AnalyticsDashboardScreen() {
 
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)
-  } */ 
+  } */
 
   const updateSearch = (text: string) => {
     setSearchQuery(text)
     setSearchResults(() => {
-        const formattedQuery = text.toLowerCase().trim()
-        const results = allAnalytics.map((section) => 
-          ({
-            sectionTitle: section.sectionTitle,
-            data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
-          })
-        )
-        return results
+      const formattedQuery = text.toLowerCase().trim()
+      const results = allAnalytics.map((section) =>
+      ({
+        sectionTitle: section.sectionTitle,
+        data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
+      })
+      )
+      return results
     })
-};
+  };
 
 
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
     <AnalyticsCard
-      key={ item.title } //TODO: is this right?
-      title={ item.title }
-      type={ item.type }
-      data={ item.data }
-      startDate={ item.startDate }
-      rangeName={ item.rangeName }
+      key={item.title} //TODO: is this right?
+      title={item.title}
+      type={item.type}
+      data={item.data}
+      startDate={item.startDate}
+      rangeName={item.rangeName}
     />
 
   )
   return (
 
     <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={100}
-            style={{ flex: 1 }}
-        >
-      
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
+
       <ScreenContainer>
-      
+
         <SectionList
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={searchQuery ? searchResults : allAnalytics}
@@ -96,7 +96,7 @@ export default function AnalyticsDashboardScreen() {
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
-          ListFooterComponent={<SuggestAnalyticForm/>}
+          ListFooterComponent={<SuggestAnalyticForm />}
         />
 
       </ScreenContainer>
@@ -112,16 +112,16 @@ export default function AnalyticsDashboardScreen() {
 
         onChangeText={updateSearch}
         onClear={() => null}
-        value={searchQuery}/>
+        value={searchQuery} />
 
     </KeyboardAvoidingView>
-    
+
   );
 }
 
 export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   function renderChart() {
     if (type == 'bar') {
@@ -134,7 +134,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
             theme={V.VictoryTheme.material}
             padding={{ top: 15, bottom: 35, left: 50, right: 85 }}
           >
-            
+
 
             <V.VictoryAxis
               fixLabelOverlap={true}
@@ -149,7 +149,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               }}
             />
 
-            <V.VictoryAxis 
+            <V.VictoryAxis
               dependentAxis
               style={{
                 axis: {
@@ -161,12 +161,12 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
                 }
               }} />
 
-            <V.VictoryBar 
-              data={data} 
-              x="x" 
-              y="y" 
-              style={{ data: { fill: colorScale[0] } }}/>
-            
+            <V.VictoryBar
+              data={data}
+              x="x"
+              y="y"
+              style={{ data: { fill: colorScale[0] } }} />
+
           </V.VictoryChart>
         </Svg>
       );
@@ -195,142 +195,150 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       return (
         <>
           <Text style={styles.analyticsNormalText}>
-            <Text style={[styles.analyticsMetricText, {color: colors.gold}]} >
+            <Text style={[styles.analyticsMetricText, { color: colors.gold }]} >
               {data[0].numCustomers}
             </Text>
-            <Text style={{color: colors.medium}}>
-              {" customers used PocketChange at Sweet Life."} 
+            <Text style={{ color: colors.medium }}>
+              {" customers used PocketChange at Sweet Life."}
             </Text>
           </Text>
-          <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
-            <Text style={{color: colors.medium}}>
-              {"the average customer visits "} 
+          <Text style={[styles.analyticsNormalText, { textAlign: 'right' }]}>
+            <Text style={{ color: colors.medium }}>
+              {"the average customer visits "}
             </Text>
-            <Text style={[styles.analyticsMetricText, {color: colors.blue}]}>
+            <Text style={[styles.analyticsMetricText, { color: colors.blue }]}>
               {data[0].visitRate}x
             </Text>
-            <Text style={{color: colors.medium}}>
+            <Text style={{ color: colors.medium }}>
               {" per week"}
             </Text>
           </Text>
           <Text style={styles.analyticsNormalText}>
-            <Text style={[styles.analyticsMetricText, {color: colors.green}]}>
+            <Text style={[styles.analyticsMetricText, { color: colors.green }]}>
               {data[0].pocketShare}%
             </Text>
-            <Text style={{color: colors.medium}}>
+            <Text style={{ color: colors.medium }}>
               {" of Uptown Yonge Pocket members visited Sweet Life."}
             </Text>
           </Text>
-      </>
+        </>
       );
     } else if (type == 'text-participation-pocket') {
       return (
         <>
-        <Text style={styles.analyticsNormalText}>
-          {/* <Text style={{color: colors.medium}}>
+          <Text style={styles.analyticsNormalText}>
+            {/* <Text style={{color: colors.medium}}>
             {"There are "} 
           </Text> */}
-          <Text style={[styles.analyticsMetricText, {color: colors.gold}]} >
-            {data[0].numCustomers}
+            <Text style={[styles.analyticsMetricText, { color: colors.gold }]} >
+              {data[0].numCustomers}
+            </Text>
+            <Text style={{ color: colors.medium }}>
+              {" PocketChange users in Uptown Yonge"}
+            </Text>
           </Text>
-          <Text style={{color: colors.medium}}>
-            {" PocketChange users in Uptown Yonge"} 
+          <Text style={[styles.analyticsNormalText, { textAlign: 'right' }]}>
+            <Text style={{ color: colors.medium }}>
+              {"each averaged "}
+            </Text>
+            <Text style={[styles.analyticsMetricText, { color: colors.blue }]}>
+              {data[0].visitRate}
+            </Text>
+            <Text style={{ color: colors.medium }}>
+              {" visits per week to businesses in the Pocket"}
+            </Text>
           </Text>
-        </Text>
-        <Text style={[styles.analyticsNormalText, {textAlign:'right'}]}>
-          <Text style={{color: colors.medium}}>
-            {"each averaged "}
-          </Text>
-          <Text style={[styles.analyticsMetricText, {color: colors.blue}]}>
-            {data[0].visitRate}
-          </Text>
-          <Text style={{color: colors.medium}}>
-            {" visits per week to businesses in the Pocket"}
-          </Text>
-        </Text>
-        
+
         </>
       );
     } else if (type == 'text-sales') {
       return (
         <View>
-          <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <Text style={{
-                  fontFamily: 'metropolis medium', 
-                  fontSize: 14,
-                  color: colors.subtle,
-                  justifyContent: 'flex-start',
-                  lineHeight: 30}} >
-                  GROSS SALES</Text>
-              </View>
-              <View>
-                <Text style={{
-                  fontFamily: 'metropolis extrabold', 
-                  fontSize: 24,
-                  color: colors.gold,
-                  textAlign: "right",
-                  lineHeight: 30}} >${data.gross_sales}</Text>
-              </View>
-          </View>
-
-          <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <Text style={{
-                  fontFamily: 'metropolis medium', 
-                  fontSize: 14,
-                  color: colors.subtle,
-                  justifyContent: 'flex-start',
-                  lineHeight: 30}} >
-                  CHANGE ISSUED</Text>
-              </View>
-              <View>
-                <Text style={{
-                  fontFamily: 'metropolis extrabold', 
-                  fontSize: 20,
-                  color: colors.subtle,
-                  textAlign: "right",
-                  lineHeight: 30}} >${data.change_issued}</Text>
-              </View>
-          </View>
-          
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
               <Text style={{
-                fontFamily: 'metropolis medium', 
+                fontFamily: 'metropolis medium',
                 fontSize: 14,
                 color: colors.subtle,
                 justifyContent: 'flex-start',
-                lineHeight: 30}} >
+                lineHeight: 30
+              }} >
+                GROSS SALES</Text>
+            </View>
+            <View>
+              <Text style={{
+                fontFamily: 'metropolis extrabold',
+                fontSize: 24,
+                color: colors.gold,
+                textAlign: "right",
+                lineHeight: 30
+              }} >${data.gross_sales}</Text>
+            </View>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{
+                fontFamily: 'metropolis medium',
+                fontSize: 14,
+                color: colors.subtle,
+                justifyContent: 'flex-start',
+                lineHeight: 30
+              }} >
+                CHANGE ISSUED</Text>
+            </View>
+            <View>
+              <Text style={{
+                fontFamily: 'metropolis extrabold',
+                fontSize: 20,
+                color: colors.subtle,
+                textAlign: "right",
+                lineHeight: 30
+              }} >${data.change_issued}</Text>
+            </View>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{
+                fontFamily: 'metropolis medium',
+                fontSize: 14,
+                color: colors.subtle,
+                justifyContent: 'flex-start',
+                lineHeight: 30
+              }} >
                 REFUNDS</Text>
             </View>
             <View>
               <Text style={{
-              fontFamily: 'metropolis extrabold', 
-              fontSize: 20,
-              color: colors.subtle,
-              textAlign: "right",
-              lineHeight: 30}} >${data.refunds_issued}</Text>
+                fontFamily: 'metropolis extrabold',
+                fontSize: 20,
+                color: colors.subtle,
+                textAlign: "right",
+                lineHeight: 30
+              }} >${data.refunds_issued}</Text>
             </View>
           </View>
 
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
               <Text style={{
-                fontFamily: 'metropolis medium', 
+                fontFamily: 'metropolis medium',
                 fontSize: 14,
                 color: colors.subtle,
                 justifyContent: 'flex-start',
-                lineHeight: 30}} >
+                lineHeight: 30
+              }} >
                 NET SALES</Text>
             </View>
             <View>
               <Text style={{
-                fontFamily: 'metropolis extrabold', 
+                fontFamily: 'metropolis extrabold',
                 fontSize: 20,
                 color: colors.green,
                 justifyContent: 'flex-end',
-                lineHeight: 30}} >${data.net_sales}</Text>
+                lineHeight: 30
+              }} >${data.net_sales}</Text>
             </View>
           </View>
 
@@ -345,7 +353,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       );
     } else if (type == 'list-top-customers') {
       const listItems = data.map(
-        (item) => <UserCardSm user={item}/>
+        (item) => <UserCardSm user={item} />
       );
       return (
         <View>{listItems}</View>
@@ -355,7 +363,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
         (item) => ({ name: item.x + " (" + item.y + ")" })
       );
       return (
-        <View style={{flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
+        <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
           <Svg width={120} height={150}>
             <V.VictoryPie
               standalone={false}
@@ -375,8 +383,8 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               data={data}
               x="x"
               y="y" />
-            </Svg>
-            <Svg width={180} height={150}>
+          </Svg>
+          <Svg width={180} height={150}>
             <V.VictoryLegend
               y={10}
               height={50}
@@ -397,45 +405,45 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
   return (
     <View style={[styles.card, styles.analyticsCard]}>
       <View style={styles.analyticsHeaderContainer}>
-          <Text style={styles.analyticsTitle}>{ title }</Text>
-          <Text style={styles.analyticsRange}>{ rangeName }</Text>
+        <Text style={styles.analyticsTitle}>{title}</Text>
+        <Text style={styles.analyticsRange}>{rangeName}</Text>
       </View>
       <View style={styles.analyticsContentContainer}>
         {renderChart()}
       </View>
-      
+
 
     </View>
   )
 }
 
 function SuggestAnalyticForm() {
-  return(
+  return (
     <View style={[styles.card, styles.analyticsCard]}>
       <View style={styles.analyticsHeaderContainer}>
-          <Text style={styles.analyticsTitle}>Something missing?</Text>
+        <Text style={styles.analyticsTitle}>Something missing?</Text>
       </View>
       <View style={styles.analyticsContentContainer}>
         <Text style={styles.prose}>
           Suggest a metric you'd like to see...
         </Text>
-        <View style={[styles.signUpInputText, {marginBottom: MARGIN}]}>
-            <TextInput
-              // autoFocus={true}
-              selectionColor={colors.gold}
-              style={styles.receipt}
-              onChangeText={""}
-              placeholder={""}
-              multiline
-              numberOfLines={3}
-              placeholderTextColor={colors.subtle}
-              onSubmitEditing={() => {}}/>
+        <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
+          <TextInput
+            // autoFocus={true}
+            selectionColor={colors.gold}
+            style={styles.receipt}
+            onChangeText={""}
+            placeholder={""}
+            multiline
+            numberOfLines={3}
+            placeholderTextColor={colors.subtle}
+            onSubmitEditing={() => { }} />
         </View>
         <ButtonWithText
           text='Submit'
-          color={colors.gold}/>
+          color={colors.gold} />
       </View>
-      
+
     </View>
   );
 }

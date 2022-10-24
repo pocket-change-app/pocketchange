@@ -1,16 +1,16 @@
 import { StatusBar } from "react-native";
 import { useRef, useState, useContext } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
-import { ButtonWithText } from "../components/Cards";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { MARGIN, styles } from "../Styles";
+import { ButtonWithText } from "../../components/Cards";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { MARGIN, styles } from "../../Styles";
 
 import { useMutation } from '@apollo/react-hooks'
-import UserMutations from '../hooks-apollo/User/mutations'
+import UserMutations from '../../hooks-apollo/User/mutations'
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext } from '../../contexts/Auth';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 
@@ -44,13 +44,13 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
     function join(t, a, s) {
       function format(m) {
-         let f = new Intl.DateTimeFormat('en', m);
-         return f.format(t);
+        let f = new Intl.DateTimeFormat('en', m);
+        return f.format(t);
       }
       return a.map(format).join(s);
     }
-   
-    let a = [{year: 'numeric'}, {month: '2-digit'}, {day: '2-digit'}];
+
+    let a = [{ year: 'numeric' }, { month: '2-digit' }, { day: '2-digit' }];
     let s = join(selectedDate, a, '-');
     // console.log(s);
     setBirthDate(s)
@@ -59,10 +59,10 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const auth = getAuth();
   const authContext = useContext(AuthContext);
 
-  const [useRegisterUserMutation, {loading, error}] = useMutation(
+  const [useRegisterUserMutation, { loading, error }] = useMutation(
     UserMutations.registerUser, {
-      onCompleted(data) {authContext.setUserGQL(data.registerUser)}, 
-      onError(error) {console.log(error)}
+    onCompleted(data) { authContext.setUserGQL(data.registerUser) },
+    onError(error) { console.log(error) }
   })
 
   if (error) console.log(error);
@@ -71,7 +71,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
   async function signUp() {
 
-   
+
 
     //setFirstname("Elias")
     //setLastName("Williams")
@@ -95,19 +95,19 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
     } else if (password === '') {
       setSignUpError('Password is required.')
       return;
-    } 
+    }
     try {
       await createUserWithEmailAndPassword(auth, emailAddress, password).then(
         (userCredential) => {
           //console.log("ABOUT TO REGISTER USER")
           useRegisterUserMutation({
             variables: {
-                userID: userCredential.user.uid,
-                firstName: firstName, 
-                lastName: lastName,
-                home: homePostalCode, 
-                birthDate: birthDate, 
-                emailAddress: emailAddress, 
+              userID: userCredential.user.uid,
+              firstName: firstName,
+              lastName: lastName,
+              home: homePostalCode,
+              birthDate: birthDate,
+              emailAddress: emailAddress,
             }
           }).then(
             res => authContext.setUserGQL(res.data),
@@ -238,7 +238,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
           />
         </View>
 
-        
+
 
         <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
           <Text style={styles.prose}>
@@ -293,7 +293,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
           onPress={signUp}
         />
 
-        <Text style={[styles.prose, {color:"red", textAlign: 'center'}]}>
+        <Text style={[styles.prose, { color: "red", textAlign: 'center' }]}>
           {signUpError}
         </Text>
 

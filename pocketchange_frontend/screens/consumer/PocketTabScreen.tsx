@@ -1,16 +1,16 @@
 import { SafeAreaView, FlatList, ScrollView, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../Styles';
-import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../components/Cards";
-import { Text, View } from '../components/Themed';
-import { ScreenContainer } from '../components/Themed';
+import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../../Styles';
+import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
+import { Text, View } from '../../components/Themed';
+import { ScreenContainer } from '../../components/Themed';
 import { useCallback, useContext, useState } from 'react';
-import { colors } from '../constants/Colors';
-import { AuthContext } from '../contexts/Auth';
-import PocketQueries from '../hooks-apollo/Pocket/queries'
-import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../hooks-apollo';
-import wait, { waitTimes } from '../utils/wait';
+import { colors } from '../../constants/Colors';
+import { AuthContext } from '../../contexts/Auth';
+import PocketQueries from '../../hooks-apollo/Pocket/queries'
+import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
+import wait, { waitTimes } from '../../utils/wait';
 
 
 // const R = require('ramda');
@@ -107,7 +107,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       return (null)
     }
   }
- 
+
   const PageContents = () => {
     if (searchQuery == '') {
       return (

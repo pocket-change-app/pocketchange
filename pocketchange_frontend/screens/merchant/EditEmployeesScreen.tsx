@@ -1,8 +1,8 @@
 import { FlatList, Pressable } from "react-native";
-import { DivHeader, SettingPressable } from "../components/Cards";
-import { HorizontalLine } from "../components/Lines";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { styles } from "../Styles";
+import { DivHeader, SettingPressable } from "../../components/Cards";
+import { HorizontalLine } from "../../components/Lines";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { styles } from "../../Styles";
 
 export default function EditEmployeesScreen({ route, navigation }: { route: any, navigation: any }) {
 

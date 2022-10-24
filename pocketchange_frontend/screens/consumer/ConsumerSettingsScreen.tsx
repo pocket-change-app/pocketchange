@@ -1,25 +1,25 @@
 
 import { Pressable, ScrollView, Button, ActivityIndicator } from "react-native";
-import { ScreenContainer, View, Text } from "../components/Themed";
-import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
+import { ScreenContainer, View, Text } from "../../components/Themed";
+import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
 //import { useAuth } from '../contexts/Auth';
-import { user } from "../dummy";
+import { user } from "../../dummy";
 import { Style } from "victory-core";
-import { styles } from "../Styles";
-import { HorizontalLine } from "../components/Lines";
+import { styles } from "../../Styles";
+import { HorizontalLine } from "../../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext, Role, RoleLevel, RoleType } from "../contexts/Auth";
+import { AuthContext, Role, RoleLevel, RoleType } from "../../contexts/Auth";
 import DropDownPicker from "react-native-dropdown-picker";
 
 import * as RA from 'ramda-adjunct'
-import { colors } from "../constants/Colors";
+import { colors } from "../../constants/Colors";
 
 
 export default function ConsumerSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const [userRoles, setUserRoles] = useState([])
 
@@ -28,15 +28,15 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
 
   const rolesData = {}
   rolesData.getUserRoles = [
-    {type: "CONSUMER"},
-    {type: "LEADER", entityID: "2p", entityName: "Uptown Yonge"},
-    {type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER"},
+    { type: "CONSUMER" },
+    { type: "LEADER", entityID: "2p", entityName: "Uptown Yonge" },
+    { type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER" },
   ]
   // TODO: make roles not hard coded!!!!!!!!
   //const { data: rolesData, loading: rolesLoading, error: rolesError } = useGetUserRolesQuery(userID);
   //if (rolesError) return <Text>{rolesError.message}</Text>;
   //if (rolesLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
-  
+
 
   const signOut = async () => {
     await authContext.signOut();
@@ -128,7 +128,7 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
 
         <Pressable
           style={[styles.card, { height: 45, justifyContent: 'center', }]}
-          onPress={() => navigation.navigate("BusinessWizardProfile", {pocketID : "1p"})}
+          onPress={() => navigation.navigate("BusinessWizardProfile", { pocketID: "1p" })}
         >
           <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Biz Whiz</Text>
           {/* <HorizontalLine /> */}

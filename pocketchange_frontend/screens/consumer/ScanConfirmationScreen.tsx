@@ -1,24 +1,34 @@
 import { NavigationContainerRefContext } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions, Easing, SafeAreaView, TouchableWithoutFeedback } from "react-native";
-import { Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { user } from "../dummy";
-import { MARGIN, styles } from "../Styles";
+import { Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { user } from "../../dummy";
+import { MARGIN, styles } from "../../Styles";
 import TextTicker from 'react-native-text-ticker'
 import { useContext } from "react";
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext } from "../../contexts/Auth";
+import { FontAwesome } from "@expo/vector-icons";
+import { useBusinessQuery } from "../../hooks-apollo";
+import { isNull } from "ramda-adjunct";
 
 
-export default function PayConfirmationScreen({ route, navigation }: any) {
+export default function ScanConfirmationScreen({ route, navigation }: any) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
-  const { business, subtotal } = route.params;
-  const dateTimeString = route.params.date;
+  const { QRScan } = route.params;
+  const dateTimeString = QRScan.date
+  // console.log(dateTimeString);
+
   const dateTime = new Date(dateTimeString)
 
-  console.log('inside confirmation component')
+  const businessQuery = useBusinessQuery(QRScan.businessID)
+  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  // console.log(dateTime)
+  // console.log('inside confirmation component')
 
   return (
     <>
@@ -33,7 +43,7 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
 
         <SafeAreaView style={{
           flex: 1,
-          backgroundColor: colors.gold,
+          backgroundColor: colors.green,
           justifyContent: "space-between",
           alignItems: 'center',
           // paddingTop: 100,
@@ -59,26 +69,28 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
             justifyContent: 'space-between'
           }}>
             <Text style={styles.payConfirmationDetails}>
-              {user.name.first} paid
+              You scanned
             </Text>
 
             <View style={{ marginVertical: 2 * MARGIN }}>
               <Text style={styles.payConfirmationBusiness}>
-                {business.businessName}
-              </Text>
-
-              <Text style={styles.payConfirmationTotal}>
-                ${subtotal}
+                {businessLoading ? null : businessData?.business.businessName}
+                {(businessError) ? businessError.message : null}
               </Text>
             </View>
 
+            {/* DATE */}
             <Text style={styles.payConfirmationDateTime}>
-              {dateTime.toLocaleDateString()}
+              <FontAwesome style={styles.payConfirmationDateTime} name='qrcode' />
+              {' ' + dateTime.toLocaleDateString()}
             </Text>
 
+            {/* TIME */}
             <Text style={styles.payConfirmationDateTime}>
               {dateTime.toLocaleTimeString()}
             </Text>
+
+
           </View>
 
           <TextTicker

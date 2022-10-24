@@ -1,10 +1,10 @@
 import { useState, useCallback } from "react";
 import { FlatList, RefreshControl } from "react-native";
-import { ContestCard, DivHeader, UserCardSm } from "../components/Cards";
-import { ScreenContainer, View, Text } from "../components/Themed";
-import { contestsData } from "../dummy";
-import { styles } from "../Styles";
-import wait, { waitTimes } from "../utils/wait";
+import { ContestCard, DivHeader, UserCardSm } from "../../components/Cards";
+import { ScreenContainer, View, Text } from "../../components/Themed";
+import { contestsData } from "../../dummy";
+import { styles } from "../../Styles";
+import wait, { waitTimes } from "../../utils/wait";
 
 
 export default function ContestScreen({ navigation, route }: { navigation: any, route: any }) {
@@ -35,7 +35,7 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
     <ScreenContainer>
       {/* <View style={styles.container}> */}
 
-     
+
       <FlatList
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         contentContainerStyle={[styles.container]}
@@ -56,7 +56,7 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
         renderItem={renderParticipant}
         numColumns={2}
         keyExtractor={(item) => item.userID} />
-  
+
     </ScreenContainer>
   )
 }

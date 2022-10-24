@@ -1,27 +1,27 @@
 
 import { Pressable, ScrollView, Button, Image, ActivityIndicator } from "react-native";
-import { ScreenContainer, View, Text } from "../components/Themed";
-import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../components/Cards";
+import { ScreenContainer, View, Text } from "../../components/Themed";
+import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
-import { businesses, user } from "../dummy";
+import { businesses, user } from "../../dummy";
 import { Style } from "victory-core";
-import { styles } from "../Styles";
-import { HorizontalLine } from "../components/Lines";
+import { styles } from "../../Styles";
+import { HorizontalLine } from "../../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext } from "react";
-import { AuthContext, RoleType } from "../contexts/Auth";
+import { AuthContext, RoleType } from "../../contexts/Auth";
 
-import UserQueries from "../hooks-apollo/User/queries";
+import UserQueries from "../../hooks-apollo/User/queries";
 
-import businessImages from '../assets/images/businessImages';
-import { useBusinessQuery } from "../hooks-apollo";
-import { colors } from "../constants/Colors";
+import businessImages from '../../assets/images/businessImages';
+import { useBusinessQuery } from "../../hooks-apollo";
+import { colors } from "../../constants/Colors";
 import { isNilOrEmpty } from "ramda-adjunct";
 
 
 export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const businessID = authContext.activeRole.entityID
 
@@ -33,11 +33,11 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
   //if (rolesLoading) return <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
   const rolesData = {}
   rolesData.getUserRoles = [
-    {type: "CONSUMER"},
-    {type: "LEADER", entityID: "2p", entityName: "Uptown Yonge"},
-    {type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER"},
+    { type: "CONSUMER" },
+    { type: "LEADER", entityID: "2p", entityName: "Uptown Yonge" },
+    { type: "MERCHANT", entityID: "5b", entityName: "Sweet Life", level: "OWNER" },
   ]
-  if (businessError) {return <Text>{businessError.message}</Text>;}
+  if (businessError) { return <Text>{businessError.message}</Text>; }
   const signOut = async () => {
     await authContext.signOut();
   };
@@ -75,29 +75,29 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
         {/* {isNilOrEmpty(businessData?.business)
           ? (<ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
           ) : (  */}
-          <BusinessCardSm
+        <BusinessCardSm
           businessID={businessID}
-            showPocket
+          showPocket
         />
         {/* )
         } */}
-          <View style={[styles.card]}>
+        <View style={[styles.card]}>
 
-            <SettingPressable
-              iconName='id-card'
-              settingText={`Edit Business Profile`}
-              onPress={() => navigation.navigate('EditBusinessProfile')}
-            />
+          <SettingPressable
+            iconName='id-card'
+            settingText={`Edit Business Profile`}
+            onPress={() => navigation.navigate('EditBusinessProfile')}
+          />
 
-            <HorizontalLine />
+          <HorizontalLine />
 
-            <SettingPressable
-              iconName='users'
-              settingText="Employees"
-              onPress={() => navigation.navigate('EditEmployees')}
-            />
+          <SettingPressable
+            iconName='users'
+            settingText="Employees"
+            onPress={() => navigation.navigate('EditEmployees')}
+          />
 
-          </View>
+        </View>
 
 
 

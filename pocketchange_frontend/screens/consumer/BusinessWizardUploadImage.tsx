@@ -1,14 +1,14 @@
 import { isNumber } from "ramda-adjunct";
 import { useContext, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
-import { ButtonWithText } from "../components/Cards";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { AuthContext } from "../contexts/Auth";
-import { MARGIN, styles } from "../Styles";
+import { ButtonWithText } from "../../components/Cards";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { AuthContext } from "../../contexts/Auth";
+import { MARGIN, styles } from "../../Styles";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useMutation } from '@apollo/react-hooks'
-import BusinessMutations from '../hooks-apollo/Business/mutations'
+import BusinessMutations from '../../hooks-apollo/Business/mutations'
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from 'expo-image-picker';
 
@@ -17,7 +17,7 @@ export default function BusinessWizardUploadImage({ route, navigation }: { route
 
   const { pocketID, businessID } = route.params
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
 
   const storage = getStorage();
 
@@ -44,11 +44,11 @@ export default function BusinessWizardUploadImage({ route, navigation }: { route
       console.log(result.uri);
       console.log("RES", result)
       await uploadImageAsync(result.uri)
-      navigation.navigate('BusinessWizardStripe', {businessID : businessID});
+      navigation.navigate('BusinessWizardStripe', { businessID: businessID });
     }
   }
 
-  async function uploadImageAsync(uri:any) {
+  async function uploadImageAsync(uri: any) {
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function () {
@@ -56,7 +56,7 @@ export default function BusinessWizardUploadImage({ route, navigation }: { route
       };
       xhr.onerror = function (e) {
         console.log(e);
-      reject(new TypeError("Network request failed"));
+        reject(new TypeError("Network request failed"));
       };
       xhr.responseType = "blob";
       xhr.open("GET", uri, true);
@@ -83,23 +83,23 @@ export default function BusinessWizardUploadImage({ route, navigation }: { route
 
           <Text style={styles.pocketTitle}>Business Profile Image</Text>
 
-          <Text style={[styles.prose, {marginBottom: MARGIN}]}>Please choose a photo for your public business page.</Text>
+          <Text style={[styles.prose, { marginBottom: MARGIN }]}>Please choose a photo for your public business page.</Text>
 
-          <View style={{marginBottom: MARGIN}}>
+          <View style={{ marginBottom: MARGIN }}>
             <ButtonWithText
               color={colors.blue}
               text={'Choose photo '}
-              onPress={ showImagePicker}
+              onPress={showImagePicker}
             />
           </View>
-          
-           <ButtonWithText
+
+          <ButtonWithText
             negativeStyle
             text={'Skip for now'}
-            onPress={  () => navigation.navigate('BusinessWizardStripe', {businessID : businessID})}
+            onPress={() => navigation.navigate('BusinessWizardStripe', { businessID: businessID })}
           />
 
-           </ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
     </ScreenContainer>
   )

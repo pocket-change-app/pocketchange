@@ -2,23 +2,23 @@ import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshCo
 import { SearchBar } from '@rneui/base';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN } from '../../Styles';
 //import { transactions } from '../dummy';
-import { ScreenContainer } from '../components/Themed';
-import { DivHeader, TranactionCardSm } from '../components/Cards';
-import { Text, View } from '../components/Themed';
-import { useGetAllTransactionsQuery } from '../hooks-apollo';
-import { colors } from '../constants/Colors';
+import { ScreenContainer } from '../../components/Themed';
+import { DivHeader, TranactionCardSm } from '../../components/Cards';
+import { Text, View } from '../../components/Themed';
+import { useGetAllTransactionsQuery } from '../../hooks-apollo';
+import { colors } from '../../constants/Colors';
 
 
 import { isNilOrEmpty } from 'ramda-adjunct';
-import { AuthContext } from '../contexts/Auth';
-import wait, { waitTimes } from '../utils/wait';
+import { AuthContext } from '../../contexts/Auth';
+import wait, { waitTimes } from '../../utils/wait';
 // const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
   const businessID = authContext.activeRole.entityID
 
   const { data: transactionsData, error: transactionsError, loading: transactionsLoading, refetch: refetchTransactions } = useGetAllTransactionsQuery(undefined, businessID)
@@ -44,14 +44,14 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     website: 'paella.ca',
     businessType: 'restaurant',
     businessSubtype: 'spanish',
-    emailAddress:'paella@gmail.com',
+    emailAddress: 'paella@gmail.com',
     address: {
-     streetName: 'Queen St E',
-     buildingNumber: '1146', 
-     unitNumber: '',
-     city: 'Toronto',
-     region: 'ON',
-     postalCode: 'M4M 1L1',
+      streetName: 'Queen St E',
+      buildingNumber: '1146',
+      unitNumber: '',
+      city: 'Toronto',
+      region: 'ON',
+      postalCode: 'M4M 1L1',
     },
     latitude: 43.6625197,
     longitude: -79.336471,
@@ -59,7 +59,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     stripeID: '2b',
     description: 'La Paella was originally a Spanish catering company in the GTA that was started in 2010 by partners, Gabriel and Angel.  They decided to open a storefront location in Leslieville in 2017.',
     deactivated: false,
- };
+  };
 
 
 
@@ -86,10 +86,10 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
     console.log('rendering transaxtion');
 
     return (
-    <TranactionCardSm
-      key={item.transactionID}
-      navigation={navigation}
-      transaction={item}
+      <TranactionCardSm
+        key={item.transactionID}
+        navigation={navigation}
+        transaction={item}
       />
     )
   }
@@ -113,18 +113,18 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
       </ScreenContainer>
 
       <SearchBar
-                showCancel={false}
-                containerStyle={styles.searchBarContainer}
-                inputContainerStyle={styles.searchBarInputContainer}
+        showCancel={false}
+        containerStyle={styles.searchBarContainer}
+        inputContainerStyle={styles.searchBarInputContainer}
 
-                inputStyle={styles.searchBarInput}
-                placeholder="Search Transactions"
-                placeholderTextColor={colors.subtle}
+        inputStyle={styles.searchBarInput}
+        placeholder="Search Transactions"
+        placeholderTextColor={colors.subtle}
 
         onChangeText={setSearchQuery}
-                onClear={() => null}
-                value={searchQuery}
-            />
+        onClear={() => null}
+        value={searchQuery}
+      />
     </KeyboardAvoidingView>
 
   )

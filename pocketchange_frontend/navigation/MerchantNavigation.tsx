@@ -12,18 +12,18 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
 import TransactionModalScreen from '../screens/TransactionModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import PocketTabScreen from '../screens/PocketTabScreen';
-import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import TransactionsTabScreen from '../screens/TransactionsTabScreen';
-import WalletScreen from '../screens/WalletScreen';
-import PocketScreen from '../screens/PocketScreen';
-import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
+import NotFoundScreen from '../screens/shared/NotFoundScreen';
+import PocketTabScreen from '../screens/consumer/PocketTabScreen';
+import MerchantAnalyticsScreen from '../screens/merchant/MerchantAnalyticsScreen';
+import TransactionsTabScreen from '../screens/merchant/TransactionsTabScreen';
+import WalletScreen from '../screens/consumer/WalletScreen';
+import PocketScreen from '../screens/consumer/PocketScreen';
+import MerchantSettingsScreen from '../screens/merchant/MerchantSettingsScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
-import SettingsTippingScreen from '../screens/SettingsTippingScreen';
-import EditEmployeesScreen from '../screens/EditEmployeesScreen';
+import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
+import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -120,7 +120,7 @@ function AnalyticsStack() {
     >
       <Stack.Screen
         name="MerchantAnalytics"
-        component={AnalyticsDashboardScreen}
+        component={MerchantAnalyticsScreen}
         options={{
           title: ' Analytics '
         }}

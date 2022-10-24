@@ -12,20 +12,20 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
 import TransactionModalScreen from '../screens/TransactionModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import ContestsTabScreen from '../screens/ContestsTabScreen';
-import PocketScreen from '../screens/PocketScreen';
-import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
+import NotFoundScreen from '../screens/shared/NotFoundScreen';
+import AnalyticsDashboardScreen from '../screens/merchant/MerchantAnalyticsScreen';
+import ContestsTabScreen from '../screens/leader/ContestsTabScreen';
+import PocketScreen from '../screens/consumer/PocketScreen';
+import MerchantSettingsScreen from '../screens/merchant/MerchantSettingsScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
-import SettingsTippingScreen from '../screens/SettingsTippingScreen';
-import EditEmployeesScreen from '../screens/EditEmployeesScreen';
-import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
-import ContestScreen from '../screens/ContestScreen';
-import ContestWizardScreen from '../screens/ContestWizardScreen';
-import ContestWizardSummaryScreen from '../screens/ContestWizardSummaryScreen';
+import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
+import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
+import LeaderSettingsScreen from '../screens/leader/LeaderSettingsScreen';
+import ContestScreen from '../screens/shared/ContestScreen';
+import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
+import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

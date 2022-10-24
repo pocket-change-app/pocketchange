@@ -1,18 +1,18 @@
-import { MARGIN, styles } from "../Styles";
-import { View, Text, ScreenContainer } from '../components/Themed'
-import { CardHeader, ButtonWithText,  } from '../components/Cards'
-import { HorizontalLine } from "../components/Lines";
+import { MARGIN, styles } from "../../Styles";
+import { View, Text, ScreenContainer } from '../../components/Themed'
+import { CardHeader, ButtonWithText, } from '../../components/Cards'
+import { HorizontalLine } from "../../components/Lines";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { useContext, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { colors } from "../constants/Colors";
-import { AuthContext } from "../contexts/Auth";
+import { colors } from "../../constants/Colors";
+import { AuthContext } from "../../contexts/Auth";
 
 
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
-  
+  const authContext = useContext(AuthContext);
+
   const { business, pocket } = route.params;
 
   const [amount, setAmount] = useState('')
