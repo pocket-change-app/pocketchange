@@ -1,8 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useContext } from "react";
-import { DivHeader } from "../../components/Cards";
+import { ButtonWithText, DivHeader } from "../../components/Cards";
 import { HorizontalLine } from "../../components/Lines";
 import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
 import { AuthContext } from "../../contexts/Auth";
 import { styles } from "../../Styles";
 
@@ -45,6 +46,17 @@ export default function ContestWizardSummaryScreen({ route, navigation }: { rout
 
           </View>
         </View>
+      </View>
+
+      <View style={styles.floatingButtonContainer}>
+        <ButtonWithText
+          text='Submit for Approval'
+          color={colors.gold}
+          onPress={() => {
+            console.log(contest);
+            navigation.navigate('Contests')
+          }}
+        />
       </View>
     </ScreenContainer>
   )
