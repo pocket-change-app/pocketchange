@@ -15,12 +15,14 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
 
-  const allFieldsFilled = (
+  const today = new Date()
+
+  const fieldsFilledAppropriately = (
     contestName !== '' &&
     description !== '' &&
     prizeAmount !== '' &&
-    startDate &&
-    endDate
+    today < startDate &&
+    startDate < endDate
   )
 
   const formatPrizeAmount = () => {
@@ -149,7 +151,8 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
           <View style={styles.container}>
             <ButtonWithText
               text='Next'
-              onPress={() => navigation.navigate('ContestWizardSummary', {
+              onPress={() => {
+                if (fieldsFilledAppropriately) navigation.navigate('ContestWizardSummary', {
                 contest: {
                   contestName,
                   description,
@@ -157,8 +160,9 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                   startDate,
                   endDate
                 }
-              })}
-              color={allFieldsFilled ?
+                })
+              }}
+              color={fieldsFilledAppropriately ?
                 (
                   colors.gold
                 ) : (
