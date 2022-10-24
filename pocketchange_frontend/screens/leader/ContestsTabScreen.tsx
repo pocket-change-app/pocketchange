@@ -1,7 +1,7 @@
 import { KeyboardAvoidingView, RefreshControl, SectionList } from 'react-native';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, BUTTON_HEIGHT } from '../../Styles';
+import { styles, BUTTON_HEIGHT, MARGIN } from '../../Styles';
 import { ScreenContainer } from '../../components/Themed';
 import { ButtonWithText, ContestCard, DivHeader } from '../../components/Cards';
 import { View } from '../../components/Themed';
@@ -73,7 +73,7 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
           renderItem={renderContest}
           renderSectionHeader={renderSectionHeader}
           stickySectionHeadersEnabled={false}
-          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT }} />}
+          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT + MARGIN }} />}
         />
 
         {/* <DivHeader text={'Active'} /> */}

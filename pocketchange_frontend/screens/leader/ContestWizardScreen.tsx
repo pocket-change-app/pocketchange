@@ -4,7 +4,7 @@ import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, TextInput, Toucha
 import { ButtonWithText } from '../../components/Cards';
 import { ScreenContainer, Text, View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
-import { MARGIN, styles } from "../../Styles";
+import { BUTTON_HEIGHT, MARGIN, styles } from "../../Styles";
 
 export default function ContestWizardScreen({ route, navigation }: { route: any, navigation: any }) {
 
