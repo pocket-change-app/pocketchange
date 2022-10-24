@@ -149,7 +149,15 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
           <View style={styles.container}>
             <ButtonWithText
               text='Next'
-              onPress={null}
+              onPress={() => navigation.navigate('ContestWizardSummary', {
+                contest: {
+                  contestName,
+                  description,
+                  prizeAmount,
+                  startDate,
+                  endDate
+                }
+              })}
               color={allFieldsFilled ?
                 (
                   colors.gold

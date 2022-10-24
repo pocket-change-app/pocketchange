@@ -25,6 +25,7 @@ import EditEmployeesScreen from '../screens/EditEmployeesScreen';
 import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
 import ContestScreen from '../screens/ContestScreen';
 import ContestWizardScreen from '../screens/ContestWizardScreen';
+import ContestWizardSummaryScreen from '../screens/ContestWizardSummaryScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -101,6 +102,15 @@ function ContestsStack() {
           title: 'Contest Wizard'
         }}
       />
+      <Stack.Screen
+        name="ContestWizardSummary"
+        component={ContestWizardSummaryScreen}
+        options={{
+          title: 'Summary'
+        }}
+      />
+
+
 
       {/* <Stack.Screen
         name="TransactionModal"
