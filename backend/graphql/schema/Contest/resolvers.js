@@ -61,9 +61,6 @@ module.exports = {
       contestName,
       description,
     }, { Contest, mongoContest, IsIn, WorksAt}) => {
-        //check to see the business name they want isn't taken by another business
-        const existing = await mongoContest.findOne({ contestName: contestName })
-        if (!existing) {
           //create a new contest in Mongo and SQL
           const newContest = await Contest.create({
             pocketID: pocketID,
@@ -94,9 +91,6 @@ module.exports = {
             winners: newMongoContest.winners, 
             status:newMongoContest.status, 
           }
-        } else {
-          throw new ApolloError('Contest already exists')
-        }
     },  
     deactivateContest: async (parent, { 
       userID,
@@ -180,7 +174,7 @@ module.exports = {
           // shuffle entry info
           const shuffledEntries = allEntriesInfo.sort(() => 0.5 - Math.random());
 
-          // Get sub-array of first n elements after shuffled
+          // get sub-array of first n elements after shuffled
           const winningEntries = shuffledEntries.slice(0, winnerNumber);
           console.log(winningEntries)
           const winningUserIDs= winningEntries.map(entry => entry.userID);
@@ -195,6 +189,30 @@ module.exports = {
         else {
           throw new ApolloError('this isn\'t the manager of the pocket or pocketchange admin')
         }
-    },  
+    }, 
+    editContest: async (parent, { 
+      userID,
+      pocketID, 
+      contestID,
+      contestName,
+      description,
+    }, { Contest, mongoContest, IsIn, WorksAt}) => {
+        const pocketInfo = await ParticipatingIn.findOne({where:{contestID: contestID}, raw: true})
+        const pocketID = pocketInfo.pocketID
+        const isMemberInfo = await IsMember.findOne({ where:{ userID:userID, pocketID: pocketID}})
+        if(isMemberInfo && isMemberInfo.dataValues.role == 'manager' || userID == 'pocketchangeAdmin'){
+        //the user is the current manager or is pocketChange admin so they can edit the contest
+        const mongoContestInfo = await mongoContest.findOne({ contestID: contestID })
+        await mongoContest.updateOne({ contestID: contestID },
+          {
+            contestName: contestName? contestName : mongoContestInfo.contestName,
+            description: description? description : mongoContestInfo.description,
+          })
+        await mongoContestInfo.save()
+        return mongoContestInfo
+        } else {
+          throw new ApolloError('User does not have permission to edit this contest')
+        }
+    },   
   }
 }
