@@ -43,31 +43,25 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
       
 
         <View style={{ paddingHorizontal: SCREEN_WIDTH / 6 }}>
-          <View style={{ height: BUTTON_HEIGHT, justifyContent: 'center', marginBottom: MARGIN }}>
-            {
-              authContext.loading ? (
 
-                <ActivityIndicator
-                  color={colors.subtle}
-                  animating={true}
-                  size="small"
-                />
-
-              ) : (
-                <ButtonWithText
-                  text="Sign In"
-                  color={colors.gold}
-                  onPress={() => navigation.navigate('SignIn', {})}
-                />
-              )
-            }
+          <View style={{ marginBottom: MARGIN }}>
+            <ButtonWithText
+              text="Sign Up"
+              color={colors.gold}
+              onPress={() => navigation.navigate('SignUp', {})}
+            />
           </View>
 
-          <ButtonWithText
-            text="Sign Up"
-            negativeStyle={true}
-            onPress={() => navigation.navigate('SignUp', {})}
-          />
+          <View style={{ marginBottom: MARGIN }}>
+            <ButtonWithText
+              text="Sign In"
+              negativeStyle={true}
+              color={colors.gold}
+              onPress={() => navigation.navigate('SignIn', {})}
+            />
+          </View>
+
+
         </View>
       </View>
     </>
