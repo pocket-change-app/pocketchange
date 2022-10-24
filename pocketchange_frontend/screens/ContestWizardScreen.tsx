@@ -124,7 +124,7 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                 testID="dateTimePicker"
                 value={startDate}
                 mode="date"
-                onChange={(event, date) => setStartDate}
+                  onChange={(event, date) => setStartDate(date)}
               // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
               />
             </View>
@@ -138,7 +138,7 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                 testID="dateTimePicker"
                 value={endDate}
                 mode="date"
-                onChange={(event, date) => setEndDate}
+                  onChange={(event, date) => setEndDate(date)}
               // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
               />
             </View>
