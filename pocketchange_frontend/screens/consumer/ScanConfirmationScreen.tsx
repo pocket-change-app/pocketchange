@@ -1,16 +1,13 @@
-import { NavigationContainerRefContext } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions, Easing, SafeAreaView, TouchableWithoutFeedback } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
-import { user } from "../../dummy";
 import { MARGIN, styles } from "../../Styles";
 import TextTicker from 'react-native-text-ticker'
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/Auth";
 import { FontAwesome } from "@expo/vector-icons";
 import { useBusinessQuery } from "../../hooks-apollo";
-import { isNull } from "ramda-adjunct";
 
 
 export default function ScanConfirmationScreen({ route, navigation }: any) {

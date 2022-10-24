@@ -1,19 +1,9 @@
-import { ActivityIndicator, RefreshControl, ScrollView } from 'react-native';
+import { RefreshControl, ScrollView } from 'react-native';
 
 import { MARGIN, styles } from '../../Styles';
-import { ScreenContainer, Text, View } from '../../components/Themed';
-import { BalancesCard, IdCard, HistoryCard, DivHeader } from '../../components/Cards';
-import { user } from '../../dummy';
-import { useGetAllTransactionsQuery } from '../../hooks-apollo';
-import { useCallback, useContext, useState } from 'react';
-import { AuthContext } from '../../contexts/Auth';
-const R = require('ramda');
-
-import ChangeBalanceQueries from '../../hooks-apollo/ChangeBalance/queries'
-import QRScanQueries from '../../hooks-apollo/QRScan/queries'
-import { colors } from '../../constants/Colors';
-import useGetAllChangeBalancesQuery from '../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
-import useGetAllQRScansQuery from '../../hooks-apollo/QRScan/useGetAllQRScansQuery';
+import { ScreenContainer, View } from '../../components/Themed';
+import { IdCard, HistoryCard, DivHeader } from '../../components/Cards';
+import { useCallback, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 
 export default function WalletScreen({ navigation }: { navigation: any }) {

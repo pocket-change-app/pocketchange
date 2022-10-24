@@ -1,15 +1,15 @@
-import { MARGIN, styles } from "../Styles";
-import { View, Text, ScreenContainer } from '../components/Themed'
-import { ButtonWithText } from '../components/Cards'
-import { HorizontalLine } from "../components/Lines";
-import { colors } from "../constants/Colors";
-import { ConsumerNavigation } from "../navigation/ConsumerNavigation";
-import { user } from "../dummy";
+import { MARGIN, styles } from "../../Styles";
+import { View, Text, ScreenContainer } from '../../components/Themed'
+import { ButtonWithText } from '../../components/Cards'
+import { HorizontalLine } from "../../components/Lines";
+import { colors } from "../../constants/Colors";
+import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
+import { user } from "../../dummy";
 import { getBackgroundColorAsync } from "expo-system-ui";
 import { Switch } from 'react-native'
 import { useContext, useState } from "react";
-import { AuthContext } from "../contexts/Auth";
-import PocketQueries from '../hooks-apollo/Pocket/queries'
+import { AuthContext } from "../../contexts/Auth";
+import PocketQueries from '../../hooks-apollo/Pocket/queries'
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 

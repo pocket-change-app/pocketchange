@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { SettingSwitch } from "../../components/Cards"
-import { HorizontalLine } from "../../components/Lines"
 import { ScreenContainer, View } from "../../components/Themed"
 import { styles } from "../../Styles"
 

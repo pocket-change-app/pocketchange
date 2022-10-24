@@ -1,4 +1,4 @@
-import { Platform, Image, Pressable, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
+import { Image, ScrollView, RefreshControl } from 'react-native';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
@@ -9,7 +9,6 @@ import React, { useCallback, useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/Auth';
 
 import useGetAllChangeBalancesQuery from '../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
-import { QueryResult } from '../../components/QueryResult';
 import { useBusinessQuery } from '../../hooks-apollo';
 import wait, { waitTimes } from '../../utils/wait';
 

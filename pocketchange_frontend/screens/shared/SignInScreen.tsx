@@ -1,14 +1,13 @@
 import { StatusBar } from "react-native";
 import { useRef, useState, useContext } from "react";
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext } from "../../contexts/Auth";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
-import { ButtonWithText } from "../components/Cards";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { MARGIN, styles } from "../Styles";
+import { ButtonWithText } from "../../components/Cards";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import colors from "../../constants/Colors";
+import { MARGIN, styles } from "../../Styles";
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { isNilOrEmpty } from 'ramda-adjunct';
 
 
 export default function SignInScreen({ route, navigation }: { route: any, navigation: any }) {

@@ -1,19 +1,17 @@
 import { FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, Pressable, TextInput } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { styles } from '../Styles';
+import { styles } from '../../Styles';
 //import { businesses } from '../dummy';
-import { ScreenContainer } from '../components/Themed';
-import { BusinessCardSm, BusinessCardSuggested, DivHeader } from '../components/Cards';
-import { BusinessCard } from '../components/Cards';
+import { ScreenContainer } from '../../components/Themed';
+import { BusinessCardSm, BusinessCardSuggested, DivHeader } from '../../components/Cards';
+import { BusinessCard } from '../../components/Cards';
 
-import { colors } from '../constants/Colors';
-import { Text, View } from '../components/Themed';
+import { colors } from '../../constants/Colors';
 import { useContext, useEffect, useState } from 'react';
-import { HorizontalLine } from '../components/Lines';
-import { useGetLovedBusinessesQuery } from '../hooks-apollo';
+import { useGetLovedBusinessesQuery } from '../../hooks-apollo';
 import { isNilOrEmpty } from 'ramda-adjunct';
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext } from '../../contexts/Auth';
 
 const R = require('ramda');
 

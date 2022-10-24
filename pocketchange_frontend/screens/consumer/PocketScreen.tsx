@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import { SearchBar } from '@rneui/base';
 
 import { styles } from '../../Styles';
-import { businesses, contestData, contests, contestsData, snapItUp } from '../../dummy';
+import { businesses, contestsData } from '../../dummy';
 import { ScreenContainer } from '../../components/Themed';
 
 import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../../components/Cards';

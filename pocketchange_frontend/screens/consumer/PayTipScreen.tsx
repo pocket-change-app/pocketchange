@@ -1,12 +1,10 @@
-import { MARGIN, styles } from "../Styles";
-import { View, Text, ScreenContainer } from '../components/Themed'
-import { ButtonWithText, CardHeader } from '../components/Cards'
-import { KeyboardAvoidingView, Platform, Pressable, TextInput, TimePickerAndroid } from "react-native";
-import { HorizontalLine } from "../components/Lines";
+import { MARGIN, styles } from "../../Styles";
+import { View, Text, ScreenContainer } from '../../components/Themed'
+import { ButtonWithText } from '../../components/Cards'
+import { KeyboardAvoidingView, Platform, Pressable } from "react-native";
 import { useContext, useState } from "react";
-import { colors } from "../constants/Colors";
-import { Button } from "@rneui/base";
-import { AuthContext } from "../contexts/Auth";
+import { colors } from "../../constants/Colors";
+import { AuthContext } from "../../contexts/Auth";
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
 

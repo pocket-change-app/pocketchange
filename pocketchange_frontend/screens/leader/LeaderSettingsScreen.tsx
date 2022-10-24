@@ -1,20 +1,14 @@
 
-import { Pressable, ScrollView, Button, Image, ActivityIndicator } from "react-native";
+import { Pressable, ScrollView } from "react-native";
 import { ScreenContainer, View, Text } from "../../components/Themed";
-import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
+import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
-import { businesses, pockets, user } from "../../dummy";
-import { Style } from "victory-core";
 import { styles } from "../../Styles";
 import { HorizontalLine } from "../../components/Lines";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { AuthContext, RoleType } from "../../contexts/Auth";
 
-import businessImages from '../../assets/images/businessImages';
 import { usePocketQuery } from "../../hooks-apollo";
-import { isNilOrEmpty } from "ramda-adjunct";
-import { colors } from "../../constants/Colors";
 
 
 export default function LeaderSettingsScreen({ route, navigation }: { route: any, navigation: any }) {

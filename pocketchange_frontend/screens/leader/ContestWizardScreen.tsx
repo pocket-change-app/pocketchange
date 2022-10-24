@@ -1,7 +1,6 @@
-import { isEmpty } from '@firebase/util';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, TextInput, Touchable, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, TextInput, TouchableWithoutFeedback } from "react-native";
 import { ButtonWithText } from '../../components/Cards';
 import { ScreenContainer, Text, View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";

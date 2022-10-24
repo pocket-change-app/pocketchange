@@ -1,9 +1,8 @@
-import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, RefreshControl, } from 'react-native';
+import { SectionList, KeyboardAvoidingView, TextInput, RefreshControl, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
-import gold from '../../constants/Colors';
 import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../../components/Cards';
 import { colors, colorScale } from '../../constants/Colors';
 
@@ -16,7 +15,6 @@ import Svg from 'react-native-svg'
 import { AuthContext } from '../../contexts/Auth';
 import wait, { waitTimes } from '../../utils/wait';
 
-const R = require('ramda');
 
 // TODO: add hook call to query all analytics
 

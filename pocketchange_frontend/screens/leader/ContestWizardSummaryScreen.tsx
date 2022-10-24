@@ -1,10 +1,10 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useContext } from "react";
-import { ContestCard, DivHeader } from "../components/Cards";
-import { HorizontalLine } from "../components/Lines";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { AuthContext, RoleType } from "../contexts/Auth";
-import { styles } from "../Styles";
+import { DivHeader } from "../../components/Cards";
+import { HorizontalLine } from "../../components/Lines";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { AuthContext } from "../../contexts/Auth";
+import { styles } from "../../Styles";
 
 
 export default function ContestWizardSummaryScreen({ route, navigation }: { route: any, navigation: any }) {

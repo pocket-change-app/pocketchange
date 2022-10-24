@@ -3,39 +3,35 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
-import { MARGIN, styles } from '../Styles';
+import { styles } from '../Styles';
 
 import BusinessScreen from '../screens/shared/BusinessScreen';
 import QRScanScreen from '../screens/consumer/QRScanScreen';
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
 import PocketTabScreen from '../screens/consumer/PocketTabScreen';
-import PayTabScreen from '../screens/PayTabScreen';
+import PayTabScreen from '../screens/consumer/PayTabScreen';
 import WalletScreen from '../screens/consumer/WalletScreen';
 import PocketScreen from '../screens/consumer/PocketScreen';
 import ConsumerSettingsScreen from '../screens/consumer/ConsumerSettingsScreen';
 import ReceiptScreen from '../screens/shared/ReceiptScreen';
 import PayAmountScreen from '../screens/consumer/PayAmountScreen';
-import PayTipScreen from '../screens/PayTipScreen';
-import PaySummaryScreen from '../screens/PaySummaryScreen';
+import PayTipScreen from '../screens/consumer/PayTipScreen';
+import PaySummaryScreen from '../screens/consumer/PaySummaryScreen';
 import PayConfirmationScreen from '../screens/consumer/PayConfirmationScreen';
 import EditProfileScreen from '../screens/consumer/EditProfileScreen';
-import ViewPDFScreen from '../screens/ViewPDFScreen';
 import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
-import CreateBusinessWizardScreen from '../screens/consumer/BusinessWizardProfileScreen';
 import BusinessWizardProfileScreen from '../screens/consumer/BusinessWizardProfileScreen';
 import BusinessWizardUploadImage from '../screens/consumer/BusinessWizardUploadImage';
-import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
-import ContestScreen from '../screens/shared/ContestScreen';
+import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripeScreen';
+import ContestScreen from '../screens/consumer/ContestScreen';
 
 import { AuthContext } from '../contexts/Auth';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 
 
@@ -379,13 +375,6 @@ function WalletStack() {
         name="About"
         component={SettingsAboutScreen}
         options={{}}
-      />
-      <Stack.Screen
-        name="ViewPDF"
-        component={ViewPDFScreen}
-        options={({ route }) => ({
-          title: route.params.title
-        })}
       />
       <Stack.Screen
         name="BusinessWizardProfile"

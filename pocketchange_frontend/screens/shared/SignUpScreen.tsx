@@ -12,8 +12,6 @@ import UserMutations from '../../hooks-apollo/User/mutations'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from '../../contexts/Auth';
 
-import { isNilOrEmpty } from 'ramda-adjunct';
-
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -61,8 +59,8 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
   const [useRegisterUserMutation, { loading, error }] = useMutation(
     UserMutations.registerUser, {
-    onCompleted(data) { authContext.setUserGQL(data.registerUser) },
-    onError(error) { console.log(error) }
+      onCompleted(data) { authContext.setUserGQL(data.registerUser) },
+      onError(error) { console.log(error) }
   })
 
   if (error) console.log(error);
@@ -95,7 +93,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
     } else if (password === '') {
       setSignUpError('Password is required.')
       return;
-    }
+    } 
     try {
       await createUserWithEmailAndPassword(auth, emailAddress, password).then(
         (userCredential) => {
@@ -107,7 +105,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
               lastName: lastName,
               home: homePostalCode,
               birthDate: birthDate,
-              emailAddress: emailAddress,
+              emailAddress: emailAddress, 
             }
           }).then(
             res => authContext.setUserGQL(res.data),

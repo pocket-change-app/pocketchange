@@ -1,22 +1,14 @@
 
-import { Pressable, ScrollView, Button, Image, ActivityIndicator } from "react-native";
+import { Pressable, ScrollView } from "react-native";
 import { ScreenContainer, View, Text } from "../../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
-import { businesses, user } from "../../dummy";
-import { Style } from "victory-core";
 import { styles } from "../../Styles";
 import { HorizontalLine } from "../../components/Lines";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { AuthContext, RoleType } from "../../contexts/Auth";
 
-import UserQueries from "../../hooks-apollo/User/queries";
-
-import businessImages from '../../assets/images/businessImages';
 import { useBusinessQuery } from "../../hooks-apollo";
-import { colors } from "../../constants/Colors";
-import { isNilOrEmpty } from "ramda-adjunct";
 
 
 export default function MerchantSettingsScreen({ route, navigation }: { route: any, navigation: any }) {

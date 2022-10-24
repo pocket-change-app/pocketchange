@@ -1,29 +1,22 @@
 import * as React from 'react';
-import { Modal, Pressable, StyleSheet } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import TransactionModalScreen from '../screens/TransactionModalScreen';
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
 import AnalyticsDashboardScreen from '../screens/merchant/MerchantAnalyticsScreen';
 import ContestsTabScreen from '../screens/leader/ContestsTabScreen';
 import PocketScreen from '../screens/consumer/PocketScreen';
-import MerchantSettingsScreen from '../screens/merchant/MerchantSettingsScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
-import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
-import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
 import LeaderSettingsScreen from '../screens/leader/LeaderSettingsScreen';
-import ContestScreen from '../screens/shared/ContestScreen';
+import ContestScreen from '../screens/consumer/ContestScreen';
 import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
 import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
 
@@ -46,26 +39,17 @@ export const LeaderNavigation = () => {
         //headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabLeader} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{
-        presentation: 'modal',
-      }}
-      >
-        <Stack.Screen
-          name="TransactionModal"
-          component={TransactionModalScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Group>
-      <Stack.Group screenOptions={{
-        presentation: 'modal',
-      }}
-      >
+      <Stack.Screen
+        name="Root"
+        component={BottomTabLeader}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: 'Oops!' }}
+      />
 
-      </Stack.Group>
     </Stack.Navigator>
   );
 }

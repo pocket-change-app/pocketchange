@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { View, Text, StyleSheet, Platform, Button, ActivityIndicator } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 import { styles } from '../../Styles';
 import { colors } from '../../constants/Colors';
@@ -10,8 +9,6 @@ import { AuthContext } from '../../contexts/Auth';
 import * as Location from 'expo-location';
 import { useMutation } from '@apollo/client';
 import QRScanMutations from '../../hooks-apollo/QRScan/mutations'
-import { authService } from '../../services/authService';
-import { LocationSubscriber } from 'expo-location/build/LocationSubscribers';
 import { isNull } from 'ramda-adjunct';
 import { ButtonWithText } from '../../components/Cards';
 import { ScreenContainer } from '../../components/Themed';

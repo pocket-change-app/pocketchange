@@ -1,20 +1,16 @@
-import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshControl } from 'react-native';
+import { FlatList, KeyboardAvoidingView, RefreshControl } from 'react-native';
 import { SearchBar } from '@rneui/base';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN } from '../../Styles';
-//import { transactions } from '../dummy';
+import { styles } from '../../Styles';
 import { ScreenContainer } from '../../components/Themed';
-import { DivHeader, TranactionCardSm } from '../../components/Cards';
-import { Text, View } from '../../components/Themed';
+import { TranactionCardSm } from '../../components/Cards';
+import { Text } from '../../components/Themed';
 import { useGetAllTransactionsQuery } from '../../hooks-apollo';
 import { colors } from '../../constants/Colors';
 
-
-import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../../contexts/Auth';
 import wait, { waitTimes } from '../../utils/wait';
-// const R = require('ramda');
 
 export default function TransactionsTabScreen({ navigation }: { navigation: any }) {
 

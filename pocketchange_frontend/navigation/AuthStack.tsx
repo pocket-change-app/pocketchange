@@ -3,7 +3,7 @@ import { colors } from '../constants/Colors';
 
 import LandingScreen from '../screens/shared/LandingScreen';
 import SignUpScreen from '../screens/shared/SignUpScreen';
-import SignInScreen from '../screens/SignInScreen';
+import SignInScreen from '../screens/shared/SignInScreen';
 import { styles } from '../Styles';
 
 const Stack = createNativeStackNavigator();

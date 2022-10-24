@@ -1,7 +1,7 @@
-import React, { useState, useRef, useContext } from 'react';
-import { ActivityIndicator, Image, Dimensions, Text, View, TextInput } from 'react-native';
+import React, { useContext } from 'react';
+import { Image, Dimensions, Text, View } from 'react-native';
 
-import { BUTTON_HEIGHT, MARGIN, styles } from '../../Styles';
+import { MARGIN, styles } from '../../Styles';
 //import { useAuth } from '../contexts/Auth';
 import { ButtonWithText } from '../../components/Cards';
 import { colors } from '../../constants/Colors';
@@ -36,7 +36,7 @@ export default function LandingScreen({ route, navigation }: { route: any, navig
         }}>
           <Image
             style={{ width: '100%', height: '100%' }}
-            source={require('../assets/images/icon.png')}
+            source={require('../../assets/images/icon.png')}
           />
         </View>
         <Text style={[styles.logoText, { marginBottom: MARGIN }]}>pocketchange</Text>

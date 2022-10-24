@@ -11,7 +11,6 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import TransactionModalScreen from '../screens/TransactionModalScreen';
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
 import PocketTabScreen from '../screens/consumer/PocketTabScreen';
 import MerchantAnalyticsScreen from '../screens/merchant/MerchantAnalyticsScreen';

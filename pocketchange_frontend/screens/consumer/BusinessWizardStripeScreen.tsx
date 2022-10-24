@@ -1,15 +1,15 @@
 import { isNumber } from "ramda-adjunct";
 import { useContext, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
-import { ButtonWithText } from "../components/Cards";
-import { ScreenContainer, Text, View } from "../components/Themed";
-import { colors } from "../constants/Colors";
-import { MARGIN, styles } from "../Styles";
+import { ButtonWithText } from "../../components/Cards";
+import { ScreenContainer, Text, View } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { MARGIN, styles } from "../../Styles";
 import * as WebBrowser from 'expo-web-browser';
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext } from "../../contexts/Auth";
 
 import { useMutation } from '@apollo/react-hooks'
-import BusinessMutations from "../hooks-apollo/Business/mutations";
+import BusinessMutations from "../../hooks-apollo/Business/mutations";
 
 
 export default function BusinessWizardStripeScreen({ route, navigation }: { route: any, navigation: any }) {

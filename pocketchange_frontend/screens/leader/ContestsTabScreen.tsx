@@ -1,20 +1,14 @@
-import { ScrollView, FlatList, KeyboardAvoidingView, Pressable, Image, RefreshControl, SectionList } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import { KeyboardAvoidingView, RefreshControl, SectionList } from 'react-native';
 import { useCallback, useContext, useState } from 'react';
 
-import { styles, MARGIN, BUTTON_HEIGHT } from '../../Styles';
-//import { transactions } from '../dummy';
+import { styles, BUTTON_HEIGHT } from '../../Styles';
 import { ScreenContainer } from '../../components/Themed';
 import { ButtonWithText, ContestCard, DivHeader } from '../../components/Cards';
-import { Text, View } from '../../components/Themed';
-import { useGetAllTransactionsQuery } from '../../hooks-apollo';
+import { View } from '../../components/Themed';
 import { colors } from '../../constants/Colors';
 
 
-import { isNilOrEmpty } from 'ramda-adjunct';
 import { AuthContext } from '../../contexts/Auth';
-import { HorizontalLine } from '../../components/Lines';
-import { FontAwesome } from '@expo/vector-icons';
 import { contestsData } from '../../dummy';
 import wait, { waitTimes } from '../../utils/wait';
 const R = require('ramda');

@@ -1,19 +1,18 @@
-import { ScrollView, FlatList, SectionList, KeyboardAvoidingView, TextInput, } from 'react-native';
+import { SectionList, KeyboardAvoidingView, TextInput, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-import { MARGIN, styles } from '../Styles';
-import { ScreenContainer, Text, View } from '../components/Themed';
-import gold from '../constants/Colors';
-import { DivHeader, BusinessCardSm, ButtonWithText } from '../components/Cards';
-import { colors, colorScale } from '../constants/Colors';
+import { MARGIN, styles } from '../../Styles';
+import { ScreenContainer, Text, View } from '../../components/Themed';
+import { BusinessCardSm, ButtonWithText } from '../../components/Cards';
+import { colors, colorScale } from '../../constants/Colors';
 
-import { leaderAnalytics } from '../dummy';
+import { leaderAnalytics } from '../../dummy';
 
 import { useState, useContext } from 'react';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
-import { AuthContext } from '../contexts/Auth';
+import { AuthContext } from '../../contexts/Auth';
 
 const R = require('ramda');
 
