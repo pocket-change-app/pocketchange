@@ -4,7 +4,7 @@ export default {
     "owner": "pocketchange_loyalty_inc",
     "name": "pocketchange_frontend",
     "slug": "pocketchange_frontend",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pocketchange",
@@ -22,7 +22,8 @@ export default {
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ca.pocketchangeapp.pocketchange"
+      "bundleIdentifier": "ca.pocketchangeapp.pocketchange",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
