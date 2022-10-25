@@ -830,6 +830,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     top: 0,
   }, 
+
   contestTitle: {
     fontFamily: 'metropolis bold',
     fontSize: 20,
