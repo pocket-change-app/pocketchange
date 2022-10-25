@@ -21,7 +21,8 @@ export default {
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ca.pocketchangeapp.pocketchange"
     },
     "android": {
       "adaptiveIcon": {
@@ -43,7 +44,19 @@ export default {
       firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
       firebaseDatabaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
       graphQLURL: process.env.GRAPHQL_URL,
-    }
+      "eas": {
+        "projectId": "6f2a3fd4-8dd0-4936-9afe-62388c3f7198"
+      }
+    },
+    "plugins": [
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.ca.pocketchangeapp.pocketchange",
+          "enableGooglePay": false
+        }
+      ]
+    ],
   },
 
 }
