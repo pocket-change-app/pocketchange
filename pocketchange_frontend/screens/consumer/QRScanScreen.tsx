@@ -18,7 +18,7 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
-  const [hasCameraPermission, setHasCameraPermission]: [boolean, () => void] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
   const [location, setLocation] = useState(null);
