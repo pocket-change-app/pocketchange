@@ -1,31 +1,46 @@
-import { SectionList, KeyboardAvoidingView, TextInput, } from 'react-native';
+import { SectionList, KeyboardAvoidingView, TextInput, RefreshControl, } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
-import { BusinessCardSm, ButtonWithText } from '../../components/Cards';
+import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../../components/Cards';
 import { colors, colorScale } from '../../constants/Colors';
 
-import { leaderAnalytics } from '../../dummy';
+import { merchantAnalytics, leaderAnalytics } from '../../dummy';
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import * as V from 'victory-native';
 import Svg from 'react-native-svg'
 
 import { AuthContext } from '../../contexts/Auth';
+import wait, { waitTimes } from '../../utils/wait';
 
-const R = require('ramda');
 
 // TODO: add hook call to query all analytics
 
 export default function LeaderAnalyticsScreen() {
 
+  const authContext = useContext(AuthContext);
+
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState('')
 
-  const authContext = useContext(AuthContext);
+  const [refreshing, setRefreshing] = useState(false)
 
-  const analytics = leaderAnalytics;
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    Promise.all([
+      wait(waitTimes.RefreshScreen),
+      // refetchAnalytics // once query is in
+    ]).then(() => setRefreshing(false));
+  }, []);
+
+  let allAnalytics;
+  if (authContext.activeRole.type === "LEADER") {
+    allAnalytics = leaderAnalytics;
+  } else {
+    allAnalytics = merchantAnalytics;
+  }
 
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)
@@ -35,7 +50,7 @@ export default function LeaderAnalyticsScreen() {
     setSearchQuery(text)
     setSearchResults(() => {
       const formattedQuery = text.toLowerCase().trim()
-      const results = analytics.map((section) =>
+      const results = allAnalytics.map((section) =>
       ({
         sectionTitle: section.sectionTitle,
         data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
@@ -69,17 +84,16 @@ export default function LeaderAnalyticsScreen() {
       <ScreenContainer>
 
         <SectionList
-          sections={searchQuery ? searchResults : analytics}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          sections={searchQuery ? searchResults : allAnalytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={({ section: { sectionTitle } }) => (
-            <View style={styles.analyticsSectionHeaderContainer}>
-              <Text style={styles.analyticsSectionHeader}>{sectionTitle}</Text>
-            </View>
+            <DivHeader text={sectionTitle} />
           )}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
-          SectionSeparatorComponent={() => <View style={{ margin: 5 }}></View>}
+          // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
           ListFooterComponent={<SuggestAnalyticForm />}
         />
 
@@ -104,6 +118,8 @@ export default function LeaderAnalyticsScreen() {
 }
 
 export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
+
+  const authContext = useContext(AuthContext);
 
   function renderChart() {
     if (type == 'bar') {
@@ -181,7 +197,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].numCustomers}
             </Text>
             <Text style={{ color: colors.medium }}>
-              {" customers used PocketChange at La Paella."}
+              {" customers used PocketChange at Sweet Life."}
             </Text>
           </Text>
           <Text style={[styles.analyticsNormalText, { textAlign: 'right' }]}>
@@ -200,7 +216,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].pocketShare}%
             </Text>
             <Text style={{ color: colors.medium }}>
-              {" of Leslieville Pocket members visited La Paella"}
+              {" of Uptown Yonge Pocket members visited Sweet Life."}
             </Text>
           </Text>
         </>
@@ -216,7 +232,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
               {data[0].numCustomers}
             </Text>
             <Text style={{ color: colors.medium }}>
-              {" PocketChange users in Leslieville"}
+              {" PocketChange users in Uptown Yonge"}
             </Text>
           </Text>
           <Text style={[styles.analyticsNormalText, { textAlign: 'right' }]}>
@@ -328,14 +344,14 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       );
     } else if (type == 'list-similar-businesses') {
       const listItems = data.map(
-        (item) => <BusinessCardSm navigation={undefined} business={item} pocket={"Leslieville"} />
+        (item) => <BusinessCardSm navigation={undefined} businessID={item.businessID} showPocket />
       );
       return (
         <View>{listItems}</View>
       );
     } else if (type == 'list-top-customers') {
       const listItems = data.map(
-        (item) => <Text>{item}</Text>
+        (item) => <UserCardSm user={item} />
       );
       return (
         <View>{listItems}</View>
