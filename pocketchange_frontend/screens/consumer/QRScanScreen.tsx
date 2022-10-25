@@ -18,12 +18,12 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission]: [boolean, () => void] = useState(null);
   const [scanned, setScanned] = useState(false);
 
   const [location, setLocation] = useState(null);
   const [locationLoading, setLocationLoading] = useState(false);
-  const [locationErrorMsg, setLocationErrorMsg] = useState(null);
+  const [locationErrorMsg, setLocationErrorMsg] = useState('');
 
   const [useProcessQRScanMutation, { loading, error }] = useMutation(
     QRScanMutations.processQRScan, {
@@ -43,7 +43,7 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasCameraPermission(status === 'granted');
     })();
   }, []);
 
@@ -51,7 +51,7 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setLocationErrorMsg('Permission to access location was denied');
         return;
       }
 
@@ -63,7 +63,8 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     console.log("QR FOUND")
-    if (!isNull(location)) {
+
+    if (location) {
       setLocationLoading(false);
       console.log("LOCATION SCAN:", location)
       console.log("DATA RECEIVED: ", data)
@@ -84,45 +85,49 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
   };
   //setScanned(false);
 
-  if (hasPermission === null) {
+  if (hasCameraPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
-  if (hasPermission === false) {
+  if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
   return (
-    // <ScreenContainer>
     <>
 
-      {scanned ?
+      {scanned ? (
         <ScreenContainer>
+
           <View style={[styles.container, { flex: 1, justifyContent: 'space-between' }]}>
-            <View></View>
+            <View />
             <FontAwesome style={{ fontSize: 200, textAlign: 'center', color: colors.light }} name='qrcode' />
             <ButtonWithText text="Scan Again" onPress={() => setScanned(false)} />
 
           </View>
           <View style={styles.container}>
-            <ButtonWithText color={colors.gold} text="Pretend We're at This Business" onPress={() => {
-              const loc1b = {
-                coords: {
-                  latitude: 43.6688949,
-                  longitude: -79.3307535,
+            <ButtonWithText
+              color={colors.gold}
+              text="Pretend We're at This Business"
+              onPress={() => {
+                const loc1b = {
+                  coords: {
+                    latitude: 43.6688949,
+                    longitude: -79.3307535,
+                  }
                 }
-              }
-              setLocation(loc1b)
-            }} />
+                setLocation(loc1b)
+              }}
+            />
           </View>
-          <View>
 
-          </View>
-        </ScreenContainer> :
+        </ScreenContainer>
+      ) : (
         <BarCodeScanner
+            style={StyleSheet.absoluteFillObject}
           barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject} />
-
+          />
+        )
       }
 
       {locationLoading ?
@@ -133,9 +138,6 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
           </View>
         </View> : null}
 
-
-
     </>
-    // </ScreenContainer>
   );
 }
