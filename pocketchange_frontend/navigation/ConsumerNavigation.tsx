@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Location from 'expo-location'
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
@@ -30,16 +31,12 @@ import BusinessWizardUploadImage from '../screens/consumer/BusinessWizardUploadI
 import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripeScreen';
 import ContestScreen from '../screens/consumer/ContestScreen';
 
-import { AuthContext } from '../contexts/Auth';
-import { useContext } from 'react';
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const ConsumerNavigation = () => {
-
-  const authContext = useContext(AuthContext);
 
   return (
     <Stack.Navigator
