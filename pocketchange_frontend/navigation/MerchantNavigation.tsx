@@ -3,27 +3,22 @@ import { Modal, Pressable, StyleSheet } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import TransactionModalScreen from '../screens/TransactionModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import PocketTabScreen from '../screens/PocketTabScreen';
-import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import TransactionsTabScreen from '../screens/TransactionsTabScreen';
-import WalletScreen from '../screens/WalletScreen';
-import PocketScreen from '../screens/PocketScreen';
-import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
+import NotFoundScreen from '../screens/shared/NotFoundScreen';
+import MerchantAnalyticsScreen from '../screens/merchant/MerchantAnalyticsScreen';
+import TransactionsTabScreen from '../screens/merchant/TransactionsTabScreen';
+import PocketScreen from '../screens/consumer/PocketScreen';
+import MerchantSettingsScreen from '../screens/merchant/MerchantSettingsScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
-import SettingsTippingScreen from '../screens/SettingsTippingScreen';
-import EditEmployeesScreen from '../screens/EditEmployeesScreen';
+import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
+import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -50,13 +45,6 @@ export const MerchantNavigation = () => {
         presentation: 'modal',
       }}
       >
-        <Stack.Screen
-          name="TransactionModal"
-          component={TransactionModalScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
       </Stack.Group>
       <Stack.Group screenOptions={{
         presentation: 'modal',
@@ -94,13 +82,6 @@ function TransactionsStack() {
           tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
         })}
       />
-      <Stack.Screen
-        name="TransactionModal"
-        component={TransactionModalScreen}
-        options={{
-          presentation: 'modal',
-        }}
-      />
     </Stack.Navigator>
   )
 }
@@ -120,7 +101,7 @@ function AnalyticsStack() {
     >
       <Stack.Screen
         name="MerchantAnalytics"
-        component={AnalyticsDashboardScreen}
+        component={MerchantAnalyticsScreen}
         options={{
           title: ' Analytics '
         }}

@@ -1,49 +1,42 @@
 import * as React from 'react';
+import * as Location from 'expo-location'
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
-import { MARGIN, styles } from '../Styles';
+import { styles } from '../Styles';
 
-import BusinessScreen from '../screens/BusinessScreen';
-import QRScanScreen from '../screens/QRScanScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import PocketTabScreen from '../screens/PocketTabScreen';
-import PayTabScreen from '../screens/PayTabScreen';
-import WalletScreen from '../screens/WalletScreen';
-import PocketScreen from '../screens/PocketScreen';
-import ConsumerSettingsScreen from '../screens/ConsumerSettingsScreen';
-import ReceiptScreen from '../screens/ReceiptScreen';
-import PayAmountScreen from '../screens/PayAmountScreen';
-import PayTipScreen from '../screens/PayTipScreen';
-import PaySummaryScreen from '../screens/PaySummaryScreen';
-import PayConfirmationScreen from '../screens/PayConfirmationScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
-import ViewPDFScreen from '../screens/ViewPDFScreen';
-import SettingsAboutScreen from '../screens/SettingsAboutScreen';
-import CreateBusinessWizardScreen from '../screens/BusinessWizardProfileScreen';
-import BusinessWizardProfileScreen from '../screens/BusinessWizardProfileScreen';
-import BusinessWizardUploadImage from '../screens/BusinessWizardUploadImage';
-import BusinessWizardStripeScreen from '../screens/BusinessWizardStripeScreen';
-import ContestScreen from '../screens/ContestScreen';
+import BusinessScreen from '../screens/shared/BusinessScreen';
+import QRScanScreen from '../screens/consumer/QRScanScreen';
+import NotFoundScreen from '../screens/shared/NotFoundScreen';
+import PocketTabScreen from '../screens/consumer/PocketTabScreen';
+import PayTabScreen from '../screens/consumer/PayTabScreen';
+import WalletScreen from '../screens/consumer/WalletScreen';
+import PocketScreen from '../screens/consumer/PocketScreen';
+import ConsumerSettingsScreen from '../screens/consumer/ConsumerSettingsScreen';
+import ReceiptScreen from '../screens/shared/ReceiptScreen';
+import PayAmountScreen from '../screens/consumer/PayAmountScreen';
+import PayTipScreen from '../screens/consumer/PayTipScreen';
+import PaySummaryScreen from '../screens/consumer/PaySummaryScreen';
+import PayConfirmationScreen from '../screens/consumer/PayConfirmationScreen';
+import EditProfileScreen from '../screens/consumer/EditProfileScreen';
+import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
+import BusinessWizardProfileScreen from '../screens/consumer/BusinessWizardProfileScreen';
+import BusinessWizardUploadImage from '../screens/consumer/BusinessWizardUploadImage';
+import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripeScreen';
+import ContestScreen from '../screens/consumer/ContestScreen';
 
-import { AuthContext } from '../contexts/Auth';
-import { useContext, useEffect } from 'react';
-import ScanConfirmationScreen from '../screens/ScanConfirmationScreen';
+import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const ConsumerNavigation = () => {
-
-  const authContext = useContext(AuthContext);
 
   return (
     <Stack.Navigator
@@ -379,13 +372,6 @@ function WalletStack() {
         name="About"
         component={SettingsAboutScreen}
         options={{}}
-      />
-      <Stack.Screen
-        name="ViewPDF"
-        component={ViewPDFScreen}
-        options={({ route }) => ({
-          title: route.params.title
-        })}
       />
       <Stack.Screen
         name="BusinessWizardProfile"

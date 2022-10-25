@@ -5,7 +5,7 @@ import { AuthContext, RoleType } from '../contexts/Auth';
 //import { useAuth } from '../contexts/Auth';
 //import { useAuthentication } from '../hooks/useAuthentication';
 
-import { SplashScreen } from '../screens/SplashScreen';
+import { SplashScreen } from '../screens/shared/SplashScreen';
 import { AuthStack } from './AuthStack';
 import { ConsumerNavigation } from './ConsumerNavigation';
 import { MerchantNavigation } from './MerchantNavigation';

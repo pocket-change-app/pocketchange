@@ -1,30 +1,24 @@
 import * as React from 'react';
-import { Modal, Pressable, StyleSheet } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
 import { styles } from '../Styles';
 
-import TransactionModalScreen from '../screens/TransactionModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import AnalyticsDashboardScreen from '../screens/AnalyticsDashboardScreen';
-import ContestsTabScreen from '../screens/ContestsTabScreen';
-import PocketScreen from '../screens/PocketScreen';
-import MerchantSettingsScreen from '../screens/MerchantSettingsScreen';
+import NotFoundScreen from '../screens/shared/NotFoundScreen';
+import LeaderAnalyticsScreen from '../screens/leader/LeaderAnalyticsScreen';
+import ContestsTabScreen from '../screens/leader/ContestsTabScreen';
+import PocketScreen from '../screens/consumer/PocketScreen';
 
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
-import SettingsTippingScreen from '../screens/SettingsTippingScreen';
-import EditEmployeesScreen from '../screens/EditEmployeesScreen';
-import LeaderSettingsScreen from '../screens/LeaderSettingsScreen';
-import ContestScreen from '../screens/ContestScreen';
-import ContestWizardScreen from '../screens/ContestWizardScreen';
+import LeaderSettingsScreen from '../screens/leader/LeaderSettingsScreen';
+import ContestScreen from '../screens/leader/ContestScreen';
+import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
+import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -45,26 +39,17 @@ export const LeaderNavigation = () => {
         //headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabLeader} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{
-        presentation: 'modal',
-      }}
-      >
-        <Stack.Screen
-          name="TransactionModal"
-          component={TransactionModalScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Group>
-      <Stack.Group screenOptions={{
-        presentation: 'modal',
-      }}
-      >
+      <Stack.Screen
+        name="Root"
+        component={BottomTabLeader}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: 'Oops!' }}
+      />
 
-      </Stack.Group>
     </Stack.Navigator>
   );
 }
@@ -101,6 +86,15 @@ function ContestsStack() {
           title: 'Contest Wizard'
         }}
       />
+      <Stack.Screen
+        name="ContestWizardSummary"
+        component={ContestWizardSummaryScreen}
+        options={{
+          title: 'Summary'
+        }}
+      />
+
+
 
       {/* <Stack.Screen
         name="TransactionModal"
@@ -128,7 +122,7 @@ function AnalyticsStack() {
     >
       <Stack.Screen
         name="MerchantAnalytics"
-        component={AnalyticsDashboardScreen}
+        component={LeaderAnalyticsScreen}
         options={{
           title: 'Pocket Analytics'
         }}
