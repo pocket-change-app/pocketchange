@@ -2,7 +2,7 @@ import 'dotenv/config'
 export default {
   "expo": {
     "owner": "pocketchange_loyalty_inc",
-    "name": "pocketchange_frontend",
+    "name": "PocketChange",
     "slug": "pocketchange_frontend",
     "version": "1.0.0",
     "orientation": "portrait",
