@@ -71,8 +71,8 @@ export default {
         }
     `,
     editContest: gql`
-        mutation createContest($userID: ID, $pocketID: ID,  $contestName: String, $description:String){
-            createContest(userID: $userID, pocketID: $pocketID, contestName: $contestName, description:$description){
+        mutation editContest($userID: ID, $contestName: String, $description:String){
+            editContest(userID: $userID, contestName: $contestName, description:$description){
                 contestID
                 pocketID
                 prizeValue
