@@ -1,10 +1,8 @@
 const { gql, ApolloError } = require('apollo-server');
 const {obfuscate, validate} =require('../../utils')
-const {decimalValue, decimalNested} = require('../../utils')
+const { decimalNested} = require('../../utils')
 const {Op} = require('sequelize');
 const R = require('ramda');
-const e = require('express');
-const { mongoBusiness } = require('../../../databases/mongoSchema/mongodb');
 
 module.exports = {
     Query: {
@@ -94,22 +92,46 @@ module.exports = {
           const worksAtInfo = await WorksAt.findAll({where:{userID: userID}})
           //find all users who work somewhere
           if(worksAtInfo){
-            businessRoles = (worksAtInfo.map(function(item){ return {type: 'MERCHANT', level: item.role == 'cashier'? 'EMPLOYEE' : item.role == 'manager' ? 'MANAGER' : 'OWNER', entityID: item.businessID, entityName: 'business'}}))
+            businessRoles = (worksAtInfo.map(function(item){ return {type: 'MERCHANT', level: item.role == 'cashier'? 'EMPLOYEE' : item.role == 'manager' ? 'MANAGER' : 'OWNER', entityID: item.businessID}}))
           }
-          const isMemberInfo = await IsMember.findAll({where:{userID: userID}})
+          const isMemberInfo = await IsMember.findAll({where:{userID: userID, role: 'manager'}})
           if(isMemberInfo){
-            pocketRoles =(isMemberInfo.filter(function(item) {
-              if (item.role === "customer") {
-                return false; // skip
-              }
-              return true;
-            }).map(function(item){ 
-              return {type: 'LEADER', entityID: item.pocketID, entityName: 'pocket'} 
+            pocketRoles =(isMemberInfo.map(function(item){ 
+              return {type: 'LEADER', entityID: item.pocketID} 
             }))
           }
-          const roles = await businessRoles.concat(pocketRoles, [{type: 'CONSUMER'}])
-          console.log(roles)
-          return roles
+          let roles = businessRoles.concat(pocketRoles, [{type: 'CONSUMER'}])
+          async function addEntityNames (roles) {
+            let finalRoles=[]
+            await Promise.all(roles.map(async (role, index) => {
+              try {
+                let entityName;
+                let entityInfo;
+                if(role.type != 'CONSUMER'){
+                  if(role.type == 'LEADER'){
+                    entityInfo = await mongoPocket.findOne({pocketID: role.entityID})
+                    entityName = entityInfo.pocketName
+                  }
+                  if(role.type == 'MERCHANT'){
+                    entityInfo = await mongoBusiness.findOne({businessID: role.entityID})
+                    entityName = entityInfo.businessName
+                  }
+                  finalRoles.push({type:role.type, level: role.level ? role.level : null, entityID: role.entityID, entityName: entityName})
+                }
+                else{
+                  finalRoles.push({type:'CONSUMER'})
+                }
+              } catch (error) {
+                console.log('error'+ error);
+              }
+            }))
+            console.log('complete all') // gets loged first
+            return finalRoles // return without waiting for process of 
+          }
+          let finalRoles = addEntityNames(roles)
+          console.log(finalRoles)
+          //finalRoles = finalRoles.concat([{type: 'CONSUMER'}])
+          return finalRoles
         },
         getUsersThatLove: async (parent, { businessID }, { mongoUser, Loves}) => {
           //find all users that love business
