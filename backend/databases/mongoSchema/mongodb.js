@@ -1,13 +1,12 @@
 const Mongoose = require('mongoose')
 const dbConfig = require("./mongodb_config.js");
-console.log(dbConfig.url)
 Mongoose.Promise = global.Promise;
 Mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
 }).then(() => {
-    console.log('successfully connected to the database');
+    console.log('successfully connected to the MONGO database');
 }).catch(err => {
-    console.log('error connecting to the database');
+    console.log('error connecting to the MONGO database');
     console.log(err)
     process.exit();
 });

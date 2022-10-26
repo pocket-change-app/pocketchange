@@ -2,9 +2,9 @@ import 'dotenv/config'
 export default {
   "expo": {
     "owner": "pocketchange_loyalty_inc",
-    "name": "pocketchange_frontend",
+    "name": "PocketChange",
     "slug": "pocketchange_frontend",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pocketchange",
@@ -21,7 +21,9 @@ export default {
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ca.pocketchangeapp.pocketchange",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
@@ -42,7 +44,20 @@ export default {
       firebaseAppId: process.env.FIREBASE_APP_ID,
       firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
       firebaseDatabaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
-    }
+      graphQLURL: process.env.GRAPHQL_URL,
+      "eas": {
+        "projectId": "6f2a3fd4-8dd0-4936-9afe-62388c3f7198"
+      }
+    },
+    "plugins": [
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.ca.pocketchangeapp.pocketchange",
+          "enableGooglePay": false
+        }
+      ]
+    ],
   },
 
 }

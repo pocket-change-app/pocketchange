@@ -22,5 +22,5 @@ export default function useUserQuery(
     }
   }, [data])
 
-  return {user, loading, refetch}
+  return {user, loading, error, refetch}
 }

@@ -1,11 +1,11 @@
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext, RoleType } from '../contexts/Auth';
 
 //import { useAuth } from '../contexts/Auth';
 //import { useAuthentication } from '../hooks/useAuthentication';
 
-import { SplashScreen } from '../screens/SplashScreen';
+import { SplashScreen } from '../screens/shared/SplashScreen';
 import { AuthStack } from './AuthStack';
 import { ConsumerNavigation } from './ConsumerNavigation';
 import { MerchantNavigation } from './MerchantNavigation';
@@ -13,17 +13,57 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { Text, } from 'react-native';
 
 import * as Linking from 'expo-linking';
+import * as Location from 'expo-location';
 import { LeaderNavigation } from './LeaderNavigation';
+import wait, { waitTimes } from '../utils/wait';
 const prefix = Linking.createURL('/');
+
 
 export const Router = () => {
 
-  const authContext = useContext(AuthContext); 
+  const authContext = useContext(AuthContext);
+
   console.log("-------------AUTH CONTEXT -----------")
   console.log("firebase uid:", authContext.userFirebase.uid)
   console.log("GQL email:", authContext.userGQL.emailAddress)
   console.log("active role:", authContext.activeRole)
   console.log("-------------------------------------")
+
+  // const [location, setLocation] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      // This will be called every 2 seconds
+
+      (async () => {
+
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+
+        // console.log('awaiting location...');
+
+        const loc = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.High,
+        })
+
+        // console.log('obtained location: \n')
+
+        // setLocation(loc)
+        console.log(loc);
+
+
+      })();
+    }, 2000);
+
+    return () => clearInterval(interval);
+
+  });
+
 
   if (authContext.loading) {
     return <SplashScreen />;

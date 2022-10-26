@@ -63,7 +63,7 @@ export type RootStackParamList = {
 
   Contests: undefined;
   ContestWizard: undefined;
-
+  ContestWizardSummary: undefined;
   LeaderSettings: undefined;
 
 };

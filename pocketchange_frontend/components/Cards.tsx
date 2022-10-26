@@ -1,31 +1,23 @@
-import { Pressable, Image, TabBarIOSItem, FlatList, Linking, ImageStore, Platform, Switch, Settings, ActivityIndicator } from 'react-native';
+import { Pressable, Image, FlatList, Linking, Platform, Switch, Settings, ActivityIndicator } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN, BUTTON_HEIGHT, MARGIN_SM } from '../Styles';
-import { contestsData, pockets, user } from '../dummy';
+import { styles, MARGIN, MARGIN_SM } from '../Styles';
+import { contestsData } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
-import ChangeBalanceQueries from '../hooks-apollo/ChangeBalance/queries'
-import PocketQueries from '../hooks-apollo/Pocket/queries'
-import UserQueries from '../hooks-apollo/User/queries'
-import QRScanQueries from '../hooks-apollo/QRScan/queries'
 
-import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { Button, color } from '@rneui/base';
 import { usePocketQuery, useBusinessQuery, useUserQuery, useGetAllTransactionsQuery } from '../hooks-apollo/index';
 
-import businessImages from '../assets/images/businessImages';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import DropDownPicker from 'react-native-dropdown-picker';
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext, AuthContextData, Role, RoleType } from '../contexts/Auth';
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import useGetBusinessPocketsQuery from '../hooks-apollo/Pocket/useGetBusinessPocketsQuery';
 import { QueryResult } from './QueryResult';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 import { BusinessName } from './BusinessName';
 import useGetAllChangeBalances from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
@@ -57,17 +49,17 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
 
   const pocketsQuery = useGetBusinessPocketsQuery(businessID)
   const { data: pocketsData, loading: pocketsLoading, error: pocketsError, refetch: refetchPockets } = pocketsQuery
-  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
-  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
   const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+
+  // Return query errors
+  if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
   if (changeBalancesError) return (<Text>Business error: {changeBalancesError.message}</Text>)
-
-
 
   return (
     <View style={styles.card}>
@@ -203,9 +195,14 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
 
   const businessQuery = useBusinessQuery(businessID)
   const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
-  if (businessError) return (<Text>{businessError.message}</Text>)
+
 
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+
+  // Return query errors AFTER ALL query calls
+  // this avoids Error: 'Rendered fewer hooks than expected'
+
+  if (businessError) return (<Text>{businessError.message}</Text>)
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
@@ -304,20 +301,6 @@ export function PocketCarouselCard({ navigation, pocket }: { navigation: any, po
             }
           </View>
         </View>
-
-        {/* <View style={{ height: MARGIN }} /> */}
-
-        {/* <View style={[styles.card, styles.container, { flexShrink: 1 }]}>
-          <Hyphenated>
-            <Text
-              style={styles.prose}
-              numberOfLines={100}
-              ellipsizeMode='tail'
-            >
-              {pocket.description}
-            </Text>
-          </Hyphenated>
-        </View> */}
 
       </View>
 
@@ -937,8 +920,7 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   return (
     <Pressable
-      onPress={() => null//navigation.navigate('TransactionModal', {user,transaction})
-      }
+      onPress={null}
     >
       <View style={styles.transactionListed}>
 

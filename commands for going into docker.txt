@@ -1,0 +1,21 @@
+docker exec -it pocketchange_mongodb_1 bash;
+mongo -u mica -p 123456 --authenticationDatabase pocketchange;
+use pocketchange;
+load('dummyMongoData.js');
+exit;
+exit;
+docker exec -it pocketchange-mysql-1 bash;
+mysql -uroot -p;
+123456;
+use pocketchange;
+source dummySQLData.sql;
+exit; 
+exit;
+
+
+
+To drop:
+db.mongopockets.drop()
+And
+Drop table users; 
+Respectively
