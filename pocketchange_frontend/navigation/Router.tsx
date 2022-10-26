@@ -44,19 +44,13 @@ export const Router = () => {
           setErrorMsg('Permission to access location was denied');
           return;
         }
-
         // console.log('awaiting location...');
-
         const loc = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.High,
         })
-
         // console.log('obtained location: \n')
-
         // setLocation(loc)
         console.log(loc);
-
-
       })();
     }, 2000);
 
@@ -65,13 +59,16 @@ export const Router = () => {
   });
 
 
-  if (authContext.loading) {
-    return <SplashScreen />;
-  }
+  // if (authContext.loading) {
+  //   return <SplashScreen />;
+  // }
+
   var stack;
-  if (isNilOrEmpty(authContext.userGQL)) {
+
+  if (authContext?.loading) {
     stack = <AuthStack />;
   } else {
+
     if (authContext.activeRole.type === "MERCHANT") {      
       stack = <MerchantNavigation />;
     } else if (authContext.activeRole.type === "CONSUMER") {
@@ -79,9 +76,11 @@ export const Router = () => {
     } else if (authContext.activeRole.type === "LEADER") {
       stack = <LeaderNavigation />;
     }
+
     console.log('\n~ ACTIVATING ROLE ~\n');
     console.log(authContext.activeRole)
-  }
+  } 
+
 
   const linking = {
     prefixes: [prefix],//, "https://pocketchangeapp.ca"],
