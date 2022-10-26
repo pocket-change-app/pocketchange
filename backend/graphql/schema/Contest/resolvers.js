@@ -192,7 +192,6 @@ module.exports = {
     }, 
     editContest: async (parent, { 
       userID,
-      pocketID, 
       contestID,
       contestName,
       description,
