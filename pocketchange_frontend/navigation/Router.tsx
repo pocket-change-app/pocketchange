@@ -65,7 +65,7 @@ export const Router = () => {
 
   var stack;
 
-  if (authContext?.loading) {
+  if (authContext?.loading || !authContext.userFirebase.uid) {
     stack = <AuthStack />;
   } else {
 
