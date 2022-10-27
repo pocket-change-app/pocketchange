@@ -24,48 +24,49 @@ export const Router = () => {
   const authContext = useContext(AuthContext);
 
   console.log("-------------AUTH CONTEXT -----------")
-  console.log("firebase uid:", authContext.userFirebase.uid)
-  console.log("GQL email:", authContext.userGQL.emailAddress)
-  console.log("active role:", authContext.activeRole)
+  // console.log("firebase uid:", authContext.userFirebase.uid)
+  // console.log("GQL email:", authContext.userGQL.emailAddress)
+  // console.log("active role:", authContext.activeRole)
+  console.log(JSON.stringify(authContext, null, '  '))
   console.log("-------------------------------------")
 
-  // const [location, setLocation] = useState(null)
+
   const [errorMsg, setErrorMsg] = useState(null);
 
+  const [watcher, setWatcher] = useState(undefined);
+  // const [currentPosition, setCurrentPosition] = useState(null);
+
   useEffect(() => {
-
-    const interval = setInterval(() => {
-      // This will be called every 2 seconds
-
+    if (authContext.isLoggedIn) {
       (async () => {
-
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           setErrorMsg('Permission to access location was denied');
           return;
         }
-        // console.log('awaiting location...');
-        const loc = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.High,
+        Location.watchPositionAsync({
+          accuracy: Location.Accuracy.Highest,
+          distanceInterval: 10,
+          // timeInterval: 10000
+        }, (pos) => {
+          console.log('position: ', pos)
+          // setCurrentPosition(pos);
+        }).then((locationWatcher) => {
+          setWatcher(locationWatcher);
+        }).catch((err) => {
+          console.log(err)
         })
-        // console.log('obtained location: \n')
-        // setLocation(loc)
-        console.log(loc);
-      })();
-    }, 2000);
+      })()
+    } else {
+      console.log('removing watcher!');
+      watcher?.remove()
+    }
+  }, [authContext.isLoggedIn])
 
-    return () => clearInterval(interval);
-
-  });
-
-
-  // if (authContext.loading) {
-  //   return <SplashScreen />;
-  // }
 
   var stack;
 
-  if (authContext?.loading || !authContext.userFirebase.uid) {
+  if (authContext.loading || !authContext.isLoggedIn) {
     stack = <AuthStack />;
   } else {
 
