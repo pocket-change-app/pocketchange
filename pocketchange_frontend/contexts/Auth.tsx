@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 //import { useUserQuery } from '../hooks-apollo/index'
 import UserQueries from '../hooks-apollo/User/queries';
 
-import { isNilOrEmpty } from 'ramda-adjunct';
+import { isNilOrEmpty, isNotNilOrEmpty } from 'ramda-adjunct';
 import { useLazyQuery } from '@apollo/client';
 
 
@@ -36,6 +36,7 @@ export type AuthContextData = {
   switchActiveRole(role: Role): void,
   signOut(): void,
   loading: boolean,
+  isLoggedIn: boolean,
 };
 
 //Create the Auth Context with the data type specified
@@ -44,10 +45,14 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export const AuthProvider = ({ children }: { children: any }) => {
 
+  // console.log('AuthProvider has been called.');
+
+
   const [userFirebase, setUserFirebase] = useState<User>({} as User);
   const [userGQL, setUserGQL] = useState({});
   const [activeRole, setActiveRole] = useState<Role>({} as Role);
   const [loading, setLoading] = useState(true);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // lazy query definition: GQL users for firebase uid 
   const [loadUserGQL, { called, data, error }] = useLazyQuery(
@@ -135,6 +140,11 @@ export const AuthProvider = ({ children }: { children: any }) => {
     switchActiveRole: switchActiveRole,
     signOut: signOut,
     loading: loading,
+    isLoggedIn: (
+      isNotNilOrEmpty(userFirebase.uid) &&
+      isNotNilOrEmpty(userGQL.emailAddress)
+    ) ? true : false
+
   }
 
   if (loading) return null;
