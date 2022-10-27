@@ -69,5 +69,24 @@ export default {
                 date
             }
         }
-    `
+    `,
+    editContest: gql`
+        mutation editContest($userID: ID, $contestName: String, $description:String){
+            editContest(userID: $userID, contestName: $contestName, description:$description){
+                contestID
+                pocketID
+                prizeValue
+                startDate
+                endDate
+                contestName
+                description
+                winners
+                status{
+                    pending
+                    approved
+                    deactivated
+                }
+            }
+        }
+    `,
 }

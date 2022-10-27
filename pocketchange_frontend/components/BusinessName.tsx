@@ -8,8 +8,15 @@ export function BusinessName({ businessID, style }: { businessID: string, style:
     const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID);
 
     return(
-        <QueryResult loading={ businessLoading } error={ businessError } data={ businessData }>
-            <Text style={ style }>{ businessData?.business?.businessName }</Text>
-        </QueryResult>
+      <QueryResult
+        loading={businessLoading}
+        error={businessError}
+        data={businessData}
+        indicatorSize={'small'}
+      >
+        <Text style={style}>
+          {businessData?.business?.businessName}
+        </Text>
+      </QueryResult>
     );
 }

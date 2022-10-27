@@ -19,8 +19,6 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
   // const ref_contestName = useRef();
   const ref_description = useRef();
   const ref_prizeAmount = useRef();
-  const ref_startDate = useRef();
-  const ref_endDate = useRef();
 
   const fieldsFilledAppropriately = (
     contestName !== '' &&
@@ -137,7 +135,6 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                     value={startDate}
                     mode="date"
                     onChange={(event, date) => setStartDate(date)}
-                    ref={ref_startDate}
                   // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
                   />
                 </View>
@@ -152,7 +149,6 @@ export default function ContestWizardScreen({ route, navigation }: { route: any,
                     value={endDate}
                     mode="date"
                     onChange={(event, date) => setEndDate(date)}
-                    ref={ref_endDate}
                   // onSubmitEditing={() => ref_inputHomePostalCode.current.focus()}
                   />
                 </View>

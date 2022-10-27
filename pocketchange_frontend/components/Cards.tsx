@@ -537,83 +537,7 @@ export function SettingSwitch({ settingText, value, onToggle }: { settingText: s
   )
 }
 
-export function HistoryCard({ navigation }: { navigation: any }) {
 
-  const authContext = useContext(AuthContext)
-  const userID = authContext.userFirebase.uid
-
-  const transactionsQuery = useGetAllTransactionsQuery(undefined, undefined, userID, undefined, undefined)
-  const { data: transactionsData, loading: transactionsLoading, error: transactionsError, refetch: refetchTransactions } = transactionsQuery
-  if (transactionsError) return (<Text>{transactionsError.message}</Text>)
-
-  const QRScansQuery = useGetAllQRScansQuery(userID)
-  const { data: QRScansData, loading: QRScansLoading, error: QRScansError, refetch: refetchQRScans } = QRScansQuery
-  if (QRScansError) return (<Text>{QRScansError.message}</Text>)
-
-  // Construct list of all transactions and scans
-  var allItems = []
-
-  for (var i in transactionsData?.getAllTransactions) {
-    const t = transactionsData?.getAllTransactions[i]
-    const dateSecs = new Date(t.date).getTime()
-    allItems.push(
-      {
-        QRScan: null,
-        transaction: t,
-        dateSecs: dateSecs
-      }
-    )
-    console.log(t.date)
-    console.log(console.log(dateSecs))
-  }
-
-  for (var i in QRScansData?.getAllQRScans) {
-    const s = QRScansData?.getAllQRScans[i]
-    const dateSecs = new Date(s.date).getTime()
-    allItems.push(
-      {
-        QRScan: s,
-        transaction: null,
-        dateSecs: dateSecs
-      }
-    )
-
-  }
-
-  // Sort by date
-  allItems.sort((a, b) => (b.dateSecs - a.dateSecs))
-
-  const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <>
-      {
-        item.transaction == null ? (
-          <QRScanListed
-            navigation={navigation}
-            key={item.key}
-            QRScan={item.QRScan}
-          />
-        ) : (
-          <TransactionListed
-            navigation={navigation}
-            key={item.key}
-            transaction={item.transaction}
-          />
-        )
-      }
-    </>
-  )
-
-  return (
-    <View style={[styles.card, { paddingVertical: MARGIN_SM / 2 }]}>
-      {/* <CardHeader text='History' /> */}
-      <FlatList
-        scrollEnabled={false}
-        ItemSeparatorComponent={HorizontalLine}
-        data={allItems}
-        renderItem={renderItem}/>
-    </View>
-  )
-}
 
 export function TransactionListed({ navigation, transaction }: any) {
   const businessID = transaction.businessID
@@ -626,7 +550,7 @@ export function TransactionListed({ navigation, transaction }: any) {
         transaction: transaction
       }))}>
 
-      <View style={styles.transactionListed}>
+      <View style={[styles.transactionListed, styles.card]}>
         <View style={{ flexDirection: 'row' }}>
           <Pressable
             style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
@@ -656,11 +580,12 @@ export function QRScanListed({ navigation, QRScan }: any) {
 
   return (
     <Pressable
+      style={{ zIndex: 10, elevation: 10 }}
       onPress={() => navigation.navigate('ScanConfirmation', {
         QRScan: QRScan
       })}>
 
-      <View style={styles.transactionListed}>
+      <View style={[styles.card, styles.transactionListed]}>
         <View style={{ flexDirection: 'row' }}>
           <View
             style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}

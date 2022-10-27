@@ -46,5 +46,6 @@ module.exports = gql`
         deactivateContest(userID:ID, contestID:ID, pocketID: ID): Contest
         approveContest(userID:ID, contestID:ID, pocketID: ID): Contest
         chooseWinningEntries(contestID: ID, userID: ID, winnerNumber: Int): [Entry]
+        editContest(userID:ID, contestID:ID, contestName: String, description: String): Contest
       }
 `

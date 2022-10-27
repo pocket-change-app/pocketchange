@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 import QRScanQueries from './queries'
 
-export default function useGetBusinessPocketsQuery(
+export default function useGetAllQRScansQuery(
     userID: String
 ) {
     const {loading, data, error, refetch} = useQuery(QRScanQueries.getAllQRScans, { 
