@@ -695,12 +695,17 @@ export const styles = StyleSheet.create({
   },
 
   transactionListed: {
+    zIndex: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 30,
-    marginHorizontal: MARGIN,
-    marginVertical: MARGIN * 2 / 3,
+    // height: 45,
+    paddingHorizontal: MARGIN,
+    // paddingVertical: MARGIN * 2 / 3,
+    marginBottom: 0,
+    borderRadius: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
   },
 
   transactionListedMerchantText: {
