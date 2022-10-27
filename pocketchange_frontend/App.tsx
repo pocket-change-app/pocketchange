@@ -4,7 +4,7 @@ import { AuthProvider } from './contexts/Auth';
 import { ApolloProvider } from '@apollo/client';
 import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks"
 import useCachedResources from './hooks/useCachedResources';
-import { Text, TextInput } from 'react-native';
+import { Platform, Text, TextInput } from 'react-native';
 import { apolloClient } from './apollo'
 import './config/firebase';
 import { StripeProvider } from '@stripe/stripe-react-native';
