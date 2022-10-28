@@ -92,11 +92,17 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
                   }}
                 >
                   <View style={[styles.card, styles.container]}>
-                    <Text>
-                      Export participant emails?
+                    <Text style={styles.prompt}>
+                      {'Export participant emails to '}
+                      <Text style={[styles.prompt, styles.boldText]}>
+                        {authContext.userFirebase.email}
+                      </Text>
+                      ?
                     </Text>
                     <ButtonWithText
-                      text='email'
+                      text='Confirm'
+                      // TODO: define and call function to export emails
+                      onPress={() => null} 
                     />
                   </View>
                 </View>

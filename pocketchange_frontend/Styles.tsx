@@ -843,4 +843,17 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  prompt: {
+    textAlign: 'center',
+    fontFamily: 'metropolis medium',
+    fontSize: 16,
+    lineHeight: 18,
+    color: colors.medium,
+    marginBottom: MARGIN,
+  },
+
+  boldText: {
+    fontFamily: 'metropolis bold'
+  }
+
 })
