@@ -99,6 +99,7 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
                     </Text>
                     <ButtonWithText
                       text='Confirm'
+                      color={colors.gold}
                       // TODO: define and call function to export emails
                       onPress={() => null} 
                     />
