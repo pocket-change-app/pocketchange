@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
-import { FlatList, Modal, RefreshControl } from "react-native";
+import { useState, useCallback, useContext } from "react";
+import { FlatList, Modal, RefreshControl, TouchableWithoutFeedback } from "react-native";
 import { ScreenStackHeaderRightView } from "react-native-screens";
 import { ButtonWithText, ContestCard, DivHeader, UserCardSm } from "../../components/Cards";
 import { ScreenContainer, View, Text } from "../../components/Themed";
+import { colors } from "../../constants/Colors";
+import { AuthContext, RoleType } from "../../contexts/Auth";
 import { contestsData } from "../../dummy";
 import { MARGIN, styles } from "../../Styles";
 import wait, { waitTimes } from "../../utils/wait";
@@ -10,10 +12,13 @@ import wait, { waitTimes } from "../../utils/wait";
 
 export default function ContestScreen({ navigation, route }: { navigation: any, route: any }) {
 
+  const authContext = useContext(AuthContext)
+
   const { contestID } = route.params
 
   const contestData = { contest: contestsData.getAllContests.find(c => c.contestID === contestID) }
 
+  const [modalVisible, setModalVisible] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = useCallback(() => {
@@ -59,13 +64,53 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
         keyExtractor={(item) => item.userID}
       />
 
-      <View style={styles.floatingButtonContainer}>
-        <ButtonWithText
-          text='Export'
-          onPress={null}
-        />
-      </View>
+      {(authContext.activeRole.type === RoleType.Leader)
+        ? (
+          <>
+            <View style={styles.floatingButtonContainer}>
+              <ButtonWithText
+                text='Export'
+                onPress={() => setModalVisible(true)}
+              />
+            </View>
+            <Modal
+              transparent
+              animationType="fade"
+              visible={modalVisible}
+            >
 
-    </ScreenContainer>
+              <TouchableWithoutFeedback
+                onPress={() => setModalVisible(false)}
+              >
+                <View
+                  style={{
+                    padding: MARGIN * 1.5,
+                    flex: 1,
+                    backgroundColor: colors.overlay,
+                    justifyContent: 'center',
+                    // alignItems: 'center',
+                  }}
+                >
+                  <View style={[styles.card, styles.container]}>
+                    <Text>
+                      Export participant emails?
+                    </Text>
+                    <ButtonWithText
+                      text='email'
+                    />
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+
+            </Modal>
+          </>
+
+        ) : (
+          null
+        )
+
+      }
+
+    </ScreenContainer >
   )
 }

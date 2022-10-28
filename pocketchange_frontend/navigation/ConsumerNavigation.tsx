@@ -29,7 +29,7 @@ import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
 import BusinessWizardProfileScreen from '../screens/consumer/BusinessWizardProfileScreen';
 import BusinessWizardUploadImage from '../screens/consumer/BusinessWizardUploadImage';
 import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripeScreen';
-import ContestScreen from '../screens/consumer/ContestScreen';
+import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 

@@ -16,7 +16,7 @@ import PocketScreen from '../screens/consumer/PocketScreen';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 import LeaderSettingsScreen from '../screens/leader/LeaderSettingsScreen';
-import ContestScreen from '../screens/leader/ContestScreen';
+import ContestScreen from '../screens/shared/ContestScreen';
 import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
 import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
 
