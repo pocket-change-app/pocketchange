@@ -846,9 +846,9 @@ export const styles = StyleSheet.create({
   prompt: {
     textAlign: 'center',
     fontFamily: 'metropolis medium',
-    fontSize: 16,
-    lineHeight: 18,
-    color: colors.medium,
+    fontSize: 18,
+    lineHeight: 20,
+    color: colors.dark,
     marginBottom: MARGIN,
   },
 
