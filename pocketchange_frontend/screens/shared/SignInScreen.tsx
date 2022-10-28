@@ -1,4 +1,4 @@
-import { StatusBar } from "react-native";
+import { ActivityIndicator, StatusBar } from "react-native";
 import { useRef, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/Auth";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
@@ -18,6 +18,8 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
     const [password, setPassword] = useState('')
 
     const [signInError, setSignInError] = useState('')
+    const [signInLoading, setSignInLoading] = useState(false)
+
 
     const ref_inputEmail = useRef();
     const ref_inputPass = useRef();
@@ -25,8 +27,10 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
     const auth = getAuth();
 
     async function signIn() {
+        setSignInLoading(true);
         if (emailAddress === '' || password === '') {
         setSignInError('Email and password are mandatory.')
+        setSignInLoading(false);
         return;
         }
         try {
@@ -34,6 +38,7 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
         } catch (error) {
           setSignInError(error);
           console.log(error)
+          setSignInLoading(false);
         }
 
     }
@@ -96,14 +101,16 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
           </View>
 
 
-
-        <ButtonWithText
-          text='Sign In'
-          color={
-            (emailAddress != '' && password != '') ? colors.gold : colors.subtle
-          }
-          onPress={signIn}
-        />
+        { signInLoading ?
+          <ActivityIndicator size="small" color={colors.subtle} style={{ margin: 10 }} /> :
+          <ButtonWithText
+            text='Sign In'
+            color={
+              (emailAddress != '' && password != '') ? colors.gold : colors.subtle
+            }
+            onPress={signIn}
+          />
+        }
 
         <Text style={[styles.prose, {color:"red"}]}>
           {signInError.code}

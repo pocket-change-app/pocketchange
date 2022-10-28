@@ -36,6 +36,7 @@ export type AuthContextData = {
   switchActiveRole(role: Role): void,
   signOut(): void,
   loading: boolean,
+  setLoading(loading): void,
   isLoggedIn: boolean,
 };
 
@@ -140,6 +141,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
     switchActiveRole: switchActiveRole,
     signOut: signOut,
     loading: loading,
+    setLoading: setLoading,
     isLoggedIn: (
       isNotNilOrEmpty(userFirebase.uid) &&
       isNotNilOrEmpty(userGQL.emailAddress)
