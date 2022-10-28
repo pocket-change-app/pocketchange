@@ -19,6 +19,7 @@ import LeaderSettingsScreen from '../screens/leader/LeaderSettingsScreen';
 import ContestScreen from '../screens/shared/ContestScreen';
 import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
 import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
+import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -151,9 +152,14 @@ function LeaderSettingsStack() {
       <Stack.Screen
         name="LeaderSettings"
         component={LeaderSettingsScreen}
-        options={({ navigation }: RootTabScreenProps<'LeaderSettingsStack'>) => ({
+        options={{
           title: "Settings",
-        })}
+        }}
+      />
+
+      <Stack.Screen
+        name="About"
+        component={SettingsAboutScreen}
       />
 
       <Stack.Screen
