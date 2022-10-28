@@ -5,7 +5,7 @@ import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { ButtonWithText } from "../../components/Cards";
 import { ScreenContainer, Text, View } from "../../components/Themed";
 import colors from "../../constants/Colors";
-import { MARGIN, styles } from "../../Styles";
+import { BUTTON_HEIGHT, MARGIN, styles } from "../../Styles";
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -101,8 +101,11 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
           </View>
 
 
-        { signInLoading ?
-          <ActivityIndicator size="small" color={colors.subtle} style={{ margin: 10 }} /> :
+        {(signInLoading) ? (
+          <View style={{ height: BUTTON_HEIGHT }}>
+            <ActivityIndicator size="small" color={colors.subtle} style={{ margin: 10 }} />
+          </View>
+        ) : (
           <ButtonWithText
             text='Sign In'
             color={
@@ -110,6 +113,7 @@ export default function SignInScreen({ route, navigation }: { route: any, naviga
             }
             onPress={signIn}
           />
+          )
         }
 
         <Text style={[styles.prose, {color:"red"}]}>
