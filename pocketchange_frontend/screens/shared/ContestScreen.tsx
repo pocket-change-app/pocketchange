@@ -52,8 +52,6 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
                 showDetailedView
               />
 
-              {/* <DivHeader text="Participants" /> */}
-
               <DivHeader text='Participants' />
             </>
           )
