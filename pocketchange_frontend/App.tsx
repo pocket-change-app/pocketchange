@@ -25,8 +25,8 @@ export default function App() {
   return (
     <StripeProvider
       publishableKey="pk_test_51LQ93XBeLUBca0ydGD2tHAmS7e2EWvqbC6EnYmNgqw73gsgq482BaxFtT3UGFPqukm7y7jHXWE3txJai783GvB0600QsTTkVkH" //TODO: change to non-test mode
-      urlScheme="your-url-scheme" // TODO: required for 3D Secure and bank redirects
-      merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // TODO: required for Apple Pay
+      //urlScheme="your-url-scheme" // TODO: required for 3D Secure and bank redirects
+      merchantIdentifier="merchant.ca.pocketchangeapp.pocketchange" // TODO: required for Apple Pay
     >
       <ApolloProvider client={apolloClient}>
         <ApolloHooksProvider client={apolloClient}>
