@@ -20,7 +20,7 @@ export const colors = {
   purple: '#6F4A92',
 
   testing: 'rgba(0,0,0,0.1)',
-
+  overlay: 'rgba(0, 0, 0, 0.5)'
 }
 
 export const colorScale = [colors.gold, colors.green, colors.blue, colors.tomato, colors.purple]

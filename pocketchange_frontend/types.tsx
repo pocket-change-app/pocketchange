@@ -27,7 +27,6 @@ export type RootStackParamList = {
 
   PocketSearch: undefined;
   Pocket: undefined;
-  Contest: undefined;
 
   NotFound: undefined;
 
@@ -64,7 +63,12 @@ export type RootStackParamList = {
   Contests: undefined;
   ContestWizard: undefined;
   ContestWizardSummary: undefined;
+
   LeaderSettings: undefined;
+
+  // Shared Screens
+  Contest: undefined;
+  About: undefined;
 
 };
 
