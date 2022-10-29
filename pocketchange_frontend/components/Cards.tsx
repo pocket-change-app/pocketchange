@@ -1,7 +1,7 @@
-import { Pressable, Image, FlatList, Linking, Platform, Switch, Settings, ActivityIndicator } from 'react-native';
+import { Pressable, Image, FlatList, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN, MARGIN_SM } from '../Styles';
+import { styles, MARGIN, MARGIN_SM, BUTTON_HEIGHT } from '../Styles';
 import { contestsData } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
@@ -799,40 +799,71 @@ export function SettingsCard({ navigation }: { navigation: any }) {
   </View>
 }
 
-export function ButtonWithText({
-  text,
-  color = colors.subtle,
-  negativeStyle = false,
-  // flexing = false,
-  onPress
-}: {
-  text: string,
+export function ButtonWithText(
+  {
+    text,
+    textTransform = 'uppercase',
+    viewStyle = undefined,
+    textStyle = undefined,
+    color = colors.subtle,
+    negativeStyle = false,
+    onPress,
+  }: {
+      /** The text to display */
+      text: string,
+
+      /** function passed to onPress prop of Pressable */
+      onPress: null | ((event: GestureResponderEvent) => void) | undefined,
+
+      /** Capitalization transformation */
+      textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | undefined,
+
+      /** If provided, overwrites the ViewStyle for the button. */
+      viewStyle?: StyleProp<ViewStyle>,
+
+      /** If provided, overwrites the ViewStyle for the button. */
+      textStyle?: StyleProp<TextStyle>,
+
+      /** Highlight color used across the default styles for ButtonWithText */
     color?: string,
+
+      /** Toggles between two preset styles for the button.
+       * Defaults to false.
+       */
     negativeStyle?: boolean,
-  // flexing: boolean,
-  onPress: any
-}) {
+    },
+) {
+
+  let _viewStyle: StyleProp<ViewStyle>
+  let _textStyle: StyleProp<TextStyle>
+
+  //
   if (!negativeStyle) {
-    return (
-      <Pressable
-        // style={{ flexing } ? { flex: 1 } : {}}
-        onPress={onPress}>
-        <View style={[styles.buttonNegative, { backgroundColor: color }]}>
-          <Text style={[styles.cardHeaderText, styles.buttonNegativeText]}>{text}</Text>
-        </View>
-      </Pressable >
-    )
+    _viewStyle = [styles.buttonNegative, { backgroundColor: color }]
+    _textStyle = [styles.cardHeaderText, styles.buttonNegativeText, { textTransform: textTransform }]
   } else {
-    return (
-      <Pressable
-        // style={{ flexing } ? { flex: 1 } : {}}
-        onPress={onPress}>
-        <View style={[styles.buttonBordered, { borderColor: color }]}>
-          <Text style={[styles.cardHeaderText, styles.buttonBorderedText, { color: color }]}>{text}</Text>
-        </View>
-      </Pressable>
-    )
+    _viewStyle = [styles.buttonBordered, { borderColor: color }]
+    _textStyle = [styles.cardHeaderText, styles.buttonBorderedText, { color: color, textTransform: textTransform }]
   }
+
+  /** 
+   * Overwrite the default styles with those given
+   * on a prop-by-prop basis. 
+   */
+  _viewStyle = [_viewStyle, viewStyle]
+  _textStyle = [_textStyle, textStyle]
+
+  return (
+    <Pressable
+      onPress={onPress}>
+      <View style={_viewStyle}>
+        <Text style={_textStyle}>
+          {text}
+        </Text>
+      </View>
+    </Pressable >
+  )
+
 }
 
 export function TranactionCardSm({ navigation, transaction }: { navigation: any, transaction: any }) {
