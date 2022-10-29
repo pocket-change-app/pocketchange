@@ -825,12 +825,12 @@ export function ButtonWithText(
       textStyle?: StyleProp<TextStyle>,
 
       /** Highlight color used across the default styles for ButtonWithText */
-    color?: string,
+      color?: string,
 
       /** Toggles between two preset styles for the button.
        * Defaults to false.
        */
-    negativeStyle?: boolean,
+      negativeStyle?: boolean,
     },
 ) {
 
