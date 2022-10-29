@@ -1,13 +1,14 @@
 import { FlatList, RefreshControl } from 'react-native';
 
 import { BORDER_WIDTH, CARD_RADIUS, MARGIN, MARGIN_SM, styles } from '../../Styles';
-import { ScreenContainer, View, ViewProps } from '../../components/Themed';
+import { ScreenContainer, Text, View, ViewProps } from '../../components/Themed';
 import { IdCard, DivHeader, QRScanListed, TransactionListed } from '../../components/Cards';
 import { Children, useCallback, useContext, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-apollo';
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
+import { colors } from '../../constants/Colors';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -66,8 +67,9 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   allItems.sort((a, b) => (b.dateSecs - a.dateSecs))
 
 
-  const listHeaderComponent = () => (
+  const ListHeaderComponent = () => (
     <View style={{ zIndex: 200 }}>
+
       <IdCard />
 
       <DivHeader text='History' />
@@ -83,10 +85,11 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           // backgroundColor: colors.testing,
         }
       ]} />
+
     </View>
   )
 
-  const listFooterComponent = () => (
+  const ListFooterComponent = () => (
     <View style={[
       styles.card,
       {
@@ -101,7 +104,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     ]} />
   )
 
-  const itemSeparatorComponent = () => (
+  const ItemSeparatorComponent = () => (
     <View style={[
       styles.card,
       {
@@ -114,6 +117,14 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       }
     ]}>
       <HorizontalLine />
+    </View>
+  )
+
+  const ListEmptyComponent = () => (
+    <View style={[styles.card, styles.transactionListed, { justifyContent: 'center' }]}>
+      <Text style={[styles.transactionListedMerchantText, { textAlign: 'center', color: colors.medium }]}>
+        Your QR scans and transactions will appear here.
+      </Text>
     </View>
   )
 
@@ -137,13 +148,11 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     </View>
   )
 
-  function CellRendererComponent(props: ViewProps) {
-    return (
-      <View style={{ zIndex: 10 }}>
-        <View {...props} />
-      </View>
-    )
-  }
+  const CellRendererComponent = (props: ViewProps) => (
+    <View style={{ zIndex: 10 }}>
+      <View {...props} />
+    </View>
+  )
 
   if (transactionsError) return (<Text>{transactionsError.message}</Text>)
   if (QRScansError) return (<Text>{QRScansError.message}</Text>)
@@ -151,18 +160,16 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   return (
     <ScreenContainer>
 
-
-
       <FlatList
-        // style={{ zIndex: 10 }}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        ListHeaderComponent={listHeaderComponent}
-        ListFooterComponent={listFooterComponent}
-        ItemSeparatorComponent={itemSeparatorComponent}
+        contentContainerStyle={styles.container}
         data={allItems}
         renderItem={renderItem}
-        contentContainerStyle={styles.container}
         CellRendererComponent={CellRendererComponent}
+        ListHeaderComponent={ListHeaderComponent}
+        ListFooterComponent={ListFooterComponent}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        ListEmptyComponent={ListEmptyComponent}
       />
 
     </ScreenContainer>
