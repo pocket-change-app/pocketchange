@@ -1,12 +1,12 @@
 
 import { Pressable, ScrollView, Button, ActivityIndicator } from "react-native";
 import { ScreenContainer, View, Text } from "../../components/Themed";
-import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
+import { ButtonWithText, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
 //import { useAuth } from '../contexts/Auth';
 import { user } from "../../dummy";
 import { Style } from "victory-core";
-import { styles } from "../../Styles";
+import { MARGIN, styles } from "../../Styles";
 import { HorizontalLine } from "../../components/Lines";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext, useEffect, useState } from "react";
@@ -119,31 +119,24 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
           />
         </View>
 
-        {
-          // (auth.authData.type == "merchant") ? <Button title="Switch to Merchant Account" onPress={switchAccount} /> : <></>
-        }
-
-
-        {/* <Button title="Sign Out" onPress={signOut} /> */}
-
-        <Pressable
-          style={[styles.card, { height: 45, justifyContent: 'center', }]}
+        <ButtonWithText
           onPress={() => navigation.navigate("BusinessWizardProfile", { pocketID: "1p" })}
-        >
-          <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Biz Whiz</Text>
-          {/* <HorizontalLine /> */}
-        </Pressable>
+          text="Join PocketChange for Business"
+          color={colors.gold}
+          textTransform="none"
+          negativeStyle
+          viewStyle={[styles.card, styles.container]}
+          textStyle={styles.settingText}
+        />
 
-        <Pressable
-          style={[styles.card, { height: 45, justifyContent: 'center', }]}
+        <DivHeader />
+
+        <ButtonWithText
+          text="Sign Out"
           onPress={signOut}
-
-        >
-          <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Sign Out</Text>
-          {/* <HorizontalLine /> */}
-        </Pressable>
-
-
+          negativeStyle
+          textTransform="none"
+        />
 
       </ScrollView>
     </ScreenContainer >
