@@ -122,7 +122,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
   const ListEmptyComponent = () => (
     <View style={[styles.card, styles.transactionListed, { justifyContent: 'center' }]}>
-      <Text style={[styles.transactionListedMerchantText, { textAlign: 'center', color: colors.medium }]}>
+      <Text style={[styles.transactionListedMerchantText, { textAlign: 'center', color: colors.subtle }]}>
         Your QR scans and transactions will appear here.
       </Text>
     </View>
