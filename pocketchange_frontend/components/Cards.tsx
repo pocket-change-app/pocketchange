@@ -827,8 +827,8 @@ export function ButtonWithText({
       <Pressable
         // style={{ flexing } ? { flex: 1 } : {}}
         onPress={onPress}>
-        <View style={[styles.buttonBordered]}>
-          <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>{text}</Text>
+        <View style={[styles.buttonBordered, { borderColor: color }]}>
+          <Text style={[styles.cardHeaderText, styles.buttonBorderedText, { color: color }]}>{text}</Text>
         </View>
       </Pressable>
     )
