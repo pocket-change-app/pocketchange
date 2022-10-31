@@ -571,12 +571,15 @@ export function TransactionListed({ navigation, transaction }: any) {
           ${transaction.value}
         </Text>
       </View>
-      {/* <HorizontalLine /> */}
+
     </Pressable >
   )
 }
 
 export function QRScanListed({ navigation, QRScan }: any) {
+
+  console.log(QRScan);
+
 
   return (
     <Pressable
@@ -595,13 +598,87 @@ export function QRScanListed({ navigation, QRScan }: any) {
               name='qrcode'
             />
           </View>
-          <BusinessName businessID={QRScan.businessID} style={styles.transactionListedMerchantText}/>
+          <BusinessName businessID={QRScan.businessID} style={styles.transactionListedMerchantText} />
         </View>
         <Text style={styles.transactionListedAmountText}>
           Snap it UP!
         </Text>
       </View>
-      {/* <HorizontalLine /> */}
+
+    </Pressable >
+  )
+}
+
+export function HistoryEntry({ navigation, item }: any) {
+
+  console.log(item);
+
+
+  let Icon
+  let textAtRight
+
+  switch (item.__typename) {
+
+    case 'QRScan':
+      Icon = (
+        <FontAwesome
+          style={[styles.transactionListedAmountText, { fontSize: 3 * MARGIN, marginRight: 0 }]}
+          name='qrcode'
+        />
+      )
+      textAtRight = 'Snap It UP!'
+      break
+
+    case 'transaction':
+      Icon = (
+        <Pressable
+          style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+          onPress={() => navigation.navigate('PayConfirmation', {
+            business: item,
+            subtotal: item.value,
+            date: item.date,
+          })}
+        >
+          <Image
+            style={{ aspectRatio: 1, height: 3 * MARGIN, width: undefined, }}
+            source={require("../assets/images/icon.png")}
+          />
+        </Pressable>
+      )
+      textAtRight = `${item.value}`
+      break
+
+    default:
+      Icon = (
+        <Text>
+          Err:
+        </Text>
+      )
+      textAtRight = 'Invalid History object'
+      break
+  }
+
+  return (
+    <Pressable
+      style={{ zIndex: 10, elevation: 10 }}
+      onPress={null}
+    >
+
+      <View style={[styles.card, styles.transactionListed]}>
+        <View style={{ flexDirection: 'row' }}>
+          <View
+            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+          >
+            {Icon}
+          </View>
+          <BusinessName businessID={item.businessID} style={styles.transactionListedMerchantText} />
+        </View>
+        {/* TEXT AT RIGHT */}
+        <Text>
+          {textAtRight}
+        </Text>
+      </View>
+
     </Pressable >
   )
 }
