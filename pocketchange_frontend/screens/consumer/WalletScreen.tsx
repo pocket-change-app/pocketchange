@@ -2,7 +2,7 @@ import { FlatList, RefreshControl } from 'react-native';
 
 import { BORDER_WIDTH, CARD_RADIUS, MARGIN, MARGIN_SM, styles } from '../../Styles';
 import { ScreenContainer, Text, View, ViewProps } from '../../components/Themed';
-import { IdCard, DivHeader, QRScanListed, TransactionListed } from '../../components/Cards';
+import { IdCard, DivHeader, QRScanListed, TransactionListed, HistoryEntry } from '../../components/Cards';
 import { Children, useCallback, useContext, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-apollo';
@@ -41,11 +41,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     const t = transactionsData?.getAllTransactions[i]
     const dateSecs = new Date(t.date).getTime()
     allItems.push(
-      {
-        QRScan: null,
-        transaction: t,
-        dateSecs: dateSecs
-      }
+      t
     )
     console.log(t.date)
     console.log(console.log(dateSecs))
@@ -55,16 +51,15 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     const s = QRScansData?.getAllQRScans[i]
     const dateSecs = new Date(s.date).getTime()
     allItems.push(
-      {
-        QRScan: s,
-        transaction: null,
-        dateSecs: dateSecs
-      }
+      s
     )
 
   }
   // Sort by date
-  allItems.sort((a, b) => (b.dateSecs - a.dateSecs))
+  allItems.sort((a, b) => (new Date(b.date).getTime() - new Date(a.date).getTime()))
+
+  // console.log(JSON.stringify(allItems, null, '  '));
+
 
 
   const ListHeaderComponent = () => (
@@ -129,23 +124,10 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
   )
 
   const renderItem = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <View style={{ zIndex: 10 }}>
-      {
-        item.transaction == null ? (
-          <QRScanListed
-            navigation={navigation}
-            key={item.key}
-            QRScan={item.QRScan}
-          />
-        ) : (
-          <TransactionListed
-            navigation={navigation}
-            key={item.key}
-            transaction={item.transaction}
-          />
-        )
-      }
-    </View>
+    <HistoryEntry
+      navigation={navigation}
+      item={item}
+    />
   )
 
   const CellRendererComponent = (props: ViewProps) => (
@@ -161,6 +143,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     <ScreenContainer>
 
       <FlatList
+        keyExtractor={(item, index) => item + index}
         contentContainerStyle={styles.container}
         data={allItems}
         renderItem={renderItem}
