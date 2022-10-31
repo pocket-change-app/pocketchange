@@ -404,6 +404,7 @@ export const styles = StyleSheet.create({
   businessListInfo: {
     justifyContent: 'center',
     margin: MARGIN,
+    flexShrink: 1,
   },
 
   businessModalInfo: {
