@@ -14,7 +14,9 @@ export function BusinessName({ businessID, style }: { businessID: string, style:
         data={businessData}
         indicatorSize={'small'}
       >
-        <Text style={style}>
+        <Text
+          style={style}
+          numberOfLines={2}>
           {businessData?.business?.businessName}
         </Text>
       </QueryResult>
