@@ -625,6 +625,9 @@ export function HistoryEntry({ navigation, item }: any) {
         />
       )
       textAtRight = null
+      onPress = (() => navigation.navigate('ScanConfirmation', {
+        QRScan: item
+      }))
       break
 
     case 'transaction':
@@ -644,6 +647,10 @@ export function HistoryEntry({ navigation, item }: any) {
         </Pressable>
       )
       textAtRight = `${item.value}`
+      onPress = (() => (navigation.navigate("Receipt", {
+        navigation: navigation,
+        transaction: item
+      })))
       break
 
     default:
@@ -653,13 +660,14 @@ export function HistoryEntry({ navigation, item }: any) {
         </Text>
       )
       textAtRight = 'Invalid History object'
+      onPress = null
       break
   }
 
   return (
     <Pressable
       style={{ zIndex: 10, elevation: 10 }}
-      onPress={null}
+      onPress={onPress}
     >
 
       <View style={[styles.card, styles.transactionListed]}>
