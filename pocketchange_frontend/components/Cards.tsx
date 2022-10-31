@@ -611,11 +611,9 @@ export function QRScanListed({ navigation, QRScan }: any) {
 
 export function HistoryEntry({ navigation, item }: any) {
 
-  console.log(item);
-
-
-  let Icon
-  let textAtRight
+  let Icon // TODO: Type Icon properly
+  let textAtRight: null | string
+  let onPress: null | ((event: GestureResponderEvent) => void) | undefined
 
   switch (item.__typename) {
 
@@ -626,7 +624,7 @@ export function HistoryEntry({ navigation, item }: any) {
           name='qrcode'
         />
       )
-      textAtRight = 'Snap It UP!'
+      textAtRight = null
       break
 
     case 'transaction':
@@ -665,18 +663,29 @@ export function HistoryEntry({ navigation, item }: any) {
     >
 
       <View style={[styles.card, styles.transactionListed]}>
-        <View style={{ flexDirection: 'row' }}>
+
+        <View style={{ flexDirection: 'row', flexShrink: 1 }}>
+
           <View
-            style={{ width: 3 * MARGIN, height: 3 * MARGIN, alignItems: 'center', marginRight: MARGIN }}
+            style={{
+              width: 3 * MARGIN,
+              height: 3 * MARGIN,
+              alignItems: 'center',
+              marginRight: MARGIN,
+            }}
           >
             {Icon}
           </View>
+
           <BusinessName businessID={item.businessID} style={styles.transactionListedMerchantText} />
+
         </View>
+
         {/* TEXT AT RIGHT */}
-        <Text>
+        <Text style={styles.transactionListedAmountText}>
           {textAtRight}
         </Text>
+
       </View>
 
     </Pressable >
