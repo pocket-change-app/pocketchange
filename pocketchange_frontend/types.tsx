@@ -38,7 +38,6 @@ export type RootStackParamList = {
   PayTip: undefined;
   PaySummary: undefined;
   PayConfirmation: undefined;
-
   ScanConfirmation: undefined;
 
   Wallet: undefined;
@@ -46,6 +45,8 @@ export type RootStackParamList = {
   EditProfile: undefined;
   BusinessWizardProfile: undefined;
   BusinessWizardStripe: undefined;
+
+  Survey: undefined;
 
   // Merchant Screens
   Transactions: undefined;

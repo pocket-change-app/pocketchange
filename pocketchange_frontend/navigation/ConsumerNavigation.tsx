@@ -32,6 +32,7 @@ import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripe
 import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
+import SurveyScreen from '../screens/consumer/SurveyScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -74,6 +75,17 @@ export const ConsumerNavigation = () => {
         <Stack.Screen
           name="ScanConfirmation"
           component={ScanConfirmationScreen}
+          options={{
+            presentation: 'fullScreenModal',
+            // statusBarHidden: true,
+            headerShown: false,
+            autoHideHomeIndicator: true,
+          }}
+        />
+
+        <Stack.Screen
+          name="Survey"
+          component={SurveyScreen}
           options={{
             presentation: 'fullScreenModal',
             // statusBarHidden: true,

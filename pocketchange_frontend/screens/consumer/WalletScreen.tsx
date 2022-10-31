@@ -2,7 +2,7 @@ import { FlatList, RefreshControl } from 'react-native';
 
 import { BORDER_WIDTH, CARD_RADIUS, MARGIN, MARGIN_SM, styles } from '../../Styles';
 import { ScreenContainer, Text, View, ViewProps } from '../../components/Themed';
-import { IdCard, DivHeader, QRScanListed, TransactionListed } from '../../components/Cards';
+import { IdCard, DivHeader, QRScanListed, TransactionListed, ButtonWithText } from '../../components/Cards';
 import { Children, useCallback, useContext, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-apollo';
@@ -71,6 +71,12 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     <View style={{ zIndex: 200 }}>
 
       <IdCard />
+
+      <ButtonWithText
+        text='open survey!'
+        onPress={() => navigation.navigate('Survey')}
+        color={colors.purple}
+      />
 
       <DivHeader text='History' />
 
