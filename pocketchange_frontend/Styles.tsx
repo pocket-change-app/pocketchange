@@ -699,13 +699,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // height: 45,
+    height: 40,
     paddingHorizontal: MARGIN,
     // paddingVertical: MARGIN * 2 / 3,
     marginBottom: 0,
     borderRadius: 0,
     borderTopWidth: 0,
     borderBottomWidth: 0,
+    // flexShrink: 1,
   },
 
   transactionListedMerchantText: {
@@ -713,13 +714,17 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.dark,
     alignSelf: 'center',
+    flexShrink: 1,
   },
 
   transactionListedAmountText: {
+    alignSelf: 'center',
     fontFamily: 'metropolis medium',
     fontSize: 16,
     color: colors.medium,
     marginRight: MARGIN / 2,
+    marginLeft: MARGIN / 2,
+    // flexShrink: 1,
   },
 
   payConfirmationDetails: {
