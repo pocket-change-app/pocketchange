@@ -2,6 +2,26 @@
 
 import { RoleLevel, RoleType } from "./contexts/Auth";
 
+export enum surveyType {
+  thumbs,
+  choice,
+  multiChoice,
+}
+
+//// SURVEYS ////
+
+export const dummyChoiceSurvey = {
+  type: surveyType.choice,
+  prompt: "How did you arrive at this business?",
+  choices: [
+    'on foot',
+    'by bike',
+    'by car',
+    'by public transport',
+    'other'
+  ]
+}
+
 
 //// CONTESTS ////
 
