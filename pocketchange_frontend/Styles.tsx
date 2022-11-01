@@ -858,7 +858,7 @@ export const styles = StyleSheet.create({
 
   popupContainer: {
     flex: 1,
-    padding: MARGIN,
+    padding: MARGIN * 0.8,
     justifyContent: 'center',
     backgroundColor: colors.overlay,
   }
