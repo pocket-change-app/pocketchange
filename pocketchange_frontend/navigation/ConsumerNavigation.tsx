@@ -87,7 +87,8 @@ export const ConsumerNavigation = () => {
           name="Survey"
           component={SurveyScreen}
           options={{
-            presentation: 'fullScreenModal',
+            presentation: 'transparentModal',
+            animation: 'fade',
             // statusBarHidden: true,
             headerShown: false,
             autoHideHomeIndicator: true,
