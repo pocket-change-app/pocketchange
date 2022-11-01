@@ -9,6 +9,7 @@ import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-a
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
 import { colors } from '../../constants/Colors';
+import { dummyChoiceSurvey } from '../../dummy';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -73,8 +74,10 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       <IdCard />
 
       <ButtonWithText
-        text='open survey!'
-        onPress={() => navigation.navigate('Survey')}
+        text='open survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyChoiceSurvey,
+        })}
         color={colors.purple}
       />
 
