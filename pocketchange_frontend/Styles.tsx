@@ -854,6 +854,13 @@ export const styles = StyleSheet.create({
 
   boldText: {
     fontFamily: 'metropolis bold'
+  },
+
+  popupContainer: {
+    flex: 1,
+    padding: MARGIN,
+    justifyContent: 'center',
+    backgroundColor: colors.overlay,
   }
 
 })

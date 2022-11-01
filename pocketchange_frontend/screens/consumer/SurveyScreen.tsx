@@ -1,10 +1,8 @@
-import { NavigationState, Route, RouteProp, RouterConfigOptions } from "@react-navigation/native";
 import { useState } from "react";
-import { ButtonWithText } from "../../components/Cards";
 import { ChoiceSurvey } from "../../components/Surveys";
 import { View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
-import { surveyType, dummyChoiceSurvey } from "../../dummy";
+import { surveyType } from "../../dummy";
 import { styles } from "../../Styles";
 
 
@@ -30,7 +28,7 @@ export default function SurveyScreen({ route, navigation }: { route: any, naviga
   }
 
   return (
-    <View style={[styles.screenContainer, styles.container, { justifyContent: 'center', backgroundColor: colors.overlay }]}>
+    <View style={styles.popupContainer}>
       <Survey
         survey={survey}
         onSubmit={() => navigation.goBack()}

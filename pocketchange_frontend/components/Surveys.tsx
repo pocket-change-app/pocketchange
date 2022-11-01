@@ -18,7 +18,7 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         text={item}
         onPress={() => setSelected(index)}
         textTransform='capitalize'
-        // color={index === selected ? colors.gold : undefined}
+        color={index === selected ? colors.gold : undefined}
         negativeStyle={index === selected ? false : true}
       />
     )
@@ -45,7 +45,7 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         <ButtonWithText
           text='Submit'
           onPress={selected === -1 ? null : onSubmit}
-          color={selected === -1 ? undefined : colors.gold}
+          color={selected === -1 ? colors.light : colors.subtle}
         // negativeStyle
 
         />
