@@ -454,7 +454,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     height: BUTTON_HEIGHT,
     borderRadius: CARD_RADIUS,
-    padding: MARGIN,
+    paddingHorizontal: MARGIN,
   },
 
   buttonBordered: {
