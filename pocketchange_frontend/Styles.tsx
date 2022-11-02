@@ -449,15 +449,19 @@ export const styles = StyleSheet.create({
     color: colors.bg,
   },
 
-  buttonBordered: {
+  button: {
     justifyContent: 'center',
+    alignContent: 'center',
+    height: BUTTON_HEIGHT,
+    borderRadius: CARD_RADIUS,
+    padding: MARGIN,
+  },
+
+  buttonBordered: {
+
     borderWidth: BORDER_WIDTH,
     borderColor: colors.light,
-    borderRadius: CARD_RADIUS,
-    // marginTop: MARGIN,
-    height: BUTTON_HEIGHT,
     backgroundColor: 'transparent',
-    alignItems: 'center',
   },
 
   buttonBorderedText: {
@@ -467,11 +471,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonNegative: {
-    justifyContent: 'center',
-    height: BUTTON_HEIGHT,
-    padding: MARGIN,
     backgroundColor: colors.subtle,
-    borderRadius: CARD_RADIUS,
   },
 
   buttonNegativeText: {
