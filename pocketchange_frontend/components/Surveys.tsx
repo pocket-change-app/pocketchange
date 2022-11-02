@@ -37,6 +37,8 @@ export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
             viewStyle={{ flex: 1 }}
           />
 
+          <View style={{ width: MARGIN }} />
+
           <ButtonWithText
             text={<FontAwesome name='thumbs-down' size={styles.buttonBorderedText.fontSize * 1.5} />}
             onPress={() => setLiked(false)}
