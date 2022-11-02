@@ -91,6 +91,7 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         </Text>
 
         <FlatList
+          scrollEnabled={false}
           data={choices}
           renderItem={renderChoice}
           ItemSeparatorComponent={() => <View style={{ height: MARGIN }} />}
