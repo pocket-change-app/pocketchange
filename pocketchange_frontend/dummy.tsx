@@ -22,6 +22,11 @@ export const dummyChoiceSurvey = {
   ]
 }
 
+export const dummyThumbsSurvey = {
+  type: surveyType.thumbs,
+  prompt: "Did you enjoy your experience at Handy Hardware?",
+}
+
 
 //// CONTESTS ////
 
