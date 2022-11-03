@@ -3,15 +3,15 @@
 import { RoleLevel, RoleType } from "./contexts/Auth";
 
 export enum surveyType {
-  thumb,
-  feeling,
-  select,
-  multiSelect,
+  thumb = 'THUMB',
+  feeling = 'FEELING',
+  select = 'SELECT',
+  multiSelect = 'MULTISELECT',
 }
 
 //// SURVEYS ////
 
-export const dummyChoiceSurvey = {
+export const dummySelectSurvey = {
   type: surveyType.select,
   prompt: "How did you get to Bites and Booze?",
   selections: [
@@ -23,7 +23,7 @@ export const dummyChoiceSurvey = {
   ]
 }
 
-export const dummyMultiChoiceSurvey = {
+export const dummyMultiSelectSurvey = {
   type: surveyType.multiSelect,
   prompt: "Which of the following do you enjoy?",
   selections: [
@@ -34,6 +34,9 @@ export const dummyMultiChoiceSurvey = {
     'juice',
     'water',
     'soda',
+    'nut milk',
+    'milk',
+    'smoothie',
   ]
 }
 
