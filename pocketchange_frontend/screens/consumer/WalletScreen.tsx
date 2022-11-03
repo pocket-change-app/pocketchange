@@ -1,15 +1,15 @@
 import { FlatList, RefreshControl } from 'react-native';
 
-import { BORDER_WIDTH, CARD_RADIUS, MARGIN, MARGIN_SM, styles } from '../../Styles';
+import { CARD_RADIUS, MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View, ViewProps } from '../../components/Themed';
 import { IdCard, DivHeader, QRScanListed, TransactionListed, ButtonWithText } from '../../components/Cards';
-import { Children, useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-apollo';
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
 import { colors } from '../../constants/Colors';
-import { dummyChoiceSurvey, dummyThumbsSurvey } from '../../dummy';
+import { dummyChoiceSurvey, dummyFeelingsSurvey, dummyThumbsSurvey } from '../../dummy';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -87,6 +87,14 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           survey: dummyThumbsSurvey,
         })}
         color={colors.green}
+      />
+
+      <ButtonWithText
+        text='feelings survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyFeelingsSurvey,
+        })}
+        color={colors.tomato}
       />
 
       <DivHeader text='History' />

@@ -1,7 +1,7 @@
-import { Pressable, Image, FlatList, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
+import { Pressable, Image, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN, MARGIN_SM, BUTTON_HEIGHT } from '../Styles';
+import { styles, MARGIN } from '../Styles';
 import { contestsData } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { ChoiceSurvey, ThumbsSurvey } from "../../components/Surveys";
+import { ChoiceSurvey, FeelingsSurvey, ThumbsSurvey } from "../../components/Surveys";
 import { View } from "../../components/Themed";
-import { colors } from "../../constants/Colors";
 import { surveyType } from "../../dummy";
 import { styles } from "../../Styles";
 
@@ -25,6 +24,13 @@ export default function SurveyScreen({ route, navigation }: { route: any, naviga
       case surveyType.thumbs:
         return (
           <ThumbsSurvey
+            survey={survey}
+            onSubmit={onSubmit}
+          />
+        )
+      case surveyType.feelings:
+        return (
+          <FeelingsSurvey
             survey={survey}
             onSubmit={onSubmit}
           />

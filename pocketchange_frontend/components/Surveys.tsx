@@ -22,6 +22,7 @@ const SurveyButton = (
      * This will determine color and negativeStyle.
      */
     isSelected: boolean,
+
     text: string | ReactElement,
     onPress: null | ((event: GestureResponderEvent) => void) | undefined,
     textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | undefined,
@@ -47,13 +48,16 @@ const SubmitButton = ({ surveyFilled, onPress }: { surveyFilled: boolean, onPres
     color={surveyFilled ? colors.subtle : colors.light}
   />
 )
+
+
+/**
+ * Survey with a thumbs up/down response
+ */
 export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
   const { prompt } = survey
 
-  const [liked, setLiked] = useState(undefined)
-
-  type ButtonWithTextParameters = Parameters<typeof ButtonWithText>
+  const [liked, setLiked] = useState<(undefined | boolean)>(undefined)
 
   return (
     <View style={[styles.card]}>
@@ -96,7 +100,74 @@ export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
 }
 
 
+/**
+ * Survey with smile/neutral/frown response
+ */
+export const FeelingsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
+  enum Feeling {
+    bad = -1,
+    meh = 0,
+    good = 1,
+  }
+
+  const { prompt } = survey
+
+  const [feeling, setFeeling] = useState<(undefined | Feeling)>(undefined)
+
+  return (
+    <View style={[styles.card]}>
+      <View style={styles.container}>
+        <Text style={styles.prompt}>
+          {prompt}
+        </Text>
+
+        <View style={{ flexDirection: 'row' }}>
+          <SurveyButton
+            text={<FontAwesome name='smile-o' size={styles.buttonBorderedText.fontSize * 1.5} />}
+            onPress={() => setFeeling(Feeling.good)}
+            viewStyle={{ flex: 1 }}
+            isSelected={feeling === Feeling.good}
+          />
+
+          <View style={{ width: MARGIN }} />
+
+          <SurveyButton
+            text={<FontAwesome name='meh-o' size={styles.buttonBorderedText.fontSize * 1.5} />}
+            onPress={() => setFeeling(Feeling.meh)}
+            viewStyle={{ flex: 1 }}
+            isSelected={feeling === Feeling.meh}
+          />
+
+          <View style={{ width: MARGIN }} />
+
+          <SurveyButton
+            text={<FontAwesome name='frown-o' size={styles.buttonBorderedText.fontSize * 1.5} />}
+            onPress={() => setFeeling(Feeling.bad)}
+            viewStyle={{ flex: 1 }}
+            isSelected={feeling === Feeling.bad}
+          />
+        </View>
+
+      </View>
+
+      <HorizontalLine />
+
+      <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
+        <SubmitButton
+          surveyFilled={feeling !== undefined}
+          onPress={onSubmit}
+        />
+      </View>
+
+    </View>
+  )
+}
+
+
+/**
+ * Survey with response in multiple-choice format
+ */
 export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
   const { prompt, choices } = survey
