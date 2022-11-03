@@ -1,25 +1,59 @@
 import { FontAwesome } from "@expo/vector-icons"
-import { useState } from "react"
-import { FlatList } from "react-native"
+import { ReactElement, useState } from "react"
+import { FlatList, GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native"
 import { colors } from "../constants/Colors"
 import { MARGIN, styles } from "../Styles"
 import { ButtonWithText } from "./Cards"
 import { HorizontalLine } from "./Lines"
 import { Text, View } from "./Themed"
 
+//// All survey buttons for data input will have same style and behaviour:
+const SurveyButton = (
+  {
+    isSelected,
+    text,
+    onPress,
+    textTransform,
+    viewStyle,
+    textStyle,
+  }: {
+    /**
+     * Whether the curent option is selected or not.
+     * This will determine color and negativeStyle.
+     */
+    isSelected: boolean,
+    text: string | ReactElement,
+    onPress: null | ((event: GestureResponderEvent) => void) | undefined,
+    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | undefined,
+    viewStyle?: StyleProp<ViewStyle>,
+    textStyle?: StyleProp<TextStyle>,
+  }
+) => (
+  <ButtonWithText
+    text={text}
+    onPress={onPress}
+    textTransform={textTransform}
+    viewStyle={viewStyle}
+    textStyle={textStyle}
+    color={isSelected ? colors.gold : undefined}
+    negativeStyle={!isSelected}
+  />
+)
+
+const SubmitButton = ({ surveyFilled, onPress }: { surveyFilled: boolean, onPress: () => any }) => (
+  <ButtonWithText
+    text='Submit'
+    onPress={surveyFilled ? onPress : null}
+    color={surveyFilled ? colors.subtle : colors.light}
+  />
+)
 export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
   const { prompt } = survey
 
   const [liked, setLiked] = useState(undefined)
 
-  const Button = (text: string, color: string, onPress: () => any) => (
-    <ButtonWithText
-      text={text}
-      onPress={onPress}
-      color={color}
-    />
-  )
+  type ButtonWithTextParameters = Parameters<typeof ButtonWithText>
 
   return (
     <View style={[styles.card]}>
@@ -29,22 +63,20 @@ export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         </Text>
 
         <View style={{ flexDirection: 'row' }}>
-          <ButtonWithText
+          <SurveyButton
             text={<FontAwesome name='thumbs-up' size={styles.buttonBorderedText.fontSize * 1.5} />}
             onPress={() => setLiked(true)}
-            color={liked === true ? colors.gold : undefined}
-            negativeStyle={!(liked === true)}
             viewStyle={{ flex: 1 }}
+            isSelected={liked === true}
           />
 
           <View style={{ width: MARGIN }} />
 
-          <ButtonWithText
+          <SurveyButton
             text={<FontAwesome name='thumbs-down' size={styles.buttonBorderedText.fontSize * 1.5} />}
             onPress={() => setLiked(false)}
-            color={liked === false ? colors.gold : undefined}
-            negativeStyle={!(liked === false)}
             viewStyle={{ flex: 1 }}
+            isSelected={liked === false}
           />
         </View>
 
@@ -53,10 +85,9 @@ export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
       <HorizontalLine />
 
       <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
-        <ButtonWithText
-          text='Submit'
-          onPress={liked !== undefined ? onSubmit : null}
-          color={liked !== undefined ? colors.subtle : colors.light}
+        <SubmitButton
+          surveyFilled={liked !== undefined}
+          onPress={onSubmit}
         />
       </View>
 
@@ -74,12 +105,11 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
 
   const renderChoice = ({ item, index }: { item: string, index: number }) => {
     return (
-      <ButtonWithText
+      <SurveyButton
+        isSelected={index === selected}
         text={item}
         onPress={() => setSelected(index)}
         textTransform='capitalize'
-        color={index === selected ? colors.gold : undefined}
-        negativeStyle={index === selected ? false : true}
       />
     )
   }
@@ -104,11 +134,9 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
       <HorizontalLine />
 
       <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
-        <ButtonWithText
-          text='Submit'
-          onPress={selected === -1 ? null : onSubmit}
-          color={selected === -1 ? colors.light : colors.subtle}
-        // negativeStyle
+        <SubmitButton
+          surveyFilled={selected >= 0}
+          onPress={onSubmit}
         />
       </View>
 
