@@ -9,7 +9,7 @@ import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-a
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
 import { colors } from '../../constants/Colors';
-import { dummyChoiceSurvey, dummyFeelingsSurvey, dummyThumbsSurvey } from '../../dummy';
+import { dummyChoiceSurvey, dummyFeelingsSurvey, dummyMultiChoiceSurvey, dummyThumbsSurvey } from '../../dummy';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -74,15 +74,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       <IdCard />
 
       <ButtonWithText
-        text='choice survey'
-        onPress={() => navigation.navigate('Survey', {
-          survey: dummyChoiceSurvey,
-        })}
-        color={colors.purple}
-      />
-
-      <ButtonWithText
-        text='thumbs survey'
+        text='thumb survey'
         onPress={() => navigation.navigate('Survey', {
           survey: dummyThumbsSurvey,
         })}
@@ -90,11 +82,27 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       />
 
       <ButtonWithText
-        text='feelings survey'
+        text='feeling survey'
         onPress={() => navigation.navigate('Survey', {
           survey: dummyFeelingsSurvey,
         })}
         color={colors.tomato}
+      />
+
+      <ButtonWithText
+        text='select survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyChoiceSurvey,
+        })}
+        color={colors.purple}
+      />
+
+      <ButtonWithText
+        text='multi-select survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyMultiChoiceSurvey,
+        })}
+        color={colors.gold}
       />
 
       <DivHeader text='History' />

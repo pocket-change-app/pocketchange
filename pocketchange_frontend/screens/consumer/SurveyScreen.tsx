@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChoiceSurvey, FeelingsSurvey, ThumbsSurvey } from "../../components/Surveys";
+import { SelectSurvey, MultiSelectSurvey, FeelingSurvey, ThumbSurvey } from "../../components/Surveys";
 import { View } from "../../components/Themed";
 import { surveyType } from "../../dummy";
 import { styles } from "../../Styles";
@@ -14,23 +14,30 @@ export default function SurveyScreen({ route, navigation }: { route: any, naviga
   const Survey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
     switch (survey.type) {
-      case surveyType.choice:
+      case surveyType.select:
         return (
-          <ChoiceSurvey
+          <SelectSurvey
             survey={survey}
             onSubmit={onSubmit}
           />
         )
-      case surveyType.thumbs:
+      case surveyType.multiSelect:
         return (
-          <ThumbsSurvey
+          <MultiSelectSurvey
             survey={survey}
             onSubmit={onSubmit}
           />
         )
-      case surveyType.feelings:
+      case surveyType.thumb:
         return (
-          <FeelingsSurvey
+          <ThumbSurvey
+            survey={survey}
+            onSubmit={onSubmit}
+          />
+        )
+      case surveyType.feeling:
+        return (
+          <FeelingSurvey
             survey={survey}
             onSubmit={onSubmit}
           />
@@ -44,6 +51,7 @@ export default function SurveyScreen({ route, navigation }: { route: any, naviga
     <View style={styles.popupContainer}>
       <Survey
         survey={survey}
+        // TODO: return survey results to the backend
         onSubmit={() => navigation.goBack()}
       />
     </View>

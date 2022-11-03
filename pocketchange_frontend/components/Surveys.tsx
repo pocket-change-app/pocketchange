@@ -53,7 +53,7 @@ const SubmitButton = ({ surveyFilled, onPress }: { surveyFilled: boolean, onPres
 /**
  * Survey with a thumbs up/down response
  */
-export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
+export const ThumbSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
   const { prompt } = survey
 
@@ -103,7 +103,7 @@ export const ThumbsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
 /**
  * Survey with smile/neutral/frown response
  */
-export const FeelingsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
+export const FeelingSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
   enum Feeling {
     bad = -1,
@@ -168,9 +168,9 @@ export const FeelingsSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: ()
 /**
  * Survey with response in multiple-choice format
  */
-export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
+export const SelectSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
 
-  const { prompt, choices } = survey
+  const { prompt, selections } = survey
 
   const [selected, setSelected] = useState(-1)
 
@@ -196,7 +196,7 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
 
         <FlatList
           scrollEnabled={false}
-          data={choices}
+          data={selections}
           // contentContainerStyle={{ flexWrap: 'wrap', justifyContent: 'center', }}
           contentContainerStyle={{ alignItems: 'center', }}
           renderItem={renderChoice}
@@ -211,6 +211,87 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
       <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
         <SubmitButton
           surveyFilled={selected >= 0}
+          onPress={onSubmit}
+        />
+      </View>
+
+    </View>
+  )
+}
+
+
+/**
+ * Survey with response in multiple-choice format
+ */
+export const MultiSelectSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
+
+  const { prompt, selections } = survey
+
+  const [selected, setSelected] = useState<(0 | 1)[]>(new Array(selections.length).fill(0))
+
+  const surveyFilled = () => {
+    let result = false
+    for (const i in selected) {
+      if (selected[i] === 1) return true
+    }
+    return false
+  }
+
+  console.log(selected);
+
+  const pointwise = (f: (a: typeof arr0[0], b: typeof arr1[0]) => any, arr0: any[], arr1: any[]) => {
+    for (const i in arr0) {
+      arr0[i] = f(arr0[i], arr1[i])
+    }
+    return arr0
+  }
+
+  const select = (index: number): void => {
+    const thisSelection: (0 | 1)[] = new Array(selections.length).fill(0)
+    thisSelection[index] = 1;
+    const newSelected = pointwise((a, b) => (a + b) % 2, thisSelection, selected)
+    console.log(newSelected);
+    setSelected(newSelected)
+  }
+
+
+  const renderChoice = ({ item, index }: { item: string, index: number }) => {
+    return (
+      <SurveyButton
+        isSelected={selected[index] === 1}
+        text={item}
+        onPress={() => select(index)}
+        textTransform='capitalize'
+        viewStyle={{ margin: MARGIN / 2 }}
+      />
+    )
+  }
+
+  return (
+    <View style={[styles.card]}>
+      <View style={styles.container}>
+
+        <Text style={styles.prompt}>
+          {prompt}
+        </Text>
+
+        <FlatList
+          scrollEnabled={false}
+          data={selections}
+          // contentContainerStyle={{ flexWrap: 'wrap', justifyContent: 'center', }}
+          contentContainerStyle={{ alignItems: 'center', }}
+          renderItem={renderChoice}
+          numColumns={100}
+          columnWrapperStyle={{ justifyContent: 'center', flexWrap: 'wrap' }}
+        />
+
+      </View>
+
+      <HorizontalLine />
+
+      <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
+        <SubmitButton
+          surveyFilled={surveyFilled()}
           onPress={onSubmit}
         />
       </View>
