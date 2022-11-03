@@ -13,12 +13,12 @@ export enum surveyType {
 
 export const dummyChoiceSurvey = {
   type: surveyType.choice,
-  prompt: "How did you arrive at For the Love of the Game?",
+  prompt: "How did you get to Bites and Booze?",
   choices: [
     'on foot',
     'by bike',
     'by car',
-    'by public transport',
+    'public transport',
     'other'
   ]
 }
