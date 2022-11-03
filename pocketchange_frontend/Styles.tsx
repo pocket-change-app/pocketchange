@@ -450,6 +450,8 @@ export const styles = StyleSheet.create({
   },
 
   button: {
+    borderWidth: BORDER_WIDTH,
+    borderColor: 'transparent',
     justifyContent: 'center',
     alignContent: 'center',
     height: BUTTON_HEIGHT,
@@ -458,8 +460,6 @@ export const styles = StyleSheet.create({
   },
 
   buttonBordered: {
-
-    borderWidth: BORDER_WIDTH,
     borderColor: colors.light,
     backgroundColor: 'transparent',
   },
