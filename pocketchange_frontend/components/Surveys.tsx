@@ -181,6 +181,7 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         text={item}
         onPress={() => setSelected(index)}
         textTransform='capitalize'
+        viewStyle={{ margin: MARGIN / 2 }}
       />
     )
   }
@@ -196,8 +197,11 @@ export const ChoiceSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
         <FlatList
           scrollEnabled={false}
           data={choices}
+          // contentContainerStyle={{ flexWrap: 'wrap', justifyContent: 'center', }}
+          contentContainerStyle={{ alignItems: 'center', }}
           renderItem={renderChoice}
-          ItemSeparatorComponent={() => <View style={{ height: MARGIN }} />}
+          numColumns={100}
+          columnWrapperStyle={{ justifyContent: 'center', flexWrap: 'wrap' }}
         />
 
       </View>
