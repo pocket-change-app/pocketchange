@@ -73,7 +73,8 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
 
       <IdCard />
 
-      <ButtonWithText
+      {/* TEST BUTTONS FOR SURVEYS */}
+      {/* <ButtonWithText
         text='thumb survey'
         onPress={() => navigation.navigate('Survey', {
           survey: dummyThumbsSurvey,
@@ -103,7 +104,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           survey: dummyMultiSelectSurvey,
         })}
         color={colors.gold}
-      />
+      /> */}
 
       <DivHeader text='History' />
 
