@@ -450,15 +450,19 @@ export const styles = StyleSheet.create({
     color: colors.bg,
   },
 
-  buttonBordered: {
-    justifyContent: 'center',
+  button: {
     borderWidth: BORDER_WIDTH,
-    borderColor: colors.light,
-    borderRadius: CARD_RADIUS,
-    // marginTop: MARGIN,
+    borderColor: 'transparent',
+    justifyContent: 'center',
+    alignContent: 'center',
     height: BUTTON_HEIGHT,
+    borderRadius: CARD_RADIUS,
+    paddingHorizontal: MARGIN,
+  },
+
+  buttonBordered: {
+    borderColor: colors.light,
     backgroundColor: 'transparent',
-    alignItems: 'center',
   },
 
   buttonBorderedText: {
@@ -468,11 +472,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonNegative: {
-    justifyContent: 'center',
-    height: BUTTON_HEIGHT,
-    padding: MARGIN,
     backgroundColor: colors.subtle,
-    borderRadius: CARD_RADIUS,
   },
 
   buttonNegativeText: {
@@ -860,6 +860,13 @@ export const styles = StyleSheet.create({
 
   boldText: {
     fontFamily: 'metropolis bold'
+  },
+
+  popupContainer: {
+    flex: 1,
+    padding: MARGIN * 0.8,
+    justifyContent: 'center',
+    backgroundColor: colors.overlay,
   }
 
 })

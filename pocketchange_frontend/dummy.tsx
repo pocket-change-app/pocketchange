@@ -2,6 +2,54 @@
 
 import { RoleLevel, RoleType } from "./contexts/Auth";
 
+export enum surveyType {
+  thumb = 'THUMB',
+  feeling = 'FEELING',
+  select = 'SELECT',
+  multiSelect = 'MULTISELECT',
+}
+
+//// SURVEYS ////
+
+export const dummySelectSurvey = {
+  type: surveyType.select,
+  prompt: "How did you get to Bites and Booze?",
+  selections: [
+    'on foot',
+    'by bike',
+    'by car',
+    'public transport',
+    'other'
+  ]
+}
+
+export const dummyMultiSelectSurvey = {
+  type: surveyType.multiSelect,
+  prompt: "Which of the following do you enjoy?",
+  selections: [
+    'coffee',
+    'tea',
+    'rasa',
+    'herbal infusion',
+    'juice',
+    'water',
+    'soda',
+    'nut milk',
+    'milk',
+    'smoothie',
+  ]
+}
+
+export const dummyThumbsSurvey = {
+  type: surveyType.thumb,
+  prompt: "Did you enjoy your experience at Handy Hardware?",
+}
+
+export const dummyFeelingsSurvey = {
+  type: surveyType.feeling,
+  prompt: "How was your visit to Best Bun Bakery?",
+}
+
 
 //// CONTESTS ////
 

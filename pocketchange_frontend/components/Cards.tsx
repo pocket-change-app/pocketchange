@@ -1,7 +1,7 @@
-import { Pressable, Image, FlatList, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
+import { Pressable, Image, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN, MARGIN_SM, BUTTON_HEIGHT } from '../Styles';
+import { styles, MARGIN } from '../Styles';
 import { contestsData } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
@@ -12,7 +12,7 @@ import { usePocketQuery, useBusinessQuery, useUserQuery, useGetAllTransactionsQu
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import DropDownPicker from 'react-native-dropdown-picker';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, ReactElement } from 'react';
 import { AuthContext, AuthContextData, Role, RoleType } from '../contexts/Auth';
 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -904,7 +904,7 @@ export function ButtonWithText(
     onPress,
   }: {
       /** The text to display */
-      text: string,
+      text: string | ReactElement,
 
       /** function passed to onPress prop of Pressable */
       onPress: null | ((event: GestureResponderEvent) => void) | undefined,
@@ -933,10 +933,10 @@ export function ButtonWithText(
 
   //
   if (!negativeStyle) {
-    _viewStyle = [styles.buttonNegative, { backgroundColor: color }]
+    _viewStyle = [styles.button, styles.buttonNegative, { backgroundColor: color }]
     _textStyle = [styles.cardHeaderText, styles.buttonNegativeText, { textTransform: textTransform }]
   } else {
-    _viewStyle = [styles.buttonBordered, { borderColor: color }]
+    _viewStyle = [styles.button, styles.buttonBordered, { borderColor: color }]
     _textStyle = [styles.cardHeaderText, styles.buttonBorderedText, { color: color, textTransform: textTransform }]
   }
 
@@ -949,12 +949,14 @@ export function ButtonWithText(
 
   return (
     <Pressable
-      onPress={onPress}>
-      <View style={_viewStyle}>
+      onPress={onPress}
+      style={_viewStyle}
+    >
+      {/* <View style={_viewStyle}> */}
         <Text style={_textStyle}>
           {text}
         </Text>
-      </View>
+      {/* </View> */}
     </Pressable >
   )
 

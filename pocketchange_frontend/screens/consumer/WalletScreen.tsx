@@ -1,14 +1,15 @@
 import { FlatList, RefreshControl } from 'react-native';
 
-import { BORDER_WIDTH, CARD_RADIUS, MARGIN, MARGIN_SM, styles } from '../../Styles';
+import { CARD_RADIUS, MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View, ViewProps } from '../../components/Themed';
-import { IdCard, DivHeader, QRScanListed, TransactionListed, HistoryEntry } from '../../components/Cards';
-import { Children, useCallback, useContext, useState } from 'react';
+import { IdCard, DivHeader, QRScanListed, TransactionListed, HistoryEntry, ButtonWithText } from '../../components/Cards';
+import { useCallback, useContext, useState } from 'react';
 import wait, { waitTimes } from '../../utils/wait';
 import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-apollo';
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
 import { colors } from '../../constants/Colors';
+import { dummyFeelingsSurvey, dummyMultiSelectSurvey, dummySelectSurvey, dummyThumbsSurvey } from '../../dummy';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -66,6 +67,39 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
     <View style={{ zIndex: 200 }}>
 
       <IdCard />
+
+      {/* TEST BUTTONS FOR SURVEYS */}
+      {/* <ButtonWithText
+        text='thumb survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyThumbsSurvey,
+        })}
+        color={colors.green}
+      />
+
+      <ButtonWithText
+        text='feeling survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyFeelingsSurvey,
+        })}
+        color={colors.tomato}
+      />
+
+      <ButtonWithText
+        text='select survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummySelectSurvey,
+        })}
+        color={colors.purple}
+      />
+
+      <ButtonWithText
+        text='multi-select survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyMultiSelectSurvey,
+        })}
+        color={colors.gold}
+      /> */}
 
       <DivHeader text='History' />
 
