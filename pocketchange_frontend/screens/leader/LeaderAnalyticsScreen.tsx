@@ -102,7 +102,7 @@ export default function LeaderAnalyticsScreen() {
         placeholder="Search Analytics"
         placeholderTextColor={colors.subtle}
 
-        onChangeText={updateSearch}
+        onChangeText={setSearchQuery}
         onClear={() => null}
         value={searchQuery} />
 
