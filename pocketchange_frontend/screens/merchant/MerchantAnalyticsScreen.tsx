@@ -3,14 +3,12 @@ import { SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
-import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../../components/Cards';
-import { colors, colorScale } from '../../constants/Colors';
+import { DivHeader, ButtonWithText } from '../../components/Cards';
+import { colors } from '../../constants/Colors';
 
 import { merchantAnalytics, leaderAnalytics } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
-import * as V from 'victory-native';
-import Svg from 'react-native-svg'
 
 import { AuthContext } from '../../contexts/Auth';
 import wait, { waitTimes } from '../../utils/wait';
@@ -104,7 +102,7 @@ export default function MerchantAnalyticsScreen() {
 
         <SectionList
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-          sections={searchQuery ? searchResults : allAnalytics}
+          sections={searchResults}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={renderSectionHeader}
@@ -149,7 +147,7 @@ function SuggestAnalyticForm() {
             // autoFocus={true}
             selectionColor={colors.gold}
             style={styles.receipt}
-            onChangeText={""}
+            // onChangeText={""}
             placeholder={""}
             multiline
             numberOfLines={3}

@@ -3,14 +3,12 @@ import { SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
-import { DivHeader, BusinessCardSm, ButtonWithText, UserCardSm } from '../../components/Cards';
-import { colors, colorScale } from '../../constants/Colors';
+import { DivHeader, ButtonWithText } from '../../components/Cards';
+import { colors } from '../../constants/Colors';
 
 import { merchantAnalytics, leaderAnalytics } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
-import * as V from 'victory-native';
-import Svg from 'react-native-svg'
 
 import { AuthContext } from '../../contexts/Auth';
 import wait, { waitTimes } from '../../utils/wait';
@@ -23,10 +21,23 @@ export default function LeaderAnalyticsScreen() {
 
   const authContext = useContext(AuthContext);
 
+  let allAnalytics;
+  if (authContext.activeRole.type === "LEADER") {
+    allAnalytics = leaderAnalytics;
+  } else {
+    allAnalytics = merchantAnalytics;
+  }
+
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState('')
 
   const [refreshing, setRefreshing] = useState(false)
+
+  const searchResults = allAnalytics.map((section) => (
+    {
+      sectionTitle: section.sectionTitle,
+      data: section.data.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+    }
+  ))
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -35,31 +46,6 @@ export default function LeaderAnalyticsScreen() {
       // refetchAnalytics // once query is in
     ]).then(() => setRefreshing(false));
   }, []);
-
-  let allAnalytics;
-  if (authContext.activeRole.type === "LEADER") {
-    allAnalytics = leaderAnalytics;
-  } else {
-    allAnalytics = merchantAnalytics;
-  }
-
-  /* if (isNilOrEmpty(allAnalytics)) {
-    return (null)
-  } */
-
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = allAnalytics.map((section) =>
-      ({
-        sectionTitle: section.sectionTitle,
-        data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
-      })
-      )
-      return results
-    })
-  };
 
 
   const renderSectionHeader = ({ section: { sectionTitle, data } }: { section: { sectionTitle: string, data: any[] } }) => {
@@ -95,7 +81,7 @@ export default function LeaderAnalyticsScreen() {
 
         <SectionList
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-          sections={searchQuery ? searchResults : allAnalytics}
+          sections={searchResults}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={renderSectionHeader}
@@ -140,7 +126,7 @@ function SuggestAnalyticForm() {
             // autoFocus={true}
             selectionColor={colors.gold}
             style={styles.receipt}
-            onChangeText={""}
+            // onChangeText={""}
             placeholder={""}
             multiline
             numberOfLines={3}
