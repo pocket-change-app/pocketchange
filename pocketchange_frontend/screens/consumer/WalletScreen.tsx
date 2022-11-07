@@ -9,7 +9,7 @@ import { useGetAllTransactionsQuery, useGetAllQRScansQuery } from '../../hooks-a
 import { AuthContext } from '../../contexts/Auth';
 import { HorizontalLine } from '../../components/Lines';
 import { colors } from '../../constants/Colors';
-import { dummyFeelingsSurvey, dummyMultiSelectSurvey, dummySelectSurvey, dummyThumbsSurvey } from '../../dummy';
+import { dummyFeelingsSurvey, dummyMultiSelectSurvey, dummySelectSurvey, dummyTextSurvey, dummyThumbsSurvey } from '../../dummy';
 
 
 export default function WalletScreen({ navigation }: { navigation: any }) {
@@ -69,7 +69,7 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
       <IdCard />
 
       {/* TEST BUTTONS FOR SURVEYS */}
-      {/* <ButtonWithText
+      <ButtonWithText
         text='thumb survey'
         onPress={() => navigation.navigate('Survey', {
           survey: dummyThumbsSurvey,
@@ -99,7 +99,15 @@ export default function WalletScreen({ navigation }: { navigation: any }) {
           survey: dummyMultiSelectSurvey,
         })}
         color={colors.gold}
-      /> */}
+      />
+
+      <ButtonWithText
+        text='text survey'
+        onPress={() => navigation.navigate('Survey', {
+          survey: dummyTextSurvey,
+        })}
+        color={colors.subtle}
+      />
 
       <DivHeader text='History' />
 
