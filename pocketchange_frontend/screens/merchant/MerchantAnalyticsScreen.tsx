@@ -23,10 +23,25 @@ export default function MerchantAnalyticsScreen() {
 
   const authContext = useContext(AuthContext);
 
+  let allAnalytics;
+  if (authContext.activeRole.type === "LEADER") {
+    allAnalytics = leaderAnalytics;
+  } else {
+    allAnalytics = merchantAnalytics;
+  }
+
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState('')
+  // const [searchResults, setSearchResults] = useState('')
+
 
   const [refreshing, setRefreshing] = useState(false)
+
+  const searchResults = allAnalytics.map((section) =>
+  ({
+    sectionTitle: section.sectionTitle,
+    data: section.data.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+  })
+  )
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -36,31 +51,34 @@ export default function MerchantAnalyticsScreen() {
     ]).then(() => setRefreshing(false));
   }, []);
 
-  let allAnalytics;
-  if (authContext.activeRole.type === "LEADER") {
-    allAnalytics = leaderAnalytics;
-  } else {
-    allAnalytics = merchantAnalytics;
-  }
+
 
   /* if (isNilOrEmpty(allAnalytics)) {
     return (null)
   } */
 
-  const updateSearch = (text: string) => {
-    setSearchQuery(text)
-    setSearchResults(() => {
-      const formattedQuery = text.toLowerCase().trim()
-      const results = allAnalytics.map((section) =>
-      ({
-        sectionTitle: section.sectionTitle,
-        data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
-      })
-      )
-      return results
-    })
-  };
+  // const updateSearch = (text: string) => {
+  //   setSearchQuery(text)
+  //   setSearchResults(() => {
+  //     const formattedQuery = text.toLowerCase().trim()
+  //     const results = allAnalytics.map((section) =>
+  //     ({
+  //       sectionTitle: section.sectionTitle,
+  //       data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
+  //     })
+  //     )
+  //     return results
+  //   })
+  // };
 
+
+  const renderSectionHeader = ({ section: { sectionTitle, data } }: { section: { sectionTitle: string, data: any[] } }) => {
+    if (data.length > 0) {
+      return (<DivHeader text={sectionTitle} />)
+    } else {
+      return (null)
+    }
+  }
 
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
@@ -89,9 +107,7 @@ export default function MerchantAnalyticsScreen() {
           sections={searchQuery ? searchResults : allAnalytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
-          renderSectionHeader={({ section: { sectionTitle } }) => (
-            <DivHeader text={sectionTitle} />
-          )}
+          renderSectionHeader={renderSectionHeader}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
@@ -109,7 +125,7 @@ export default function MerchantAnalyticsScreen() {
         placeholder="Search Analytics"
         placeholderTextColor={colors.subtle}
 
-        onChangeText={updateSearch}
+        onChangeText={setSearchQuery}
         onClear={() => null}
         value={searchQuery} />
 

@@ -62,6 +62,15 @@ export default function LeaderAnalyticsScreen() {
   };
 
 
+  const renderSectionHeader = ({ section: { sectionTitle, data } }: { section: { sectionTitle: string, data: any[] } }) => {
+    if (data.length > 0) {
+      return (<DivHeader text={sectionTitle} />)
+    } else {
+      return (null)
+    }
+  }
+
+
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
 
     <AnalyticsCard
@@ -89,9 +98,7 @@ export default function LeaderAnalyticsScreen() {
           sections={searchQuery ? searchResults : allAnalytics}
           contentContainerStyle={styles.businessFlatList}
           keyExtractor={(item, index) => item + index}
-          renderSectionHeader={({ section: { sectionTitle } }) => (
-            <DivHeader text={sectionTitle} />
-          )}
+          renderSectionHeader={renderSectionHeader}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
