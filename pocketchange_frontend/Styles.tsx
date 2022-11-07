@@ -863,6 +863,10 @@ export const styles = StyleSheet.create({
     padding: MARGIN * 0.8,
     justifyContent: 'center',
     backgroundColor: colors.overlay,
+  },
+
+  surveyCard: {
+    marginBottom: 0
   }
 
 })
