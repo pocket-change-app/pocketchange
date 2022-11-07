@@ -19,6 +19,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth';
 import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
+import SurveyScreen from '../screens/shared/SurveyScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,12 +47,24 @@ export const MerchantNavigation = () => {
       }}
       >
       </Stack.Group>
-      <Stack.Group screenOptions={{
+      <Stack.Group
+        screenOptions={{
         presentation: 'modal',
       }}
       >
-
+        <Stack.Screen
+          name="Survey"
+          component={SurveyScreen}
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            // statusBarHidden: true,
+            headerShown: false,
+            autoHideHomeIndicator: true,
+          }}
+        />
       </Stack.Group>
+
       <Stack.Screen
         name="PocketScreen"
         component={PocketScreen}

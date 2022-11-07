@@ -32,7 +32,7 @@ import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripe
 import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
-import SurveyScreen from '../screens/consumer/SurveyScreen';
+import SurveyScreen from '../screens/shared/SurveyScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,11 +56,11 @@ export const ConsumerNavigation = () => {
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 
-      <Stack.Group
+      {/* <Stack.Group
         screenOptions={{
           presentation: 'modal',
         }}
-      >
+      > */}
         <Stack.Screen
           name="PayConfirmation"
           component={PayConfirmationScreen}
@@ -95,7 +95,7 @@ export const ConsumerNavigation = () => {
           }}
         />
 
-      </Stack.Group>
+      {/* </Stack.Group> */}
 
 
     </Stack.Navigator>

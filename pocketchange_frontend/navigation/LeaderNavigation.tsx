@@ -20,6 +20,7 @@ import ContestScreen from '../screens/shared/ContestScreen';
 import ContestWizardScreen from '../screens/leader/ContestWizardScreen';
 import ContestWizardSummaryScreen from '../screens/leader/ContestWizardSummaryScreen';
 import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
+import SurveyScreen from '../screens/shared/SurveyScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +50,17 @@ export const LeaderNavigation = () => {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
+      />
+
+      <Stack.Screen
+        name="Survey"
+        component={SurveyScreen}
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+        }}
       />
 
     </Stack.Navigator>
