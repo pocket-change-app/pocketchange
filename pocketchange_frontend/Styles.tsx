@@ -772,13 +772,8 @@ export const styles = StyleSheet.create({
     color: colors.transluscentWhite,
   },
 
-  analyticsCard: {
-    padding: MARGIN,
-    fontFamily: 'metropolis regular',
-  },
-
   analyticsHeaderContainer: {
-    paddingBottom: 10,
+    paddingBottom: MARGIN,
     //width:'100%',
     flex: 1,
     flexDirection: 'row',
@@ -802,7 +797,8 @@ export const styles = StyleSheet.create({
   },
 
   analyticsContentContainer: {
-    padding: 10
+    // padding: 10,
+    // alignItems: 'center',
   },
 
   analyticsSectionHeaderContainer: {
