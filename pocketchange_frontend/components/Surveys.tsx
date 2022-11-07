@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons"
 import { ReactElement, useState } from "react"
-import { FlatList, GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native"
+import { FlatList, GestureResponderEvent, StyleProp, TextInput, TextStyle, ViewStyle } from "react-native"
 import { colors } from "../constants/Colors"
 import { MARGIN, styles } from "../Styles"
 import { ButtonWithText } from "./Cards"
@@ -60,7 +60,7 @@ export const ThumbSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =>
   const [liked, setLiked] = useState<(undefined | boolean)>(undefined)
 
   return (
-    <View style={[styles.card]}>
+    <View style={[styles.card, styles.surveyCard]}>
       <View style={styles.container}>
         <Text style={styles.prompt}>
           {prompt}
@@ -99,6 +99,56 @@ export const ThumbSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =>
   )
 }
 
+export const TextSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () => any }) => {
+
+  const { prompt } = survey
+
+  const [response, setResponse] = useState('')
+
+  return (
+    <View style={[styles.card, styles.surveyCard]}>
+      <View style={styles.container}>
+        <Text style={styles.prompt}>
+          {prompt}
+        </Text>
+
+        <View style={[styles.card, styles.inputFieldContainer, { marginBottom: MARGIN }]}>
+          {/* <Text style={[styles.prose]}>
+                  Contest Name
+                </Text> */}
+
+          <View style={[styles.textInputContainer]}>
+            <TextInput
+              autoFocus
+              multiline
+              // returnKeyType="next"
+              selectionColor={colors.gold}
+              // autoCapitalize='words'
+              style={styles.inputText}
+              // keyboardType='numeric'
+              value={response}
+              onChangeText={setResponse}
+              // placeholder={'Name Goes Here (/^-^)/'}
+              placeholderTextColor={colors.subtle}
+            />
+          </View>
+        </View>
+
+      </View>
+
+      <HorizontalLine />
+
+      <View style={[styles.container, { flexDirection: 'row', justifyContent: 'center' }]}>
+        <SubmitButton
+          surveyFilled={response !== ''}
+          onPress={onSubmit}
+        />
+      </View>
+
+    </View>
+  )
+}
+
 
 /**
  * Survey with smile/neutral/frown response
@@ -116,7 +166,7 @@ export const FeelingSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () 
   const [feeling, setFeeling] = useState<(undefined | Feeling)>(undefined)
 
   return (
-    <View style={[styles.card]}>
+    <View style={[styles.card, styles.surveyCard]}>
       <View style={styles.container}>
         <Text style={styles.prompt}>
           {prompt}
@@ -187,7 +237,7 @@ export const SelectSurvey = ({ survey, onSubmit }: { survey: any, onSubmit: () =
   }
 
   return (
-    <View style={[styles.card]}>
+    <View style={[styles.card, styles.surveyCard]}>
       <View style={styles.container}>
 
         <Text style={styles.prompt}>
@@ -268,7 +318,7 @@ export const MultiSelectSurvey = ({ survey, onSubmit }: { survey: any, onSubmit:
   }
 
   return (
-    <View style={[styles.card]}>
+    <View style={[styles.card, styles.surveyCard]}>
       <View style={styles.container}>
 
         <Text style={styles.prompt}>
