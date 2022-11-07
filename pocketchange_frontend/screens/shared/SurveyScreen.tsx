@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { SelectSurvey, MultiSelectSurvey, FeelingSurvey, ThumbSurvey } from "../../components/Surveys";
+import { KeyboardAvoidingView, Platform, SafeAreaView } from "react-native";
+import { SelectSurvey, MultiSelectSurvey, FeelingSurvey, ThumbSurvey, TextSurvey } from "../../components/Surveys";
 import { View } from "../../components/Themed";
 import { surveyType } from "../../dummy";
 import { styles } from "../../Styles";
@@ -42,18 +43,31 @@ export default function SurveyScreen({ route, navigation }: { route: any, naviga
             onSubmit={onSubmit}
           />
         )
+      case surveyType.text:
+        return (
+          <TextSurvey
+            survey={survey}
+            onSubmit={onSubmit}
+          />
+        )
       default:
         return (null)
     }
   }
 
   return (
-    <View style={styles.popupContainer}>
-      <Survey
-        survey={survey}
-        // TODO: return survey results to the backend
-        onSubmit={() => navigation.goBack()}
-      />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.popupContainer}>
+        <Survey
+          survey={survey}
+          // TODO: return survey results to the backend
+          onSubmit={() => navigation.goBack()}
+        />
+      </View>
+    </KeyboardAvoidingView>
   )
 }
