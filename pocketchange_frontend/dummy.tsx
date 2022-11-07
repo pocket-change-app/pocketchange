@@ -7,6 +7,7 @@ export enum surveyType {
   feeling = 'FEELING',
   select = 'SELECT',
   multiSelect = 'MULTISELECT',
+  text = 'TEXT',
 }
 
 //// SURVEYS ////
@@ -48,6 +49,16 @@ export const dummyThumbsSurvey = {
 export const dummyFeelingsSurvey = {
   type: surveyType.feeling,
   prompt: "How was your visit to Best Bun Bakery?",
+}
+
+export const dummyTextSurvey = {
+  type: surveyType.text,
+  prompt: "How was your visit to Best Bun Bakery?",
+}
+
+export const dummySuggestAnalyticSurvey = {
+  type: surveyType.text,
+  prompt: 'What analytic would you like to see on PocketChange?'
 }
 
 
