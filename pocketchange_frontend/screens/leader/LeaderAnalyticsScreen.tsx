@@ -135,7 +135,9 @@ function SuggestAnalyticForm() {
         </View>
         <ButtonWithText
           text='Submit'
-          color={colors.gold} />
+          color={colors.gold}
+          onPress={null}
+        />
       </View>
 
     </View>
