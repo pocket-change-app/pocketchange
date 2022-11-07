@@ -6,7 +6,7 @@ import { ScreenContainer, Text, View } from '../../components/Themed';
 import { DivHeader, ButtonWithText } from '../../components/Cards';
 import { colors } from '../../constants/Colors';
 
-import { merchantAnalytics, leaderAnalytics } from '../../dummy';
+import { merchantAnalytics, leaderAnalytics, dummySuggestAnalyticSurvey } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
 
@@ -17,7 +17,7 @@ import { AnalyticsCard } from '../../components/AnalyticsCard';
 
 // TODO: add hook call to query all analytics
 
-export default function MerchantAnalyticsScreen() {
+export default function MerchantAnalyticsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
@@ -79,7 +79,6 @@ export default function MerchantAnalyticsScreen() {
   }
 
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-
     <AnalyticsCard
       key={item.title} //TODO: is this right?
       title={item.title}
@@ -88,8 +87,19 @@ export default function MerchantAnalyticsScreen() {
       startDate={item.startDate}
       rangeName={item.rangeName}
     />
-
   )
+
+  const ListFooterComponent = (
+    <ButtonWithText
+      text='Something Missing?'
+      onPress={() => navigation.navigate('Survey', {
+        survey: dummySuggestAnalyticSurvey
+      })}
+      viewStyle={{ marginTop: MARGIN }}
+      negativeStyle
+    />
+  )
+
   return (
 
     <KeyboardAvoidingView
@@ -103,13 +113,13 @@ export default function MerchantAnalyticsScreen() {
         <SectionList
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={searchResults}
-          contentContainerStyle={styles.businessFlatList}
+          contentContainerStyle={styles.container}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={renderSectionHeader}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
-          ListFooterComponent={<SuggestAnalyticForm />}
+          ListFooterComponent={ListFooterComponent}
         />
 
       </ScreenContainer>
@@ -132,35 +142,3 @@ export default function MerchantAnalyticsScreen() {
   );
 }
 
-function SuggestAnalyticForm() {
-  return (
-    <View style={[styles.card, styles.container]}>
-      <View style={styles.analyticsHeaderContainer}>
-        <Text style={styles.analyticsTitle}>Something missing?</Text>
-      </View>
-      <View style={styles.analyticsContentContainer}>
-        <Text style={styles.prose}>
-          Suggest a metric you'd like to see...
-        </Text>
-        <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-          <TextInput
-            // autoFocus={true}
-            selectionColor={colors.gold}
-            style={styles.receipt}
-            // onChangeText={""}
-            placeholder={""}
-            multiline
-            numberOfLines={3}
-            placeholderTextColor={colors.subtle}
-            onSubmitEditing={() => { }} />
-        </View>
-        <ButtonWithText
-          text='Submit'
-          color={colors.gold}
-          onPress={null}
-        />
-      </View>
-
-    </View>
-  );
-}

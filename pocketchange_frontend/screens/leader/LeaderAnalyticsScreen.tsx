@@ -1,12 +1,12 @@
 import { SectionList, KeyboardAvoidingView, TextInput, RefreshControl, Platform, } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import { Button, SearchBar } from '@rneui/base';
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
 import { DivHeader, ButtonWithText } from '../../components/Cards';
 import { colors } from '../../constants/Colors';
 
-import { merchantAnalytics, leaderAnalytics } from '../../dummy';
+import { merchantAnalytics, leaderAnalytics, dummySuggestAnalyticSurvey } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
 
@@ -17,7 +17,7 @@ import { AnalyticsCard } from '../../components/AnalyticsCard';
 
 // TODO: add hook call to query all analytics
 
-export default function LeaderAnalyticsScreen() {
+export default function LeaderAnalyticsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
@@ -58,7 +58,6 @@ export default function LeaderAnalyticsScreen() {
 
 
   const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-
     <AnalyticsCard
       key={item.title} //TODO: is this right?
       title={item.title}
@@ -67,8 +66,19 @@ export default function LeaderAnalyticsScreen() {
       startDate={item.startDate}
       rangeName={item.rangeName}
     />
-
   )
+
+  const ListFooterComponent = (
+    <ButtonWithText
+      text='Something Missing?'
+      onPress={() => navigation.navigate('Survey', {
+        survey: dummySuggestAnalyticSurvey
+      })}
+      viewStyle={{ marginTop: MARGIN }}
+      negativeStyle
+    />
+  )
+
   return (
 
     <KeyboardAvoidingView
@@ -82,13 +92,13 @@ export default function LeaderAnalyticsScreen() {
         <SectionList
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={searchResults}
-          contentContainerStyle={styles.businessFlatList}
+          contentContainerStyle={styles.container}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={renderSectionHeader}
           renderItem={renderAnalyticsCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
-          ListFooterComponent={<SuggestAnalyticForm />}
+          ListFooterComponent={ListFooterComponent}
         />
 
       </ScreenContainer>
