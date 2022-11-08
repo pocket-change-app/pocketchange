@@ -867,6 +867,10 @@ export const styles = StyleSheet.create({
 
   surveyCard: {
     marginBottom: 0
+  },
+
+  errorText: {
+    color: colors.tomato,
   }
 
 })
