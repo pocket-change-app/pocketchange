@@ -9,7 +9,7 @@ import { BusinessCardSm, UserCardSm } from "./Cards";
 import { HorizontalLine } from "./Lines";
 import { Dimensions } from "react-native";
 
-export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
+export default function MetricCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
   const authContext = useContext(AuthContext);
 
@@ -93,24 +93,24 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       case 'text-participation-business':
         return (
           <>
-            <Text style={styles.analyticsNormalText}>
-              <Text style={[styles.analyticsMetricText, { color: colors.gold }]} >
+            <Text style={styles.metricsNormalText}>
+              <Text style={[styles.metricsMetricText, { color: colors.gold }]} >
                 {data[0].numCustomers}
               </Text>
               <Text style={{ color: colors.medium }}>
                 {" customers used PocketChange"}
               </Text>
             </Text>
-            <Text style={[styles.analyticsNormalText]}>
-              <Text style={[styles.analyticsMetricText, { color: colors.blue }]}>
+            <Text style={[styles.metricsNormalText]}>
+              <Text style={[styles.metricsMetricText, { color: colors.blue }]}>
                 {data[0].visitRate}
               </Text>
               <Text style={{ color: colors.medium }}>
                 {" average visits per week"}
               </Text>
             </Text>
-            <Text style={styles.analyticsNormalText}>
-              <Text style={[styles.analyticsMetricText, { color: colors.green }]}>
+            <Text style={styles.metricsNormalText}>
+              <Text style={[styles.metricsMetricText, { color: colors.green }]}>
                 {data[0].pocketShare}%
               </Text>
               <Text style={{ color: colors.medium }}>
@@ -123,19 +123,19 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
       case 'text-participation-pocket':
         return (
           <>
-            <Text style={styles.analyticsNormalText}>
+            <Text style={styles.metricsNormalText}>
               {/* <Text style={{color: colors.medium}}>
               {"There are "} 
             </Text> */}
-              <Text style={[styles.analyticsMetricText, { color: colors.gold }]} >
+              <Text style={[styles.metricsMetricText, { color: colors.gold }]} >
                 {data[0].numCustomers}
               </Text>
               <Text style={{ color: colors.medium }}>
                 {" PocketChange users in Uptown Yonge"}
               </Text>
             </Text>
-            <Text style={[styles.analyticsNormalText]}>
-              <Text style={[styles.analyticsMetricText, { color: colors.blue }]}>
+            <Text style={[styles.metricsNormalText]}>
+              <Text style={[styles.metricsMetricText, { color: colors.blue }]}>
                 {data[0].visitRate}
               </Text>
               <Text style={{ color: colors.medium }}>
@@ -297,7 +297,7 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
         return (
           <View style={[styles.card, styles.container]}>
             <Text style={styles.errorText}>
-              Error: no match for received type in AnalyticsCard
+              Error: no match for received type in MetricCard
             </Text>
           </View>
         )
@@ -306,14 +306,14 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
 
   return (
     <View style={[styles.card]}>
-      <View style={[styles.container, styles.analyticsHeaderContainer]}>
-        <Text style={styles.analyticsTitle}>{title}</Text>
-        <Text style={styles.analyticsRange}>{rangeName}</Text>
+      <View style={[styles.container, styles.metricsHeaderContainer]}>
+        <Text style={styles.metricsTitle}>{title}</Text>
+        <Text style={styles.metricsRange}>{rangeName}</Text>
       </View>
 
       <HorizontalLine />
 
-      <View style={[styles.container, styles.analyticsContentContainer]}>
+      <View style={[styles.container, styles.metricsContentContainer]}>
         {renderChart()}
       </View>
 

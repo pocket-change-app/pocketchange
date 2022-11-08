@@ -56,9 +56,9 @@ export const dummyTextSurvey = {
   prompt: "How was your visit to Best Bun Bakery?",
 }
 
-export const dummySuggestAnalyticSurvey = {
+export const dummySuggestMetricSurvey = {
   type: surveyType.text,
-  prompt: 'What analytic would you like to see on PocketChange?'
+  prompt: 'What metric would you like to see on PocketChange?'
 }
 
 
@@ -713,7 +713,7 @@ export const transactions = [
   },
 ]
 
-export const merchantAnalytics = [
+export const merchantMetrics = [
   {
     sectionTitle: "Favourites",
     data: [{
@@ -734,7 +734,7 @@ export const merchantAnalytics = [
     },],
   },
   {
-    sectionTitle: "Customer Analytics",
+    sectionTitle: "Customer Metrics",
     data: [
       {
         title: "PocketChange Participation",
@@ -827,7 +827,7 @@ export const merchantAnalytics = [
     ],
   },
   {
-    sectionTitle: "Sales Analytics",
+    sectionTitle: "Sales Metrics",
     data: [
       {
         title: "Number of Scans",
@@ -864,7 +864,7 @@ export const merchantAnalytics = [
     ],
   },
   {
-    sectionTitle: "Pocket Analytics",
+    sectionTitle: "Pocket Metrics",
     data: [
       {
         title: "Pocket Membership",
@@ -1058,7 +1058,7 @@ export const merchantAnalytics = [
   },
 ]
 
-export const leaderAnalytics = [
+export const leaderMetrics = [
   {
     sectionTitle: "Favourites",
     data: [{
@@ -1079,7 +1079,7 @@ export const leaderAnalytics = [
     },],
   },
   {
-    sectionTitle: "Customer Analytics",
+    sectionTitle: "Customer Metrics",
     data: [
       {
         title: "Pocket Membership",
@@ -1171,7 +1171,7 @@ export const leaderAnalytics = [
     ],
   },
   {
-    sectionTitle: "Contest Analytics",
+    sectionTitle: "Contest Metrics",
     data: [
       {
         title: "Number of Scans",

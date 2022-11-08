@@ -10,7 +10,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import { styles } from '../Styles';
 
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
-import MerchantAnalyticsScreen from '../screens/merchant/MerchantAnalyticsScreen';
+import MerchantMetricsScreen from '../screens/merchant/MerchantMetricsScreen';
 import TransactionsTabScreen from '../screens/merchant/TransactionsTabScreen';
 import PocketScreen from '../screens/consumer/PocketScreen';
 import MerchantSettingsScreen from '../screens/merchant/MerchantSettingsScreen';
@@ -100,10 +100,10 @@ function TransactionsStack() {
 }
 
 
-function AnalyticsStack() {
+function MetricsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='MerchantAnalytics'
+      initialRouteName='MerchantMetrics'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -113,10 +113,10 @@ function AnalyticsStack() {
       }}
     >
       <Stack.Screen
-        name="MerchantAnalytics"
-        component={MerchantAnalyticsScreen}
+        name="MerchantMetrics"
+        component={MerchantMetricsScreen}
         options={{
-          title: 'Business Analytics'
+          title: 'Business Metrics'
         }}
       // screenOptions={{ headerShown: false }}
       />
@@ -179,7 +179,7 @@ const BottomTabMerchant = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='AnalyticsStack'
+      initialRouteName='MetricsStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
@@ -192,10 +192,10 @@ const BottomTabMerchant = () => {
       }}
     >
       <BottomTab.Screen
-        name="AnalyticsStack"
-        component={AnalyticsStack}
-        options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
-          title: 'Business Analytics',
+        name="MetricsStack"
+        component={MetricsStack}
+        options={({ navigation }: RootTabScreenProps<'Metrics'>) => ({
+          title: 'Business Metrics',
           tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
         })}
       />

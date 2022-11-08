@@ -2,7 +2,7 @@
 
 import { initializeApp } from "firebase/app";
 
-//import { getAnalytics } from "firebase/analytics";
+//import { getMetrics } from "firebase/metrics";
 import 'firebase/auth';
 
 import Constants from 'expo-constants';
@@ -32,4 +32,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-//const analytics = getAnalytics(app);
+//const metrics = getMetrics(app);

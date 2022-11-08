@@ -31,9 +31,9 @@ const linking: LinkingOptions<RootStackParamList> = {
               WalletScreen: 'wallet tab',
             },
           },
-          Analytics: {
+          Metrics: {
             screens: {
-              AnalyticsDashboardScreen: 'analytics',
+              MetricsDashboardScreen: 'metrics',
             },
           },
           Transactions: {
