@@ -116,7 +116,7 @@ function AnalyticsStack() {
         name="MerchantAnalytics"
         component={MerchantAnalyticsScreen}
         options={{
-          title: ' Analytics '
+          title: 'Business Analytics'
         }}
       // screenOptions={{ headerShown: false }}
       />
@@ -179,7 +179,7 @@ const BottomTabMerchant = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='TransactionsStack'
+      initialRouteName='AnalyticsStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
@@ -195,7 +195,7 @@ const BottomTabMerchant = () => {
         name="AnalyticsStack"
         component={AnalyticsStack}
         options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
-          title: 'Analytics',
+          title: 'Business Analytics',
           tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
         })}
       />
