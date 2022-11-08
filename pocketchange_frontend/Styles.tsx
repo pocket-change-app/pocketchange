@@ -798,7 +798,7 @@ export const styles = StyleSheet.create({
 
   analyticsContentContainer: {
     // padding: 10,
-    // alignItems: 'center',
+    alignItems: 'center',
   },
 
   analyticsSectionHeaderContainer: {
