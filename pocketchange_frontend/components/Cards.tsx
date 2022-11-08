@@ -110,12 +110,17 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
 
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
 
-          <Pressable style={[styles.buttonBordered, { flex: 1, marginRight: MARGIN }]}
-            onPress={() => Linking.openURL(`tel:${businessData?.business?.phoneNumber}`)}>
-            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>CALL</Text>
-          </Pressable>
+          <ButtonWithText
+            text='Call'
+            negativeStyle
+            viewStyle={{ flex: 1, marginRight: MARGIN }}
+            onPress={() => Linking.openURL(`tel:${businessData?.business?.phoneNumber}`)}
+          />
 
-          <Pressable style={[styles.buttonBordered, { flex: 1 }]}
+          <ButtonWithText
+            text='Open Maps'
+            negativeStyle
+            viewStyle={{ flex: 1 }}
             onPress={() => {
               const dString =
                 `${businessData?.business?.address.buildingNumber}`
@@ -133,10 +138,8 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
               // console.log(dString);
 
               Linking.openURL(link)
-            }
-            }>
-            <Text style={[styles.cardHeaderText, styles.buttonBorderedText]}>Open Maps</Text>
-          </Pressable>
+            }}
+          />
         </View>
       </View>
     </View>
