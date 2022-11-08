@@ -1113,7 +1113,7 @@ export function UserCardSm({ user }: any) {
   return (
 
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', width: 100 }}>
+      <View style={{ flexDirection: 'row' }}>
         <Image
           style={[styles.idImage, { width: 30, height: 30, marginLeft: 0 }]}
           source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
