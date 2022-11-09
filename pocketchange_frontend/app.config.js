@@ -24,7 +24,7 @@ export default {
       "supportsTablet": true,
       "bundleIdentifier": "ca.pocketchangeapp.pocketchange",
       "buildNumber": "4",
-      "associatedDomains": ["applinks:orca-app-9vz2b.ondigitalocean.app"]
+      "associatedDomains": ["applinks:pocketchangeapp.ca"]
     },
     "android": {
       "adaptiveIcon": {
