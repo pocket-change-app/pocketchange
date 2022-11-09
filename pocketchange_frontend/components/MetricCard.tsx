@@ -18,7 +18,7 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
 
       case 'bar':
         return (
-          <Svg width="100%" height={150}>
+          <Svg width='100%' height={150}>
             <V.VictoryChart
               standalone={false}
               height={150}
@@ -47,7 +47,6 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
                 style={{
                   axis: {
                     stroke: colors.subtle,
-                    zIndex: 10,
                   },
                   grid: {
                     stroke: colors.light, //CHANGE COLOR OF X-AXIS GRID LINES
