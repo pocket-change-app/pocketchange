@@ -86,7 +86,7 @@ export const Router = () => {
   const linking = {
     prefixes: [
       Linking.createURL('/'),
-      'https://pocketchangeapp.ca/',
+      'https://www.pocketchangeapp.ca/',
     ],
   };
 
