@@ -1,7 +1,7 @@
 import { Pressable, Image, Linking, Platform, Switch, Settings, ActivityIndicator, StyleProp, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
 import { Text, View } from './Themed';
 import { HorizontalLine, VerticalLine } from './Lines'
-import { styles, MARGIN } from '../Styles';
+import { styles, MARGIN, MARGIN_SM } from '../Styles';
 import { contestsData } from '../dummy';
 import Hyphenated from 'react-hyphen';
 import { colors } from '../constants/Colors';
@@ -1112,13 +1112,17 @@ export function UserCardSm({ user }: any) {
 
   return (
 
-    <View style={styles.container}>
-      <View style={{ flexDirection: 'row', width: 100 }}>
+    <View style={styles.thinContainer}>
+      <View style={{ flexDirection: 'row' }}>
         <Image
-          style={[styles.idImage, { width: 30, height: 30, marginLeft: 0 }]}
+          style={[styles.idImage, { width: 30, marginLeft: 0 }]}
           source={imageURL ? { uri: imageURL } : require('../assets/images/defaults/userProfile.png')}
         />
-        <View style={{ justifyContent: 'center', marginLeft: 10, }}><Text style={{ fontFamily: 'metropolis bold', color: colors.medium }}>{user.firstName} {user.lastName[0]}</Text></View>
+        <View style={{ justifyContent: 'center', marginLeft: MARGIN / 2, }}>
+          <Text style={{ fontFamily: 'metropolis bold', color: colors.medium }}>
+            {user.firstName} {user.lastName[0]}.
+          </Text>
+        </View>
 
       </View>
     </View>
