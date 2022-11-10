@@ -6,7 +6,7 @@ import { View } from './components/Themed';
 import { colors } from './constants/Colors';
 
 export const MARGIN = 12
-export const MARGIN_SM = MARGIN / 2
+export const MARGIN_SM = MARGIN * 0.8
 export const CARD_RADIUS = MARGIN
 export const BORDER_WIDTH = 1
 export const BUTTON_HEIGHT = 50
@@ -96,8 +96,12 @@ export const styles = StyleSheet.create({
     padding: MARGIN,
   },
 
+  thinContainer: {
+    padding: MARGIN / 2,
+  },
+
   floatingButtonContainer: {
-    padding: MARGIN * 3 / 2,
+    padding: MARGIN_SM,
     width: '100%',
     position: 'absolute',
     bottom: 0,
@@ -238,14 +242,14 @@ export const styles = StyleSheet.create({
   horizontalLine: {
     backgroundColor: colors.light,
     height: BORDER_WIDTH,
-    marginHorizontal: MARGIN_SM,
+    marginHorizontal: MARGIN / 2,
     borderRadius: 1
   },
 
   verticalLine: {
     backgroundColor: colors.light,
     width: BORDER_WIDTH,
-    marginVertical: MARGIN_SM,
+    marginVertical: MARGIN / 2,
     borderRadius: 1
   },
 
@@ -860,7 +864,7 @@ export const styles = StyleSheet.create({
 
   popupContainer: {
     flex: 1,
-    padding: MARGIN * 0.8,
+    padding: MARGIN_SM,
     justifyContent: 'center',
     backgroundColor: colors.overlay,
   },

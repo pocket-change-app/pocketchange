@@ -6,13 +6,15 @@ import { ScreenContainer, View, Text } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
 import { AuthContext, RoleType } from "../../contexts/Auth";
 import { contestsData } from "../../dummy";
-import { MARGIN, styles } from "../../Styles";
+import { BUTTON_HEIGHT, MARGIN, MARGIN_SM, styles } from "../../Styles";
 import wait, { waitTimes } from "../../utils/wait";
 
 
 export default function ContestScreen({ navigation, route }: { navigation: any, route: any }) {
 
   const authContext = useContext(AuthContext)
+
+  const isLeader = (authContext.activeRole.type === RoleType.Leader)
 
   const { contestID } = route.params
 
@@ -42,7 +44,7 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
 
       <FlatList
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        contentContainerStyle={[styles.container, { alignItems: 'center' }]}
+        contentContainerStyle={[styles.container, { alignItems: 'center', paddingBottom: (isLeader ? (MARGIN_SM * 2 + BUTTON_HEIGHT) : undefined) }]}
         ListHeaderComponent={() => {
           return (
             <>
@@ -58,11 +60,14 @@ export default function ContestScreen({ navigation, route }: { navigation: any, 
         }}
         data={contestData?.contest?.participants}
         renderItem={renderParticipant}
-        numColumns={2}
+        /** one million columns with flexwrap column style gives desired wrapping;
+         * FlatList gives error when using flexWrap otherwise */
+        numColumns={10 ** 6} 
+        columnWrapperStyle={{ flexWrap: 'wrap', justifyContent: 'center' }}
         keyExtractor={(item) => item.userID}
       />
 
-      {(authContext.activeRole.type === RoleType.Leader)
+      {(isLeader)
         ? (
           <>
             <View style={styles.floatingButtonContainer}>
