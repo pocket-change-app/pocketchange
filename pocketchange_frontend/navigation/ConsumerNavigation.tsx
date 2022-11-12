@@ -112,14 +112,16 @@ function PocketStack() {
         headerShadowVisible: false,
         headerTintColor: colors.gold,
         headerBackTitleStyle: styles.navigationBackTitleStyle,
-        // headerBackButtonMenuEnabled: true,
         // headerTitle: 'Pockets',
       }}
     >
       <Stack.Screen
         name="PocketSearch"
         component={PocketTabScreen}
-        options={{ title: 'Pockets' }}
+        options={{
+          title: 'Pockets',
+          headerShown: false,
+        }}
       />
 
       <Stack.Screen

@@ -1,4 +1,4 @@
-import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList } from 'react-native';
+import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../../Styles';
@@ -156,13 +156,17 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
+      // keyboardVerticalOffset={100}
       style={{ flex: 1 }}
     >
-
+      <SafeAreaView style={{ flex: 1 }}>
       <ScreenContainer>
+
+
         <PageContents />
+
       </ScreenContainer>
+      </SafeAreaView>
 
       <SearchBar
         containerStyle={styles.searchBarContainer}
@@ -178,7 +182,6 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         onChangeText={setSearchQuery}
         value={searchQuery}
       />
-
     </KeyboardAvoidingView>
   )
 
