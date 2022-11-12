@@ -108,7 +108,7 @@ export const styles = StyleSheet.create({
   },
 
   image: {
-    borderWidth: BORDER_WIDTH,
+    // borderWidth: BORDER_WIDTH,
     borderColor: colors.imageBorder,
     borderRadius: CARD_RADIUS - BORDER_WIDTH,
   },
@@ -621,6 +621,7 @@ export const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     flexGrow: 1,
     // marginRight: 15,
+    borderWidth: 0,
     marginBottom: 0,
     justifyContent: 'space-between',
   },
@@ -646,10 +647,10 @@ export const styles = StyleSheet.create({
   },
 
   pocketListImage: {
+    borderWidth: BORDER_WIDTH,
     flex: 1,
     width: undefined,
     height: undefined,
-    borderRadius: CARD_RADIUS,
   },
 
   pocketSearchResultFlatList: {
