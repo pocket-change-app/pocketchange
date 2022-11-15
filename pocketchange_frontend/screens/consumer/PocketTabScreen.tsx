@@ -49,7 +49,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
 
   let allSearchResults: any[] = [
-    { title: null, data: [] },
+    { title: 'Pockets', data: [] },
     { title: 'Businesses', data: [] }
   ]
 
@@ -129,6 +129,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       return (
         <ScreenContainer>
           <SectionList
+            // inverted
             // refreshControl={
             //   <RefreshControl
             //     refreshing={refreshingSearchResults}
@@ -139,7 +140,6 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
             contentContainerStyle={styles.pocketSearchResultFlatList}
 
             // ItemSeparatorComponent={PocketListSeparator}
-
             sections={allSearchResults}
             keyExtractor={(item, index) => item + index}
             renderItem={renderSearchResult}
