@@ -172,7 +172,6 @@ export const styles = StyleSheet.create({
     height: 100,
     backgroundColor: colors.bg,
     borderTopWidth: 0,
-    // borderWidth: 0,
     borderColor: colors.light,
   },
 
