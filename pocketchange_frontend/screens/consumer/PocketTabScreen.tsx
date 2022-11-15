@@ -1,14 +1,15 @@
-import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard } from 'react-native';
+import { SearchBar } from '@rneui/themed';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../../Styles';
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
-import { Text } from '../../components/Themed';
+import { Text, View } from '../../components/Themed';
 import { ScreenContainer } from '../../components/Themed';
 import { useContext, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
+import FloatingTitle from '../../components/FloatingTitle';
 
 
 // const R = require('ramda');
@@ -126,24 +127,26 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       )
     } else {
       return (
-        <SectionList
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={refreshingSearchResults}
-          //     onRefresh={onRefreshSearchResults}
-          //   />
-          // }
-          // style={styles.pocketFlatList}
-          contentContainerStyle={styles.pocketSearchResultFlatList}
+        <ScreenContainer>
+          <SectionList
+            // refreshControl={
+            //   <RefreshControl
+            //     refreshing={refreshingSearchResults}
+            //     onRefresh={onRefreshSearchResults}
+            //   />
+            // }
+            // style={styles.pocketFlatList}
+            contentContainerStyle={styles.pocketSearchResultFlatList}
 
-          // ItemSeparatorComponent={PocketListSeparator}
+            // ItemSeparatorComponent={PocketListSeparator}
 
-          sections={allSearchResults}
-          keyExtractor={(item, index) => item + index}
-          renderItem={renderSearchResult}
-          renderSectionHeader={renderSectionHeader}
-          stickySectionHeadersEnabled={false}
-        />
+            sections={allSearchResults}
+            keyExtractor={(item, index) => item + index}
+            renderItem={renderSearchResult}
+            renderSectionHeader={renderSectionHeader}
+            stickySectionHeadersEnabled={false}
+          />
+        </ScreenContainer>
       )
     }
   }
@@ -159,16 +162,36 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       // keyboardVerticalOffset={100}
       style={{ flex: 1 }}
     >
-      <SafeAreaView style={{ flex: 1 }}>
-      <ScreenContainer>
 
+
+      {/* WITH TITLE */}
+
+      {/* <SafeAreaView style={{ flex: 1 }}>
+        <ScreenContainer>
+
+          <View style={{ marginVertical: MARGIN }}>
+            <PageContents />
+          </View>
+
+          <FloatingTitle text='Pockets' />
+
+        </ScreenContainer>
+      </SafeAreaView> */}
+
+
+      {/* NO TITLE */}
+
+      <SafeAreaView style={{ flex: 1 }}>
 
         <PageContents />
 
-      </ScreenContainer>
       </SafeAreaView>
 
+
+
       <SearchBar
+        selectionColor={colors.gold}
+        platform='ios'
         containerStyle={styles.searchBarContainer}
         inputContainerStyle={styles.searchBarInputContainer}
 
@@ -176,8 +199,9 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         placeholder="Search Pockets and Businesses"
         placeholderTextColor={colors.subtle}
 
-        showCancel={true}
-        cancelButtonTitle='cancel'
+        // showCancel={true}
+        // cancelButtonTitle='Cancel'
+        cancelButtonProps={{ color: colors.subtle }}
 
         onChangeText={setSearchQuery}
         value={searchQuery}

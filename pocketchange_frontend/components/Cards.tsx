@@ -290,7 +290,7 @@ export function PocketCarouselCard({ navigation, pocket }: { navigation: any, po
     >
       {/* <View> */}
       <View style={styles.pocketListCardContainer}>
-        <View style={[styles.card, styles.pocketListCard, { marginTop: MARGIN, marginBottom: MARGIN }]}>
+        <View style={[styles.card, styles.pocketListCard]}>
           {/* <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{pocket.name}</Text>
           </View> */}
