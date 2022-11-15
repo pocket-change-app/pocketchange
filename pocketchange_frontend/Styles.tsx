@@ -185,10 +185,10 @@ export const styles = StyleSheet.create({
   searchBarContainer: {
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
-    marginHorizontal: MARGIN,
-
-    // paddingVertical: MARGIN,
-    backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
+    margin: MARGIN,
+    paddingTop: 0,
+    paddingBottom: 0,
+    backgroundColor: 'transparent',
   },
 
   searchBarInputContainer: {
@@ -204,7 +204,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis medium',
     fontSize: 16,
     lineHeight: 16,
-    // lineHeight: 25,
     color: colors.medium,
   },
 
