@@ -290,7 +290,7 @@ export function PocketCarouselCard({ navigation, pocket }: { navigation: any, po
     >
       {/* <View> */}
       <View style={styles.pocketListCardContainer}>
-        <View style={[styles.card, styles.pocketListCard, { marginTop: MARGIN, marginBottom: MARGIN }]}>
+        <View style={[styles.card, styles.pocketListCard]}>
           {/* <View style={styles.pocketListNameContainer}>
             <Text style={styles.pocketListName}>{pocket.name}</Text>
           </View> */}
@@ -298,7 +298,7 @@ export function PocketCarouselCard({ navigation, pocket }: { navigation: any, po
           <View style={styles.pocketListImageContainer}>
             {imageURL ?
               <Image
-                style={styles.pocketListImage}
+                style={[styles.image, styles.pocketListImage]}
                 source={{ uri: imageURL }}
               /> : <></>
             }
@@ -341,36 +341,33 @@ export function PocketDetailCard({ navigation, pocketID }: { navigation: any, po
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
-    <>
+    <View style={styles.card}>
+      <View style={[styles.pocketHeaderImageContainer]}>
 
-      <View style={styles.card}>
-        <View style={[styles.pocketHeaderImageContainer]}>
+        {imageURL
+          ? (
+            <Image
+              style={[styles.image, styles.pocketHeaderImage]}
+              source={{ uri: imageURL }}
+            />
+          ) : (
+            <Image
+              style={[styles.image, styles.pocketHeaderImage]}
+              source={require('../assets/images/defaults/businessProfile.png')}
+            />
+          )
+        }
 
-          {imageURL
-            ? (
-              <Image
-                style={[styles.image, styles.pocketHeaderImage]}
-                source={{ uri: imageURL }}
-              />
-            ) : (
-              <Image
-                style={[styles.image, styles.pocketHeaderImage]}
-                source={require('../assets/images/defaults/businessProfile.png')}
-              />
-            )
-          }
-
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.pocketTitle}>{pocketData?.pocket?.pocketName}</Text>
-          <Hyphenated>
-            <Text style={styles.prose}>
-              {pocketData?.pocket?.description}
-            </Text>
-          </Hyphenated>
-        </View>
       </View>
-    </>
+      <View style={styles.container}>
+        <Text style={styles.pocketTitle}>{pocketData?.pocket?.pocketName}</Text>
+        <Hyphenated>
+          <Text style={styles.prose}>
+            {pocketData?.pocket?.description}
+          </Text>
+        </Hyphenated>
+      </View>
+    </View>
   );
 }
 

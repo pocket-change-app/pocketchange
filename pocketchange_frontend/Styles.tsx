@@ -107,8 +107,26 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
+  floatingTitleContainer: {
+    alignSelf: 'left',
+    marginTop: -BORDER_WIDTH,
+    marginHorizontal: MARGIN,
+    // padding: MARGIN * 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+  },
+
+  floatingTitleCard: {
+    backgroundColor: colors.bg,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderTopWidth: 0
+  },
+
   image: {
-    borderWidth: BORDER_WIDTH,
+    // borderWidth: BORDER_WIDTH,
     borderColor: colors.imageBorder,
     borderRadius: CARD_RADIUS - BORDER_WIDTH,
   },
@@ -154,7 +172,6 @@ export const styles = StyleSheet.create({
     height: 100,
     backgroundColor: colors.bg,
     borderTopWidth: 0,
-    // borderWidth: 0,
     borderColor: colors.light,
   },
 
@@ -167,27 +184,25 @@ export const styles = StyleSheet.create({
   searchBarContainer: {
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
-    paddingHorizontal: MARGIN,
-    // paddingVertical: MARGIN,
-    backgroundColor: 'rgba(0,0,0,0,1)', //colors.bg,
-    justifyContent: 'center',
+    margin: MARGIN,
+    paddingTop: 0,
+    paddingBottom: 0,
+    backgroundColor: 'transparent',
   },
 
   searchBarInputContainer: {
     height: 40,
-    backgroundColor: colors.bgLight, //colors.bg,
+    backgroundColor: colors.card, //colors.bg,
     borderRadius: CARD_RADIUS,
     borderColor: colors.light,
     borderWidth: BORDER_WIDTH,
     borderBottomWidth: BORDER_WIDTH,
-    justifyContent: 'center',
   },
 
   searchBarInput: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
     lineHeight: 16,
-    // lineHeight: 25,
     color: colors.medium,
   },
 
@@ -600,7 +615,7 @@ export const styles = StyleSheet.create({
   },
 
   pocketFlatList: {
-    paddingVertical: 0,
+    // paddingVertical: MARGIN,
     paddingHorizontal: POCKET_CARD_SCREEN_MARGIN,
     // margin: 15,
     // backgroundColor: 'rgba(0,0,0,0.1)',
@@ -618,9 +633,10 @@ export const styles = StyleSheet.create({
 
   pocketListCard: {
     // aspectRatio: POCKET_CARD_ASPECT_RATIO,
-    width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
+    // width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
     flexGrow: 1,
     // marginRight: 15,
+    borderWidth: 0,
     marginBottom: 0,
     justifyContent: 'space-between',
   },
@@ -646,10 +662,10 @@ export const styles = StyleSheet.create({
   },
 
   pocketListImage: {
+    borderWidth: BORDER_WIDTH,
     flex: 1,
     width: undefined,
     height: undefined,
-    borderRadius: CARD_RADIUS,
   },
 
   pocketSearchResultFlatList: {
