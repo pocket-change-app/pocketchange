@@ -3,7 +3,7 @@ import { Pressable, ScrollView } from "react-native";
 import { ScreenContainer, View, Text } from "../../components/Themed";
 import { BusinessCardSm, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
-import { styles } from "../../Styles";
+import { MARGIN, styles } from "../../Styles";
 import { HorizontalLine } from "../../components/Lines";
 import React, { useContext } from "react";
 import { AuthContext, RoleType } from "../../contexts/Auth";
@@ -55,24 +55,13 @@ export default function MerchantSettingsScreen({ route, navigation }: { route: a
           rolesList={rolesData.getUserRoles}
         />
 
-        {/* <View style={styles.card}>
-          <SettingPressable
-            iconName='random'
-            settingText={`Switch Accounts`}
-            onPress={() => switchAccount()}
+        <View style={{ marginBottom: MARGIN }}>
+          <BusinessCardSm
+            businessID={businessID}
+            showPocket
           />
-        </View> */}
+        </View>
 
-
-        {/* {isNilOrEmpty(businessData?.business)
-          ? (<ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} />
-          ) : (  */}
-        <BusinessCardSm
-          businessID={businessID}
-          showPocket
-        />
-        {/* )
-        } */}
         <View style={[styles.card]}>
 
           <SettingPressable

@@ -293,6 +293,7 @@ export const styles = StyleSheet.create({
 
   businessListItemCard: {
     flexDirection: 'row', // makes the image and text next to each other
+    marginBottom: 0,
     height: 80,
   },
 
@@ -365,7 +366,6 @@ export const styles = StyleSheet.create({
   },
 
   businessFlatList: {
-    flexGrow: 1,
     padding: MARGIN,
     paddingBottom: 0,
   },
@@ -666,11 +666,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-  },
-
-  pocketSearchResultFlatList: {
-    padding: MARGIN,
-    // flex: 1,
   },
 
   pocketSearchResultContainer: {
