@@ -1,5 +1,6 @@
 import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshControl } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import SearchBar from '../../components/SearchBar';
+import { useHeaderHeight } from '@react-navigation/elements'
 
 import { styles } from '../../Styles';
 import { businesses, contestsData } from '../../dummy';
@@ -75,7 +76,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}
     >
       <ScreenContainer>
@@ -133,17 +134,12 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
       </ScreenContainer>
 
-      <SearchBar
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-        inputStyle={styles.searchBarInput}
-        placeholder={'Search ' + pocket.pocketName}
-        placeholderTextColor={colors.subtle}
-
-        onChangeText={setSearchQuery}
-        onClear={() => null}
+      <SearchBar 
         value={searchQuery}
+        onChangeText={setSearchQuery}
+        placeholder={'Search ' + pocket.pocketName}
       />
+
     </KeyboardAvoidingView>
 
     //   <ScrollView

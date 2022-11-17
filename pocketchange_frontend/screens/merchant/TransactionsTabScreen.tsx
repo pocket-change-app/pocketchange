@@ -1,5 +1,6 @@
 import { FlatList, KeyboardAvoidingView, RefreshControl } from 'react-native';
-import { SearchBar } from '@rneui/base';
+import SearchBar from '../../components/SearchBar';
+import { useHeaderHeight } from '@react-navigation/elements'
 import { useCallback, useContext, useState } from 'react';
 
 import { styles } from '../../Styles';
@@ -93,7 +94,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}>
 
       <ScreenContainer>
@@ -109,18 +110,11 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
       </ScreenContainer>
 
       <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Transactions"
-        placeholderTextColor={colors.subtle}
-
-        onChangeText={setSearchQuery}
-        onClear={() => null}
         value={searchQuery}
+        onChangeText={setSearchQuery}
+        placeholder="Search Transactions"
       />
+
     </KeyboardAvoidingView>
 
   )

@@ -1,5 +1,4 @@
 import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard } from 'react-native';
-import { SearchBar } from '@rneui/themed';
 
 import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../../Styles';
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
@@ -10,6 +9,9 @@ import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
 import FloatingTitle from '../../components/FloatingTitle';
+import SearchBar from '../../components/SearchBar';
+import { useHeaderHeight } from '@react-navigation/elements'
+
 
 
 // const R = require('ramda');
@@ -159,7 +161,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      // keyboardVerticalOffset={100}
+      keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}
     >
 
@@ -187,25 +189,12 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
 
       </SafeAreaView>
 
-
-
-      <SearchBar
-        selectionColor={colors.gold}
-        platform='ios'
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Pockets and Businesses"
-        placeholderTextColor={colors.subtle}
-
-        // showCancel={true}
-        // cancelButtonTitle='Cancel'
-        cancelButtonProps={{ color: colors.subtle }}
-
-        onChangeText={setSearchQuery}
+      <SearchBar 
         value={searchQuery}
+        onChangeText={setSearchQuery}
+        placeholder='Search Pockets and Businesses'
       />
+
     </KeyboardAvoidingView>
   )
 
