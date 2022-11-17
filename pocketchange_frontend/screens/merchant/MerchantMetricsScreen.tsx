@@ -128,7 +128,7 @@ export default function MerchantMetricsScreen({ route, navigation }: { route: an
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search Analytics"
+        placeholder="Search for a Metric"
       />
 
     </KeyboardAvoidingView>

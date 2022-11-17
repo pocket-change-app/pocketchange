@@ -105,17 +105,10 @@ export default function LeaderMetricsScreen({ route, navigation }: { route: any,
       </ScreenContainer>
 
       <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Metrics"
-        placeholderTextColor={colors.subtle}
-
+        value={searchQuery}
         onChangeText={setSearchQuery}
-        onClear={() => null}
-        value={searchQuery} />
+        placeholder="Search for a Metric"
+      />
 
     </KeyboardAvoidingView>
 
