@@ -98,19 +98,6 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
 
       </ScreenContainer>
 
-      {/* <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Transactions"
-        placeholderTextColor={colors.subtle}
-
-        onChangeText={updateSearch}
-        onClear={() => null}
-        value={searchQuery}
-      /> */}
     </KeyboardAvoidingView>
 
   )
