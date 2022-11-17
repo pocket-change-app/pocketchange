@@ -4,8 +4,9 @@ import { AuthContext } from "../contexts/Auth";
 import * as V from 'victory-native'
 import { colors, colorScale } from "../constants/Colors";
 import { Text, View } from "./Themed";
-import { styles } from "../Styles";
+import { MARGIN, styles } from "../Styles";
 import { BusinessCardSm, UserCardSm } from "./Cards";
+import { FlatList } from "react-native";
 
 export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
@@ -227,11 +228,22 @@ export function AnalyticsCard({ title, type, rangeName, startDate, endDate, data
         </View>
       );
     } else if (type == 'list-similar-businesses') {
-      const listItems = data.map(
-        (item) => <BusinessCardSm navigation={undefined} businessID={item.businessID} showPocket />
-      );
+      const renderBusiness = ({ item, index, separators }) => (
+        <BusinessCardSm
+          navigation={undefined}
+          businessID={item.businessID}
+          showPocket
+        />
+      )
+      const BusinessSeparatorComponent = () => (
+        <View style={{ height: MARGIN }} />
+      )
       return (
-        <View>{listItems}</View>
+        <FlatList
+          data={data}
+          renderItem={renderBusiness}
+          ItemSeparatorComponent={BusinessSeparatorComponent}
+        />
       );
     } else if (type == 'list-top-customers') {
       const listItems = data.map(

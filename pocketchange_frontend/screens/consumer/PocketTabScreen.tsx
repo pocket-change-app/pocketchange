@@ -101,6 +101,10 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
+  const SearchResultSeparator = () => (
+    <View style={{ height: MARGIN }} />
+  )
+
   const renderSectionHeader = ({ section: { title, data } }: { section: { title: string, data: any[] } }) => {
     if (title && data.length > 0) {
       return (<DivHeader text={title} />)
@@ -110,7 +114,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   }
 
   const PageContents = () => {
-    if (searchQuery == '') {
+    if (!searchQuery) {
       return (
         <FlatList
           // style={styles.pocketFlatList}
@@ -132,16 +136,9 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         <ScreenContainer>
           <SectionList
             // inverted
-            // refreshControl={
-            //   <RefreshControl
-            //     refreshing={refreshingSearchResults}
-            //     onRefresh={onRefreshSearchResults}
-            //   />
-            // }
-            // style={styles.pocketFlatList}
-            contentContainerStyle={styles.pocketSearchResultFlatList}
+            contentContainerStyle={styles.container}
 
-            // ItemSeparatorComponent={PocketListSeparator}
+            ItemSeparatorComponent={SearchResultSeparator}
             sections={allSearchResults}
             keyExtractor={(item, index) => item + index}
             renderItem={renderSearchResult}

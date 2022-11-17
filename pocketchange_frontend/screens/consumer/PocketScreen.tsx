@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshContro
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 
-import { styles } from '../../Styles';
+import { MARGIN, styles } from '../../Styles';
 import { businesses, contestsData } from '../../dummy';
 import { ScreenContainer } from '../../components/Themed';
 
@@ -59,14 +59,16 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
 
   const renderBusinessCard = ({ item, index, separators }: any) => (
-
     <BusinessCardSm
       // key={item.businessID}
       navigation={navigation}
       businessID={item.businessID}
       showPocket={false}
     />
+  )
 
+  const ItemSeparatorComponent = () => (
+    <View style={{ height: MARGIN }} />
   )
 
   // Return query errors
@@ -125,9 +127,10 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
               return (null)
             }
           }}
-          contentContainerStyle={styles.businessFlatList}
+          contentContainerStyle={styles.container}
           data={searchResults}
           renderItem={renderBusinessCard}
+          ItemSeparatorComponent={ItemSeparatorComponent}
           ListFooterComponent={businessesLoading ? <ActivityIndicator size="large" color={colors.subtle} style={{ margin: 10 }} /> : <></>}
         />
 
