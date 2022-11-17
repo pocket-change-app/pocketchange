@@ -1,5 +1,6 @@
 import { FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, Pressable, TextInput } from 'react-native';
 import { SearchBar } from '@rneui/base';
+import { useHeaderHeight } from '@react-navigation/elements'
 
 import { styles } from '../../Styles';
 //import { businesses } from '../dummy';
@@ -63,8 +64,8 @@ export default function PayTabScreen({ navigation }: { navigation: any }) {
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={100}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={useHeaderHeight()}
             style={{ flex: 1 }}
         >
 

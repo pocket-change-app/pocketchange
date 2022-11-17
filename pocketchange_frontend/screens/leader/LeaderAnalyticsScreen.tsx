@@ -1,5 +1,6 @@
 import { SectionList, KeyboardAvoidingView, TextInput, RefreshControl, Platform, } from 'react-native';
-import { Button, SearchBar } from '@rneui/base';
+import SearchBar from '../../components/SearchBar';
+import { useHeaderHeight } from '@react-navigation/elements'
 
 import { MARGIN, styles } from '../../Styles';
 import { ScreenContainer, Text, View } from '../../components/Themed';
@@ -83,7 +84,7 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
 
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}
     >
 
@@ -104,17 +105,10 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
       </ScreenContainer>
 
       <SearchBar
-        showCancel={false}
-        containerStyle={styles.searchBarContainer}
-        inputContainerStyle={styles.searchBarInputContainer}
-
-        inputStyle={styles.searchBarInput}
-        placeholder="Search Analytics"
-        placeholderTextColor={colors.subtle}
-
+        value={searchQuery}
         onChangeText={setSearchQuery}
-        onClear={() => null}
-        value={searchQuery} />
+        placeholder="Search Analytics"
+      />
 
     </KeyboardAvoidingView>
 
