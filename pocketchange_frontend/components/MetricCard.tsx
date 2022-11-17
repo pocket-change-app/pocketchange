@@ -4,16 +4,16 @@ import { AuthContext } from "../contexts/Auth";
 import * as V from 'victory-native'
 import { colors, colorScale } from "../constants/Colors";
 import { Text, View } from "./Themed";
-import { styles } from "../Styles";
+import { MARGIN, styles } from "../Styles";
 import { BusinessCardSm, UserCardSm } from "./Cards";
 import { HorizontalLine } from "./Lines";
-import { Dimensions } from "react-native";
+import { Dimensions, FlatList } from "react-native";
 
 export default function MetricCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
   const authContext = useContext(AuthContext);
 
-  function renderChart() {
+  const TheMetric = () => {
     switch (type) {
 
       case 'bar':
@@ -243,8 +243,22 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
         const businesses = data.map(
           (item) => <BusinessCardSm navigation={undefined} businessID={item.businessID} showPocket />
         );
+        const renderBusiness = ({ item, index, separators }) => (
+          <BusinessCardSm
+            navigation={undefined}
+            businessID={item.businessID}
+            showPocket
+          />
+        )
+        const BusinessSeparatorComponent = () => (
+          <View style={{ height: MARGIN }} />
+        )
         return (
-          <View>{businesses}</View>
+          <FlatList
+            data={data}
+            renderItem={renderBusiness}
+            ItemSeparatorComponent={BusinessSeparatorComponent}
+          />
         );
 
       case 'list-top-customers':
@@ -252,6 +266,7 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
           (item) => <UserCardSm user={item} />
         );
         return (
+
           <View
             style={{
               flexDirection: 'row',
@@ -312,8 +327,8 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
 
       <HorizontalLine />
 
-      <View style={[styles.container, styles.metricsContentContainer]}>
-        {renderChart()}
+      <View style={[styles.container]}>
+        <TheMetric />
       </View>
 
 
