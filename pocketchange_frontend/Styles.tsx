@@ -787,7 +787,7 @@ export const styles = StyleSheet.create({
     color: colors.transluscentWhite,
   },
 
-  analyticsHeaderContainer: {
+  metricsHeaderContainer: {
     paddingBottom: MARGIN,
     //width:'100%',
     flex: 1,
@@ -796,7 +796,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  analyticsTitle: {
+  metricsTitle: {
     //flex:1,
     fontSize: 16,
     paddingBottom: 3,
@@ -804,19 +804,19 @@ export const styles = StyleSheet.create({
     color: colors.dark,
   },
 
-  analyticsRange: {
+  metricsRange: {
     //flex:1,
     fontSize: 12,
     fontFamily: 'metropolis black',
     color: colors.subtle,
   },
 
-  analyticsContentContainer: {
+  metricsContentContainer: {
     // padding: 10,
-    // alignItems: 'center',
+    alignItems: 'center',
   },
 
-  analyticsSectionHeaderContainer: {
+  metricsSectionHeaderContainer: {
     height: 40,
     justifyContent: 'center',
     alignContent: 'center',
@@ -826,7 +826,7 @@ export const styles = StyleSheet.create({
     // borderWidth: 0,
     //borderColor: colors.light,
   },
-  analyticsSectionHeader: {
+  metricsSectionHeader: {
     alignSelf: 'center',
     textTransform: 'uppercase',
     fontSize: 18,
@@ -834,13 +834,13 @@ export const styles = StyleSheet.create({
     fontFamily: 'metropolis regular',
   },
 
-  analyticsNormalText: {
+  metricsNormalText: {
     fontFamily: 'metropolis medium',
     fontSize: 14,
     paddingBottom: 15,
   },
 
-  analyticsMetricText: {
+  metricsMetricText: {
     fontFamily: 'metropolis bold',
     fontSize: 16,
   },
@@ -882,6 +882,10 @@ export const styles = StyleSheet.create({
 
   surveyCard: {
     marginBottom: 0
+  },
+
+  errorText: {
+    color: colors.tomato,
   }
 
 })

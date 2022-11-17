@@ -1109,7 +1109,7 @@ export function UserCardSm({ user }: any) {
 
   return (
 
-    <View style={styles.thinContainer}>
+    <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
         <Image
           style={[styles.idImage, { width: 30, marginLeft: 0 }]}

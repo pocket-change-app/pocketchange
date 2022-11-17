@@ -52,14 +52,14 @@ export type RootStackParamList = {
   Transactions: undefined;
   TransactionModal: undefined;
 
-  MerchantAnalytics: undefined;
+  MerchantMetrics: undefined;
 
   MerchantSettings: undefined;
   EditEmployees: undefined;
   SettingsTipping: undefined;
 
   // Leader Screens
-  LeaderAnalytics: undefined;
+  LeaderMetrics: undefined;
 
   Contests: undefined;
   ContestWizard: undefined;
@@ -87,11 +87,11 @@ export type RootTabParamList = {
 
   // Merchant Tabs
   TransactionsStack: undefined;
-  Analytics: undefined;
+  Metrics: undefined;
   MerchantSettingsStack: undefined;
 
   // Leader Tabs
-  LeaderAnalyticsStack: undefined;
+  LeaderMetricsStack: undefined;
   ContestsStack: undefined;
   LeaderSettingsStack: undefined;
 

@@ -7,46 +7,68 @@ import { ScreenContainer, Text, View } from '../../components/Themed';
 import { DivHeader, ButtonWithText } from '../../components/Cards';
 import { colors } from '../../constants/Colors';
 
-import { merchantAnalytics, leaderAnalytics, dummySuggestAnalyticSurvey } from '../../dummy';
+import { merchantMetrics, leaderMetrics, dummySuggestMetricSurvey } from '../../dummy';
 
 import { useState, useContext, useCallback } from 'react';
 
 import { AuthContext } from '../../contexts/Auth';
 import wait, { waitTimes } from '../../utils/wait';
-import { AnalyticsCard } from '../../components/AnalyticsCard';
+import MetricCard from '../../components/MetricCard';
 
 
-// TODO: add hook call to query all analytics
+// TODO: add hook call to query all metrics
 
-export default function LeaderAnalyticsScreen({ route, navigation }: { route: any, navigation: any }) {
+export default function MerchantMetricsScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
-  let allAnalytics;
+  let allMetrics;
   if (authContext.activeRole.type === "LEADER") {
-    allAnalytics = leaderAnalytics;
+    allMetrics = leaderMetrics;
   } else {
-    allAnalytics = merchantAnalytics;
+    allMetrics = merchantMetrics;
   }
 
   const [searchQuery, setSearchQuery] = useState('')
+  // const [searchResults, setSearchResults] = useState('')
+
 
   const [refreshing, setRefreshing] = useState(false)
 
-  const searchResults = allAnalytics.map((section) => (
-    {
-      sectionTitle: section.sectionTitle,
-      data: section.data.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
-    }
-  ))
+  const searchResults = allMetrics.map((section) =>
+  ({
+    sectionTitle: section.sectionTitle,
+    data: section.data.filter(a => a.title.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+  })
+  )
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     Promise.all([
       wait(waitTimes.RefreshScreen),
-      // refetchAnalytics // once query is in
+      // refetchMetrics // once query is in
     ]).then(() => setRefreshing(false));
   }, []);
+
+
+
+  /* if (isNilOrEmpty(allMetrics)) {
+    return (null)
+  } */
+
+  // const updateSearch = (text: string) => {
+  //   setSearchQuery(text)
+  //   setSearchResults(() => {
+  //     const formattedQuery = text.toLowerCase().trim()
+  //     const results = allMetrics.map((section) =>
+  //     ({
+  //       sectionTitle: section.sectionTitle,
+  //       data: section.data.filter(a => a.title.toLowerCase().includes(formattedQuery))
+  //     })
+  //     )
+  //     return results
+  //   })
+  // };
 
 
   const renderSectionHeader = ({ section: { sectionTitle, data } }: { section: { sectionTitle: string, data: any[] } }) => {
@@ -57,9 +79,8 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
     }
   }
 
-
-  const renderAnalyticsCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
-    <AnalyticsCard
+  const renderMetricCard = ({ item, index, separators }: { item: any, index: any, separators: any }) => (
+    <MetricCard
       key={item.title} //TODO: is this right?
       title={item.title}
       type={item.type}
@@ -73,7 +94,7 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
     <ButtonWithText
       text='Something Missing?'
       onPress={() => navigation.navigate('Survey', {
-        survey: dummySuggestAnalyticSurvey
+        survey: dummySuggestMetricSurvey
       })}
       viewStyle={{ marginTop: MARGIN }}
       negativeStyle
@@ -96,7 +117,7 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
           contentContainerStyle={styles.container}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={renderSectionHeader}
-          renderItem={renderAnalyticsCard}
+          renderItem={renderMetricCard}
           stickySectionHeadersEnabled={false}
           // SectionSeparatorComponent={() => <View style={{margin:5}}></View>}
           ListFooterComponent={ListFooterComponent}
@@ -115,35 +136,3 @@ export default function LeaderAnalyticsScreen({ route, navigation }: { route: an
   );
 }
 
-function SuggestAnalyticForm() {
-  return (
-    <View style={[styles.card, styles.container]}>
-      <View style={styles.analyticsHeaderContainer}>
-        <Text style={styles.analyticsTitle}>Something missing?</Text>
-      </View>
-      <View style={styles.analyticsContentContainer}>
-        <Text style={styles.prose}>
-          Suggest a metric you'd like to see...
-        </Text>
-        <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-          <TextInput
-            // autoFocus={true}
-            selectionColor={colors.gold}
-            style={styles.receipt}
-            // onChangeText={""}
-            placeholder={""}
-            multiline
-            numberOfLines={3}
-            placeholderTextColor={colors.subtle}
-            onSubmitEditing={() => { }} />
-        </View>
-        <ButtonWithText
-          text='Submit'
-          color={colors.gold}
-          onPress={null}
-        />
-      </View>
-
-    </View>
-  );
-}

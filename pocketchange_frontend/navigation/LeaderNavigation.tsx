@@ -9,7 +9,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import { styles } from '../Styles';
 
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
-import LeaderAnalyticsScreen from '../screens/leader/LeaderAnalyticsScreen';
+import LeaderMetricsScreen from '../screens/leader/LeaderMetricsScreen';
 import ContestsTabScreen from '../screens/leader/ContestsTabScreen';
 import PocketScreen from '../screens/consumer/PocketScreen';
 
@@ -121,10 +121,10 @@ function ContestsStack() {
 }
 
 
-function AnalyticsStack() {
+function MetricsStack() {
   return (
     <Stack.Navigator
-      initialRouteName='MerchantAnalytics'
+      initialRouteName='MerchantMetrics'
       screenOptions={{
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
@@ -134,10 +134,10 @@ function AnalyticsStack() {
       }}
     >
       <Stack.Screen
-        name="MerchantAnalytics"
-        component={LeaderAnalyticsScreen}
+        name="MerchantMetrics"
+        component={LeaderMetricsScreen}
         options={{
-          title: 'Pocket Analytics'
+          title: 'Pocket Metrics'
         }}
       // screenOptions={{ headerShown: false }}
       />
@@ -216,10 +216,10 @@ const BottomTabLeader = () => {
       }}
     >
       <BottomTab.Screen
-        name="AnalyticsStack"
-        component={AnalyticsStack}
-        options={({ navigation }: RootTabScreenProps<'Analytics'>) => ({
-          title: 'Analytics',
+        name="MetricsStack"
+        component={MetricsStack}
+        options={({ navigation }: RootTabScreenProps<'Metrics'>) => ({
+          title: 'Metrics',
           tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
         })}
       />
