@@ -296,13 +296,15 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
                 //startAngle={0}
                 //endAngle={180}
                 //labelRadius={0}
-                innerRadius={20}
+                radius={Dimensions.get('window').width / 8}
+                innerRadius={Dimensions.get('window').width / 20}
                 //padAngle={1}
                 theme={V.VictoryTheme.material}
                 colorScale={colorScale}
                 data={data}
                 x="x"
-                y="y" />
+                y="y"
+              />
             </Svg>
             <Svg width={180} height={150}>
               <V.VictoryLegend
