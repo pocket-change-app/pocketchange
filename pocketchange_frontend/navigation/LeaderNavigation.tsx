@@ -137,7 +137,7 @@ function MetricsStack() {
         name="MerchantMetrics"
         component={LeaderMetricsScreen}
         options={{
-          title: 'Pocket Metrics'
+          title: 'Pocket Activity'
         }}
       // screenOptions={{ headerShown: false }}
       />
