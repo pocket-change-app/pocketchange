@@ -784,7 +784,7 @@ export const merchantMetrics = [
     },],
   },
   {
-    sectionTitle: "Customer Metrics",
+    sectionTitle: "Customers",
     data: [
       {
         title: "PocketChange Participation",
@@ -877,7 +877,7 @@ export const merchantMetrics = [
     ],
   },
   {
-    sectionTitle: "Sales Metrics",
+    sectionTitle: "Sales",
     data: [
       {
         title: "Number of Scans",
@@ -914,7 +914,7 @@ export const merchantMetrics = [
     ],
   },
   {
-    sectionTitle: "Pocket Metrics",
+    sectionTitle: "Pocket",
     data: [
       {
         title: "Pocket Membership",
@@ -1129,7 +1129,7 @@ export const leaderMetrics = [
     },],
   },
   {
-    sectionTitle: "Customer Metrics",
+    sectionTitle: "Customers",
     data: [
       {
         title: "Pocket Membership",
@@ -1221,7 +1221,7 @@ export const leaderMetrics = [
     ],
   },
   {
-    sectionTitle: "Contest Metrics",
+    sectionTitle: "Contests",
     data: [
       {
         title: "Number of Scans",
