@@ -283,28 +283,41 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
           (item) => ({ name: item.x + " (" + item.y + ")" })
         );
         return (
-          <V.VictoryPie
-            // standalone={true}
-            // height={150}
-            // width={300}
-            // padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
-            // labelPlacement="parallel"
-            // labelPosition='startAngle'
-            labelComponent={<></>}
-            // startAngle={-90}
-            // endAngle={90}
-            // labelRadius={200}
-            radius={Dimensions.get('window').width / 4}
-            innerRadius={Dimensions.get('window').width / 10}
-            //padAngle={1}
-            theme={V.VictoryTheme.material}
-            colorScale={colorScale}
-            data={data}
-            height={200}
-          // x="x"
-          // y="y"
-          />
-
+          <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+            <Svg width={120} height={150}>
+              <V.VictoryPie
+                standalone={false}
+                height={150}
+                width={100}
+                padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
+                //labelPlacement="parallel"
+                //labelPosition="centroid"
+                labelComponent={<></>}
+                //startAngle={0}
+                //endAngle={180}
+                //labelRadius={0}
+                innerRadius={20}
+                //padAngle={1}
+                theme={V.VictoryTheme.material}
+                colorScale={colorScale}
+                data={data}
+                x="x"
+                y="y" />
+            </Svg>
+            <Svg width={180} height={150}>
+              <V.VictoryLegend
+                y={10}
+                height={50}
+                //itemsPerRow={2}
+                standalone={false}
+                theme={V.VictoryTheme.material}
+                colorScale={colorScale}
+                orientation='vertical'
+                data={legendData}
+              //height={200}
+              />
+            </Svg>
+          </View>
         );
 
       default:
