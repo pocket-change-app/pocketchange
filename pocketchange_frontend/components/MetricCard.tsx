@@ -8,10 +8,14 @@ import { MARGIN, styles } from "../Styles";
 import { BusinessCardSm, UserCardSm } from "./Cards";
 import { HorizontalLine } from "./Lines";
 import { Dimensions, FlatList } from "react-native";
+import useGetBusinessPocketsQuery from "../hooks-apollo/Pocket/useGetBusinessPocketsQuery";
+import Hyphenated from 'react-hyphen'
 
 export default function MetricCard({ title, type, rangeName, startDate, endDate, data }: any) {
 
   const authContext = useContext(AuthContext);
+  const businessID = authContext.activeRole.entityID;
+  const { data: pocketsData, loading: pocketLoading, error: pocketError, refetch: refetchPockets } = useGetBusinessPocketsQuery(businessID);
 
   const TheMetric = () => {
     switch (type) {
@@ -91,58 +95,52 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
 
       case 'text-participation-business':
         return (
-          <>
+          <View style={styles.textContainer}>
             <Text style={styles.metricsNormalText}>
+              {`PocketChange was used by `}
               <Text style={[styles.metricsMetricText, { color: colors.gold }]} >
                 {data[0].numCustomers}
               </Text>
-              <Text style={{ color: colors.medium }}>
-                {" customers used PocketChange"}
-              </Text>
-            </Text>
-            <Text style={[styles.metricsNormalText]}>
+              {` customers at ${authContext?.activeRole?.entityName} who each visited `}
               <Text style={[styles.metricsMetricText, { color: colors.blue }]}>
-                {data[0].visitRate}
+                {data[0].visitRate}x
               </Text>
-              <Text style={{ color: colors.medium }}>
-                {" average visits per week"}
-              </Text>
-            </Text>
-            <Text style={styles.metricsNormalText}>
+              {" per week, on average. "}
+
+              {/* {'\n\n'} */}
+
+              {`${authContext?.activeRole?.entityName} customers comprise `}
               <Text style={[styles.metricsMetricText, { color: colors.green }]}>
                 {data[0].pocketShare}%
               </Text>
-              <Text style={{ color: colors.medium }}>
-                {" of Uptown Yonge Pocket members visited Sweet Life."}
-              </Text>
+              {` of all ${pocketsData?.getBusinessPockets[0]?.pocketName} pocket members.`}
             </Text>
-          </>
+          </View>
         );
 
       case 'text-participation-pocket':
         return (
-          <>
-            <Text style={styles.metricsNormalText}>
-              {/* <Text style={{color: colors.medium}}>
-              {"There are "} 
-            </Text> */}
-              <Text style={[styles.metricsMetricText, { color: colors.gold }]} >
-                {data[0].numCustomers}
+          <View>
+
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={[styles.metricsNormalText, styles.metricsMetricText, { color: colors.gold, width: 70 }]} >
+                {`${data[0].numCustomers}`}
               </Text>
-              <Text style={{ color: colors.medium }}>
-                {" PocketChange users in Uptown Yonge"}
+              <Text style={[styles.metricsNormalText, { flex: 1 }]} >
+                {`members in ${pocketsData?.getBusinessPockets[0]?.pocketName}`}
               </Text>
-            </Text>
-            <Text style={[styles.metricsNormalText]}>
-              <Text style={[styles.metricsMetricText, { color: colors.blue }]}>
+            </View>
+
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={[styles.metricsNormalText, styles.metricsMetricText, { color: colors.blue, width: 70 }]} >
                 {data[0].visitRate}
               </Text>
-              <Text style={{ color: colors.medium }}>
-                {" average visits per week to participating businesses"}
+              <Text style={[styles.metricsNormalText, { flex: 1 }]} >
+                {`average visits per week to participating businesses`}
               </Text>
-            </Text>
+            </View>
 
-          </>
+          </View>
         );
 
       case 'text-sales':
