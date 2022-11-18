@@ -8,7 +8,7 @@ import { useContext, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
-import FloatingTitle from '../../components/FloatingTitle';
+import TabHeader from '../../components/TabHeader';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 
@@ -185,6 +185,8 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         <PageContents />
 
       </SafeAreaView>
+
+      <TabHeader text='Pockets' visible={!searchQuery} />
 
       <SearchBar 
         value={searchQuery}
