@@ -11,7 +11,7 @@ import { Dimensions, FlatList } from "react-native";
 import useGetBusinessPocketsQuery from "../hooks-apollo/Pocket/useGetBusinessPocketsQuery";
 import Hyphenated from 'react-hyphen'
 
-export default function MetricCard({ title, type, rangeName, startDate, endDate, data }: any) {
+export default function MetricCard({ title, subtitle, type, rangeName, startDate, endDate, data }: any) {
 
   const authContext = useContext(AuthContext);
   const businessID = authContext.activeRole.entityID;
@@ -281,7 +281,7 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
           (item) => ({ name: item.x + " (" + item.y + ")" })
         );
         return (
-          <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+          <View style={[styles.textContainer, { flexDirection: 'row' }]}>
             <Svg width={120} height={150}>
               <V.VictoryPie
                 standalone={false}
@@ -341,6 +341,7 @@ export default function MetricCard({ title, type, rangeName, startDate, endDate,
       <HorizontalLine />
 
       <View style={[styles.container]}>
+        {subtitle ? <Text style={[styles.textContainer, styles.metricsNormalText, { textAlign: 'left' }]}>{subtitle}</Text> : null}
         <TheMetric />
       </View>
 
