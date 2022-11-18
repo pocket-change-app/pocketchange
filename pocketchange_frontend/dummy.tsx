@@ -787,7 +787,7 @@ export const merchantMetrics = [
     sectionTitle: "Customers",
     data: [
       {
-        title: "PocketChange Participation",
+        title: "Participation",
         type: "text-participation-business",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
