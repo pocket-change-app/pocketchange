@@ -100,6 +100,10 @@ export const styles = StyleSheet.create({
     padding: MARGIN / 2,
   },
 
+  textContainer: {
+    paddingHorizontal: MARGIN,
+  },
+
   floatingButtonContainer: {
     padding: MARGIN_SM,
     width: '100%',
@@ -798,17 +802,21 @@ export const styles = StyleSheet.create({
 
   metricsTitle: {
     //flex:1,
-    fontSize: 16,
-    paddingBottom: 3,
-    fontFamily: 'metropolis semibold',
+    fontSize: 18,
+    lineHeight: 20,
+    flex: 1,
+    flexWrap: 'wrap',
+    // paddingBottom: 3,
+    fontFamily: 'metropolis bold',
     color: colors.dark,
   },
 
   metricsRange: {
-    //flex:1,
     fontSize: 12,
     fontFamily: 'metropolis black',
     color: colors.subtle,
+    marginLeft: MARGIN,
+    textTransform: 'uppercase',
   },
 
   metricsContentContainer: {
@@ -835,14 +843,24 @@ export const styles = StyleSheet.create({
   },
 
   metricsNormalText: {
-    fontFamily: 'metropolis medium',
-    fontSize: 14,
-    paddingBottom: 15,
+    textAlign: 'left',
+    fontFamily: 'metropolis regular',
+    fontSize: 16,
+    lineHeight: 19,
+    // marginHorizontal: MARGIN,
+    marginBottom: MARGIN / 2,
+    // paddingBottom: 15,
+    color: colors.dark,
   },
 
   metricsMetricText: {
-    fontFamily: 'metropolis bold',
-    fontSize: 16,
+    // backgroundColor: colors.testing,
+    fontFamily: 'metropolis black',
+
+    // these only apply when in its own text block. neat.
+    textAlign: 'center',
+    marginRight: MARGIN / 2,
+    // fontSize: 16,
   },
 
   imageOverlay: {

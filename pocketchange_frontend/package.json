@@ -25,7 +25,7 @@
     "@react-navigation/native-stack": "^6.1.0",
     "@rneui/base": "github:react-native-elements/react-native-elements#base",
     "@rneui/themed": "github:react-native-elements/react-native-elements#themed",
-    "@stripe/stripe-react-native": "^0.19.0",
+    "@stripe/stripe-react-native": "0.6.1",
     "dotenv": "^16.0.2",
     "entities": "^4.3.1",
     "expo": "~45.0.0",

@@ -116,7 +116,7 @@ function MetricsStack() {
         name="MerchantMetrics"
         component={MerchantMetricsScreen}
         options={{
-          title: 'Business Metrics'
+          title: 'Business Activity'
         }}
       // screenOptions={{ headerShown: false }}
       />

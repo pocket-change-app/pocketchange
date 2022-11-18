@@ -767,7 +767,7 @@ export const merchantMetrics = [
   {
     sectionTitle: "Favourites",
     data: [{
-      title: "Number of Contest Entries",
+      title: "Contest Entries",
       type: "bar",
       rangeName: 'PAST WEEK',
       startDate: "9/16/2022",
@@ -784,10 +784,10 @@ export const merchantMetrics = [
     },],
   },
   {
-    sectionTitle: "Customer Metrics",
+    sectionTitle: "Customers",
     data: [
       {
-        title: "PocketChange Participation",
+        title: "Participation",
         type: "text-participation-business",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
@@ -801,7 +801,8 @@ export const merchantMetrics = [
         ]
       },
       {
-        title: "Your Customers Come From",
+        title: "Customer Origin",
+        subtitle: "Your customers come from:",
         type: "pie",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/1/2022",
@@ -815,7 +816,7 @@ export const merchantMetrics = [
         ]
       },
       {
-        title: "Your Top Customers",
+        title: "Top Customers",
         type: "list-top-customers",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",
@@ -877,7 +878,7 @@ export const merchantMetrics = [
     ],
   },
   {
-    sectionTitle: "Sales Metrics",
+    sectionTitle: "Sales",
     data: [
       {
         title: "Number of Scans",
@@ -914,7 +915,7 @@ export const merchantMetrics = [
     ],
   },
   {
-    sectionTitle: "Pocket Metrics",
+    sectionTitle: "Pocket",
     data: [
       {
         title: "Pocket Membership",
@@ -1129,7 +1130,7 @@ export const leaderMetrics = [
     },],
   },
   {
-    sectionTitle: "Customer Metrics",
+    sectionTitle: "Customers",
     data: [
       {
         title: "Pocket Membership",
@@ -1221,7 +1222,7 @@ export const leaderMetrics = [
     ],
   },
   {
-    sectionTitle: "Contest Metrics",
+    sectionTitle: "Contests",
     data: [
       {
         title: "Number of Scans",
