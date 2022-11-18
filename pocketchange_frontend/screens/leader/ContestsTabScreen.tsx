@@ -66,14 +66,14 @@ export default function ContestsTabScreen({ navigation }: { navigation: any }) {
       <ScreenContainer>
 
         <SectionList
-          contentContainerStyle={[styles.pocketSearchResultFlatList]}
+          contentContainerStyle={[styles.container]}
           keyExtractor={(item, index) => item + index}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           sections={allSections}
           renderItem={renderContest}
           renderSectionHeader={renderSectionHeader}
           stickySectionHeadersEnabled={false}
-          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT + MARGIN }} />}
+          ListFooterComponent={<View style={{ height: BUTTON_HEIGHT }} />}
         />
 
         {/* <DivHeader text={'Active'} /> */}
