@@ -767,7 +767,7 @@ export const merchantMetrics = [
   {
     sectionTitle: "Favourites",
     data: [{
-      title: "Number of Contest Entries",
+      title: "Contest Entries",
       type: "bar",
       rangeName: 'PAST WEEK',
       startDate: "9/16/2022",
@@ -801,7 +801,8 @@ export const merchantMetrics = [
         ]
       },
       {
-        title: "Your Customers Come From",
+        title: "Customer Origin",
+        subtitle: "Your customers come from:",
         type: "pie",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/1/2022",
@@ -815,7 +816,7 @@ export const merchantMetrics = [
         ]
       },
       {
-        title: "Your Top Customers",
+        title: "Top Customers",
         type: "list-top-customers",
         rangeName: 'PAST 30 DAYS',
         startDate: "9/16/2022",

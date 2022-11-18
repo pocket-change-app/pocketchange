@@ -62,6 +62,7 @@ export default function LeaderMetricsScreen({ route, navigation }: { route: any,
     <MetricCard
       key={item.title} //TODO: is this right?
       title={item.title}
+      subtitle={item.subtitle}
       type={item.type}
       data={item.data}
       startDate={item.startDate}
