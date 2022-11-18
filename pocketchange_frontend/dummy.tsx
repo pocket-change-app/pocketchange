@@ -324,7 +324,7 @@ export const contestsData = {
     {
       contestID: '000',
       contestName: 'Snap it UP!',
-      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
+      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change!",
       startDate: '12-01-2022',
       endDate: '12-31-2022',
       prizeValue: 500.00,
@@ -333,7 +333,7 @@ export const contestsData = {
     {
       contestID: '001',
       contestName: 'Snap it UP!',
-      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
+      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change!",
       startDate: '11-01-2022',
       endDate: '11-30-2022',
       prizeValue: 500.00,
@@ -342,7 +342,7 @@ export const contestsData = {
     {
       contestID: '002',
       contestName: 'Snap it UP!',
-      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
+      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change!",
       startDate: '10-01-2022',
       endDate: '10-31-2022',
       prizeValue: 500.00,
@@ -351,7 +351,7 @@ export const contestsData = {
     {
       contestID: '003',
       contestName: 'Snap it UP!',
-      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change! Limited to one scan per business per day.",
+      description: "To enter, ask for the QR code and Snap it UP after making a purchase in any Uptown Yonge business. Each month, one randomly chosen participant will win $500 in Uptown Yonge Change!",
       startDate: '09-01-2022',
       endDate: '09-31-2022',
       prizeValue: 500.00,
