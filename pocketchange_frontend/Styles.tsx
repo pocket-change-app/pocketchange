@@ -807,16 +807,16 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     // paddingBottom: 3,
-    fontFamily: 'metropolis semibold',
+    fontFamily: 'metropolis bold',
     color: colors.dark,
   },
 
   metricsRange: {
-    //flex:1,
     fontSize: 12,
     fontFamily: 'metropolis black',
     color: colors.subtle,
     marginLeft: MARGIN,
+    textTransform: 'uppercase',
   },
 
   metricsContentContainer: {
