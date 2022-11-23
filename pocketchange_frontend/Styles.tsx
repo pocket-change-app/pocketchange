@@ -111,22 +111,34 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
-  floatingTitleContainer: {
-    alignSelf: 'left',
-    marginTop: -BORDER_WIDTH,
-    marginHorizontal: MARGIN,
+  cornerHeaderContainer: {
+    // alignSelf: 'flex-start',
+    // marginTop: -BORDER_WIDTH,
+    // marginHorizontal: MARGIN,
     // padding: MARGIN * 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    // flexDirection: 'row',
+
+    // alignItems: 'center',
     position: 'absolute',
     top: 0,
+    left: MARGIN,
+    right: MARGIN,
   },
 
-  floatingTitleCard: {
+  cornerHeaderCard: {
     backgroundColor: colors.bg,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderTopWidth: 0
+    marginBottom: 0,
+    borderRadius: 0,
+    borderBottomRightRadius: CARD_RADIUS,
+    borderBottomLeftRadius: CARD_RADIUS,
+    // borderTopLeftRadius: 0,
+    // borderTopRightRadius: 0,
+    borderTopWidth: 0,
+    // borderLeftWidth: 0,
+    height: 100,
+    width: Dimensions.get('screen').width * (3 / 7) - MARGIN,
+    // justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   image: {
