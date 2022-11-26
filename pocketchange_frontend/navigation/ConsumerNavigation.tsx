@@ -55,7 +55,14 @@ export const ConsumerNavigation = () => {
     >
       <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-
+      <Stack.Screen
+        name="PaymentModalStack"
+        component={PaymentModalStack}
+        options={{
+          headerShown: false,
+          animation: 'slide_from_bottom',
+        }}
+      />
       {/* <Stack.Group
         screenOptions={{
           presentation: 'modal',
@@ -66,6 +73,7 @@ export const ConsumerNavigation = () => {
           component={PayConfirmationScreen}
           options={{
             presentation: 'fullScreenModal',
+            animation: 'fade',
             // statusBarHidden: true,
             headerShown: false,
             autoHideHomeIndicator: true,
@@ -77,6 +85,7 @@ export const ConsumerNavigation = () => {
           component={ScanConfirmationScreen}
           options={{
             presentation: 'fullScreenModal',
+            animation: 'fade',
             // statusBarHidden: true,
             headerShown: false,
             autoHideHomeIndicator: true,
@@ -140,14 +149,14 @@ function PocketStack() {
           title: '', //route.params.business.name
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PaymentModalStack"
         component={PaymentModalStack}
         options={{
           // presentation: 'modal',
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="Contest"
         component={ContestScreen}
@@ -190,30 +199,6 @@ function PayStack() {
         component={BusinessScreen}
         options={({ route }) => ({
           title: '' //route.params.business.name
-        })}
-      />
-      <Stack.Screen
-        name="PaymentModalStack"
-        component={PaymentModalStack}
-        options={({ navigation }: any) => ({
-          presentation: 'modal',
-          // headerStyle: styles.modalHeader,
-          // title: 'Payment',
-          headerShown: false,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.goBack()}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name='close'
-                size={25}
-                color={colors.medium}
-              // style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
       {/* <Stack.Screen
@@ -325,7 +310,6 @@ function PaymentModalStack() {
 
 
 function WalletStack() {
-
 
   return (
     <Stack.Navigator

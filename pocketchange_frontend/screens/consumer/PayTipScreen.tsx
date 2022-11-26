@@ -1,10 +1,11 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
 import { ButtonWithText } from '../../components/Cards'
-import { KeyboardAvoidingView, Platform, Pressable } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView } from "react-native";
 import { useContext, useState } from "react";
 import { colors } from "../../constants/Colors";
 import { AuthContext } from "../../contexts/Auth";
+import { HorizontalLine } from "../../components/Lines";
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -25,18 +26,61 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
     setPercentage((t == '') ? '0.0' : (parseFloat(t) / amount * 100).toFixed(0))
   }
 
-  return (
-    <ScreenContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? 'padding' : "height"}
-        keyboardVerticalOffset={100}
-        style={{ flex: 1 }}
-      >
-        <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
-          <View>
-            <View style={styles.card}>
-              {/* <CardHeader text='Pay' /> */}
+  function TipButton({ tipAmount, isPercentage = false }: { tipAmount: number, isPercentage?: boolean }) {
 
+    let buttonText: string;
+    let tip: number;
+
+    if (isPercentage) {
+      buttonText = tipAmount.toString() + '%';
+      tip = amount * tipAmount / 100;
+
+    } else {
+      buttonText = '$' + tipAmount.toFixed(2);
+      tip = tipAmount
+    }
+
+    return (
+
+      <ButtonWithText
+        negativeStyle
+        text={buttonText}
+        textStyle={styles.tipButtonText}
+        color={colors.gold}
+        viewStyle={{ flex: 1 }}
+        onPress={() => navigation.navigate('PaySummary', {
+          business: business,
+          pocket: pocket,
+          amount: parseFloat(amount).toFixed(2),
+          tip: tip.toFixed(2),
+        })
+        }
+      />
+    )
+
+    // onPress={() => navigation.navigate('PaySummary', {
+    //   business: business,
+    //   amount: parseFloat(amount).toFixed(2),
+    //   tip: tipAmount.toFixed(2),
+    // })}
+
+  }
+
+  return (
+
+    <>
+
+      <SafeAreaView style={{ flex: 1 }}>
+
+        <HorizontalLine />
+
+        <View style={[styles.container, { flex: 1 }]}>
+
+          <View>
+
+            {/* BUSINESS */}
+
+            <View style={styles.card}>
               <View style={{ flexDirection: 'row' }}>
                 <View style={styles.businessListInfo}>
                   <Text style={styles.businessNameSm}>{business.businessName}</Text>
@@ -46,6 +90,9 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               </View>
             </View>
 
+
+            {/* SUBTOTAL */}
+
             <View style={[styles.card, styles.container]}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
@@ -53,90 +100,61 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               </View>
             </View>
 
+          </View>
+
+
+
+
+          <View style={[{ flex: 1, justifyContent: 'center' }]}>
+
+            {/* TIP OPTIONS */}
+
             <View style={styles.card}>
               {/* <View style={styles.cardHeader}> */}
               <View style={{ marginTop: MARGIN / 2 }}>
-                <Text style={[styles.paymentFocusText, { alignSelf: 'center' }]}>Tip</Text>
               </View>
               {/* </View> */}
               <View style={styles.container}>
                 <View style={[{ flexDirection: 'row', marginBottom: MARGIN }]}>
-                  <TipButton
-                    tipAmount={1}
-                    amount={amount}
-                    business={business}
-                    navigation={navigation}
-                  />
+
+                  <TipButton tipAmount={1} />
+
                   <View style={{ width: MARGIN }} />
-                  <TipButton
-                    tipAmount={2}
-                    amount={amount}
-                    business={business}
-                    navigation={navigation}
-                  />
+
+                  <TipButton tipAmount={2} />
+
                   <View style={{ width: MARGIN }} />
-                  <TipButton
-                    tipAmount={5}
-                    amount={amount}
-                    business={business}
-                    navigation={navigation}
-                  />
+
+                  <TipButton tipAmount={5} />
+
                 </View>
 
                 <View style={[{ flexDirection: 'row', marginBottom: MARGIN }]}>
-                  {/* <TipButton percentage={15} />
-                  <View style={{ width: MARGIN }} /> */}
-                  <TipButton
-                    tipPercentage={18}
-                    amount={amount}
-                    business={business}
-                    navigation={navigation}
-                  />
+
+                  <TipButton tipAmount={18} isPercentage />
+
                   <View style={{ width: MARGIN }} />
-                  <TipButton
-                    tipPercentage={20}
-                    amount={amount}
-                    business={business}
-                    navigation={navigation}
-                  />
+
+                  <TipButton tipAmount={20} isPercentage />
+
                 </View>
 
                 <ButtonWithText
                   negativeStyle
-                  text='Custom'
-                  onPress={null}
-                />
-              </View>
-
-
-              {/* <View style={[styles.inputContainer, { flexDirection: 'row', justifyContent: 'center' }]}>
-
-                <TextInput
-                  keyboardType='numeric'
-                  style={styles.paymentInputText}
-                  value={percentage.toString()}
-                  onChangeText={updateTipByPercentage}
-                />
-                <Text style={styles.paymentInputText}>%</Text>
-
-                <Text style={styles.paymentInputText}>  =  </Text>
-
-                <Text style={styles.paymentInputText}>$</Text>
-                <TextInput
-                  // autoFocus={true}
-                  keyboardType='numeric'
-                  style={styles.paymentInputText}
-                  value={tip.toString()}
-                  onChangeText={updateTipByAmount}
+                  text='Custom Tip'
+                  textStyle={styles.tipButtonText}
+                  viewStyle={{ marginBottom: MARGIN }}
+                  textTransform='none'
+                  color={colors.gold}
+                  onPress={null} //TODO: make custom tip modal
                 />
 
-              </View> */}
-
-              {/* <HorizontalLine /> */}
-            </View>
-
-            <ButtonWithText
+                <ButtonWithText
+                  negativeStyle
                   text='No Tip'
+                  textTransform='none'
+                  textStyle={styles.tipButtonText}
+                  color={colors.gold}
                   onPress={() => navigation.navigate('PaySummary', {
                     business: business,
                     pocket: pocket,
@@ -145,73 +163,20 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                   })}
                 />
 
-            {/* <ButtonWithText
-              text={'Next'}
-              onPress={() => navigation.navigate("PaySummary", {
-                // navigation: navigation,
-                businessID: businessID,
-                name: name,
-                address: address,
-                pocket: pocket,
-                imageURL: imageURL,
-                amount: parseFloat(amount).toFixed(2),
-                tip: parseFloat(tip).toFixed(2),
-              })}
-            /> */}
+              </View>
+
+            </View>
+
           </View>
+
+          <View style={styles.container}>
+
+          </View>
+
         </View>
 
-      </KeyboardAvoidingView>
-    </ScreenContainer>
+      </SafeAreaView>
+
+    </>
   )
-}
-
-function TipButton({ business, amount, tipAmount, tipPercentage, navigation }: { business: any, amount: string, tipAmount: number, tipPercentage: number, navigation: any }) {
-
-  if (tipAmount) {
-
-    return (
-      // <ButtonWithText
-      //   negativeStyle
-      //   text={'$' + amount.toFixed(2)}
-      //   onPress={null}
-      // />
-
-      <Pressable
-        style={{ flex: 1 }}
-        onPress={() => navigation.navigate('PaySummary', {
-          business: business,
-          amount: parseFloat(amount).toFixed(2),
-          tip: tipAmount.toFixed(2),
-        })}>
-        <View style={[styles.buttonBordered, { borderColor: colors.gold }]}>
-          <Text style={[styles.tipButtonText, { color: colors.gold }]}>{'$' + tipAmount.toFixed(2)}</Text>
-        </View>
-      </Pressable>
-    )
-
-  } else if (tipPercentage) {
-
-    return (
-      // <ButtonWithText
-      //   negativeStyle
-      //   text={percentage.toString() + '%'}
-      //   onPress={null}
-      // />
-
-      <Pressable
-        style={{ flex: 1 }}
-        onPress={() => navigation.navigate('PaySummary', {
-          business: business,
-          amount: parseFloat(amount).toFixed(2),
-          tip: (parseFloat(amount) * tipPercentage / 100).toFixed(2),
-        })}>
-        <View style={[styles.buttonBordered, { borderColor: colors.gold }]}>
-          <Text style={[styles.tipButtonText, { color: colors.gold }]}>{tipPercentage.toString() + '%'}</Text>
-        </View>
-      </Pressable>
-    )
-
-  }
-
 }

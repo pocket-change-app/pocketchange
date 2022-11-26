@@ -41,12 +41,6 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
 
   const authContext = useContext(AuthContext); 
 
-  const [imageURL, setImageURL] = useState();
-
-  useEffect(() => {
-    getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
-  }, []);
-
   const pocketsQuery = useGetBusinessPocketsQuery(businessID)
   const { data: pocketsData, loading: pocketsLoading, error: pocketsError, refetch: refetchPockets } = pocketsQuery
 
@@ -55,6 +49,17 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
 
   const changeBalancesQuery = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
   const { data: changeBalancesData, loading: changeBalancesLoading, error: changeBalancesError, refetch: refetchChangeBalances } = changeBalancesQuery
+
+  const [imageURL, setImageURL] = useState();
+
+  // TODO: make this dependent on change balance in pocket
+  const hasChange = true
+
+  useEffect(() => {
+    getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
+  }, []);
+
+
 
   // Return query errors
   if (pocketsError) return (<Text>Pocket error: {pocketsError.message}</Text>)
@@ -79,18 +84,25 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
         }
 
       </View>
-      <View style={styles.businessModalInfo}>
-        <Text style={styles.businessNameLg}>{businessData?.business?.businessName}</Text>
-        <Text style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
-        <QueryResult loading={pocketsLoading} error={pocketsError} data={pocketsData}>
-          <Text style={styles.pocket}>
-            {pocketsData?.getBusinessPockets[0]?.pocketName}
-          </Text>
-        </QueryResult>
+      <View style={styles.container}>
+        <View style={{ marginBottom: MARGIN }} >
+          <Text style={styles.businessNameLg}>{businessData?.business?.businessName}</Text>
+          <Text style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
+          <QueryResult loading={pocketsLoading} error={pocketsError} data={pocketsData}>
+            <Text style={styles.pocket}>
+              {pocketsData?.getBusinessPockets[0]?.pocketName}
+            </Text>
+          </QueryResult>
+        </View>
 
-        {(changeBalancesData?.changeBalance?.length > 0) ?
-          <Pressable style={styles.payButton}
-            onPress={() => (
+
+        <ButtonWithText
+          text="Redeem Change"
+          textTransform={'none'}
+          textStyle={styles.payButtonText}
+          color={hasChange ? colors.gold : colors.subtle}
+          onPress={() => {
+            if (hasChange) {
               navigation.navigate('PaymentModalStack', {
                 screen: "PayAmount",
                 params: {
@@ -98,15 +110,12 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
                   business: businessData?.business,
                   pocket: pocketsData?.getBusinessPockets[0]
                 }
-              }))}>
-            <Text style={styles.payButtonText}>Redeem Change</Text>
-          </Pressable> :
-          <Pressable style={[styles.payButton, { backgroundColor: colors.subtle }]}
-            onPress={() => (
-              alert(`You have no ${pocketsData?.getBusinessPockets[0]?.pocketName} Change to redeem!`))}>
-            <Text style={styles.payButtonText}>Redeem Change</Text>
-          </Pressable>
-        }
+              })
+            } else {
+              alert(`You have no ${pocketsData?.getBusinessPockets[0]?.pocketName} Change to redeem!`)
+            }
+          }}
+        />
 
         <View style={{ flexDirection: 'row', marginTop: MARGIN }}>
 

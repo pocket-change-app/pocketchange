@@ -2,7 +2,7 @@ import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
 import { CardHeader, ButtonWithText, } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
-import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, TextInput } from "react-native";
 import { useContext, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { colors } from "../../constants/Colors";
@@ -22,29 +22,31 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
   }
 
   return (
-    <ScreenContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? 'padding' : "height"}
-        keyboardVerticalOffset={100}
-        style={{ flex: 1 }}
-      >
 
-        <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? 'padding' : "height"}
+      keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
 
-          {/* <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} /> */}
+        <HorizontalLine />
 
-          <View>
-            <View style={styles.card}>
-              {/* <CardHeader text='Pay' /> */}
+        <View style={[styles.container, { flex: 1 }]}>
 
-              <View style={{ flexDirection: 'row' }}>
-                <View style={styles.businessListInfo}>
-                  <Text style={styles.businessNameSm}>{business.businessName}</Text>
-                  <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                  <Text style={styles.pocket}>{pocket.pocketName}</Text>
-                </View>
+          {/* BUSINESS */}
+
+          <View style={styles.card}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.businessListInfo}>
+                <Text style={styles.businessNameSm}>{business.businessName}</Text>
+                <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
+                <Text style={styles.pocket}>{pocket.pocketName}</Text>
               </View>
             </View>
+          </View>
+
+          <View style={{ flex: 1, justifyContent: 'center' }}>
 
             <View style={styles.card}>
               <View style={styles.inputContainer}>
@@ -59,11 +61,11 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                   placeholderTextColor={colors.light}
                 />
               </View>
-
             </View>
 
             <ButtonWithText
               text={'Next'}
+              color={amount ? colors.gold : undefined}
               onPress={() => navigation.navigate("PayTip", {
                 // navigation: navigation,
                 business: business,
@@ -71,10 +73,13 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                 amount: parseFloat(amount).toFixed(2),
               })}
             />
+
           </View>
         </View>
 
-      </KeyboardAvoidingView>
-    </ScreenContainer>
+      </SafeAreaView>
+
+    </KeyboardAvoidingView>
+
   )
 }

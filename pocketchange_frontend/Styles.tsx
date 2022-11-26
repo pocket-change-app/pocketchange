@@ -67,16 +67,15 @@ export const styles = StyleSheet.create({
   },
 
   paymentFocusText: {
-    fontFamily: 'receipt',
+    fontFamily: 'metropolis bold',
     fontSize: 50,
     color: colors.gold,
   },
 
   tipButtonText: {
     textAlign: 'center',
-    fontFamily: 'receipt',
-    fontSize: 30,
-    color: colors.gold,
+    fontFamily: 'metropolis semibold',
+    fontSize: 24,
   },
 
   paymentAmountText: {
@@ -86,8 +85,8 @@ export const styles = StyleSheet.create({
   },
 
   paymentSummaryText: {
-    fontFamily: 'receipt',
-    fontSize: 25,
+    fontFamily: 'metropolis medium',
+    fontSize: 20,
     // lineHeight: 21,
     color: colors.medium,
   },
@@ -151,7 +150,6 @@ export const styles = StyleSheet.create({
   },
 
   navigationHeader: {
-    height: 100,
     backgroundColor: colors.bg,
   },
   navigationHeaderTitle: {
@@ -181,7 +179,7 @@ export const styles = StyleSheet.create({
 
   screenContainer: {
     flex: 1,
-    backgroundColor: colors.bg,
+    // backgroundColor: colors.bg,
     // borderTopColor: 'transparent',
   },
 
@@ -324,6 +322,7 @@ export const styles = StyleSheet.create({
   businessNameLg: {
     fontSize: 26,
     //lineHeight: 20,
+    flexWrap: 'wrap',
     fontFamily: 'metropolis black',
     color: colors.dark,
   },
@@ -455,16 +454,6 @@ export const styles = StyleSheet.create({
   signatureText: {
     fontFamily: 'metropolis medium',
     fontSize: 14
-  },
-
-  payButton: {
-    borderRadius: CARD_RADIUS,
-    marginTop: MARGIN,
-    height: BUTTON_HEIGHT,
-    backgroundColor: colors.gold,
-
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   payButtonText: {
