@@ -150,7 +150,6 @@ export const styles = StyleSheet.create({
   },
 
   navigationHeader: {
-    height: 100,
     backgroundColor: colors.bg,
   },
   navigationHeaderTitle: {

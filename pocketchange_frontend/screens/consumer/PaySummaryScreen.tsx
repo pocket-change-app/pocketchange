@@ -109,21 +109,10 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
               const date = new Date()
 
-              console.log(navigation.getState())
-
-              // navigation.reset({
-              //   index: 0,
-              //   routes: [{ name: 'Root', screen: 'Wallet' }],
-              // })
               navigation.popToTop()
               navigation.goBack()
-                  // navigation.navigate("Root", { screen: 'Wallet' });
-                  // navigation.goBack()
-
-                  // console.log('made it')
 
               navigation.navigate("PayConfirmation", {
-                // navigation: navigation,
                 business: business,
                 subtotal: amount,
                 date: date,

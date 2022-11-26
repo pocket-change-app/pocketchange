@@ -25,9 +25,11 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
       <StatusBar hidden={true} />
       <TouchableWithoutFeedback
         onPress={() => {
-          // navigation.goBack()
-          navigation.navigate('Root', { screen: 'WalletStack', params: { screen: 'Wallet' } })
-          // navigation.popToTop()
+
+          navigation.navigate('Root', {
+            screen: 'WalletStack',
+            params: { screen: 'Wallet' }
+          })
         }}
       >
 
