@@ -76,6 +76,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'metropolis semibold',
     fontSize: 24,
+    color: colors.gold,
   },
 
   paymentAmountText: {
