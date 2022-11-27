@@ -6,13 +6,12 @@ const R = require('ramda');
 
 module.exports = {
     Query: {
-        user: async (parent, { userID }, { User, mongoUser }) => {
+        user: async (parent, { userID }, { Transaction, User, Role, mongoUser }) => {
+          console.log("MOnGOUSER", mongoUser)
           //check to make sure userID was given
             if (userID == null) {
               return null;
             }
-            //find the mongo user
-            //const userInfo = await User.findOne({ where : {userID: userID}});
             const mongoUserInfo = await mongoUser.findOne({ userID});
             if (mongoUserInfo) {
               return {

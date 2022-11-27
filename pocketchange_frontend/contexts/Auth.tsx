@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 //import { useUserQuery } from '../hooks-apollo/index'
 import UserQueries from '../hooks-apollo/User/queries';
+import App from '../App';
 
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { useLazyQuery } from '@apollo/client';
@@ -36,6 +37,7 @@ export type AuthContextData = {
   switchActiveRole(role: Role): void,
   signOut(): void,
   loading: boolean,
+  IDToken: String,
 };
 
 //Create the Auth Context with the data type specified
@@ -48,6 +50,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   const [userGQL, setUserGQL] = useState({});
   const [activeRole, setActiveRole] = useState<Role>({} as Role);
   const [loading, setLoading] = useState(true);
+  const [IDToken, setIDToken] = useState('')
 
   // lazy query definition: GQL users for firebase uid 
   const [loadUserGQL, { called, data, error }] = useLazyQuery(
@@ -81,13 +84,22 @@ export const AuthProvider = ({ children }: { children: any }) => {
     AsyncStorage.setItem('@ActiveRole', JSON.stringify(activeRole));
   }, [activeRole]);
 
+  
+  // when IDToken changes, write it to local storage
+  useEffect(() => {
+    AsyncStorage.setItem('@IDToken', JSON.stringify(IDToken));
+  }, [IDToken]);
+
   // called when firebase auth state changes
-  const handleAuthStateChanged = ((userFirebase: User) => {
+  const handleAuthStateChanged = (async (userFirebase: User) => {
     if (!(isNilOrEmpty(userFirebase))) {
       setUserFirebase(userFirebase);
+      const token = await userFirebase.getIdToken(); 
+      setIDToken(token);
     } else {
       setUserFirebase({} as User);
       setUserGQL({});
+      setIDToken('')
     }
     if (loading) setLoading(false);
   });
@@ -140,7 +152,9 @@ export const AuthProvider = ({ children }: { children: any }) => {
   if (loading) return null;
 
   return (
-    <AuthContext.Provider value={authContextData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authContextData}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

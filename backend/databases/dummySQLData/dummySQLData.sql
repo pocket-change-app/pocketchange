@@ -98,40 +98,40 @@ INSERT INTO isIns  (businessID, pocketID, createdAt, updatedAt)  VALUES ("12b", 
 -- INSERT INTO isIns  (businessID, pocketID, createdAt, updatedAt)  VALUES ("16b", "4p","2022-02-04 09:22:11","2022-02-04 20:34:13");
 
 -- insert isMembers
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("1c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("1c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("2c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("3c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("3c", "3p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("4c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("4c", "4p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("5c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6c", "2p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("6c", "1p", "manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("7c", "1p", "customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("QwduOsS2eBPOAFmVG69anKXIfGC3", "2p","customer", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("QwduOsS2eBPOAFmVG69anKXIfGC3", "2p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("14c", "3p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO isMembers (userID, pocketID, role, createdAt, updatedAt)  VALUES ("18c", "4p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("1c", "1p", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("1c", "2p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("2c", "2p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("3c", "1p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("3c", "3p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("4c", "1p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("4c", "4p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("5c", "1p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("6c", "1p", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("6c", "2p", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("7c", "1p",  "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO isMembers (userID, pocketID, createdAt, updatedAt)  VALUES ("QwduOsS2eBPOAFmVG69anKXIfGC3", "2p", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 
--- insert worksAts
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("6c", "1b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("7c", "2b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("8c", "3b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("9c", "4b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("QwduOsS2eBPOAFmVG69anKXIfGC3", "5b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("11c", "6b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("12c", "7b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("13c", "8b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("14c", "9b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("15c", "10b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("16c", "11b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
-INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("17c", "12b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
--- INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("18c", "13b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
--- INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("19c", "14b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
--- INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("20c", "15b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
--- INSERT INTO worksAts (userID, businessID, role, createdAt, updatedAt)  VALUES ("21c", "16b", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+-- insert roles
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("1role", "6c", "1b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("2role" "7c", "2b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("3role", "8c", "3b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("4role", "9c", "4b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("5role", "QwduOsS2eBPOAFmVG69anKXIfGC3", "5b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("6role", "11c", "6b","merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("7role", "12c", "7b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("8role", "13c", "8b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("9role", "14c", "9b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("10role", "15c", "10b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("11role", "16c", "11b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("12role", "17c", "12b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("13role", "6c", "1p", "leader", "manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("14role", "14c", "3p", "leader","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("15role", "18c", "4p", "leader", "manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("16role", "QwduOsS2eBPOAFmVG69anKXIfGC3", "2p","manager", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+-- INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("17role", "18c", "13b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+-- INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("18role", "19c", "14b", "merchant","owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+-- INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("19role", "20c", "15b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
+-- INSERT INTO roles (roleID, userID, entityID, type, role, createdAt, updatedAt)  VALUES ("20role", "21c", "16b", "merchant", "owner", "2022-02-04 09:22:11","2022-02-04 20:34:13");
 
 -- insert loves
 INSERT INTO loves (userID, businessID, createdAt, updatedAt)  VALUES ("1c", "1b", "2022-02-04 09:22:11","2022-02-04 20:34:13");

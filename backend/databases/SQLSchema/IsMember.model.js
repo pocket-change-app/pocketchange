@@ -1,6 +1,6 @@
 
 
-//specifies relationship that user is part of the pocket (either as a customer or in some management position)
+//specifies relationship that user is part of the pocket
 module.exports = (sequelize, Sequelize) => {
     User = require("./User.model.js")(sequelize, Sequelize);
     Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
@@ -21,14 +21,6 @@ module.exports = (sequelize, Sequelize) => {
             references: {
                 model: Pocket,
                 key: 'pocketID'
-            }
-        },
-        role:{
-            type: Sequelize.STRING, 
-            allowNull: false,
-            primaryKey: true,
-            validate: {
-                isIn: [['customer', 'manager']] //customer of Pocket, viewer of Pocket-level data, manager of Pocket
             }
         }
     });

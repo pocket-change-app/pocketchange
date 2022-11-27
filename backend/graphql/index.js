@@ -4,6 +4,12 @@ const path = require('path');
 //const Mongoose = require('mongoose');
 const { MongoClient } = require ('mongodb');
 
+const admin = require('firebase-admin')
+const { initializeApp,  applicationDefault  } = require('firebase-admin/app');
+admin.initializeApp({credential: applicationDefault(), projectId: 'pocket-change-backend' })
+
+const R = require('ramda')
+
 //get SQL data
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
@@ -20,7 +26,7 @@ const QRScan = database.QRScan
 const IsIn = database.IsIn
 const IsMember = database.IsMember
 const Loves = database.Loves
-const WorksAt = database.WorksAt
+const Role = database.Role
 const ParticipatingIn = database.ParticipatingIn
 
 //get Mongo Data
@@ -33,43 +39,68 @@ const mongoContest = mongoose.model('mongoContest')
 
 //get type definitions and resolvers
 const typeDefs = require('./typeDefinitions.js')
-const resolvers = require('./resolvers.js')
+const resolvers = require('./resolvers.js');
 
-const context = async ({ req }) => {
-  return {
-    req,
-    //entity schema SQL
-    User,
-    Business,
-    Pocket,
-    ChangeBalance,
-    Transaction,
-    Geolocation,
-    Contest,
-    QRScan,
-    //relationship schema SQL
-    IsIn,
-    IsMember,
-    Loves,
-    WorksAt,
-    ParticipatingIn,
-    //sequelize connection for functions
-    sequelizeConnection,
-    //schema Mongo
-    mongoUser,
-    mongoBusiness,
-    mongoPocket,
-    mongoContest,
-    //mongoose connection
-    mongoose,
-
+const context = async ({req}) => {
+  let userID=''
+    try {
+      //console.log("HEADER", req.headers.authorization)
+      //for not playground:
+      const encodedToken = req.headers['x-auth-token']
+      //for playground:
+      //const encodedToken = req.headers.authorization
+      console.log("TOKY", encodedToken)
+      await admin.auth()
+          .verifyIdToken(encodedToken)
+          .then((decodedToken) => {
+            userID = decodedToken.uid;
+            // ...
+          })
+          .catch((error) => {
+            console.log("ERRROR", error)
+            // Handle error
+          });
+      //const currentUser = R.isNil(userID) ? null : await User.findOne({where: {userID: userID}})
+      const currentUserID = R.isNil(userID) ? null : userID
+      console.log("WITHIN INDEX.JS THE CURRENT USER ID", currentUserID)
+      return {
+        req,
+        currentUserID,
+        User,
+        Business,
+        Pocket,
+        ChangeBalance,
+        Transaction,
+        Geolocation,
+        Contest,
+        QRScan,
+        //relationship schema SQL
+        IsIn,
+        IsMember,
+        Loves,
+        Role,
+        ParticipatingIn,
+        //sequelize connection for functions
+        sequelizeConnection,
+        //schema Mongo
+        mongoUser,
+        mongoBusiness,
+        mongoPocket,
+        mongoContest,
+        //mongoose connection
+        mongoose,
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
   }
-}
+
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
+const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context, debug:true });
 
 
 server.start().then(res => { 

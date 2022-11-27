@@ -12,11 +12,12 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
                                                                                                                                                                                                                                                                                                        
 module.exports = {
   Query: {
-    business: async (parent, { businessID }, { Business, mongoBusiness}) => {
+    business: async (parent, { businessID }, { Business, userID, mongoBusiness}) => {
       //check to make sure nonempty businessID was given
         if (businessID === '') {
           return null;
         }
+        console.log("USER ID ", userID)
         //get the relevant business info from mongo, ensuring SQL exists
         const businessInfo = await Business.findOne({ where : {businessID: businessID}});
         const mongoBusinessInfo = await mongoBusiness.findOne({ businessID});
@@ -188,7 +189,6 @@ module.exports = {
 
   Mutation: {
     createBusiness: async (parent, { 
-      userID,
       businessName, 
       dateEstablished, 
       phoneNumber, 
@@ -204,7 +204,10 @@ module.exports = {
       hours,
       description, 
       ownerID,
-    }, { Business, mongoBusiness, IsIn, WorksAt}) => {
+    }, { currentUserID, Business, mongoBusiness, IsIn, Role}) => {
+        //get User roles
+        const roleInfo = await Role.find({where:{ userID:currentUserID}})
+        console.log(roleInfo)
         //check to see the business name they want isn't taken by another business
         const existing = await mongoBusiness.findOne({ businessName: businessName })
         if (!existing) {
