@@ -16,6 +16,10 @@ export const POCKET_CARD_SCREEN_MARGIN = (3 * MARGIN)
 
 export const styles = StyleSheet.create({
 
+  tabularNumbers: {
+    fontFamily: 'money'
+  },
+
   inputContainer: {
     // width: '',
     padding: MARGIN,

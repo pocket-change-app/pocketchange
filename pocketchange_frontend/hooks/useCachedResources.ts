@@ -29,7 +29,7 @@ export default function useCachedResources() {
           'metropolis black': require('../assets/fonts/Metropolis-Black.otf'),
           'metropolis black italic': require('../assets/fonts/Metropolis-BlackItalic.otf'),
           'receipt': require('../assets/fonts/VT323-Regular.ttf'),
-          'money': require('../assets/fonts/CMU-Typewriter-vw.ttf')
+          'money': require('../assets/fonts/DroidSansMono.ttf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
