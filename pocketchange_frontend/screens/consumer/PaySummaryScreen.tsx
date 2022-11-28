@@ -55,18 +55,18 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
           <View style={[styles.card]}>
             <View style={styles.container}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{amount}</Text>
               </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: MARGIN }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
                 <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{tip}</Text>
               </View>
 
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.dark }]}>Total</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
             </View>
             </View>
           </View>

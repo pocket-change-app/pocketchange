@@ -198,7 +198,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
               <View style={[styles.card, styles.container]}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>${amount}</Text>
+                  <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>${amount}</Text>
                 </View>
               </View>
 
