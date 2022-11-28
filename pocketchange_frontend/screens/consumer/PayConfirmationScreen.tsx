@@ -61,7 +61,7 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
             justifyContent: 'space-between'
           }}>
             <Text style={styles.payConfirmationDetails}>
-              {user.name.first} paid
+              {authContext?.userGQL?.firstName} paid
             </Text>
 
             <View style={{ marginVertical: 2 * MARGIN }}>
