@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
   paymentSummaryText: {
     fontFamily: 'metropolis medium',
     fontSize: 20,
-    // lineHeight: 21,
+    lineHeight: 22,
     color: colors.medium,
   },
 
