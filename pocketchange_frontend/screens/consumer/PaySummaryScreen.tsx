@@ -53,54 +53,23 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         <View>
 
-          <View style={[styles.card, styles.container]}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{amount}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{tip}</Text>
-            </View>
-            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>{fee.toFixed(2)}</Text>
-                </View> */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: MARGIN }}>
+          <View style={[styles.card]}>
+            <View style={styles.container}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{amount}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
+                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{tip}</Text>
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.dark }]}>Total</Text>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
+                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
+            </View>
             </View>
           </View>
-
-          {/* <View style={[styles.card, styles.container]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={[styles.pocket, { color: colors.medium, textAlign: 'left' }]}>Use {'[TODO: pocket ]'} Change?</Text>
-                  <Switch
-                    trackColor={{ false: colors.subtle, true: colors.gold }}
-                    thumbColor={colors.card}
-                    ios_backgroundColor={colors.subtle}
-                    onValueChange={setUseChange}
-                    value={useChange}
-                  />
-                </View>
-              </View> */}
-
-          {/* <View style={[styles.card, styles.container]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Change Applied</Text>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>-{changeToUse}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'left' }]}>You Pay</Text>
-                  <Text style={[styles.paymentSummaryText, { color: colors.dark, textAlign: 'right' }]}>${consumerTotal.toFixed(2)}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'left' }]}>You Earn</Text>
-                  <Text style={[styles.paymentSummaryText, { color: colors.gold, textAlign: 'right' }]}>${youEarn.toFixed(2)}</Text>
-                </View>
-              </View> */}
-          {/* </View> */}
 
           <ButtonWithText
             color={colors.gold}

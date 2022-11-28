@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { colors } from "../../constants/Colors";
 import { AuthContext } from "../../contexts/Auth";
+import { useHeaderHeight } from '@react-navigation/elements'
 
 
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
@@ -17,15 +18,11 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const [amount, setAmount] = useState('')
 
-  function onChangeAmount(amt: string) {
-    setAmount(amt)
-  }
-
   return (
 
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? 'padding' : "height"}
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
@@ -52,11 +49,11 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
               <View style={styles.inputContainer}>
                 <Text style={styles.paymentFocusText}>$</Text>
                 <TextInput
-                  autoFocus={true}
+                  autoFocus
                   style={styles.paymentFocusText}
                   keyboardType='numeric'
                   value={amount}
-                  onChangeText={onChangeAmount}
+                  onChangeText={setAmount}
                   placeholder={'0.00'}
                   placeholderTextColor={colors.light}
                 />
@@ -66,13 +63,18 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
             <ButtonWithText
               text={'Next'}
               color={amount ? colors.gold : undefined}
-              onPress={() => navigation.navigate("PayTip", {
-                // navigation: navigation,
-                business: business,
-                pocket: pocket,
-                amount: parseFloat(amount).toFixed(2),
-              })}
+              onPress={() => {
+                if (amount) {
+                  navigation.navigate("PayTip", {
+                    // navigation: navigation,
+                    business: business,
+                    pocket: pocket,
+                    amount: parseFloat(amount).toFixed(2),
+                  })
+                }
+              }}
             />
+
 
           </View>
         </View>
