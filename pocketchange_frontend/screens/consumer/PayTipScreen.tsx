@@ -8,7 +8,8 @@ import { AuthContext } from "../../contexts/Auth";
 import { HorizontalLine } from "../../components/Lines";
 import { useHeaderHeight } from '@react-navigation/elements'
 
-const CustomTipEntry = ({ customTip, setCustomTip, onSubmit }: { customTip: string, setCustomTip: Dispatch<SetStateAction<string>>, onSubmit: () => void }) => {
+
+const CustomTipEntry = ({ customTip, setCustomTip, setCustomTipFocus, onSubmit }: { customTip: string, setCustomTip: Dispatch<SetStateAction<string>>, setCustomTipFocus: Dispatch<SetStateAction<boolean>>, onSubmit: () => void }) => {
 
   const customTipValid = (parseFloat(customTip) > 0)
 
@@ -30,11 +31,24 @@ const CustomTipEntry = ({ customTip, setCustomTip, onSubmit }: { customTip: stri
         </View>
       </View>
 
-      <ButtonWithText
-        text="Apply Tip"
-        color={customTipValid ? colors.gold : undefined}
-        onPress={customTipValid ? onSubmit : null}
-      />
+      <View style={{ flexDirection: 'row' }}>
+
+        <ButtonWithText
+          negativeStyle
+          text={`Back to\nOptions`}
+          textTransform='none'
+          viewStyle={{ marginRight: MARGIN }}
+          onPress={() => setCustomTipFocus(false)}
+        />
+        <ButtonWithText
+          text="Apply Tip"
+          viewStyle={{ flex: 1 }}
+          color={customTipValid ? colors.gold : undefined}
+          onPress={customTipValid ? onSubmit : null}
+        />
+      </View>
+
+
     </>
   )
 }
@@ -168,9 +182,9 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
       keyboardVerticalOffset={useHeaderHeight()}
       style={{ flex: 1 }}
     >
-      <TouchableWithoutFeedback
+      {/* <TouchableWithoutFeedback
         onPress={() => setCustomTipFocus(false)}
-      >
+      > */}
 
         <SafeAreaView style={{ flex: 1 }}>
 
@@ -217,6 +231,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                   <CustomTipEntry
                     customTip={customTip}
                     setCustomTip={setCustomTip}
+                  setCustomTipFocus={setCustomTipFocus}
                     onSubmit={() => navigation.navigate('PaySummary', {
                       business: business,
                       pocket: pocket,
@@ -237,7 +252,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
       </SafeAreaView>
 
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
 
     </KeyboardAvoidingView>
   )
