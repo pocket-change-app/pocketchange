@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "pocketchangefrontend.app"
-               BlueprintName = "pocketchangefrontend"
-               ReferencedContainer = "container:pocketchangefrontend.xcodeproj">
+               BuildableName = "PocketChange.app"
+               BlueprintName = "PocketChange"
+               ReferencedContainer = "container:PocketChange.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "pocketchangefrontendTests.xctest"
-               BlueprintName = "pocketchangefrontendTests"
-               ReferencedContainer = "container:pocketchangefrontend.xcodeproj">
+               BuildableName = "PocketChangeTests.xctest"
+               BlueprintName = "PocketChangeTests"
+               ReferencedContainer = "container:PocketChange.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "pocketchangefrontend.app"
-            BlueprintName = "pocketchangefrontend"
-            ReferencedContainer = "container:pocketchangefrontend.xcodeproj">
+            BuildableName = "PocketChange.app"
+            BlueprintName = "PocketChange"
+            ReferencedContainer = "container:PocketChange.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "pocketchangefrontend.app"
-            BlueprintName = "pocketchangefrontend"
-            ReferencedContainer = "container:pocketchangefrontend.xcodeproj">
+            BuildableName = "PocketChange.app"
+            BlueprintName = "PocketChange"
+            ReferencedContainer = "container:PocketChange.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

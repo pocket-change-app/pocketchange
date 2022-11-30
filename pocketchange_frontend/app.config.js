@@ -56,6 +56,14 @@ export default {
         {
           "merchantIdentifier": "merchant.ca.pocketchangeapp.pocketchange",
           "enableGooglePay": false
+        },
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
         }
       ]
     ],
