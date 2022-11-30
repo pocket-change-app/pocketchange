@@ -64,6 +64,7 @@ buck-out/
 .expo/*
 web-build/
 pocketchange_frontend/.expo/packager-info.json
+pocketchange_frontend/ios/.xcode.env.local
 
 # VSCode
 .vscode/

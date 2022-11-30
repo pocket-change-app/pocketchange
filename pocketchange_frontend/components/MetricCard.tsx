@@ -127,7 +127,9 @@ export default function MetricCard({ title, subtitle, type, rangeName, startDate
                 {`${data[0].numCustomers}`}
               </Text>
               <Text style={[styles.metricsNormalText, { flex: 1 }]} >
-                {`members in ${pocketsData?.getBusinessPockets[0]?.pocketName}`}
+                {`members in Uptown Yonge` //TODO: make this not hard coded but not like below
+                //`members in ${pocketsData?.getBusinessPockets[0]?.pocketName}`
+                }
               </Text>
             </View>
 
@@ -136,7 +138,7 @@ export default function MetricCard({ title, subtitle, type, rangeName, startDate
                 {data[0].visitRate}
               </Text>
               <Text style={[styles.metricsNormalText, { flex: 1 }]} >
-                {`average visits per week to participating businesses`}
+                {`average weekly visits per customer to participating businesses`}
               </Text>
             </View>
 

@@ -4,7 +4,7 @@ export default {
     "owner": "pocketchange_loyalty_inc",
     "name": "PocketChange",
     "slug": "pocketchange_frontend",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pocketchange",
@@ -23,7 +23,7 @@ export default {
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ca.pocketchangeapp.pocketchange",
-      "buildNumber": "4",
+      "buildNumber": "1",
       "associatedDomains": ["applinks:www.pocketchangeapp.ca"]
     },
     "android": {
@@ -56,6 +56,14 @@ export default {
         {
           "merchantIdentifier": "merchant.ca.pocketchangeapp.pocketchange",
           "enableGooglePay": false
+        },
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
         }
       ]
     ],
