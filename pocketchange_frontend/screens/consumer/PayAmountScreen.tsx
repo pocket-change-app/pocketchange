@@ -18,6 +18,8 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const [amount, setAmount] = useState('')
 
+  const amountValid = (parseFloat(amount) > 0)
+
   return (
 
     <KeyboardAvoidingView
@@ -62,9 +64,9 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
             <ButtonWithText
               text={'Next'}
-              color={amount ? colors.gold : undefined}
+              color={amountValid ? colors.gold : undefined}
               onPress={() => {
-                if (amount) {
+                if (amountValid) {
                   navigation.navigate("PayTip", {
                     // navigation: navigation,
                     business: business,
