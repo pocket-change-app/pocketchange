@@ -959,7 +959,7 @@ export function ButtonWithText(
   return (
     <Pressable
       onPress={onPress}
-      style={_viewStyle}
+      style={({ pressed }) => [_viewStyle, pressed ? { opacity: 0.7 } : null]}
     >
       {/* <View style={_viewStyle}> */}
         <Text style={_textStyle}>
