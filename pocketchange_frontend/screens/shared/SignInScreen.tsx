@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/Auth";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import { ButtonWithText } from "../../components/Cards";
 import { ScreenContainer, Text, View } from "../../components/Themed";
-import colors from "../../constants/Colors";
+import { colors } from "../../constants/Colors";
 import { BUTTON_HEIGHT, MARGIN, styles } from "../../Styles";
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
