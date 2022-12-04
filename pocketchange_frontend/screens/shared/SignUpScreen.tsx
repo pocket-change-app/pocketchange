@@ -57,11 +57,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
   const auth = getAuth();
   const authContext = useContext(AuthContext);
 
-  const [useRegisterUserMutation, { loading, error }] = useMutation(
-    UserMutations.registerUser, {
-      onCompleted(data) { authContext.setUserGQL(data.registerUser) },
-      onError(error) { console.log(error) }
-  })
+  const [useRegisterUserMutation, { loading, error }] = useMutation(UserMutations.registerUser)
 
   if (error) console.log(error);
 
@@ -108,7 +104,10 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
               emailAddress: emailAddress, 
             }
           }).then(
-            res => authContext.setUserGQL(res.data),
+            res => {
+              authContext.setUserGQL(res.data.registerUser);
+              authContext.isLoggedIn = true;
+            },
             err => console.log(err)
           );
           //console.log("AFTER MUTUATION CALL")
