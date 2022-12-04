@@ -48,7 +48,6 @@ export const AuthProvider = ({ children }: { children: any }) => {
 
   // console.log('AuthProvider has been called.');
 
-
   const [userFirebase, setUserFirebase] = useState<User>({} as User);
   const [userGQL, setUserGQL] = useState({});
   const [activeRole, setActiveRole] = useState<Role>({} as Role);

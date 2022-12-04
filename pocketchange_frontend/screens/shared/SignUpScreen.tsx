@@ -65,8 +65,6 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
 
   async function signUp() {
 
-
-
     //setFirstname("Elias")
     //setLastName("Williams")
     //setEmailAddress("elias.williams1216@gmail.com")
@@ -106,7 +104,6 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
           }).then(
             res => {
               authContext.setUserGQL(res.data.registerUser);
-              authContext.isLoggedIn = true;
             },
             err => console.log(err)
           );
