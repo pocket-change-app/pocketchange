@@ -1,20 +1,84 @@
-import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard } from 'react-native';
+import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard, Image, Pressable } from 'react-native';
 
-import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN } from '../../Styles';
+import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, BORDER_WIDTH } from '../../Styles';
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
 import { Text, View } from '../../components/Themed';
 import { ScreenContainer } from '../../components/Themed';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
 import FloatingTitle from '../../components/FloatingTitle';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
+import MapView, { Region } from 'react-native-maps';
 
 
 
 // const R = require('ramda');
+
+const MapCard = () => {
+
+  const authContext = useContext(AuthContext)
+  const [mapRegion, setMapRegion] = useState<Region>({
+    latitude: authContext?.location?.coords?.latitude,
+    longitude: authContext?.location?.coords?.longitude,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.05,
+  })
+
+  // useEffect(() => {
+  //   // AsyncStorage.clear();
+  //   //and call de loadStorage function.
+  //   setMapRegion({
+  //     latitude: authContext?.location?.coords?.latitude,
+  //     longitude: authContext?.location?.coords?.longitude,
+  //     latitudeDelta: 0.01,
+  //     longitudeDelta: 0.05,
+  //   })
+  // }, [authContext.location]);
+
+  return (
+    <Pressable
+      onPress={() => {
+        console.log('\nauthContext.location:\n', JSON.stringify(authContext.location, null, '  '))
+        setMapRegion({
+          latitude: authContext?.location?.coords?.latitude,
+          longitude: authContext?.location?.coords?.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.05,
+        })
+      }}
+      style={{ marginRight: MARGIN }}
+    >
+      <View style={styles.pocketListCardContainer}>
+        <View style={[styles.card, styles.pocketListCard]}>
+          {/* <View style={styles.pocketListNameContainer}>
+          <Text style={styles.pocketListName}>{pocket.name}</Text>
+        </View> */}
+
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+
+            <MapView
+              style={[styles.image, styles.pocketListImage]}
+              scrollEnabled={false}
+              showsUserLocation
+              followsUserLocation
+              mapType='mutedStandard'
+            // initialRegion={{
+            //   latitude: 43.66393648913529,
+            //   longitude: -79.3154142212031,
+            //   latitudeDelta: 0.01,
+            //   longitudeDelta: 0.05,
+            // }}
+            />
+
+          </View>
+        </View>
+      </View>
+    </Pressable>
+  )
+}
 
 
 export default function PocketTabScreen({ navigation, route }: { navigation: any, route: any }) {
@@ -78,6 +142,8 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     />
   )
 
+
+
   const renderSearchResult = ({ item, index, separators }: any) => {
     switch (item.__typename) {
       case "Pocket":
@@ -128,6 +194,7 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           ItemSeparatorComponent={PocketCarouselSeparator}
 
           data={pocketData?.getAllPockets}
+          ListHeaderComponent={MapCard}
           renderItem={renderPocketCarouselCard}
         />
       )

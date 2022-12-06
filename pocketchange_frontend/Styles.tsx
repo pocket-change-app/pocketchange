@@ -632,7 +632,7 @@ export const styles = StyleSheet.create({
   pocketListCard: {
     // aspectRatio: POCKET_CARD_ASPECT_RATIO,
     // width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
-    flexGrow: 1,
+    flex: 1,
     // marginRight: 15,
     borderWidth: 0,
     marginBottom: 0,
