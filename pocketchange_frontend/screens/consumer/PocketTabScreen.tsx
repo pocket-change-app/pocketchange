@@ -12,6 +12,7 @@ import FloatingTitle from '../../components/FloatingTitle';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 import MapView, { Region } from 'react-native-maps';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -20,12 +21,14 @@ import MapView, { Region } from 'react-native-maps';
 const MapCard = () => {
 
   const authContext = useContext(AuthContext)
-  const [mapRegion, setMapRegion] = useState<Region>({
-    latitude: authContext?.location?.coords?.latitude,
-    longitude: authContext?.location?.coords?.longitude,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.05,
-  })
+  const navigation = useNavigation() // accesses the navigation object from the parent, I think
+
+  // const [mapRegion, setMapRegion] = useState<Region>({
+  //   latitude: authContext?.location?.coords?.latitude,
+  //   longitude: authContext?.location?.coords?.longitude,
+  //   latitudeDelta: 0.01,
+  //   longitudeDelta: 0.05,
+  // })
 
   // useEffect(() => {
   //   // AsyncStorage.clear();
@@ -40,15 +43,9 @@ const MapCard = () => {
 
   return (
     <Pressable
-      onPress={() => {
-        console.log('\nauthContext.location:\n', JSON.stringify(authContext.location, null, '  '))
-        setMapRegion({
-          latitude: authContext?.location?.coords?.latitude,
-          longitude: authContext?.location?.coords?.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.05,
-        })
-      }}
+      onPress={() => navigation.navigate('Map', {
+        location: authContext.location
+      })}
       style={{ marginRight: MARGIN }}
     >
       <View style={styles.pocketListCardContainer}>
@@ -184,6 +181,12 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       return (
         <FlatList
           // style={styles.pocketFlatList}
+          // pagingEnabled
+          initialScrollIndex={1}
+          // contentOffset={{
+          //   x: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN,
+          //   y: 0
+          // }}
           contentContainerStyle={styles.pocketFlatList}
           horizontal
           decelerationRate={0}
@@ -191,11 +194,18 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
           snapToAlignment='start'
           snapToInterval={Dimensions.get('window').width - (2 * POCKET_CARD_SCREEN_MARGIN - MARGIN)}
 
+          data={pocketData?.getAllPockets}
+          renderItem={renderPocketCarouselCard}
+          ListHeaderComponent={MapCard}
           ItemSeparatorComponent={PocketCarouselSeparator}
 
-          data={pocketData?.getAllPockets}
-          ListHeaderComponent={MapCard}
-          renderItem={renderPocketCarouselCard}
+          /** Defining a getItemLayout is necessary for things like
+           * initialScrollIndex to work properly */
+          getItemLayout={(data, index) => ({
+            length: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN,
+            offset: (Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN) * (index),
+            index: index
+          })}
         />
       )
     } else {
