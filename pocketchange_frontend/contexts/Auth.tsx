@@ -53,7 +53,7 @@ export const AuthContext = createContext({} as AuthContextData);
 export const AuthProvider = ({ children }: { children: any }) => {
 
   // console.log('AuthProvider has been called.');
-  const [errorMsg, setErrorMsg] = useState(null)
+  const [errorMsg, setErrorMsg] = useState<string>()
 
   const [userFirebase, setUserFirebase] = useState<User>({} as User);
   const [userGQL, setUserGQL] = useState({});
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
           return;
         }
         Location.watchPositionAsync({
-          accuracy: Location.Accuracy.BestForNavigation,
+          accuracy: Location.Accuracy.Highest,
           distanceInterval: 10,
           // timeInterval: 10000
         }, (loc) => {
