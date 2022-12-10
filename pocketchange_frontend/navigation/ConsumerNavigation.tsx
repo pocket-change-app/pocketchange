@@ -180,7 +180,7 @@ function PocketStack() {
           // presentation: 'fullScreenModal',
           // animation: 'fade',
           // statusBarHidden: true,
-          headerShown: false,
+          // headerShown: false,
           autoHideHomeIndicator: true,
         }}
       />
