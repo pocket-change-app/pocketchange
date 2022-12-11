@@ -4,7 +4,7 @@ import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, BORDER_WIDTH } from '../../S
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
 import { Text, View } from '../../components/Themed';
 import { ScreenContainer } from '../../components/Themed';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
@@ -13,6 +13,7 @@ import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 import MapView, { Region } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
+import { HorizontalLine } from '../../components/Lines';
 
 
 
@@ -83,6 +84,8 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
   const authContext = useContext(AuthContext);
 
   const [searchQuery, setSearchQuery] = useState('')
+  // const [tabText, setTabText] = useState('Pockets')
+  // const xOffset = useRef(0)
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(undefined);
   const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPockets } = useGetAllPocketsQuery(undefined);
@@ -139,8 +142,6 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     />
   )
 
-
-
   const renderSearchResult = ({ item, index, separators }: any) => {
     switch (item.__typename) {
       case "Pocket":
@@ -176,37 +177,57 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
     }
   }
 
+  // const onScroll = (e) => {
+  //   if (xOffset.current <= 0 && e.nativeEvent.contentOffset.x > 0) {
+  //     // case when user just started scrolling down from the top
+  //   } else if (xOffset.current > 0 && e.nativeEvent.contentOffset.x <= 0) {
+  //     setTabText('Map')
+  //   }
+  //   xOffset.current = e.nativeEvent.contentOffset.x;
+  //   // console.log(xOffset.current);
+  // }
+
   const PageContents = () => {
     if (!searchQuery) {
       return (
-        <FlatList
-          // style={styles.pocketFlatList}
-          // pagingEnabled
-          initialScrollIndex={1}
-          // contentOffset={{
-          //   x: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN,
-          //   y: 0
-          // }}
-          contentContainerStyle={styles.pocketFlatList}
-          horizontal
-          decelerationRate={0}
-          showsHorizontalScrollIndicator={false}
-          snapToAlignment='start'
-          snapToInterval={Dimensions.get('window').width - (2 * POCKET_CARD_SCREEN_MARGIN - MARGIN)}
+        <SafeAreaView style={{ flex: 1 }} >
 
-          data={pocketData?.getAllPockets}
-          renderItem={renderPocketCarouselCard}
-          ListHeaderComponent={MapCard}
-          ItemSeparatorComponent={PocketCarouselSeparator}
+          {/* <HorizontalLine />
+          <View style={{ height: MARGIN }} />
+          <FloatingTitle text={'Pockets'} /> */}
 
-          /** Defining a getItemLayout is necessary for things like
-           * initialScrollIndex to work properly */
-          getItemLayout={(data, index) => ({
-            length: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN,
-            offset: (Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN) * (index),
-            index: index
-          })}
-        />
+          <FlatList
+            // style={styles.pocketFlatList}
+            // pagingEnabled
+            initialScrollIndex={1}
+            // contentOffset={{
+            //   x: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN,
+            //   y: 0
+            // }}
+            contentContainerStyle={styles.pocketFlatList}
+            horizontal
+            decelerationRate={0}
+            showsHorizontalScrollIndicator={false}
+            snapToAlignment='start'
+            snapToInterval={Dimensions.get('window').width - (2 * POCKET_CARD_SCREEN_MARGIN - MARGIN)}
+
+            data={pocketData?.getAllPockets}
+            renderItem={renderPocketCarouselCard}
+            ListHeaderComponent={MapCard}
+            ItemSeparatorComponent={PocketCarouselSeparator}
+
+            // onScroll={onScroll}
+
+            /** Defining a getItemLayout is necessary for things like
+             * initialScrollIndex to work properly */
+            getItemLayout={(data, index) => ({
+              length: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN,
+              offset: (Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN) * (index),
+              index: index
+            })}
+          />
+
+        </SafeAreaView>
       )
     } else {
       return (

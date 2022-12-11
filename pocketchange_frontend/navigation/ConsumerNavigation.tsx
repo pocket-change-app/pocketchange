@@ -381,7 +381,7 @@ const BottomTabConsumer = () => {
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="map-pin" color={color} size={size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='search' color={color} size={size} />,
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
@@ -418,7 +418,7 @@ const BottomTabConsumer = () => {
         component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="id-card" color={color} size = {size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='id-card-o' color={color} size={size} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}
