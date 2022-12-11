@@ -176,7 +176,8 @@ export const styles = StyleSheet.create({
   },
 
   tabBar: {
-    height: 100,
+    // height: 100,
+    marginVertical: MARGIN,
     backgroundColor: colors.bg,
     borderTopWidth: 0,
     borderColor: colors.light,
