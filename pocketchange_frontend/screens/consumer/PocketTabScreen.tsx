@@ -1,6 +1,6 @@
 import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard, Image, Pressable } from 'react-native';
 
-import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, BORDER_WIDTH } from '../../Styles';
+import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, BORDER_WIDTH, CARD_RADIUS } from '../../Styles';
 import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
 import { Text, View } from '../../components/Themed';
 import { ScreenContainer } from '../../components/Themed';
@@ -55,10 +55,30 @@ const MapCard = () => {
           <Text style={styles.pocketListName}>{pocket.name}</Text>
         </View> */}
 
-          <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={[styles.card, { flex: 1, padding: MARGIN / 2, justifyContent: 'center', marginBottom: 0 }]}>
+
+            <View style={[styles.card, {
+              zIndex: 10,
+              position: 'absolute',
+              top: MARGIN / 2,
+              left: MARGIN / 2,
+              paddingTop: MARGIN / 2,
+              paddingLeft: MARGIN / 2,
+              paddingRight: MARGIN,
+              paddingBottom: MARGIN,
+
+              borderTopWidth: 0,
+              borderLeftWidth: 0,
+              borderRadius: 0,
+              borderBottomRightRadius: CARD_RADIUS,
+            }]}>
+              <Text style={styles.navigationHeaderTitle}>
+                In your area
+              </Text>
+            </View>
 
             <MapView
-              style={[styles.image, styles.pocketListImage]}
+              style={[styles.image, styles.pocketListImage, { borderRadius: CARD_RADIUS - MARGIN / 2 }]}
               scrollEnabled={false}
               showsUserLocation
               followsUserLocation
@@ -69,7 +89,9 @@ const MapCard = () => {
             //   latitudeDelta: 0.01,
             //   longitudeDelta: 0.05,
             // }}
-            />
+            >
+
+            </MapView>
 
           </View>
         </View>
@@ -193,13 +215,13 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
         <SafeAreaView style={{ flex: 1 }} >
 
           {/* <HorizontalLine />
-          <View style={{ height: MARGIN }} />
-          <FloatingTitle text={'Pockets'} /> */}
+          <View style={{ height: MARGIN }} /> */}
+          {/* <FloatingTitle text={'Pockets'} /> */}
 
           <FlatList
             // style={styles.pocketFlatList}
             // pagingEnabled
-            initialScrollIndex={1}
+            initialScrollIndex={1}  // TODO: UNCOMMENT
             // contentOffset={{
             //   x: Dimensions.get('screen').width - 2 * POCKET_CARD_SCREEN_MARGIN + MARGIN,
             //   y: 0
