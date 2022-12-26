@@ -115,6 +115,11 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
         <Text style={[styles.pocket, { color: colors.gold }]}>
           ~Experience Land~
         </Text>
+        <Callout>
+          <Text>
+            {"<Callout> for Experience Land"}
+          </Text>
+        </Callout>
       </Marker>
 
     </MapView>
