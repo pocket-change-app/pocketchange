@@ -71,7 +71,6 @@ const context = async ({ req }) => {
 const app = express();
 const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
 
-
 server.start().then(res => { 
   server.applyMiddleware({
     app,
@@ -89,3 +88,33 @@ mongoose.once('open', () => {
         })
     })
 })
+
+
+// STRIPE ENDPOINT
+// TODO: change key from test
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+app.post('/payment-sheet', async (req, res) => {
+  // TODO: Use an existing Customer ID if this is a returning customer.
+  const customer = await stripe.customers.create();
+  const ephemeralKey = await stripe.ephemeralKeys.create(
+    {customer: customer.id},
+    {apiVersion: '2022-11-15'}
+  );
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1099,
+    currency: 'eur',
+    customer: customer.id,
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.json({
+    paymentIntent: paymentIntent.client_secret,
+    ephemeralKey: ephemeralKey.secret,
+    customer: customer.id,
+    publishableKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx'
+
+  });
+});

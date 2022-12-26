@@ -23,7 +23,7 @@ export default {
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ca.pocketchangeapp.pocketchange",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "associatedDomains": ["applinks:www.pocketchangeapp.ca"]
     },
     "android": {
