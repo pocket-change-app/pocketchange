@@ -72,6 +72,7 @@ const context = async ({ req }) => {
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const app = express();
+app.use(express.json())
 const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
 
 server.start().then(res => { 
@@ -99,14 +100,15 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.post('/payment-sheet', async (req, res) => {
   // TODO: Use an existing Customer ID if this is a returning customer.
+  console.log(req.body);
   const customer = await stripe.customers.create();
   const ephemeralKey = await stripe.ephemeralKeys.create(
     {customer: customer.id},
     {apiVersion: '2022-11-15'}
   );
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1099,
-    currency: 'eur',
+    amount: req.body.amount,
+    currency: 'cad',
     customer: customer.id,
     automatic_payment_methods: {
       enabled: true,
