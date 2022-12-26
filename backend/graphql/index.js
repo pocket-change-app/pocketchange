@@ -9,6 +9,7 @@ const { MongoClient } = require ('mongodb');
 //get SQL data
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
+
 //entities
 const User = database.User
 const Business = database.Business
