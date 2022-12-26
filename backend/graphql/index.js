@@ -1,12 +1,15 @@
 const express = require("express");
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+require('dotenv').config({path: __dirname + '/../.env'});
+
 //const Mongoose = require('mongoose');
 const { MongoClient } = require ('mongodb');
 
 //get SQL data
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
+
 //entities
 const User = database.User
 const Business = database.Business
@@ -78,7 +81,7 @@ server.start().then(res => {
 })
 
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
-const port = process.env.PORT || 4000;
+const port = process.env.NODE_DOCKER_PORT || 4000;
 mongoose.once('open', () => {
   console.log('Mongo connection open')
   sequelizeConnection.authenticate().then(() => {
@@ -92,7 +95,7 @@ mongoose.once('open', () => {
 
 // STRIPE ENDPOINT
 // TODO: change key from test
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.post('/payment-sheet', async (req, res) => {
   // TODO: Use an existing Customer ID if this is a returning customer.
@@ -114,7 +117,6 @@ app.post('/payment-sheet', async (req, res) => {
     paymentIntent: paymentIntent.client_secret,
     ephemeralKey: ephemeralKey.secret,
     customer: customer.id,
-    publishableKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx'
-
+    publishableKey: process.env.STRIPE_PUBLISH_KEY
   });
 });
