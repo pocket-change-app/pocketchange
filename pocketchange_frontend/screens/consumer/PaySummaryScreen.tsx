@@ -22,7 +22,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
 
-  const API_URL = 'https://fe18-67-246-75-20.ngrok.io'
+  const API_URL = 'https://b6ed-67-246-75-20.ngrok.io'
 
   // const [useChange, setUseChange] = useState(true)
 
@@ -46,6 +46,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ "amount": total * 100 })
     });
     const { paymentIntent, ephemeralKey, customer } = await response.json();
 
@@ -65,14 +66,14 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
     } = await fetchPaymentSheetParams();
 
     const { error } = await initPaymentSheet({
-      customFlow: true,
+      //customFlow: true,
       merchantDisplayName: "Example, Inc.",
       customerId: customer,
       customerEphemeralKeySecret: ephemeralKey,
       paymentIntentClientSecret: paymentIntent,
       // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
       //methods that complete payment after a delay, like SEPA Debit and Sofort.
-      allowsDelayedPaymentMethods: true,
+      //allowsDelayedPaymentMethods: true,
       defaultBillingDetails: {
         name: 'Jane Doe',
       }
