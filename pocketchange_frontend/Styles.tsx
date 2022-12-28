@@ -709,7 +709,7 @@ export const styles = StyleSheet.create({
     // marginLeft: MARGIN,
   },
 
-  transactionListed: {
+  historyItem: {
     zIndex: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -724,6 +724,21 @@ export const styles = StyleSheet.create({
     // flexShrink: 1,
   },
 
+  transactionListed: {
+    // zIndex: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    // height: 40,
+    // paddingHorizontal: MARGIN,
+    // paddingVertical: MARGIN * 2 / 3,
+    // marginBottom: 0,
+    // borderRadius: 0,
+    // borderTopWidth: 0,
+    // borderBottomWidth: 0,
+    // flexShrink: 1,
+  },
+
   transactionListedMerchantText: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
@@ -734,7 +749,7 @@ export const styles = StyleSheet.create({
 
   transactionListedAmountText: {
     alignSelf: 'center',
-    fontFamily: 'metropolis medium',
+    fontFamily: 'money',
     fontSize: 16,
     color: colors.medium,
     marginRight: MARGIN / 2,

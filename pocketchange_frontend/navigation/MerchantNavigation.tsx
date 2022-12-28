@@ -20,6 +20,7 @@ import { AuthContext } from '../contexts/Auth';
 import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
 import SurveyScreen from '../screens/shared/SurveyScreen';
+import TransactionScreen from '../screens/merchant/TransactionScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -90,10 +91,16 @@ function TransactionsStack() {
       <Stack.Screen
         name="Transactions"
         component={TransactionsTabScreen}
-        options={({ navigation }: RootTabScreenProps<'Transactions'>) => ({
-          title: 'Transactions',
-          tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
-        })}
+        options={{
+          title: 'Transactions'
+        }}
+      />
+      <Stack.Screen
+        name="Transaction"
+        component={TransactionScreen}
+        options={{
+          title: '',
+        }}
       />
     </Stack.Navigator>
   )
@@ -179,7 +186,7 @@ const BottomTabMerchant = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='MetricsStack'
+      initialRouteName='TransactionsStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
