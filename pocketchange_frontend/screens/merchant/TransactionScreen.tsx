@@ -24,7 +24,7 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
       navigation.setOptions({ title: user?.firstName + ' paid' })
     }
 
-    console.log('setOptions call');
+    // console.log('setOptions call');
 
   }, [user])
 
