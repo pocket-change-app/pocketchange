@@ -679,7 +679,7 @@ export function HistoryEntry({ navigation, item }: any) {
       onPress={onPress}
     >
 
-      <View style={[styles.card, styles.transactionListed]}>
+      <View style={[styles.card, styles.historyItem]}>
 
         <View style={{ flexDirection: 'row', flexShrink: 1 }}>
 
@@ -975,22 +975,22 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   const { user, loading: userLoading, refetch: refetchUser } = useUserQuery(transaction.userID)
 
-  if (isNilOrEmpty(user)) {
-    return (null)
-  }
+  // if (isNilOrEmpty(user)) {
+  //   return (null)
+  // }
 
   return (
     <Pressable
-      onPress={null}
+      style={[styles.card]}
+      onPress={() => navigation.navigate('Transaction', { transaction: transaction })}
     >
-      <View style={styles.transactionListed}>
+      <View style={[styles.container, styles.transactionListed]}>
 
         <Text style={styles.transactionListedAmountText}>
           {transaction.date.split("T")[1].split(".")[0]}
         </Text>
         <Text style={styles.transactionListedMerchantText}>
-          {!user ? null : user.firstName
-          }
+          {user?.firstName}
         </Text>
         <Text style={styles.transactionListedAmountText}>
           ${transaction.value}
