@@ -20,7 +20,12 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   useEffect(() => {
-    navigation.setOptions({ title: user.firstName + ' paid' })
+    if (user.firstName) {
+      navigation.setOptions({ title: user?.firstName + ' paid' })
+    }
+
+    console.log('setOptions call');
+
   }, [user])
 
   const theDate = new Date(transaction.date)
