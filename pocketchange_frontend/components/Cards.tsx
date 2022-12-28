@@ -975,6 +975,10 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   const { user, loading: userLoading, refetch: refetchUser } = useUserQuery(transaction.userID)
 
+  const theDate = new Date(transaction.date)
+  const date = theDate.toLocaleDateString()
+  const time = theDate.toLocaleTimeString()
+
   // if (isNilOrEmpty(user)) {
   //   return (null)
   // }
@@ -986,8 +990,8 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
     >
       <View style={[styles.container, styles.transactionListed]}>
 
-        <Text style={styles.transactionListedAmountText}>
-          {transaction.date.split("T")[1].split(".")[0]}
+        <Text style={styles.transactionListedMerchantText}>
+          {time}
         </Text>
         <Text style={styles.transactionListedMerchantText}>
           {user?.firstName}
