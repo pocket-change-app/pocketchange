@@ -50,7 +50,7 @@ export type RootStackParamList = {
 
   // Merchant Screens
   Transactions: undefined;
-  TransactionModal: undefined;
+  Transaction: undefined;
 
   MerchantMetrics: undefined;
 
