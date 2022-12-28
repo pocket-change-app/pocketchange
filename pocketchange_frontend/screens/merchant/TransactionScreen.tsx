@@ -53,12 +53,11 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
 
         <View style={styles.textContainer}>
           <Text style={[styles.paymentSummaryText, { textAlign: 'right' }]}>
-            {'on '}
             <Text style={{ color: colors.dark }}>
               {date}{'\n'}
             </Text>
             <Text style={{ color: colors.medium }}>
-              {'at '}{time}
+              {time}
             </Text>
           </Text>
         </View>
