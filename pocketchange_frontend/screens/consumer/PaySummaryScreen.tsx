@@ -11,6 +11,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
+import TransactionSummary from "../../components/TransactionSummary";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -53,23 +54,10 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         <View>
 
-          <View style={[styles.card]}>
-            <View style={styles.container}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{amount}</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{tip}</Text>
-              </View>
-
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.dark }]}>Total</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
-            </View>
-            </View>
-          </View>
+          <TransactionSummary
+            amount={amount}
+            tip={tip}
+          />
 
           <ButtonWithText
             color={colors.gold}
@@ -83,7 +71,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
               navigation.navigate("PayConfirmation", {
                 business: business,
-                subtotal: amount,
+                subtotal: total.toFixed(2),
                 date: date,
               })
 
