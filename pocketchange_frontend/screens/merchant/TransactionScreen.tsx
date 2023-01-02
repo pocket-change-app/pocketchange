@@ -49,6 +49,7 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
         <TransactionSummary
           amount={transaction.value}
           tip={'1.23'}  // TODO: get tip from transaction once tips are recorded in backend
+          changeRedeemed={'2.50'}//{transaction.changeRedeemed}
         />
 
         <View style={styles.textContainer}>
