@@ -5,14 +5,14 @@ import { Text, View } from "./Themed";
 
 
 
-export default function TransactionSummary({ amount, tip, changeApplied }: { amount: string, tip: string, changeApplied: string }) {
+export default function TransactionSummary({ amount, tip, fee, changeApplied }: { amount: string, tip: string, fee: string, changeApplied: string }) {
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
   const changeAppliedNum = parseFloat(changeApplied)
-  // const changeToUse = (useChange ? 2.63 : 0)
+  const feeNum = parseFloat(fee)
   // const fee = ((amountNum + tipNum) * FEE_RATE)
-  const total = amountNum + tipNum - changeAppliedNum // (amountNum + tipNum + fee)
+  const total = amountNum + tipNum + feeNum - changeAppliedNum // (amountNum + tipNum + fee)
 
   return (
     <View style={[styles.card]}>
@@ -24,6 +24,10 @@ export default function TransactionSummary({ amount, tip, changeApplied }: { amo
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
           <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{tip}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
+          <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{fee}</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
           <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.gold }]}>Change Applied</Text>
