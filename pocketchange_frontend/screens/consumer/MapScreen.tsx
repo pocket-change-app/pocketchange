@@ -98,7 +98,7 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
       ))}
 
       {/* POLYGONS */}
-
+      {/*
       <Polygon
         coordinates={testPolygon}
         // strokeWidth={2}
@@ -120,7 +120,7 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
             {"<Callout> for Experience Land"}
           </Text>
         </Callout>
-      </Marker>
+      </Marker> */}
 
     </MapView>
   )
