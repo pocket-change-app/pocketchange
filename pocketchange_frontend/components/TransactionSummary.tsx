@@ -5,14 +5,14 @@ import { Text, View } from "./Themed";
 
 
 
-export default function TransactionSummary({ amount, tip, changeRedeemed }: { amount: string, tip: string, changeRedeemed: string }) {
+export default function TransactionSummary({ amount, tip, changeApplied }: { amount: string, tip: string, changeApplied: string }) {
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  const changeRedeemedNum = parseFloat(changeRedeemed)
+  const changeAppliedNum = parseFloat(changeApplied)
   // const changeToUse = (useChange ? 2.63 : 0)
   // const fee = ((amountNum + tipNum) * FEE_RATE)
-  const total = amountNum + tipNum - changeRedeemedNum // (amountNum + tipNum + fee)
+  const total = amountNum + tipNum - changeAppliedNum // (amountNum + tipNum + fee)
 
   return (
     <View style={[styles.card]}>
@@ -27,7 +27,7 @@ export default function TransactionSummary({ amount, tip, changeRedeemed }: { am
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
           <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.gold }]}>Change Applied</Text>
-          <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.gold }]}>{'–'}{changeRedeemed}</Text>
+          <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.gold }]}>{'–'}{changeApplied}</Text>
         </View>
 
         {/* <HorizontalLine noPadding />
