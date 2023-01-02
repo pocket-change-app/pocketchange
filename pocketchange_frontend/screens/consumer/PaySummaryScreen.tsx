@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
-import { ButtonWithText } from '../../components/Cards'
+import { ButtonWithText, SettingSwitch } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
 import { colors } from "../../constants/Colors";
 import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
@@ -19,16 +19,16 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const { business, pocket, amount, tip } = route.params;
 
-  // const [useChange, setUseChange] = useState(true)
+  const [useChange, setUseChange] = useState(true)
 
-  const EARN_RATE = 0.1
-  const FEE_RATE = 0.05
+  const EARN_RATE = 0.1  // TODO: retrieve from backend
+  const FEE_RATE = 0.05  // TODO: retrieve from backend
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  // const changeToUse = (useChange ? 2.63 : 0)
-  // const fee = ((amountNum + tipNum) * FEE_RATE)
-  const total = amountNum + tipNum // (amountNum + tipNum + fee)
+  const changeToUse = (useChange ? 2.63 : 0)
+  const feeNum = ((amountNum + tipNum) * FEE_RATE)
+  const total = amountNum + tipNum + feeNum - changeToUse // (amountNum + tipNum + fee)
 
   // const consumerTotal = (total - changeToUse)
   // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
@@ -52,34 +52,44 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
           </View>
         </View>
 
-        <View>
 
-          <TransactionSummary
-            amount={amount}
-            tip={tip}
+        <TransactionSummary
+          amount={amount}
+          tip={tip}
+          fee={feeNum.toFixed(2)}
+          changeApplied={changeToUse.toFixed(2)}
+        />
+
+        <View style={styles.card}>
+          <SettingSwitch
+            settingText="Apply Change?"
+            value={useChange}
+            onToggle={setUseChange}
           />
-
-          <ButtonWithText
-            color={colors.gold}
-            text={'Pay ' + business.businessName}
-            onPress={() => {
-
-              const date = new Date()
-
-              navigation.popToTop()
-              navigation.goBack()
-
-              navigation.navigate("PayConfirmation", {
-                business: business,
-                subtotal: total.toFixed(2),
-                date: date,
-              })
-
-              // console.log('navigated to PayConfirmation')
-            }}
-          />
-
         </View>
+
+        <ButtonWithText
+          color={colors.gold}
+          text="Confirm and Pay"
+          onPress={() => {
+
+            const date = new Date()
+
+            navigation.popToTop()
+            navigation.goBack()
+
+            navigation.navigate("PayConfirmation", {
+              business: business,
+              subtotal: total.toFixed(2),
+              date: date,
+            })
+
+            // console.log('navigated to PayConfirmation')
+          }}
+        />
+
+
+
       </View>
 
     </SafeAreaView >

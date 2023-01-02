@@ -19,6 +19,7 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
   const { data: pocket, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(transaction?.pocketID)
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
+  // set header title to '[Name] paid'
   useEffect(() => {
     if (user.firstName) {
       navigation.setOptions({ title: user?.firstName + ' paid' })
@@ -27,6 +28,15 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
     // console.log('setOptions call');
 
   }, [user])
+
+  const EARN_RATE = 0.1  // TODO: retrieve from backend
+  const FEE_RATE = 0.05  // TODO: retrieve from backend
+
+  const valueNum = parseFloat(transaction.value)
+  const tipNum = 1.23
+  const feeNum = (valueNum + tipNum) * FEE_RATE
+  const changeAppliedNum = 2.50
+
 
   const theDate = new Date(transaction.date)
   const date = theDate.toLocaleDateString()
@@ -48,8 +58,9 @@ export default function TransactionScreen({ route, navigation }: { route: any, n
 
         <TransactionSummary
           amount={transaction.value}
-          tip={'1.23'}  // TODO: get tip from transaction once tips are recorded in backend
-          changeApplied={'2.50'}//{transaction.changeRedeemed}
+          tip={tipNum.toFixed(2)}  // TODO: get tip from transaction once tips are recorded in backend
+          fee={feeNum.toFixed(2)}
+          changeApplied={changeAppliedNum.toFixed(2)}//{transaction.changeRedeemed}
         />
 
         <View style={styles.textContainer}>
