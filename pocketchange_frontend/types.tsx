@@ -28,6 +28,8 @@ export type RootStackParamList = {
   PocketSearch: undefined;
   Pocket: undefined;
 
+  Map: undefined;
+
   NotFound: undefined;
 
   Receipt: undefined;

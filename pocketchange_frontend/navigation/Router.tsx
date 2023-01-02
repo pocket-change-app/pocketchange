@@ -13,7 +13,6 @@ import { isNilOrEmpty } from 'ramda-adjunct';
 import { Text, } from 'react-native';
 
 import * as Linking from 'expo-linking';
-import * as Location from 'expo-location';
 import { LeaderNavigation } from './LeaderNavigation';
 import wait, { waitTimes } from '../utils/wait';
 const prefix = Linking.createURL('/');
@@ -31,37 +30,7 @@ export const Router = () => {
   console.log("-------------------------------------")
 
 
-  const [errorMsg, setErrorMsg] = useState(null);
-
-  const [watcher, setWatcher] = useState(undefined);
   // const [currentPosition, setCurrentPosition] = useState(null);
-
-  useEffect(() => {
-    if (authContext.isLoggedIn) {
-      (async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          setErrorMsg('Permission to access location was denied');
-          return;
-        }
-        Location.watchPositionAsync({
-          accuracy: Location.Accuracy.Highest,
-          distanceInterval: 10,
-          // timeInterval: 10000
-        }, (pos) => {
-          console.log('position: ', pos)
-          // setCurrentPosition(pos);
-        }).then((locationWatcher) => {
-          setWatcher(locationWatcher);
-        }).catch((err) => {
-          console.log(err)
-        })
-      })()
-    } else {
-      console.log('removing watcher!');
-      watcher?.remove()
-    }
-  }, [authContext.isLoggedIn])
 
 
   var stack;

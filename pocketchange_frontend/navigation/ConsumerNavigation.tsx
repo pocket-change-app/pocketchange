@@ -33,6 +33,7 @@ import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 import SurveyScreen from '../screens/shared/SurveyScreen';
+import MapScreen from '../screens/consumer/MapScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -68,41 +69,43 @@ export const ConsumerNavigation = () => {
           presentation: 'modal',
         }}
       > */}
-        <Stack.Screen
-          name="PayConfirmation"
-          component={PayConfirmationScreen}
-          options={{
-            presentation: 'fullScreenModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      <Stack.Screen
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
 
-        <Stack.Screen
-          name="ScanConfirmation"
-          component={ScanConfirmationScreen}
-          options={{
-            presentation: 'fullScreenModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      <Stack.Screen
+        name="ScanConfirmation"
+        component={ScanConfirmationScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
 
-        <Stack.Screen
-          name="Survey"
-          component={SurveyScreen}
-          options={{
-            presentation: 'transparentModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      <Stack.Screen
+        name="Survey"
+        component={SurveyScreen}
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
+
+
 
       {/* </Stack.Group> */}
 
@@ -170,61 +173,21 @@ function PocketStack() {
         name="BusinessStack"
         component={BusinessStack}
       /> */}
+      <Stack.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          // presentation: 'fullScreenModal',
+          // animation: 'fade',
+          // statusBarHidden: true,
+          // headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
     </Stack.Navigator>
   )
 }
 
-
-function PayStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName='Pay'
-      screenOptions={{
-        headerTitleStyle: styles.navigationHeaderTitle,
-        headerStyle: styles.navigationHeader,
-        headerShadowVisible: false, // finding this was really annoying
-        headerTintColor: colors.gold,
-        headerBackTitleStyle: styles.navigationBackTitleStyle,
-        // headerBackButtonMenuEnabled: true,
-      }}
-    >
-      <Stack.Screen
-        name="Pay"
-        component={PayTabScreen}
-        options={{ title: ' Pay ' }}
-      // screenOptions={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Business"
-        component={BusinessScreen}
-        options={({ route }) => ({
-          title: '' //route.params.business.name
-        })}
-      />
-      {/* <Stack.Screen
-        name="PayAmount"
-        component={PayAmountScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PayTip"
-        component={PayTipScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PaySummary"
-        component={PaySummaryScreen}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-    </Stack.Navigator>
-  )
-}
 
 function PaymentModalStack() {
   return (
@@ -296,14 +259,6 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
-      {/* <Stack.Screen
-        name="PayConfirmation"
-        component={PayConfirmationScreen}
-        options={({ navigation }: any) => ({
-          presentation: 'fullScreenModal',
-          headerShown: false,
-        })}
-      /> */}
     </Stack.Navigator >
   )
 }
@@ -393,14 +348,6 @@ function WalletStack() {
           title: '',
         }}
       />
-      {/* <Stack.Screen
-        name="PayConfirmation"
-        component={PayConfirmationScreen}
-        options={({ navigation }: any) => ({
-          presentation: 'fullScreenModal',
-          headerShown: false,
-        })}
-      /> */}
     </Stack.Navigator>
   )
 }
@@ -434,7 +381,7 @@ const BottomTabConsumer = () => {
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="map-pin" color={color} size={size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='search' color={color} size={size} />,
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
@@ -471,7 +418,7 @@ const BottomTabConsumer = () => {
         component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="id-card" color={color} size = {size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='id-card-o' color={color} size={size} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}

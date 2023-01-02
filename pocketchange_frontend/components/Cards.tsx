@@ -196,7 +196,31 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket: boolean }) {
+export function BusinessInfo({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket?: boolean }) {
+
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  return (
+    <Pressable
+      disabled={!navigation}
+      onPress={() => {
+        navigation.navigate('Business', {
+          businessID: businessID,
+          pocketID: pocketData?.getBusinessPockets[0]?.pocketID
+        })
+      }}
+    >
+      <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
+      <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
+      {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
+    </Pressable>
+  )
+}
+
+export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket?: boolean }) {
   const [imageURL, setImageURL] = useState();
 
   // console.log(business)
@@ -205,16 +229,13 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
     getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const businessQuery = useBusinessQuery(businessID)
-  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
 
-
+  // const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
 
   // Return query errors AFTER ALL query calls
   // this avoids Error: 'Rendered fewer hooks than expected'
 
-  if (businessError) return (<Text>{businessError.message}</Text>)
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
@@ -223,7 +244,7 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
         navigation ?
           navigation.navigate('Business', {
             // navigation: navigation,
-            businessID: businessData?.business?.businessID,
+            businessID: businessID,
             pocketID: pocketData?.getBusinessPockets[0]?.pocketID
           })
           : null
@@ -245,11 +266,8 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
         </View>
 
         <View style={styles.businessListInfo}>
-          <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
-          <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
-          {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
+          <BusinessInfo businessID={businessID} showPocket={showPocket} />
         </View>
-
       </View>
 
     </Pressable>

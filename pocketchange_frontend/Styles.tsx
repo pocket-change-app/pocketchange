@@ -116,14 +116,16 @@ export const styles = StyleSheet.create({
   },
 
   floatingTitleContainer: {
-    alignSelf: 'left',
-    marginTop: -BORDER_WIDTH,
+    zIndex: 10,
+    // alignSelf: 'right',
+    // marginTop: -BORDER_WIDTH,
     marginHorizontal: MARGIN,
     // padding: MARGIN * 2,
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
     top: 0,
+    left: 0,
   },
 
   floatingTitleCard: {
@@ -616,7 +618,7 @@ export const styles = StyleSheet.create({
   pocketFlatList: {
     // paddingVertical: MARGIN,
     paddingHorizontal: POCKET_CARD_SCREEN_MARGIN,
-    // margin: 15,
+    // marginTop: MARGIN,
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
@@ -633,7 +635,7 @@ export const styles = StyleSheet.create({
   pocketListCard: {
     // aspectRatio: POCKET_CARD_ASPECT_RATIO,
     // width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
-    flexGrow: 1,
+    flex: 1,
     // marginRight: 15,
     borderWidth: 0,
     marginBottom: 0,
