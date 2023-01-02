@@ -1,11 +1,11 @@
-import { FlatList, KeyboardAvoidingView, Platform, RefreshControl, SectionList } from 'react-native';
+import { Alert, FlatList, KeyboardAvoidingView, Platform, RefreshControl, SectionList } from 'react-native';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useCallback, useContext, useState } from 'react';
 
 import { styles } from '../../Styles';
-import { ScreenContainer } from '../../components/Themed';
-import { TranactionCardSm } from '../../components/Cards';
+import { ScreenContainer, View } from '../../components/Themed';
+import { ButtonWithText, TranactionCardSm } from '../../components/Cards';
 import { Text } from '../../components/Themed';
 import { useGetAllTransactionsQuery } from '../../hooks-apollo';
 import { colors } from '../../constants/Colors';
@@ -103,13 +103,22 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
           renderItem={renderTransactionCard}
         />
 
+        <View style={styles.floatingButtonContainer}>
+          <ButtonWithText
+            text="New Transaction"
+            color={colors.gold}
+            onPress={() => Alert.alert('New Transaction', 'You pressed the NEW TRANSACTION button!')}
+          // TODO: navigate to CreateTransactionScreen on press
+          />
+        </View>
+
       </ScreenContainer>
 
-      <SearchBar
+      {/* <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
         placeholder="Search Transactions"
-      />
+      /> */}
 
     </KeyboardAvoidingView>
 
