@@ -706,9 +706,9 @@ export const styles = StyleSheet.create({
   settingEditText: {
     fontFamily: 'metropolis medium',
     fontSize: 18,
-    lineHeight: 24,
+    lineHeight: 18,
     color: colors.medium,
-    // marginLeft: MARGIN,
+    marginTop: 6,
   },
 
   historyItem: {

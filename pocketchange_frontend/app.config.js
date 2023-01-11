@@ -4,7 +4,7 @@ export default {
     "owner": "pocketchange_loyalty_inc",
     "name": "PocketChange",
     "slug": "pocketchange_frontend",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pocketchange",
