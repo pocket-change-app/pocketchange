@@ -8,6 +8,7 @@ import { AuthContext } from "../../contexts/Auth";
 import { useGetAllBusinessesQuery } from "../../hooks-apollo";
 import { styles } from "../../Styles";
 import polylabel from "polylabel";
+import { BIAsOutlines } from "../../BIAs";
 
 
 
@@ -98,6 +99,15 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
       ))}
 
       {/* POLYGONS */}
+
+
+      {/* <Geojson
+        geojson={BIAsOutlines}
+        strokeColor={colors.gold}
+        fillColor={colors.gold + '22'}
+      /> */}
+
+
       {/*
       <Polygon
         coordinates={testPolygon}
