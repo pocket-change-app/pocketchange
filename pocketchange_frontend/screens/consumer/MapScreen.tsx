@@ -101,11 +101,11 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
       {/* POLYGONS */}
 
 
-      <Geojson
+      {/* <Geojson
         geojson={BIAsOutlines}
         strokeColor={colors.gold}
         fillColor={colors.gold + '22'}
-      />
+      /> */}
 
 
       {/*
