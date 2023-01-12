@@ -10,48 +10,31 @@ import * as Linking from 'expo-linking';
 import { RootStackParamList } from '../types';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.createURL('/'), 'https://www.pocketchangeapp.ca/open'],
+
   config: {
     screens: {
       Root: {
         screens: {
-          Pockets: {
+          PocketStack: {
             screens: {
-              PocketTabScreen: 'pockets tab',
+              PocketSearch: 'pockets',
               PocketScreen: 'pocket',
             },
           },
-          Pay: {
+          PayStack: {
             screens: {
               PayTabScreen: 'pay tab',
             },
           },
-          Wallet: {
+          WalletStack: {
             screens: {
-              WalletScreen: 'wallet tab',
+              WalletScreen: 'wallet',
+              ConsumerSettings: 'settings',
             },
           },
-          Metrics: {
-            screens: {
-              MetricsDashboardScreen: 'metrics',
-            },
-          },
-          Transactions: {
-            screens: {
-              TransactionHistoryScreen: 'transactions',
-            },
-          },
-          Settings: {
-            screens: {
-              MerchantSettings: 'settings',
-            }
-          }
         },
       },
-      ConsumerSettings: 'settings',
-      
-      BusinessModal: 'modal',
-      TransactionModal: 'modal',
       NotFound: '*',
     },
   },
