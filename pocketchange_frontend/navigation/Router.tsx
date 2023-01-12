@@ -15,6 +15,7 @@ import { Text, } from 'react-native';
 import * as Linking from 'expo-linking';
 import { LeaderNavigation } from './LeaderNavigation';
 import wait, { waitTimes } from '../utils/wait';
+import linking from './LinkingConfiguration';
 const prefix = Linking.createURL('/');
 
 
@@ -52,12 +53,12 @@ export const Router = () => {
   } 
 
 
-  const linking = {
-    prefixes: [
-      Linking.createURL('/'),
-      'https://www.pocketchangeapp.ca/',
-    ],
-  };
+  // const linking = {
+  //   prefixes: [
+  //     Linking.createURL('/'),
+  //     'https://www.pocketchangeapp.ca/',
+  //   ],
+  // };
 
   return (
     <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
