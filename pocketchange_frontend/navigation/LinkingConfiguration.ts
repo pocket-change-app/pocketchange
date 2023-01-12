@@ -10,7 +10,7 @@ import * as Linking from 'expo-linking';
 import { RootStackParamList } from '../types';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.createURL('/', { scheme: 'www.pocketchangeapp.ca/open' })],
+  prefixes: [Linking.createURL('/'), '*pocketchangeapp.ca/open', '*pocketchangeapp.ca'],
 
   config: {
     screens: {
