@@ -52,14 +52,6 @@ export const Router = () => {
     console.log(authContext.activeRole)
   } 
 
-
-  // const linking = {
-  //   prefixes: [
-  //     Linking.createURL('/'),
-  //     'https://www.pocketchangeapp.ca/',
-  //   ],
-  // };
-
   return (
     <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       {stack}
