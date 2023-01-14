@@ -23,7 +23,7 @@ const linking: LinkingOptions<RootStackParamList> = {
               PocketSearch: 'search',
               // Pocket: 'Pocket/:pocketID',
               Business: 'business/:businessID/:pocketID',
-              Map: 'Map',
+              Map: 'map',
             },
           },
           WalletStack: {
