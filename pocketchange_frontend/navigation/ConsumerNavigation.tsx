@@ -54,7 +54,7 @@ export const ConsumerNavigation = () => {
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false, animation: 'fade_from_bottom' }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen
         name="PaymentModalStack"
@@ -362,13 +362,13 @@ const BottomTabConsumer = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='PayStack'
+      initialRouteName='PocketStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
         tabBarInactiveTintColor: colors.subtle,
         tabBarShowLabel: false,
-        headerBackTitleStyle: styles.navigationBackTitleStyle,
+        // headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerTitleStyle: styles.navigationHeaderTitle,
         // headerStyle: styles.navigationHeader,
         // headerShadowVisible: false,
