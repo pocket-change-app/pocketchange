@@ -71,13 +71,27 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
       style={[styles.image, styles.pocketListImage, { flex: 1, borderRadius: 0 }]}
       showsUserLocation
       showsMyLocationButton
-      // onRegionChange={onRegionChange}
-      initialRegion={{
-        latitude: 43.66393648913529,
-        longitude: -79.3154142212031,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.05,
+      initialCamera={{
+        center: {
+          latitude: 43.66393648913529,
+          longitude: -79.3154142212031,
+        },
+        pitch: 20,
+        heading: 0,
+
+        // Only on iOS MapKit, in meters. The property is ignored by Google Maps.
+        altitude: 10000,
+
+        // // Only when using Google Maps.
+        // zoom: number
       }}
+      // onRegionChange={onRegionChange}
+      // initialRegion={{
+      //   latitude: 43.66393648913529,
+      //   longitude: -79.3154142212031,
+      //   latitudeDelta: 0.01,
+      //   longitudeDelta: 0.05,
+      // }}
       mapType='mutedStandard'
     >
       {/* BUSINESS MARKERS */}
