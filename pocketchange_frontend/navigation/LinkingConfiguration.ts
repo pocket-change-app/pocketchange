@@ -20,7 +20,7 @@ const linking: LinkingOptions<RootStackParamList> = {
             initialRouteName: 'PocketSearch',
             screens: {
               PocketSearch: 'search',
-              Business: 'business/:businessID/:pocketID',
+              Business: 'business/:businessID',
               Map: 'map',
             },
           },
