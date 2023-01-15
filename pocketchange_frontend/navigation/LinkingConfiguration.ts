@@ -13,7 +13,6 @@ const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.createURL('/'), "https://www.pocketchangeapp.ca/open"],
 
   config: {
-    initialRouteName: 'Root',
     screens: {
       Root: {
         screens: {
@@ -21,7 +20,6 @@ const linking: LinkingOptions<RootStackParamList> = {
             initialRouteName: 'PocketSearch',
             screens: {
               PocketSearch: 'search',
-              // Pocket: 'Pocket/:pocketID',
               Business: 'business/:businessID/:pocketID',
               Map: 'map',
             },
