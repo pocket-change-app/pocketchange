@@ -16,12 +16,18 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          PocketStack: {
+          ExploreStack: {
             initialRouteName: 'PocketSearch',
             screens: {
               PocketSearch: 'search',
               Business: 'business/:businessID',
               Map: 'map',
+            },
+          },
+          ScanStack: {
+            initialRouteName: 'QRScan',
+            screens: {
+              QRScan: 'qr-scan'
             },
           },
           WalletStack: {
