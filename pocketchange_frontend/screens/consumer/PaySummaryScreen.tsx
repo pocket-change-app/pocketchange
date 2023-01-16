@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
-import { ButtonWithText, SettingSwitch } from '../../components/Cards'
+import { BusinessCardSm, ButtonWithText, SettingSwitch } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
 import { colors } from "../../constants/Colors";
 import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
@@ -12,12 +12,16 @@ import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
 import TransactionSummary from "../../components/TransactionSummary";
+import { useBusinessQuery } from "../../hooks-apollo";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
-  const { business, pocket, amount, tip } = route.params;
+  const { businessID, amount, tip } = route.params;
+
+  const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const [useChange, setUseChange] = useState(true)
 
@@ -42,15 +46,13 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         {/* BUSINESS */}
 
-        <View style={styles.card}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.businessListInfo}>
-              <Text style={styles.businessNameSm}>{business.businessName}</Text>
-              <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-              <Text style={styles.pocket}>{pocket.pocketName}</Text>
-            </View>
-          </View>
-        </View>
+        <BusinessCardSm
+          businessID={businessID}
+          hideImage
+          wrapText
+        />
+
+        <View style={{ height: MARGIN }} />
 
 
         <TransactionSummary
@@ -79,7 +81,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
             navigation.goBack()
 
             navigation.navigate("PayConfirmation", {
-              business: business,
+              businessID: businessID,
               subtotal: total.toFixed(2),
               date: date,
             })
