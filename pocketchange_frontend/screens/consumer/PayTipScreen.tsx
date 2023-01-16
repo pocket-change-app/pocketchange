@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
-import { ButtonWithText } from '../../components/Cards'
+import { BusinessCardSm, ButtonWithText } from '../../components/Cards'
 import { KeyboardAvoidingView, Modal, Platform, Pressable, SafeAreaView, TextInput, Touchable, TouchableWithoutFeedback } from "react-native";
 import { Dispatch, SetStateAction, useContext, useRef, useState } from "react";
 import { colors } from "../../constants/Colors";
@@ -58,7 +58,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
   const authContext = useContext(AuthContext); 
 
-  const { business, pocket, amount } = route.params;
+  const { businessID, amount } = route.params;
 
   //// STATES ////
   const [customTipFocus, setCustomTipFocus] = useState(false)
@@ -100,8 +100,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
         color={colors.gold}
         viewStyle={{ flex: 1 }}
         onPress={() => navigation.navigate('PaySummary', {
-          business: business,
-          pocket: pocket,
+          businessID: businessID,
           amount: amount,
           tip: tip.toFixed(2),
         })}
@@ -160,8 +159,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
             textStyle={styles.tipButtonText}
             color={colors.gold}
             onPress={() => navigation.navigate('PaySummary', {
-              business: business,
-              pocket: pocket,
+              businessID: businessID,
               amount: amount,
               tip: '0.00',
             })}
@@ -192,39 +190,34 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
 
           <View style={[styles.container, { flex: 1 }]}>
 
-            <View>
+          {/* <View> */}
 
-              {/* BUSINESS */}
+          {/* BUSINESS */}
 
-              <View style={styles.card}>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={styles.businessListInfo}>
-                    <Text style={styles.businessNameSm}>{business.businessName}</Text>
-                    <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                    <Text style={styles.pocket}>{pocket.pocketName}</Text>
-                  </View>
-                </View>
-              </View>
+          <BusinessCardSm
+            businessID={businessID}
+            hideImage
+            wrapText
+          />
 
+          <View style={{ height: MARGIN }} />
 
-              {/* SUBTOTAL */}
+          {/* SUBTOTAL */}
 
-              <View style={[styles.card, styles.container]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                  <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>${amount}</Text>
-                </View>
-              </View>
-
+          <View style={[styles.card, styles.container]}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
+              <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>${amount}</Text>
             </View>
+          </View>
+
+          {/* </View> */}
 
 
 
             <View style={[{ flex: 1, justifyContent: 'center' }]}>
 
               {/* TIP OPTIONS */}
-
-              {console.log('customTipFocus:', customTipFocus)}
 
               {(customTipFocus)
                 ? (
@@ -233,8 +226,7 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                     setCustomTip={setCustomTip}
                   setCustomTipFocus={setCustomTipFocus}
                     onSubmit={() => navigation.navigate('PaySummary', {
-                      business: business,
-                      pocket: pocket,
+                      businessID: businessID,
                       amount: amount,
                       tip: parseFloat(customTip).toFixed(2),
                     })}

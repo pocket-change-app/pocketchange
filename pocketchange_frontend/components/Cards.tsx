@@ -103,12 +103,11 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
           color={hasChange ? colors.gold : colors.subtle}
           onPress={() => {
             if (hasChange) {
-              navigation.navigate('PaymentModalStack', {
+              navigation.navigate('PaymentStack', {
                 screen: "PayAmount",
                 params: {
                   // navigation: navigation,
-                  business: businessData?.business,
-                  pocket: pocketsData?.getBusinessPockets[0]
+                  businessID: businessID,
                 }
               })
             } else {
@@ -196,7 +195,7 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessInfo({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket?: boolean }) {
+export function BusinessInfo({ navigation, businessID, showPocket = true, wrapText = false }: { navigation?: any, businessID: string, showPocket?: boolean, wrapText?: boolean }) {
 
   const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
@@ -213,14 +212,14 @@ export function BusinessInfo({ navigation, businessID, showPocket = true }: { na
         })
       }}
     >
-      <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
-      <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
+      <Text numberOfLines={wrapText ? undefined : 1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
+      <Text numberOfLines={wrapText ? undefined : 1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
       {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
     </Pressable>
   )
 }
 
-export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket?: boolean }) {
+export function BusinessCardSm({ navigation, businessID, showPocket = true, wrapText = false, hideImage = false }: { navigation?: any, businessID: string, showPocket?: boolean, wrapText?: boolean, hideImage?: boolean }) {
   const [imageURL, setImageURL] = useState();
 
   // console.log(business)
@@ -240,33 +239,36 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
 
   return (
     <Pressable
+      disabled={!navigation}
       onPress={() => {
-        navigation ?
-          navigation.navigate('Business', {
-            // navigation: navigation,
-            businessID: businessID,
-            pocketID: pocketData?.getBusinessPockets[0]?.pocketID
-          })
-          : null
+        navigation.navigate('Business', {
+          // navigation: navigation,
+          businessID: businessID,
+          pocketID: pocketData?.getBusinessPockets[0]?.pocketID
+        })
       }
       }>
       <View style={[styles.card, styles.businessListItemCard]}>
-
-        <View style={styles.businessListImageContainer}>
-          {imageURL ?
-            <Image
-              style={styles.businessListImage}
-              source={{ uri: imageURL }}
-            /> :
-            <Image
-              style={styles.businessListImage}
-              source={require('../assets/images/defaults/businessProfile.png')}
-            />
-          }
-        </View>
-
+        {hideImage ?
+          (
+            null
+          ) : (
+            <View style={styles.businessListImageContainer}>
+              {imageURL ?
+                <Image
+                  style={styles.businessListImage}
+                  source={{ uri: imageURL }}
+                /> :
+                <Image
+                  style={styles.businessListImage}
+                  source={require('../assets/images/defaults/businessProfile.png')}
+                />
+              }
+            </View>
+          )
+        }
         <View style={styles.businessListInfo}>
-          <BusinessInfo businessID={businessID} showPocket={showPocket} />
+          <BusinessInfo businessID={businessID} showPocket={showPocket} wrapText={wrapText} />
         </View>
       </View>
 
