@@ -46,14 +46,13 @@ export default function NewTransactionScreen({ route, navigation }: { route: any
 
   return (
 
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? 'padding' : "height"}
-      keyboardVerticalOffset={useHeaderHeight()}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaView style={{ flex: 1 }}>
+    <ScreenContainer>
 
-        <HorizontalLine />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? 'padding' : "height"}
+        keyboardVerticalOffset={useHeaderHeight()}
+        style={{ flex: 1 }}
+      >
 
         <View style={[styles.container, { flex: 1 }]}>
 
@@ -121,9 +120,9 @@ export default function NewTransactionScreen({ route, navigation }: { route: any
 
         </View>
 
-      </SafeAreaView>
+      </KeyboardAvoidingView>
 
-    </KeyboardAvoidingView>
+    </ScreenContainer>
 
   )
 }
