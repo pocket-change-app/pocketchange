@@ -105,7 +105,7 @@ export default function NewTransactionScreen({ route, navigation }: { route: any
                     size={QR_SIZE}
                     value={url}
                     logo={qrImage}
-                    logoSize={QR_SIZE * 7 / 33 + 1}
+                      logoSize={QR_SIZE * 9 / 33 + 1}
                   />
                 </View>
               </View>
