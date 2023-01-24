@@ -107,8 +107,7 @@ export default function TransactionsTabScreen({ navigation }: { navigation: any 
           <ButtonWithText
             text="New Transaction"
             color={colors.gold}
-            onPress={() => Alert.alert('New Transaction', 'You pressed the NEW TRANSACTION button!')}
-          // TODO: navigate to CreateTransactionScreen on press
+            onPress={() => navigation.navigate('NewTransaction')}
           />
         </View>
 
