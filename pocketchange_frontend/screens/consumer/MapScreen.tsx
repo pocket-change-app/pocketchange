@@ -72,7 +72,7 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
     // <View style={{ flex: 1 }}>
     <MapView
       // provider='google'
-      style={{ flex: 1, borderRadius: 0 }}
+      style={[styles.image, styles.pocketListImage, { flex: 1, borderRadius: 0 }]}
       showsUserLocation
       showsMyLocationButton
       initialCamera={{
