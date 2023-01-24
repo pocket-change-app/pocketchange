@@ -24,6 +24,8 @@ const MapCard = () => {
   const authContext = useContext(AuthContext)
   const navigation = useNavigation() // accesses the navigation object from the parent, I think
 
+  const mapCenter = useRef<{ latitude: number, longitude: number }>(authContext.location.coords)
+
   // const [mapRegion, setMapRegion] = useState<Region>({
   //   latitude: authContext?.location?.coords?.latitude,
   //   longitude: authContext?.location?.coords?.longitude,
@@ -45,7 +47,7 @@ const MapCard = () => {
   return (
     <Pressable
       onPress={() => navigation.navigate('Map', {
-        location: authContext.location
+        center: mapCenter.current,
       })}
       style={{ marginRight: MARGIN }}
     >
@@ -83,12 +85,12 @@ const MapCard = () => {
               showsUserLocation
               followsUserLocation
               mapType='mutedStandard'
-            // initialRegion={{
-            //   latitude: 43.66393648913529,
-            //   longitude: -79.3154142212031,
-            //   latitudeDelta: 0.01,
-            //   longitudeDelta: 0.05,
-            // }}
+              onRegionChange={(region, details) => {
+                mapCenter.current = {
+                  latitude: region.latitude,
+                  longitude: region.longitude
+                }
+              }}
             >
 
             </MapView>

@@ -38,11 +38,10 @@ export type AuthContextData = {
   setUserGQL: (user) => void,
   activeRole: Role,
   switchActiveRole: (role: Role) => void,
-  signOut(): void,
+  signOut: () => void,
   loading: boolean,
   setLoading: (loading) => void,
   isLoggedIn: boolean,
-  locationWatcher: LocationSubscription,
   location: LocationObject,
 };
 
@@ -187,7 +186,6 @@ export const AuthProvider = ({ children }: { children: any }) => {
     setLoading: setLoading,
     isLoggedIn: isLoggedIn,
     location: location,
-
   }
 
   if (loading) return null;
