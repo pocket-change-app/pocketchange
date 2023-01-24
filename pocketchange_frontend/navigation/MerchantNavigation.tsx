@@ -21,6 +21,7 @@ import SettingsTippingScreen from '../screens/merchant/SettingsTippingScreen';
 import EditEmployeesScreen from '../screens/merchant/EditEmployeesScreen';
 import SurveyScreen from '../screens/shared/SurveyScreen';
 import TransactionScreen from '../screens/merchant/TransactionScreen';
+import NewTransactionScreen from '../screens/merchant/NewTransactionScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -100,6 +101,13 @@ function TransactionsStack() {
         component={TransactionScreen}
         options={{
           title: '',
+        }}
+      />
+      <Stack.Screen
+        name="NewTransaction"
+        component={NewTransactionScreen}
+        options={{
+          title: 'New Transaction',
         }}
       />
     </Stack.Navigator>

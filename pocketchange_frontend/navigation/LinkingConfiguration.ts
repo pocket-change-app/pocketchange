@@ -13,15 +13,23 @@ const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.createURL('/'), "https://www.pocketchangeapp.ca/open", "https://pocketchangeapp.ca/open"],
 
   config: {
+    initialRouteName: "Root",
     screens: {
+      PaymentStack: {
+        screens: {
+          PayAmount: 'pay/:businessID',
+          PayTip: 'tip/:businessID/:amount',
+          PaySummary: 'summary/:businessID/:amount/:tip',
+        },
+      },
       Root: {
         screens: {
           ExploreStack: {
             initialRouteName: 'PocketSearch',
             screens: {
               PocketSearch: 'search',
-              Business: 'business/:businessID',
               Map: 'map',
+              Business: 'business/:businessID',
             },
           },
           ScanStack: {
