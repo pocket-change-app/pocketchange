@@ -1,6 +1,6 @@
 import { LocationObject } from "expo-location";
-import { useContext } from "react";
-import MapView, { Callout, Details, Marker, Polygon, Polyline, Region, Geojson } from "react-native-maps";
+import { useContext, useEffect, useRef } from "react";
+import MapView, { Callout, Details, Marker, Polygon, Polyline, Region, Geojson, Camera } from "react-native-maps";
 import { BusinessCardSm, BusinessInfo } from "../../components/Cards";
 import { Text, View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
@@ -9,17 +9,21 @@ import { useGetAllBusinessesQuery } from "../../hooks-apollo";
 import { styles } from "../../Styles";
 import polylabel from "polylabel";
 import { BIAsOutlines } from "../../BIAs";
+import { NavigationState } from "@react-navigation/native";
+import { RootStackParamList, RootStackScreenProps, RootTabScreenProps } from "../../types";
 
 
 
 export default function MapScreen({ route, navigation }: { route: any, navigation: any }) {
 
+  const { center } = route.params;
+
+  console.log(JSON.stringify(center));
+
+
   const authContext = useContext(AuthContext)
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery()
-
-  // const authContext = useContext(AuthContext)
-  // console.log(JSON.stringify(authContext.location, null, '  '));
 
   const onRegionChange = (region: Region, details: Details) => {
     console.log(`latitude: ${region.latitude}`);
@@ -72,18 +76,10 @@ export default function MapScreen({ route, navigation }: { route: any, navigatio
       showsUserLocation
       showsMyLocationButton
       initialCamera={{
-        center: {
-          latitude: 43.66393648913529,
-          longitude: -79.3154142212031,
-        },
-        pitch: 20,
+        center: { ...center },
         heading: 0,
-
-        // Only on iOS MapKit, in meters. The property is ignored by Google Maps.
-        altitude: 10000,
-
-        // // Only when using Google Maps.
-        // zoom: number
+        pitch: 20,
+        altitude: 5000
       }}
       // onRegionChange={onRegionChange}
       // initialRegion={{
