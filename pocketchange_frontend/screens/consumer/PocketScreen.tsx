@@ -1,22 +1,19 @@
-import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, RefreshControl } from 'react-native';
+import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, Platform, RefreshControl } from 'react-native';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
 
 import { MARGIN, styles } from '../../Styles';
-import { businesses, contestsData } from '../../dummy';
+import { contestsData } from '../../dummy';
 import { ScreenContainer } from '../../components/Themed';
 
-import { BusinessCard, BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../../components/Cards';
+import { BusinessCardSm, ChangeBalanceCard, ContestCard, DivHeader, PocketDetailCard } from '../../components/Cards';
 import { useGetAllBusinessesQuery, usePocketQuery } from '../../hooks-apollo';
 import { Text, View } from '../../components/Themed';
-import * as R from 'ramda-adjunct';
 import { useCallback, useContext, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 
 
-import ChangeBalanceQueries from '../../hooks-apollo/ChangeBalance/queries'
-import { connectAuthEmulator } from 'firebase/auth';
 import useGetAllChangeBalancesQuery from '../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
 import { QueryResult } from '../../components/QueryResult';
 import wait, { waitTimes } from '../../utils/wait';
@@ -28,15 +25,14 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   const contestData = { contest: contestsData.getAllContests[0] }
 
-  const pocket = route.params.pocket;
-  const pocketID = pocket.pocketID
+  const pocketID = route.params.pocketID;
+  // const pocketID = pocket.pocketID
 
   const { data: businessesData, loading: businessesLoading, error: businessesError, refetch: refetchBusinesses } = useGetAllBusinessesQuery(pocketID)
-
-
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
   const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalancesQuery(authContext.userFirebase.uid, pocketID);
 
-  // const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+  // const pocket = pocketData.pocket;
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -53,6 +49,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
     Promise.all([
       wait(waitTimes.RefreshScreen),
       refetchBusinesses,
+      refetchPocket,
       refetchChangeBalances,
     ]).then(() => setRefreshing(false));
   }, []);
@@ -73,6 +70,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
 
   // Return query errors
   if (businessesError) return (<Text>{businessesError.message}</Text>)
+  if (pocketError) return (<Text>{pocketError.message}</Text>)
   if (changeBalanceError) return (<Text>{changeBalanceError.message}</Text>)
 
   return (
@@ -101,7 +99,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
                   {
                     //TODO: make this not hard coded                    
                   }
-                  {(pocket.pocketID === "2p")
+                  {(pocketID === "2p")
                     ? (
                       <ContestCard
                         navigation={navigation}
@@ -140,7 +138,7 @@ export default function PocketScreen({ navigation, route }: { navigation: any, r
       <SearchBar 
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder={'Search ' + pocket.pocketName}
+        placeholder={'Search ' + pocketData?.pocket.pocketName}
       />
 
     </KeyboardAvoidingView>
