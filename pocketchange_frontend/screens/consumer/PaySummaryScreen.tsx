@@ -6,13 +6,14 @@ import { colors } from "../../constants/Colors";
 import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
 import { user } from "../../dummy";
 import { getBackgroundColorAsync } from "expo-system-ui";
-import { SafeAreaView, Switch } from 'react-native'
-import { useContext, useState } from "react";
+import { Alert, SafeAreaView, Switch } from 'react-native'
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
 import TransactionSummary from "../../components/TransactionSummary";
 import { useBusinessQuery } from "../../hooks-apollo";
+import { useStripe } from "@stripe/stripe-react-native";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -22,6 +23,12 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
   if (businessError) return (<Text>Business error: {businessError.message}</Text>)
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [loading, setLoading] = useState(false);
+
+  const API_URL = 'https://b6ed-67-246-75-20.ngrok.io'
+
+  // const [useChange, setUseChange] = useState(true)
 
   const [useChange, setUseChange] = useState(true)
 
@@ -36,6 +43,81 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   // const consumerTotal = (total - changeToUse)
   // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
+
+
+
+  const fetchPaymentSheetParams = async () => {
+    const response = await fetch(`${API_URL}/payment-sheet`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "amount": total * 100 })
+    });
+    const { paymentIntent, ephemeralKey, customer } = await response.json();
+
+    return {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    };
+  };
+
+  const initializePaymentSheet = async () => {
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+      publishableKey,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      //customFlow: true,
+      merchantDisplayName: "Example, Inc.",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      //allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      }
+    });
+    if (!error) {
+      setLoading(true);
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      // Alert.alert('Success', 'Your order is confirmed!');
+
+
+      const date = new Date()
+
+      navigation.popToTop()
+      navigation.goBack()
+
+      navigation.navigate("PayConfirmation", {
+        business: business,
+        subtotal: amount,
+        date: date,
+      })
+
+      console.log('navigated to PayConfirmation')
+    }
+  };
+
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

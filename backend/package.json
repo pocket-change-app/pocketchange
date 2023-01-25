@@ -33,6 +33,6 @@
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.2.0",
     "sequelize": "^6.20.1",
-    "stripe": "^10.8.0"
+    "stripe": "^10.17.0"
   }
 }
