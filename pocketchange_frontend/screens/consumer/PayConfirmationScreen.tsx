@@ -15,7 +15,7 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { businessID, subtotal } = route.params;
+  const { businessID, pocketID, subtotal } = route.params;
 
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
   if (businessError) return (<Text>Business error: {businessError.message}</Text>)

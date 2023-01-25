@@ -18,7 +18,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const authContext = useContext(AuthContext); 
 
-  const { businessID, amount, tip } = route.params;
+  const { businessID, pocketID, amount, tip } = route.params;
 
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
   if (businessError) return (<Text>Business error: {businessError.message}</Text>)
@@ -82,6 +82,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
             navigation.navigate("PayConfirmation", {
               businessID: businessID,
+              pocketID: pocketID,
               subtotal: total.toFixed(2),
               date: date,
             })
