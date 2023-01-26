@@ -15,7 +15,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
   const authContext = useContext(AuthContext);
 
-  const { businessID } = route.params;
+  const { businessID, pocketID } = route.params;
 
   // const { data: business, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
 
@@ -73,6 +73,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                   navigation.navigate("PayTip", {
                     // navigation: navigation,
                     businessID: businessID,
+                    pocketID: pocketID,
                     amount: parseFloat(amount).toFixed(2),
                   })
                 }

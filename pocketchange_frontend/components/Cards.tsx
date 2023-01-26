@@ -108,6 +108,7 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
                 params: {
                   // navigation: navigation,
                   businessID: businessID,
+                  pocketID: pocketID,
                 }
               })
             } else {
@@ -314,7 +315,7 @@ export function PocketCarouselCard({ navigation, pocket }: { navigation: any, po
     <Pressable
       onPress={() => navigation.navigate('Pocket', {
         // navigation: navigation,
-        pocket: pocket
+        pocketID: pocket.pocketID,
       })}
     >
       {/* <View> */}
@@ -348,7 +349,7 @@ export function PocketSearchResult({ navigation, pocket }: { navigation: any, po
       style={styles.pocketSearchResultContainer}
       onPress={() => navigation.navigate('Pocket', {
         // navigation: navigation,
-        pocket: pocket,
+        pocketID: pocket.pocketID,
       })}
     >
       <Text style={[styles.navigationHeaderTitle, { color: colors.medium }]}>

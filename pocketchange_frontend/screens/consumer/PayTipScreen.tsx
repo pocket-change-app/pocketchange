@@ -9,56 +9,12 @@ import { HorizontalLine } from "../../components/Lines";
 import { useHeaderHeight } from '@react-navigation/elements'
 
 
-const CustomTipEntry = ({ customTip, setCustomTip, setCustomTipFocus, onSubmit }: { customTip: string, setCustomTip: Dispatch<SetStateAction<string>>, setCustomTipFocus: Dispatch<SetStateAction<boolean>>, onSubmit: () => void }) => {
-
-  const customTipValid = (parseFloat(customTip) > 0)
-
-  return (
-    <>
-      <View style={styles.card}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.paymentFocusText}>$</Text>
-          <TextInput
-            autoFocus
-            selectionColor={colors.gold}
-            style={styles.paymentFocusText}
-            keyboardType='numeric'
-            value={customTip}
-            onChangeText={setCustomTip}
-            placeholder={'0.00'}
-            placeholderTextColor={colors.light}
-          />
-        </View>
-      </View>
-
-      <View style={{ flexDirection: 'row' }}>
-
-        <ButtonWithText
-          negativeStyle
-          text={`Back to\nOptions`}
-          textTransform='none'
-          viewStyle={{ marginRight: MARGIN }}
-          onPress={() => setCustomTipFocus(false)}
-        />
-        <ButtonWithText
-          text="Apply Tip"
-          viewStyle={{ flex: 1 }}
-          color={customTipValid ? colors.gold : undefined}
-          onPress={customTipValid ? onSubmit : null}
-        />
-      </View>
-
-
-    </>
-  )
-}
-
 
 export default function PayTipScreen({ route, navigation }: { route: any, navigation: any }) {
 
-  const authContext = useContext(AuthContext); 
+  // const authContext = useContext(AuthContext); 
 
-  const { businessID, amount } = route.params;
+  const { businessID, pocketID, amount } = route.params;
 
   //// STATES ////
   const [customTipFocus, setCustomTipFocus] = useState(false)
@@ -76,6 +32,16 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
   //   setTip(t)
   //   setPercentage((t == '') ? '0.0' : (parseFloat(t) / amount * 100).toFixed(0))
   // }
+
+
+  const navigateToPaySummary = (amount: string, tip: string) => {
+    navigation.navigate('PaySummary', {
+      businessID: businessID,
+      pocketID: pocketID,
+      amount: amount,
+      tip: tip,
+    })
+  }
 
 
   function TipButton({ tipAmount, isPercentage = false }: { tipAmount: number, isPercentage?: boolean }) {
@@ -99,11 +65,10 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
         textStyle={styles.tipButtonText}
         color={colors.gold}
         viewStyle={{ flex: 1 }}
-        onPress={() => navigation.navigate('PaySummary', {
-          businessID: businessID,
-          amount: amount,
-          tip: tip.toFixed(2),
-        })}
+        onPress={() => navigateToPaySummary(
+          amount,
+          tip.toFixed(2),
+        )}
       />
     )
   }
@@ -158,11 +123,10 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
             textTransform='none'
             textStyle={styles.tipButtonText}
             color={colors.gold}
-            onPress={() => navigation.navigate('PaySummary', {
-              businessID: businessID,
-              amount: amount,
-              tip: '0.00',
-            })}
+            onPress={() => navigateToPaySummary(
+              amount,
+              '0.00',
+            )}
           />
 
         </View>
@@ -225,11 +189,10 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
                     customTip={customTip}
                     setCustomTip={setCustomTip}
                   setCustomTipFocus={setCustomTipFocus}
-                    onSubmit={() => navigation.navigate('PaySummary', {
-                      businessID: businessID,
-                      amount: amount,
-                      tip: parseFloat(customTip).toFixed(2),
-                    })}
+                  onSubmit={() => navigateToPaySummary(
+                    amount,
+                    parseFloat(customTip).toFixed(2),
+                  )}
                   />
                 ) : (<TipOptions />)
               }
@@ -247,5 +210,49 @@ export default function PayTipScreen({ route, navigation }: { route: any, naviga
       {/* </TouchableWithoutFeedback> */}
 
     </KeyboardAvoidingView>
+  )
+}
+
+const CustomTipEntry = ({ customTip, setCustomTip, setCustomTipFocus, onSubmit }: { customTip: string, setCustomTip: Dispatch<SetStateAction<string>>, setCustomTipFocus: Dispatch<SetStateAction<boolean>>, onSubmit: () => void }) => {
+
+  const customTipValid = (parseFloat(customTip) > 0)
+
+  return (
+    <>
+      <View style={styles.card}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.paymentFocusText}>$</Text>
+          <TextInput
+            autoFocus
+            selectionColor={colors.gold}
+            style={styles.paymentFocusText}
+            keyboardType='numeric'
+            value={customTip}
+            onChangeText={setCustomTip}
+            placeholder={'0.00'}
+            placeholderTextColor={colors.light}
+          />
+        </View>
+      </View>
+
+      <View style={{ flexDirection: 'row' }}>
+
+        <ButtonWithText
+          negativeStyle
+          text={`Back to\nOptions`}
+          textTransform='none'
+          viewStyle={{ marginRight: MARGIN }}
+          onPress={() => setCustomTipFocus(false)}
+        />
+        <ButtonWithText
+          text="Apply Tip"
+          viewStyle={{ flex: 1 }}
+          color={customTipValid ? colors.gold : undefined}
+          onPress={customTipValid ? onSubmit : null}
+        />
+      </View>
+
+
+    </>
   )
 }

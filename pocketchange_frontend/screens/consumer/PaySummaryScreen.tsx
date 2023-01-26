@@ -12,25 +12,35 @@ import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
 import TransactionSummary from "../../components/TransactionSummary";
-import { useBusinessQuery } from "../../hooks-apollo";
+import { useBusinessQuery, usePocketQuery } from "../../hooks-apollo";
+import useGetAllChangeBalances from "../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery";
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext); 
 
-  const { businessID, amount, tip } = route.params;
+  const { businessID, pocketID, amount, tip } = route.params;
 
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
   if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>Pocket error: {pocketError.message}</Text>)
+  const pocket = pocketData?.pocket;
+
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
+  if (changeBalanceError) return (<Text>Change Balance error: {changeBalanceError.message}</Text>)
+
   const [useChange, setUseChange] = useState(true)
+
+  const hasChange = Boolean(changeBalanceData?.value)
 
   const EARN_RATE = 0.1  // TODO: retrieve from backend
   const FEE_RATE = 0.05  // TODO: retrieve from backend
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  const changeToUse = (useChange ? 2.63 : 0)
+  const changeToUse = ((hasChange && useChange) ? changeBalanceData?.value : 0)
   const feeNum = ((amountNum + tipNum) * FEE_RATE)
   const total = amountNum + tipNum + feeNum - changeToUse // (amountNum + tipNum + fee)
 
@@ -59,15 +69,26 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
           amount={amount}
           tip={tip}
           fee={feeNum.toFixed(2)}
-          changeApplied={changeToUse.toFixed(2)}
+          changeApplied={changeToUse?.toFixed(2)}
+          hasChange={hasChange}
         />
-
         <View style={styles.card}>
+          {hasChange ? (
+
           <SettingSwitch
             settingText="Apply Change?"
             value={useChange}
             onToggle={setUseChange}
           />
+
+          ) : (
+            <View style={styles.container}>
+              <Text style={[styles.paymentSummaryText, { textAlign: 'center' }]}>
+                Once you have some Change in {pocket.pocketName}, you can spend it here!
+              </Text>
+            </View>
+
+          )}
         </View>
 
         <ButtonWithText
@@ -82,6 +103,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
             navigation.navigate("PayConfirmation", {
               businessID: businessID,
+              pocketID: pocketID,
               subtotal: total.toFixed(2),
               date: date,
             })
