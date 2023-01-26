@@ -108,6 +108,7 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
                 params: {
                   // navigation: navigation,
                   businessID: businessID,
+                  pocketID: pocketID,
                 }
               })
             } else {
