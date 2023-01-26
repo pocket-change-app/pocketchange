@@ -1,12 +1,15 @@
 const express = require("express");
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+require('dotenv').config({path: __dirname + '/../.env'});
+
 //const Mongoose = require('mongoose');
 const { MongoClient } = require ('mongodb');
 
 //get SQL data
 const database = require('../databases/SQLSchema/db')
 const sequelizeConnection = database.sequelize
+
 //entities
 const User = database.User
 const Business = database.Business
@@ -69,8 +72,8 @@ const context = async ({ req }) => {
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const app = express();
+app.use(express.json())
 const server = new ApolloServer({ typeDefs, resolvers,  csrfPrevention: true, context });
-
 
 server.start().then(res => { 
   server.applyMiddleware({
@@ -79,7 +82,7 @@ server.start().then(res => {
 })
 
 //START GRAPHQL SERVER ONCE DATABASE CONNECTED & MODELS AVAILABLE
-const port = process.env.PORT || 4000;
+const port = process.env.NODE_DOCKER_PORT || 4000;
 mongoose.once('open', () => {
   console.log('Mongo connection open')
   sequelizeConnection.authenticate().then(() => {
@@ -89,3 +92,33 @@ mongoose.once('open', () => {
         })
     })
 })
+
+
+// STRIPE ENDPOINT
+// TODO: change key from test
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+app.post('/payment-sheet', async (req, res) => {
+  // TODO: Use an existing Customer ID if this is a returning customer.
+  console.log(req.body);
+  const customer = await stripe.customers.create();
+  const ephemeralKey = await stripe.ephemeralKeys.create(
+    {customer: customer.id},
+    {apiVersion: '2022-11-15'}
+  );
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: req.body.amount,
+    currency: 'cad',
+    customer: customer.id,
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.json({
+    paymentIntent: paymentIntent.client_secret,
+    ephemeralKey: ephemeralKey.secret,
+    customer: customer.id,
+    publishableKey: process.env.STRIPE_PUBLISH_KEY
+  });
+});

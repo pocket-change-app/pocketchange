@@ -59,7 +59,7 @@ export default function BusinessWizardStripeScreen({ route, navigation }: { rout
 
           <ButtonWithText
             text='Setup with Stripe'
-            onPress={() => useCreateStripeLinkMutation({variables: {userID: "6c", businessID: "1b"}})} //TODO: remoove buisnessID hardcoding
+            onPress={() => useCreateStripeLinkMutation({variables: {userID: "6c", businessID: businessID}})} //TODO: remove hardcoding, just for testing
           />
 
           <Text>{result && JSON.stringify(result)}</Text>

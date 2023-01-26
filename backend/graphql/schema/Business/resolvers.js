@@ -307,12 +307,19 @@ module.exports = {
       businessID
     }, { Business, mongoBusiness, IsIn, WorksAt, mongoUser}) => {
         //check to make sure the userID is the business owner 
-        const worksAtInfo = await WorksAt.findOne({where:{ userID:userID, businessID: businessID}})
+        const worksAtInfo = await WorksAt.findOne({where:{ userID: userID, businessID: businessID}})
         if(worksAtInfo && worksAtInfo.dataValues.role == 'owner' || userID == 'pocketchangeAdmin'){
-          //the user is the current owner of this business, proceed (or its pocketchange admin)
-          //create stripe account
+          // the user is the current owner of this business, proceed (or its pocketchange admin)
+
+          // fetch user and business info
+          const mongoUserInfo = await mongoUser.findOne({ userID: userID })
+          const mongoBusinessInfo = await mongoBusiness.findOne({ businessID: businessID })
+
+          // create stripe account
           const account = await stripe.accounts.create({
             type: 'express',  
+            //email: mongoUserInfo.emailAddress,
+            //country: 'CA'
           });
           await mongoBusiness.updateOne({ businessID: businessID }, {stripeID: account.id})
           const accountLink = await stripe.accountLinks.create({
