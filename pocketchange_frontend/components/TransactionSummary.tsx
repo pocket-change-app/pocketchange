@@ -5,7 +5,7 @@ import { Text, View } from "./Themed";
 
 
 
-export default function TransactionSummary({ amount, tip, fee, changeApplied }: { amount: string, tip: string, fee: string, changeApplied: string }) {
+export default function TransactionSummary({ amount, tip, fee, changeApplied, hasChange = true }: { amount: string, tip: string, fee: string, changeApplied: string, hasChange: boolean }) {
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
@@ -29,15 +29,20 @@ export default function TransactionSummary({ amount, tip, fee, changeApplied }: 
           <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Fees</Text>
           <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{fee}</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
-          <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.gold }]}>Change Applied</Text>
-          <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.gold }]}>{'–'}{changeApplied}</Text>
-        </View>
+        {hasChange ? (
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.gold }]}>Change Applied</Text>
+            <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.gold }]}>{'–'}{changeApplied}</Text>
+          </View>
+        ) : (
+          null
+        )}
+
 
         {/* <HorizontalLine noPadding />
         <View style={{ height: MARGIN }} /> */}
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: MARGIN }}>
           <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.dark }]}>Total</Text>
           <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
         </View>
