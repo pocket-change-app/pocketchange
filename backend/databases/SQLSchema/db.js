@@ -27,7 +27,10 @@ db.Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
 db.Contest = require("./Contest.model.js")(sequelize, Sequelize);
 db.QRScan = require("./QRScans.model.js")(sequelize, Sequelize);
 
-//relationships
+// relationships
+// TODO: add all relations and references for transaction table
+
+
 db.IsIn = require("./IsIn.model.js")(sequelize, Sequelize);
 db.IsMember = require("./IsMember.model.js")(sequelize, Sequelize);
 db.Loves = require("./Loves.model.js")(sequelize, Sequelize);

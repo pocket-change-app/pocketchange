@@ -1,54 +1,46 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transaction = sequelize.define("transaction", {
-        transactionID: {
+    const Transaction = sequelize.define("ledger", {
+        ledgerEntryID: {
             type: Sequelize.UUID,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
+        transactionID: {
+            type: Sequelize.UUID,
+            allowNull: false, 
+        },
         stripeTransactionID: {
             type: Sequelize.UUID,
-            allowNull: false, // TODO: can this ever be null? should this be unique?
+            allowNull: true, // TODO: can this ever be null??? should this be unique?
         },
-        senderID: {
+        senderAccountID: {
             type: Sequelize.UUID,
             allowNull: false,
         },
-        recipientID: {
+        recipientAccountID: {
             type: Sequelize.UUID,
             allowNull: false,
         },
-        pocketID: {
-            type: Sequelize.UUID,
+        amount: {
+            type: Sequelize.DECIMAL(19,4),
             allowNull: false,
+            validate: {
+                min: 0 // no negatives
+            }
         },
-        initiatorID: {
-            type: Sequelize.UUID,
-            allowNull: false,
-        },
-        // TODO: should we have a column of the intiation type? ie consumer or merchant... as a redundancy
-
-        transactionType: {
+        currencyType: {
             type: Sequelize.UUID,
             allowNull: false,
             validate: {
-                isIn: [["purchase", "refund", "load_user", "load_pocket"]]
+                isIn: [["fiat", "change_pocket", "change_business"]]
             },
         },
-        subtotal: {
-            type: Sequelize.DECIMAL(19,4),
-            allowNull: false,
-            validate: {
-                min: 0 // no negative subtotals
-            }
+        currencyID: {
+            type: Sequelize.UUID,
+            allowNull: true, // null -> currencyType == "fiat"
         },
-        tip: {
-            type: Sequelize.DECIMAL(19,4),
-            allowNull: false,
-            validate: {
-                min: 0 // no negative tips
-            }
-        },
+        
         fee: {
             type: Sequelize.DECIMAL(19,4),
             allowNull: false,
