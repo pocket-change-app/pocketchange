@@ -26,14 +26,28 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.UUID,
             allowNull: false,
         },
-        // TODO: should we have a column of the intiation type? ie consumer or merchant... as a redundancy
-
-        transactionType: {
-            type: Sequelize.UUID,
+        initiationType: {
+            type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                isIn: [["purchase", "refund", "load_user", "load_pocket"]]
+                isIn: [["CUSTOMER_INITIATED", "MERCHANT_INITIATED"]]
             },
+        },
+        transactionType: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [[
+                        "PURCHASE", 
+                        "REFUND", 
+                        "LOAD_CUSTOMER_WALLET", 
+                        "LOAD_POCKET_WALLET"
+                    ]]
+            },
+        },
+        refundReference: {
+            type: Sequelize.UUID,
+            allowNull: true,
         },
         subtotal: {
             type: Sequelize.DECIMAL(19,4),

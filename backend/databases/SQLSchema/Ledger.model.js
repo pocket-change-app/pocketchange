@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transaction = sequelize.define("ledger", {
+    const Ledger = sequelize.define("ledger", {
         ledgerEntryID: {
             type: Sequelize.UUID,
             allowNull: false,
@@ -22,6 +22,25 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.UUID,
             allowNull: false,
         },
+        entryType: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [[
+                    "RECEIVE_STRIPE_CHARGE",
+                    "CREDIT_FIAT",
+                    "DEBIT_FIAT", 
+                    "AWARD_CHANGE", 
+                    "REDEEM_CHANGE", 
+                    "COLLECT_FEE", 
+                    "WITHDRAW_FEE", 
+                    "PAYOUT_STRIPE",
+                    "PAYOUT_BUSINESS",
+                    "PAYOUT_POCKETCHANGE",
+                ]]
+                    
+            },
+        },
         amount: {
             type: Sequelize.DECIMAL(19,4),
             allowNull: false,
@@ -30,13 +49,13 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         currencyType: {
-            type: Sequelize.UUID,
+            type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                isIn: [["fiat", "change_pocket", "change_business"]]
+                isIn: [["FIAT", "CHANGE_POCKET"]]
             },
         },
-        currencyID: {
+        pocketID: {
             type: Sequelize.UUID,
             allowNull: true, // null -> currencyType == "fiat"
         },
@@ -65,5 +84,5 @@ module.exports = (sequelize, Sequelize) => {
 
     });
   
-    return Transaction;
+    return Ledger;
 };
