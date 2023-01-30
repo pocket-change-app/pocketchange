@@ -14,7 +14,7 @@ const sequelizeConnection = database.sequelize
 const User = database.User
 const Business = database.Business
 const Pocket = database.Pocket
-const ChangeBalance = database.ChangeBalance
+const Account = database.Account
 const Transaction = database.Transaction
 const Geolocation = database.Geolocation
 const Contest = database.Contest
@@ -45,7 +45,7 @@ const context = async ({ req }) => {
     User,
     Business,
     Pocket,
-    ChangeBalance,
+    Account,
     Transaction,
     Geolocation,
     Contest,
