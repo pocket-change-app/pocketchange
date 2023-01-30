@@ -23,12 +23,38 @@ db.User = require("./User.model.js")(sequelize, Sequelize);
 db.Pocket = require("./Pocket.model.js")(sequelize, Sequelize);
 db.ChangeBalance = require("./ChangeBalance.model.js")(sequelize, Sequelize);
 db.Transaction = require("./Transaction.model.js")(sequelize, Sequelize);
+db.Ledger = require("./Ledger.model.js")(sequelize, Sequelize);
 db.Geolocation = require("./Geolocation.model.js")(sequelize, Sequelize);
 db.Contest = require("./Contest.model.js")(sequelize, Sequelize);
 db.QRScan = require("./QRScans.model.js")(sequelize, Sequelize);
 
-// relationships
+// associations
 // TODO: add all relations and references for transaction table
+// ledger: transactionID, senderAccountID, recipientAccountID, currencyID
+// transaction: pocketID, transactionID, intiatorID -> userID
+
+// TODO: test these associations
+Transaction.hasMany(Ledger, {
+    foreignKey: 'transactionID'
+});
+Ledger.belongsTo(Transaction);
+
+User.hasMany(Transaction, {
+    foreignKey: 'transactionID'
+});
+Transaction.belongsTo(User);
+
+// double check this
+Account.hasMany(Ledger);
+Ledger.hasOne(Account, {
+    foreignKey: 'senderAccountID',
+    as: "SenderAccount"
+});
+Ledger.hasOne(Account, {
+    foreignKey: 'recipientAccountID',
+    as: "RecipientAccount"
+});
+
 
 
 db.IsIn = require("./IsIn.model.js")(sequelize, Sequelize);
