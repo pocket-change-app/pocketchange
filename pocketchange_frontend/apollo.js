@@ -5,7 +5,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
 
 // see: https://github.com/graphql/swapi-graphql
-const GRAPHQL_API_URL = Constants.manifest?.extra?.graphQLURL;
+const BACKEND_URL = Constants.manifest?.extra?.backendURL;
 
 const authLink = setContext((_, {headers}) => {
   return {
@@ -38,7 +38,7 @@ const asyncAuthLink = setContext(async () => {
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: GRAPHQL_API_URL
+  uri: BACKEND_URL.concat("/graphql")
   //uri: 'http://f0fd-2607-fea8-5e3-2900-a5b8-52f5-3821-e23d.ngrok.io/graphql'
   //link: httpLink,
   // link: asyncAuthLink.concat(httpLink),
