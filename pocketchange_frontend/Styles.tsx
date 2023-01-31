@@ -659,6 +659,7 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'rgba(0,0,0,0.2)',
     // aspectRatio: 1,
     flex: 7,
+    justifyContent: 'center'
   },
 
   pocketListImage: {

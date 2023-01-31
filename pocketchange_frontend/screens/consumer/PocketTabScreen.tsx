@@ -1,19 +1,18 @@
 import { FlatList, Dimensions, KeyboardAvoidingView, Platform, ActivityIndicator, SectionList, SafeAreaView, Keyboard, Image, Pressable } from 'react-native';
 
-import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, BORDER_WIDTH, CARD_RADIUS } from '../../Styles';
-import { BusinessCardSm, DivHeader, PocketCarouselCard, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
+import { styles, MARGIN, POCKET_CARD_SCREEN_MARGIN, CARD_RADIUS } from '../../Styles';
+import { BusinessCardSm, DivHeader, PocketCarouselSeparator, PocketSearchResult } from "../../components/Cards";
 import { Text, View } from '../../components/Themed';
 import { ScreenContainer } from '../../components/Themed';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { colors } from '../../constants/Colors';
 import { AuthContext } from '../../contexts/Auth';
 import { useGetAllBusinessesQuery, useGetAllPocketsQuery } from '../../hooks-apollo';
-import FloatingTitle from '../../components/FloatingTitle';
 import SearchBar from '../../components/SearchBar';
 import { useHeaderHeight } from '@react-navigation/elements'
-import MapView, { Region } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
-import { HorizontalLine } from '../../components/Lines';
+import PocketCarouselCard from '../../components/PocketCarouselCard';
 
 
 
@@ -24,25 +23,8 @@ const MapCard = () => {
   const authContext = useContext(AuthContext)
   const navigation = useNavigation() // accesses the navigation object from the parent, I think
 
+  // passed to MapScreen to center on current user location
   const mapCenter = useRef<{ latitude: number, longitude: number }>(authContext.location.coords)
-
-  // const [mapRegion, setMapRegion] = useState<Region>({
-  //   latitude: authContext?.location?.coords?.latitude,
-  //   longitude: authContext?.location?.coords?.longitude,
-  //   latitudeDelta: 0.01,
-  //   longitudeDelta: 0.05,
-  // })
-
-  // useEffect(() => {
-  //   // AsyncStorage.clear();
-  //   //and call de loadStorage function.
-  //   setMapRegion({
-  //     latitude: authContext?.location?.coords?.latitude,
-  //     longitude: authContext?.location?.coords?.longitude,
-  //     latitudeDelta: 0.01,
-  //     longitudeDelta: 0.05,
-  //   })
-  // }, [authContext.location]);
 
   return (
     <Pressable
@@ -149,14 +131,13 @@ export default function PocketTabScreen({ navigation, route }: { navigation: any
       p
     )
   }
+
   for (var i in businessSearchResults) {
     const b = businessSearchResults[i]
     allSearchResults[1].data.push(
       b
     )
   }
-
-  // console.log(allSearchResults);
 
   const renderPocketCarouselCard = ({ item }) => (
     <PocketCarouselCard
