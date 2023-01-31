@@ -12,6 +12,8 @@ import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
 import { useStripe } from "@stripe/stripe-react-native";
+import Constants from 'expo-constants';
+
 
 export default function PaySummaryScreen({ route, navigation }: { route: any, navigation: any }) {
 
@@ -21,8 +23,6 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
-
-  const API_URL = 'https://b6ed-67-246-75-20.ngrok.io'
 
   // const [useChange, setUseChange] = useState(true)
 
@@ -38,10 +38,10 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
   // const consumerTotal = (total - changeToUse)
   // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
 
-
+  const BACKEND_URL = Constants.manifest?.extra?.backendURL;
 
   const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/payment-sheet`, {
+    const response = await fetch(`${BACKEND_URL}/payment-sheet`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
