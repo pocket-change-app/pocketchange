@@ -21,21 +21,9 @@ import { QueryResult } from './QueryResult';
 import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 import { BusinessName } from './BusinessName';
 import useGetAllChangeBalances from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import getImageURL from '../utils/getImageUrl';
 
 const R = require('ramda');
-
-async function getImageURL(entityType: string, entityID: string, fileName: string, setImageURL: any) {
-  const storage = getStorage();
-  await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
-    function (url) {
-      //console.log(url);
-      setImageURL(url);
-    },
-    function (error) {
-      console.log("ERROR: getDownloadURL: ", error);
-    }
-  );
-}
 
 export function BusinessCard({ navigation, businessID, pocketID }: { navigation: any, businessID: string, pocketID: string }) {
 
@@ -299,48 +287,6 @@ export function ChangeBalanceCard({ pocketID }: { pocketID: string }) {
       </Text>
     </View>
   );
-}
-
-export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
-
-  // TODO: take ID and use query
-
-  const [imageURL, setImageURL] = useState();
-
-  useEffect(() => {
-    getImageURL("Pocket", pocket.pocketID, "pocketCard.png", setImageURL);
-  }, []);
-
-  return (
-    <Pressable
-      onPress={() => navigation.navigate('Pocket', {
-        // navigation: navigation,
-        pocketID: pocket.pocketID,
-      })}
-    >
-      {/* <View> */}
-      <View style={styles.pocketListCardContainer}>
-        <View style={[styles.card, styles.pocketListCard]}>
-          {/* <View style={styles.pocketListNameContainer}>
-            <Text style={styles.pocketListName}>{pocket.name}</Text>
-          </View> */}
-
-          <View style={styles.pocketListImageContainer}>
-            {imageURL ?
-              <Image
-                style={[styles.image, styles.pocketListImage]}
-                source={{ uri: imageURL }}
-              /> : <></>
-            }
-          </View>
-        </View>
-
-      </View>
-
-      {/* </View> */}
-    </Pressable>
-
-  )
 }
 
 export function PocketSearchResult({ navigation, pocket }: { navigation: any, pocket: any }) {
