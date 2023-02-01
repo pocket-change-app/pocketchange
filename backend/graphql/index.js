@@ -102,9 +102,9 @@ app.post('/payment-sheet', async (req, res) => {
   // TODO: Use an existing Customer ID if this is a returning customer.
   console.log(req.body);
   // check to see if amount is valid
-  if (!isInteger(req.body.amount)) {
-    throw new Error("Amount must be in integer format. (sent in cents)")
-  }
+  // if (!Number.isInteger(req.body.amount)) {
+  //   throw new Error("Amount must be in integer format. (sent in cents)")
+  // }
   const customer = await stripe.customers.create();
   const ephemeralKey = await stripe.ephemeralKeys.create(
     {customer: customer.id},
