@@ -64,7 +64,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "amount": total * 100 })
+      body: JSON.stringify({ "amount": Math.round(total * 100) })
     });
     const { paymentIntent, ephemeralKey, customer } = await response.json();
 
@@ -116,7 +116,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       navigation.goBack()
 
       navigation.navigate("PayConfirmation", {
-        business: business,
+        businessID: businessID,
+        pocketID: pocketID,
         subtotal: amount,
         date: date,
       })
