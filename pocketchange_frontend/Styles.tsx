@@ -116,14 +116,16 @@ export const styles = StyleSheet.create({
   },
 
   floatingTitleContainer: {
-    alignSelf: 'left',
-    marginTop: -BORDER_WIDTH,
+    zIndex: 10,
+    // alignSelf: 'right',
+    // marginTop: -BORDER_WIDTH,
     marginHorizontal: MARGIN,
     // padding: MARGIN * 2,
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
     top: 0,
+    left: 0,
   },
 
   floatingTitleCard: {
@@ -144,7 +146,6 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 17,
     color: colors.dark,
-    textAlign: 'justify',
   },
 
   receipt: {
@@ -616,7 +617,7 @@ export const styles = StyleSheet.create({
   pocketFlatList: {
     // paddingVertical: MARGIN,
     paddingHorizontal: POCKET_CARD_SCREEN_MARGIN,
-    // margin: 15,
+    // marginTop: MARGIN,
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 
@@ -633,7 +634,7 @@ export const styles = StyleSheet.create({
   pocketListCard: {
     // aspectRatio: POCKET_CARD_ASPECT_RATIO,
     // width: Dimensions.get('window').width - 2 * POCKET_CARD_SCREEN_MARGIN,
-    flexGrow: 1,
+    flex: 1,
     // marginRight: 15,
     borderWidth: 0,
     marginBottom: 0,
@@ -658,6 +659,7 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'rgba(0,0,0,0.2)',
     // aspectRatio: 1,
     flex: 7,
+    justifyContent: 'center'
   },
 
   pocketListImage: {
@@ -704,12 +706,12 @@ export const styles = StyleSheet.create({
   settingEditText: {
     fontFamily: 'metropolis medium',
     fontSize: 18,
-    lineHeight: 24,
+    lineHeight: 18,
     color: colors.medium,
-    // marginLeft: MARGIN,
+    marginTop: 6,
   },
 
-  transactionListed: {
+  historyItem: {
     zIndex: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -724,6 +726,21 @@ export const styles = StyleSheet.create({
     // flexShrink: 1,
   },
 
+  transactionListed: {
+    // zIndex: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    // height: 40,
+    // paddingHorizontal: MARGIN,
+    // paddingVertical: MARGIN * 2 / 3,
+    // marginBottom: 0,
+    // borderRadius: 0,
+    // borderTopWidth: 0,
+    // borderBottomWidth: 0,
+    // flexShrink: 1,
+  },
+
   transactionListedMerchantText: {
     fontFamily: 'metropolis medium',
     fontSize: 16,
@@ -734,7 +751,7 @@ export const styles = StyleSheet.create({
 
   transactionListedAmountText: {
     alignSelf: 'center',
-    fontFamily: 'metropolis medium',
+    fontFamily: 'money',
     fontSize: 16,
     color: colors.medium,
     marginRight: MARGIN / 2,

@@ -21,21 +21,9 @@ import { QueryResult } from './QueryResult';
 import useGetAllQRScansQuery from '../hooks-apollo/QRScan/useGetAllQRScansQuery';
 import { BusinessName } from './BusinessName';
 import useGetAllChangeBalances from '../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery';
+import getImageURL from '../utils/getImageUrl';
 
 const R = require('ramda');
-
-async function getImageURL(entityType: string, entityID: string, fileName: string, setImageURL: any) {
-  const storage = getStorage();
-  await getDownloadURL(ref(storage, entityType.concat("/", entityID, "/", fileName))).then(
-    function (url) {
-      //console.log(url);
-      setImageURL(url);
-    },
-    function (error) {
-      console.log("ERROR: getDownloadURL: ", error);
-    }
-  );
-}
 
 export function BusinessCard({ navigation, businessID, pocketID }: { navigation: any, businessID: string, pocketID: string }) {
 
@@ -103,12 +91,12 @@ export function BusinessCard({ navigation, businessID, pocketID }: { navigation:
           color={hasChange ? colors.gold : colors.subtle}
           onPress={() => {
             if (hasChange) {
-              navigation.navigate('PaymentModalStack', {
+              navigation.navigate('PaymentStack', {
                 screen: "PayAmount",
                 params: {
                   // navigation: navigation,
-                  business: businessData?.business,
-                  pocket: pocketsData?.getBusinessPockets[0]
+                  businessID: businessID,
+                  pocketID: pocketID,
                 }
               })
             } else {
@@ -196,7 +184,31 @@ export function BusinessCardSuggested({ navigation, business }: { navigation: an
 
 }
 
-export function BusinessCardSm({ navigation, businessID, showPocket = true }: { navigation: any, businessID: string, showPocket: boolean }) {
+export function BusinessInfo({ navigation, businessID, showPocket = true, wrapText = false }: { navigation?: any, businessID: string, showPocket?: boolean, wrapText?: boolean }) {
+
+  const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
+  const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
+
+  if (businessError) return (<Text>{businessError.message}</Text>)
+
+  return (
+    <Pressable
+      disabled={!navigation}
+      onPress={() => {
+        navigation.navigate('Business', {
+          businessID: businessID,
+          pocketID: pocketData?.getBusinessPockets[0]?.pocketID
+        })
+      }}
+    >
+      <Text numberOfLines={wrapText ? undefined : 1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
+      <Text numberOfLines={wrapText ? undefined : 1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
+      {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
+    </Pressable>
+  )
+}
+
+export function BusinessCardSm({ navigation, businessID, showPocket = true, wrapText = false, hideImage = false }: { navigation?: any, businessID: string, showPocket?: boolean, wrapText?: boolean, hideImage?: boolean }) {
   const [imageURL, setImageURL] = useState();
 
   // console.log(business)
@@ -205,51 +217,48 @@ export function BusinessCardSm({ navigation, businessID, showPocket = true }: { 
     getImageURL("Business", businessID, "businessProfile.jpg", setImageURL);
   }, []);
 
-  const businessQuery = useBusinessQuery(businessID)
-  const { data: businessData, loading: businessLoading, error: businessError } = businessQuery
 
-
+  // const { data: businessData, loading: businessLoading, error: businessError } = useBusinessQuery(businessID)
   const { data: pocketData, loading: pocketLoading, error: pocketError } = useGetBusinessPocketsQuery(businessID);
 
   // Return query errors AFTER ALL query calls
   // this avoids Error: 'Rendered fewer hooks than expected'
 
-  if (businessError) return (<Text>{businessError.message}</Text>)
   if (pocketError) return (<Text>{pocketError.message}</Text>)
 
   return (
     <Pressable
+      disabled={!navigation}
       onPress={() => {
-        navigation ?
-          navigation.navigate('Business', {
-            // navigation: navigation,
-            businessID: businessData?.business?.businessID,
-            pocketID: pocketData?.getBusinessPockets[0]?.pocketID
-          })
-          : null
+        navigation.navigate('Business', {
+          // navigation: navigation,
+          businessID: businessID,
+          pocketID: pocketData?.getBusinessPockets[0]?.pocketID
+        })
       }
       }>
       <View style={[styles.card, styles.businessListItemCard]}>
-
-        <View style={styles.businessListImageContainer}>
-          {imageURL ?
-            <Image
-              style={styles.businessListImage}
-              source={{ uri: imageURL }}
-            /> :
-            <Image
-              style={styles.businessListImage}
-              source={require('../assets/images/defaults/businessProfile.png')}
-            />
-          }
-        </View>
-
+        {hideImage ?
+          (
+            null
+          ) : (
+            <View style={styles.businessListImageContainer}>
+              {imageURL ?
+                <Image
+                  style={styles.businessListImage}
+                  source={{ uri: imageURL }}
+                /> :
+                <Image
+                  style={styles.businessListImage}
+                  source={require('../assets/images/defaults/businessProfile.png')}
+                />
+              }
+            </View>
+          )
+        }
         <View style={styles.businessListInfo}>
-          <Text numberOfLines={1} style={styles.businessNameSm}>{businessData?.business?.businessName}</Text>
-          <Text numberOfLines={1} style={styles.address}>{businessData?.business?.address.buildingNumber} {businessData?.business?.address.streetName}</Text>
-          {showPocket ? <QueryResult loading={pocketLoading} error={pocketError} data={pocketData}><Text style={styles.pocket}>{pocketData?.getBusinessPockets[0]?.pocketName}</Text></QueryResult> : null}
+          <BusinessInfo businessID={businessID} showPocket={showPocket} wrapText={wrapText} />
         </View>
-
       </View>
 
     </Pressable>
@@ -280,55 +289,13 @@ export function ChangeBalanceCard({ pocketID }: { pocketID: string }) {
   );
 }
 
-export function PocketCarouselCard({ navigation, pocket }: { navigation: any, pocket: any }) {
-
-  // TODO: take ID and use query
-
-  const [imageURL, setImageURL] = useState();
-
-  useEffect(() => {
-    getImageURL("Pocket", pocket.pocketID, "pocketCard.png", setImageURL);
-  }, []);
-
-  return (
-    <Pressable
-      onPress={() => navigation.navigate('Pocket', {
-        // navigation: navigation,
-        pocket: pocket
-      })}
-    >
-      {/* <View> */}
-      <View style={styles.pocketListCardContainer}>
-        <View style={[styles.card, styles.pocketListCard]}>
-          {/* <View style={styles.pocketListNameContainer}>
-            <Text style={styles.pocketListName}>{pocket.name}</Text>
-          </View> */}
-
-          <View style={styles.pocketListImageContainer}>
-            {imageURL ?
-              <Image
-                style={[styles.image, styles.pocketListImage]}
-                source={{ uri: imageURL }}
-              /> : <></>
-            }
-          </View>
-        </View>
-
-      </View>
-
-      {/* </View> */}
-    </Pressable>
-
-  )
-}
-
 export function PocketSearchResult({ navigation, pocket }: { navigation: any, pocket: any }) {
   return (
     <Pressable
       style={styles.pocketSearchResultContainer}
       onPress={() => navigation.navigate('Pocket', {
         // navigation: navigation,
-        pocket: pocket,
+        pocketID: pocket.pocketID,
       })}
     >
       <Text style={[styles.navigationHeaderTitle, { color: colors.medium }]}>
@@ -679,7 +646,7 @@ export function HistoryEntry({ navigation, item }: any) {
       onPress={onPress}
     >
 
-      <View style={[styles.card, styles.transactionListed]}>
+      <View style={[styles.card, styles.historyItem]}>
 
         <View style={{ flexDirection: 'row', flexShrink: 1 }}>
 
@@ -975,22 +942,26 @@ export function TranactionCardSm({ navigation, transaction }: { navigation: any,
 
   const { user, loading: userLoading, refetch: refetchUser } = useUserQuery(transaction.userID)
 
-  if (isNilOrEmpty(user)) {
-    return (null)
-  }
+  const theDate = new Date(transaction.date)
+  const date = theDate.toLocaleDateString()
+  const time = theDate.toLocaleTimeString()
+
+  // if (isNilOrEmpty(user)) {
+  //   return (null)
+  // }
 
   return (
     <Pressable
-      onPress={null}
+      style={[styles.card]}
+      onPress={() => navigation.navigate('Transaction', { transaction: transaction })}
     >
-      <View style={styles.transactionListed}>
+      <View style={[styles.container, styles.transactionListed]}>
 
-        <Text style={styles.transactionListedAmountText}>
-          {transaction.date.split("T")[1].split(".")[0]}
+        <Text style={styles.transactionListedMerchantText}>
+          {time}
         </Text>
         <Text style={styles.transactionListedMerchantText}>
-          {!user ? null : user.firstName
-          }
+          {user?.firstName}
         </Text>
         <Text style={styles.transactionListedAmountText}>
           ${transaction.value}

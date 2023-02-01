@@ -47,6 +47,9 @@ export default function QRScanScreen({ navigation }: { navigation: any }) {
     })();
   }, []);
 
+
+  // TODO: use location from auth
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();

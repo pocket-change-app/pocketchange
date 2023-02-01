@@ -149,7 +149,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.inputText}
               // keyboardType='numeric'
               // value={firstName}
               onChangeText={setFirstname}
@@ -169,7 +169,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
               returnKeyType="next"
               selectionColor={colors.gold}
               autoCapitalize='words'
-              style={styles.receipt}
+              style={styles.inputText}
               // keyboardType='numeric'
               // value={lastName}
               onChangeText={setLastName}
@@ -192,7 +192,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             returnKeyType="next"
             selectionColor={colors.gold}
             autoCapitalize='none'
-            style={styles.receipt}
+            style={styles.inputText}
             keyboardType='email-address'
             // value={email}
             onChangeText={setEmailAddress}
@@ -213,7 +213,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             returnKeyType="next"
             selectionColor={colors.gold}
             autoCapitalize='none'
-            style={styles.receipt}
+            style={styles.inputText}
             //keyboardType='email-address'
             // value={email}
             onChangeText={setBirthDate}
@@ -247,7 +247,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             autoCorrect={false}
             autoComplete="postal-code"
             maxLength={6}
-            style={styles.receipt}
+            style={styles.inputText}
             //keyboardType='email-address'
             // value={email}
             onChangeText={setHomePostalCode}
@@ -269,7 +269,7 @@ export default function SignUpScreen({ route, navigation }: { route: any, naviga
             selectionColor={colors.gold}
             secureTextEntry
             autoCapitalize='none'
-            style={styles.receipt}
+            style={styles.inputText}
             // keyboardType='numeric'
             // value={password}
             onChangeText={setPassword}

@@ -10,48 +10,45 @@ import * as Linking from 'expo-linking';
 import { RootStackParamList } from '../types';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.createURL('/'), "https://www.pocketchangeapp.ca/open", "https://pocketchangeapp.ca/open"],
+
   config: {
+    initialRouteName: "Root",
     screens: {
-      Root: {
+      PaymentStack: {
         screens: {
-          Pockets: {
-            screens: {
-              PocketTabScreen: 'pockets tab',
-              PocketScreen: 'pocket',
-            },
-          },
-          Pay: {
-            screens: {
-              PayTabScreen: 'pay tab',
-            },
-          },
-          Wallet: {
-            screens: {
-              WalletScreen: 'wallet tab',
-            },
-          },
-          Metrics: {
-            screens: {
-              MetricsDashboardScreen: 'metrics',
-            },
-          },
-          Transactions: {
-            screens: {
-              TransactionHistoryScreen: 'transactions',
-            },
-          },
-          Settings: {
-            screens: {
-              MerchantSettings: 'settings',
-            }
-          }
+          PayAmount: 'pay/:businessID',
+          PayTip: 'tip/:businessID/:amount',
+          PaySummary: 'summary/:businessID/:amount/:tip',
         },
       },
-      ConsumerSettings: 'settings',
-      
-      BusinessModal: 'modal',
-      TransactionModal: 'modal',
+      Root: {
+        screens: {
+          ExploreStack: {
+            initialRouteName: 'PocketSearch',
+            screens: {
+              PocketSearch: 'search',
+              Map: 'map',
+              Business: 'business/:businessID',
+            },
+          },
+          ScanStack: {
+            initialRouteName: 'QRScan',
+            screens: {
+              QRScan: 'qr-scan'
+            },
+          },
+          WalletStack: {
+            initialRouteName: 'Wallet',
+            screens: {
+              Wallet: 'wallet',
+              ConsumerSettings: 'settings',
+              PayConfirmation: 'pay-confirmation',
+              ScanConfirmation: 'scan-confirmation',
+            },
+          },
+        },
+      },
       NotFound: '*',
     },
   },
