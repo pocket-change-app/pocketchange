@@ -119,7 +119,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       navigation.navigate("PayConfirmation", {
         businessID: businessID,
         pocketID: pocketID,
-        subtotal: amount,
+        subtotal: total.toFixed(2),
         date: date,
       })
 
@@ -180,22 +180,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
         <ButtonWithText
           color={colors.gold}
           text="Confirm and Pay"
-          onPress={() => {
-
-            const date = new Date()
-
-            navigation.popToTop()
-            navigation.goBack()
-
-            navigation.navigate("PayConfirmation", {
-              businessID: businessID,
-              pocketID: pocketID,
-              subtotal: total.toFixed(2),
-              date: date,
-            })
-
-            // console.log('navigated to PayConfirmation')
-          }}
+          onPress={openPaymentSheet}
         />
 
 
