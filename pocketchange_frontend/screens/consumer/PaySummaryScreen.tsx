@@ -52,6 +52,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
   const changeToUse = ((hasChange && useChange) ? changeBalanceData?.value : 0)
   const feeNum = ((amountNum + tipNum) * FEE_RATE)
   const total = amountNum + tipNum + feeNum - changeToUse // (amountNum + tipNum + fee)
+  const totalInCents = Math.round(total * 100)
 
   // const consumerTotal = (total - changeToUse)
   // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
@@ -64,7 +65,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "amount": total * 100 })
+      body: JSON.stringify({ "amount": totalInCents })
     });
     const { paymentIntent, ephemeralKey, customer } = await response.json();
 
@@ -116,7 +117,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       navigation.goBack()
 
       navigation.navigate("PayConfirmation", {
-        business: business,
+        businessID: businessID,
+        pocketID: pocketID,
         subtotal: amount,
         date: date,
       })
