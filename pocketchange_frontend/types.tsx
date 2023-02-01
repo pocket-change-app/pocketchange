@@ -28,17 +28,21 @@ export type RootStackParamList = {
   PocketSearch: undefined;
   Pocket: undefined;
 
+  Map: undefined;
+
   NotFound: undefined;
 
   Receipt: undefined;
 
-  PaymentModalStack: undefined;
+  PaymentStack: undefined;
   Pay: undefined;
   PayAmount: undefined;
   PayTip: undefined;
   PaySummary: undefined;
   PayConfirmation: undefined;
   ScanConfirmation: undefined;
+
+  QRScan: undefined;
 
   Wallet: undefined;
   ConsumerSettings: undefined;
@@ -50,7 +54,8 @@ export type RootStackParamList = {
 
   // Merchant Screens
   Transactions: undefined;
-  TransactionModal: undefined;
+  Transaction: undefined;
+  NewTransaction: undefined;
 
   MerchantMetrics: undefined;
 
@@ -81,8 +86,8 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
 
   // Consumer tabs
-  PocketStack: undefined;
-  PayStack: undefined;
+  ExploreStack: undefined;
+  ScanStack: undefined; s
   WalletStack: undefined;
 
   // Merchant Tabs

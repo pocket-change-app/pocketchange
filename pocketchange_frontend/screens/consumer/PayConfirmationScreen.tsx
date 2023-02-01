@@ -8,13 +8,20 @@ import { MARGIN, styles } from "../../Styles";
 import TextTicker from 'react-native-text-ticker'
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/Auth";
+import { useBusinessQuery } from "../../hooks-apollo";
 
 
 export default function PayConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { business, subtotal } = route.params;
+  const { businessID, pocketID, subtotal } = route.params;
+
+  const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
+
+  const business = businessData.business;
+
   const dateTimeString = route.params.date;
   const dateTime = new Date(dateTimeString)
 

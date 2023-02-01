@@ -1,12 +1,16 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //import { AuthData, authService } from '../services/authService';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 //import { useUserQuery } from '../hooks-apollo/index'
 import UserQueries from '../hooks-apollo/User/queries';
+import * as Location from 'expo-location';
+
 
 import { isNilOrEmpty, isNotNilOrEmpty } from 'ramda-adjunct';
 import { useLazyQuery } from '@apollo/client';
+import { LocationObject, LocationSubscription } from 'expo-location';
+import { stringify } from '@firebase/util';
 
 
 export enum RoleType {
@@ -31,13 +35,14 @@ export type Role = {
 export type AuthContextData = {
   userFirebase: User,
   userGQL: Object,
-  setUserGQL(user): void,
+  setUserGQL: (user) => void,
   activeRole: Role,
-  switchActiveRole(role: Role): void,
-  signOut(): void,
+  switchActiveRole: (role: Role) => void,
+  signOut: () => void,
   loading: boolean,
-  setLoading(loading): void,
+  setLoading: (loading) => void,
   isLoggedIn: boolean,
+  location: LocationObject,
 };
 
 //Create the Auth Context with the data type specified
@@ -47,11 +52,20 @@ export const AuthContext = createContext({} as AuthContextData);
 export const AuthProvider = ({ children }: { children: any }) => {
 
   // console.log('AuthProvider has been called.');
+  const [errorMsg, setErrorMsg] = useState<string>()
 
   const [userFirebase, setUserFirebase] = useState<User>({} as User);
   const [userGQL, setUserGQL] = useState({});
   const [activeRole, setActiveRole] = useState<Role>({} as Role);
   const [loading, setLoading] = useState(true);
+  // location hooks
+  const [locationWatcher, setLocationWatcher] = useState<LocationSubscription>();
+  const location = useRef<LocationObject>()
+
+  const isLoggedIn = (
+    isNotNilOrEmpty(userFirebase.uid) &&
+    isNotNilOrEmpty(userGQL.emailAddress)
+  )
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // lazy query definition: GQL users for firebase uid 
@@ -67,10 +81,39 @@ export const AuthProvider = ({ children }: { children: any }) => {
 
   // every time the App is opened, this runs
   useEffect(() => {
-     // AsyncStorage.clear();
-     //and call de loadStorage function.
-     loadStorageData();
-   }, []);
+    // AsyncStorage.clear();
+    //and call de loadStorage function.
+    loadStorageData();
+  }, []);
+
+  // LOCATION EFFECT
+  // run when logging in/out to subscribe/unsubscribe to location data
+  useEffect(() => {
+    if (isLoggedIn) {
+      (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+        Location.watchPositionAsync({
+          accuracy: Location.Accuracy.Highest,
+          distanceInterval: 10,
+          // timeInterval: 10000
+        }, (loc) => {
+          // console.log('\nauthContext.location:\n', JSON.stringify(loc, null, '  '))
+          location.current = loc
+        }).then((watcher) => {
+          setLocationWatcher(watcher);
+        }).catch((err) => {
+          console.log(err)
+        })
+      })()
+    } else {
+      console.log('removing watcher!');
+      locationWatcher?.remove()
+    }
+  }, [isLoggedIn])
 
   // run on when userFirebase changes
   useEffect(() => {
@@ -141,11 +184,8 @@ export const AuthProvider = ({ children }: { children: any }) => {
     signOut: signOut,
     loading: loading,
     setLoading: setLoading,
-    isLoggedIn: (
-      isNotNilOrEmpty(userFirebase.uid) &&
-      isNotNilOrEmpty(userGQL.emailAddress)
-    ) ? true : false
-
+    isLoggedIn: isLoggedIn,
+    location: location,
   }
 
   if (loading) return null;

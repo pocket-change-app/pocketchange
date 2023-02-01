@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
-import { ButtonWithText } from '../../components/Cards'
+import { BusinessCardSm, ButtonWithText, SettingSwitch } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
 import { colors } from "../../constants/Colors";
 import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
@@ -11,6 +11,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/Auth";
 import PocketQueries from '../../hooks-apollo/Pocket/queries'
 import { color } from "@rneui/base";
+import TransactionSummary from "../../components/TransactionSummary";
+import { useBusinessQuery, usePocketQuery } from "../../hooks-apollo";
+import useGetAllChangeBalances from "../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery";
 import { useStripe } from "@stripe/stripe-react-native";
 import Constants from 'expo-constants';
 
@@ -19,21 +22,36 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
   const authContext = useContext(AuthContext); 
 
-  const { business, pocket, amount, tip } = route.params;
+  const { businessID, pocketID, amount, tip } = route.params;
+
+  const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
+  if (businessError) return (<Text>Business error: {businessError.message}</Text>)
+
+  const { data: pocketData, loading: pocketLoading, error: pocketError, refetch: refetchPocket } = usePocketQuery(pocketID)
+  if (pocketError) return (<Text>Pocket error: {pocketError.message}</Text>)
+  const pocket = pocketData?.pocket;
+
+  const { data: changeBalanceData, loading: changeBalanceLoading, error: changeBalanceError, refetch: refetchChangeBalances } = useGetAllChangeBalances(authContext.userFirebase.uid, pocketID);
+  if (changeBalanceError) return (<Text>Change Balance error: {changeBalanceError.message}</Text>)
+
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
 
   // const [useChange, setUseChange] = useState(true)
 
-  const EARN_RATE = 0.1
-  const FEE_RATE = 0.05
+  const [useChange, setUseChange] = useState(true)
+
+  const hasChange = Boolean(changeBalanceData?.value)
+
+  const EARN_RATE = 0.1  // TODO: retrieve from backend
+  const FEE_RATE = 0.05  // TODO: retrieve from backend
 
   const amountNum = parseFloat(amount)
   const tipNum = parseFloat(tip)
-  // const changeToUse = (useChange ? 2.63 : 0)
-  // const fee = ((amountNum + tipNum) * FEE_RATE)
-  const total = amountNum + tipNum // (amountNum + tipNum + fee)
+  const changeToUse = ((hasChange && useChange) ? changeBalanceData?.value : 0)
+  const feeNum = ((amountNum + tipNum) * FEE_RATE)
+  const total = amountNum + tipNum + feeNum - changeToUse // (amountNum + tipNum + fee)
 
   // const consumerTotal = (total - changeToUse)
   // const youEarn = Math.max((amountNum - changeToUse) * EARN_RATE, 0)
@@ -122,43 +140,64 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
 
         {/* BUSINESS */}
 
+        <BusinessCardSm
+          businessID={businessID}
+          hideImage
+          wrapText
+        />
+
+        <View style={{ height: MARGIN }} />
+
+
+        <TransactionSummary
+          amount={amount}
+          tip={tip}
+          fee={feeNum.toFixed(2)}
+          changeApplied={changeToUse?.toFixed(2)}
+          hasChange={hasChange}
+        />
         <View style={styles.card}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.businessListInfo}>
-              <Text style={styles.businessNameSm}>{business.businessName}</Text>
-              <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-              <Text style={styles.pocket}>{pocket.pocketName}</Text>
-            </View>
-          </View>
-        </View>
+          {hasChange ? (
 
-        <View>
-
-          <View style={[styles.card]}>
-            <View style={styles.container}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Subtotal</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{amount}</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: MARGIN }}>
-                <Text style={[styles.paymentSummaryText, { textAlign: 'left' }]}>Tip</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right' }]}>{tip}</Text>
-              </View>
-
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={[styles.paymentSummaryText, { textAlign: 'left', color: colors.dark }]}>Total</Text>
-                <Text style={[styles.paymentSummaryText, styles.tabularNumbers, { textAlign: 'right', color: colors.dark }]}>${total.toFixed(2)}</Text>
-            </View>
-            </View>
-          </View>
-
-          <ButtonWithText
-            color={colors.gold}
-            text={'Pay ' + business.businessName}
-            onPress={openPaymentSheet}
+          <SettingSwitch
+            settingText="Apply Change?"
+            value={useChange}
+            onToggle={setUseChange}
           />
 
+          ) : (
+            <View style={styles.container}>
+              <Text style={[styles.paymentSummaryText, { textAlign: 'center' }]}>
+                Once you have some Change in {pocket.pocketName}, you can spend it here!
+              </Text>
+            </View>
+
+          )}
         </View>
+
+        <ButtonWithText
+          color={colors.gold}
+          text="Confirm and Pay"
+          onPress={() => {
+
+            const date = new Date()
+
+            navigation.popToTop()
+            navigation.goBack()
+
+            navigation.navigate("PayConfirmation", {
+              businessID: businessID,
+              pocketID: pocketID,
+              subtotal: total.toFixed(2),
+              date: date,
+            })
+
+            // console.log('navigated to PayConfirmation')
+          }}
+        />
+
+
+
       </View>
 
     </SafeAreaView >

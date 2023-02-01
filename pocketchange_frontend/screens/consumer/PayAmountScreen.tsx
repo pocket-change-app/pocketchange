@@ -1,6 +1,6 @@
 import { MARGIN, styles } from "../../Styles";
 import { View, Text, ScreenContainer } from '../../components/Themed'
-import { CardHeader, ButtonWithText, } from '../../components/Cards'
+import { CardHeader, ButtonWithText, BusinessCardSm, BusinessInfo, } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
 import { KeyboardAvoidingView, Platform, SafeAreaView, TextInput } from "react-native";
 import { useContext, useState } from "react";
@@ -8,13 +8,16 @@ import { StatusBar } from 'expo-status-bar';
 import { colors } from "../../constants/Colors";
 import { AuthContext } from "../../contexts/Auth";
 import { useHeaderHeight } from '@react-navigation/elements'
+import { useBusinessQuery } from "../../hooks-apollo";
 
 
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
 
-  const { business, pocket } = route.params;
+  const { businessID, pocketID } = route.params;
+
+  // const { data: business, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
 
   const [amount, setAmount] = useState('')
 
@@ -35,15 +38,15 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
           {/* BUSINESS */}
 
-          <View style={styles.card}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.businessListInfo}>
-                <Text style={styles.businessNameSm}>{business.businessName}</Text>
-                <Text style={styles.address}>{business.address.buildingNumber} {business.address.streetName}</Text>
-                <Text style={styles.pocket}>{pocket.pocketName}</Text>
-              </View>
-            </View>
-          </View>
+          {/* <View style={[styles.card, styles.container]}>
+            <BusinessInfo businessID={businessID} wrapText />
+          </View> */}
+
+          <BusinessCardSm
+            businessID={businessID}
+            hideImage
+            wrapText
+          />
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
 
@@ -69,8 +72,8 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
                 if (amountValid) {
                   navigation.navigate("PayTip", {
                     // navigation: navigation,
-                    business: business,
-                    pocket: pocket,
+                    businessID: businessID,
+                    pocketID: pocketID,
                     amount: parseFloat(amount).toFixed(2),
                   })
                 }

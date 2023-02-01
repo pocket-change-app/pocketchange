@@ -33,6 +33,7 @@ import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 import SurveyScreen from '../screens/shared/SurveyScreen';
+import MapScreen from '../screens/consumer/MapScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -53,56 +54,53 @@ export const ConsumerNavigation = () => {
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false, animation: 'fade_from_bottom' }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen
-        name="PaymentModalStack"
-        component={PaymentModalStack}
+        name="PaymentStack"
+        component={PaymentStack}
         options={{
           headerShown: false,
           animation: 'slide_from_bottom',
         }}
       />
-      {/* <Stack.Group
-        screenOptions={{
-          presentation: 'modal',
+      <Stack.Screen
+        name="PayConfirmation"
+        component={PayConfirmationScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
         }}
-      > */}
-        <Stack.Screen
-          name="PayConfirmation"
-          component={PayConfirmationScreen}
-          options={{
-            presentation: 'fullScreenModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      />
 
-        <Stack.Screen
-          name="ScanConfirmation"
-          component={ScanConfirmationScreen}
-          options={{
-            presentation: 'fullScreenModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      <Stack.Screen
+        name="ScanConfirmation"
+        component={ScanConfirmationScreen}
+        options={{
+          presentation: 'fullScreenModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
 
-        <Stack.Screen
-          name="Survey"
-          component={SurveyScreen}
-          options={{
-            presentation: 'transparentModal',
-            animation: 'fade',
-            // statusBarHidden: true,
-            headerShown: false,
-            autoHideHomeIndicator: true,
-          }}
-        />
+      <Stack.Screen
+        name="Survey"
+        component={SurveyScreen}
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          // statusBarHidden: true,
+          headerShown: false,
+          autoHideHomeIndicator: true,
+        }}
+      />
+
+
 
       {/* </Stack.Group> */}
 
@@ -111,122 +109,7 @@ export const ConsumerNavigation = () => {
   );
 }
 
-function PocketStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName='PocketSearch'
-      screenOptions={{
-        headerTitleStyle: styles.navigationHeaderTitle,
-        headerStyle: styles.navigationHeader,
-        headerShadowVisible: false,
-        headerTintColor: colors.gold,
-        headerBackTitleStyle: styles.navigationBackTitleStyle,
-        // headerTitle: 'Pockets',
-      }}
-    >
-      <Stack.Screen
-        name="PocketSearch"
-        component={PocketTabScreen}
-        options={{
-          title: 'Pockets',
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="Pocket"
-        component={PocketScreen}
-        options={({ route }) => ({
-          title: ''//route.params.pocket.name,
-          //headerTitleStyle: styles.navigationHeaderPocketTitle
-        })}
-      />
-
-      <Stack.Screen
-        name="Business"
-        component={BusinessScreen}
-        options={({ route }) => ({
-          title: '', //route.params.business.name
-        })}
-      />
-      {/* <Stack.Screen
-        name="PaymentModalStack"
-        component={PaymentModalStack}
-        options={{
-          // presentation: 'modal',
-          headerShown: false,
-        }}
-      /> */}
-      <Stack.Screen
-        name="Contest"
-        component={ContestScreen}
-        options={{
-          // presentation: 'modal',
-          // headerShown: false,
-          // title: '',
-        }}
-      />
-      {/* <Stack.Screen
-        name="BusinessStack"
-        component={BusinessStack}
-      /> */}
-    </Stack.Navigator>
-  )
-}
-
-
-function PayStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName='Pay'
-      screenOptions={{
-        headerTitleStyle: styles.navigationHeaderTitle,
-        headerStyle: styles.navigationHeader,
-        headerShadowVisible: false, // finding this was really annoying
-        headerTintColor: colors.gold,
-        headerBackTitleStyle: styles.navigationBackTitleStyle,
-        // headerBackButtonMenuEnabled: true,
-      }}
-    >
-      <Stack.Screen
-        name="Pay"
-        component={PayTabScreen}
-        options={{ title: ' Pay ' }}
-      // screenOptions={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Business"
-        component={BusinessScreen}
-        options={({ route }) => ({
-          title: '' //route.params.business.name
-        })}
-      />
-      {/* <Stack.Screen
-        name="PayAmount"
-        component={PayAmountScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PayTip"
-        component={PayTipScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PaySummary"
-        component={PaySummaryScreen}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-    </Stack.Navigator>
-  )
-}
-
-function PaymentModalStack() {
+function PaymentStack() {
   return (
     <Stack.Navigator
 
@@ -296,18 +179,93 @@ function PaymentModalStack() {
           // headerShown: false,
         }}
       />
-      {/* <Stack.Screen
-        name="PayConfirmation"
-        component={PayConfirmationScreen}
-        options={({ navigation }: any) => ({
-          presentation: 'fullScreenModal',
-          headerShown: false,
-        })}
-      /> */}
     </Stack.Navigator >
   )
 }
 
+function ExploreStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='PocketSearch'
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
+        // headerTitle: 'Pockets',
+      }}
+    >
+      <Stack.Screen
+        name="PocketSearch"
+        component={PocketTabScreen}
+        options={{
+          title: 'Pockets',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Pocket"
+        component={PocketScreen}
+        options={({ route }) => ({
+          title: ''//route.params.pocket.name,
+          //headerTitleStyle: styles.navigationHeaderPocketTitle
+        })}
+      />
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
+        options={({ route }) => ({
+          title: '', //route.params.business.name
+        })}
+      />
+      <Stack.Screen
+        name="Contest"
+        component={ContestScreen}
+        options={{
+          // presentation: 'modal',
+          // headerShown: false,
+          // title: '',
+        }}
+      />
+      <Stack.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          // presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+          // statusBarHidden: true,
+          headerShown: false,
+          // autoHideHomeIndicator: true,
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+function ScanStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='QRScan'
+      screenOptions={{
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
+        // headerTitle: 'Pockets',
+      }}
+    >
+      <Stack.Screen
+        name="QRScan"
+        component={QRScanScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
 
 function WalletStack() {
 
@@ -325,7 +283,7 @@ function WalletStack() {
       <Stack.Screen
         name="Wallet"
         component={WalletScreen}
-        options={({ navigation }: RootTabScreenProps<'Wallet'>) => ({
+        options={({ navigation }) => ({
         
           headerRight: () => (
             <Pressable
@@ -393,14 +351,6 @@ function WalletStack() {
           title: '',
         }}
       />
-      {/* <Stack.Screen
-        name="PayConfirmation"
-        component={PayConfirmationScreen}
-        options={({ navigation }: any) => ({
-          presentation: 'fullScreenModal',
-          headerShown: false,
-        })}
-      /> */}
     </Stack.Navigator>
   )
 }
@@ -415,13 +365,13 @@ const BottomTabConsumer = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='PayStack'
+      initialRouteName='ExploreStack'
       screenOptions={{
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.dark,
         tabBarInactiveTintColor: colors.subtle,
         tabBarShowLabel: false,
-        headerBackTitleStyle: styles.navigationBackTitleStyle,
+        // headerBackTitleStyle: styles.navigationBackTitleStyle,
         // headerTitleStyle: styles.navigationHeaderTitle,
         // headerStyle: styles.navigationHeader,
         // headerShadowVisible: false,
@@ -429,31 +379,19 @@ const BottomTabConsumer = () => {
       }}
     >
       <BottomTab.Screen
-        name="PocketStack"
-        component={PocketStack}
+        name="ExploreStack"
+        component={ExploreStack}
         options={{
           // title: 'Pockets',
           // headerShown: false,
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="map-pin" color={color} size={size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='search' color={color} size={size} />,
           // MAYBE WE CAN MAKE THE TOP RIGHT LITTLE BUTTON PULL UP A MAP MODAL
         }}
       />
-
-      {/* <BottomTab.Screen
-        name="PayStack"
-        component={PayStack}
-        options={{
-          // headerShown: false,
-          // title: 'Pay',
-          tabBarIcon: ({ color }) => <TabBarIcon name="credit-card-alt" color={color} />,
-        }}
-      /> */}
-
       <BottomTab.Screen
-        name="QRScanScreen"
-        component={QRScanScreen}
+        name="ScanStack"
+        component={ScanStack}
         options={{
-          // title: 'Pockets',
           // headerShown: false,
           tabBarIcon: ({color, size}) => (
             <View style={{borderRadius:10, backgroundColor: color, width: 45, height: 45, justifyContent: 'center'}}>
@@ -461,17 +399,15 @@ const BottomTabConsumer = () => {
                 <TabBarIcon name="qrcode" color={"white"} size={1.25*size} />
               </View>  
             </View>
-              
           ),
         }}
       />
-
       <BottomTab.Screen
         name="WalletStack"
         component={WalletStack}
         options={({ navigation }: RootTabScreenProps<'WalletStack'>) => ({
           // title: 'Wallet',
-          tabBarIcon: ({ color, size }) => <TabBarIcon name="id-card" color={color} size = {size}/>,
+          tabBarIcon: ({ color, size }) => <TabBarIcon name='id-card-o' color={color} size={size} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('ConsumerSettings')}

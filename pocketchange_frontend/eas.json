@@ -4,6 +4,7 @@
   },
   "build": {
     "development": {
+      "releaseChannel": "internal-development",
       "developmentClient": true,
       "distribution": "internal",
       "releaseChannel": "dev",
@@ -11,20 +12,28 @@
         "simulator": true
       }
     },
-    "preview": {
-      "distribution": "internal"
+    "public-demo": {
+      "releaseChannel": "public-demo"
     },
     "production": {
       "releaseChannel": "prod-v1"
     }
   },
   "submit": {
-    "production": {
+    "public-demo": {
       "ios": {
         "appleId": "elias.williams1216@gmail.com",
         "ascAppId": "6443989963",
         "appleTeamId": "FPSYH447NN"
       }
+    },
+
+    "production": {
+      "ios": {
+        "appleId": "elias.williams1216@gmail.com",
+        "ascAppId": "6443989963",
+        "appleTeamId": "FPSYH447NN"
+      } 
     }
   }
 }
