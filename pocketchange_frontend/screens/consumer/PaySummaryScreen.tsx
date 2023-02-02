@@ -1,16 +1,11 @@
 import { MARGIN, styles } from "../../Styles";
-import { View, Text, ScreenContainer } from '../../components/Themed'
+import { View, Text } from '../../components/Themed'
 import { BusinessCardSm, ButtonWithText, SettingSwitch } from '../../components/Cards'
 import { HorizontalLine } from "../../components/Lines";
 import { colors } from "../../constants/Colors";
-import { ConsumerNavigation } from "../../navigation/ConsumerNavigation";
-import { user } from "../../dummy";
-import { getBackgroundColorAsync } from "expo-system-ui";
 import { Alert, SafeAreaView, Switch } from 'react-native'
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/Auth";
-import PocketQueries from '../../hooks-apollo/Pocket/queries'
-import { color } from "@rneui/base";
 import TransactionSummary from "../../components/TransactionSummary";
 import { useBusinessQuery, usePocketQuery } from "../../hooks-apollo";
 import useGetAllChangeBalances from "../../hooks-apollo/ChangeBalance/useGetAllChangeBalancesQuery";
@@ -120,7 +115,6 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
         businessID: businessID,
         pocketID: pocketID,
         total: total.toFixed(2),
-        // todo: pass date as int; Date objects may not be serializable, causing navigation state error
         dateTime: dateTime,
       })
 
