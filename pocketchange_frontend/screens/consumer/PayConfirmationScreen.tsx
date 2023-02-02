@@ -15,15 +15,14 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
 
   const authContext = useContext(AuthContext);
 
-  const { businessID, pocketID, subtotal } = route.params;
+  const { businessID, pocketID, total, dateTime } = route.params;
 
   const { data: businessData, loading: businessLoading, error: businessError, refetch: refetchBusiness } = useBusinessQuery(businessID)
   if (businessError) return (<Text>Business error: {businessError.message}</Text>)
 
   const business = businessData.business;
 
-  const dateTimeString = route.params.date;
-  const dateTime = new Date(dateTimeString)
+  const date = new Date(dateTime)
 
   console.log('inside confirmation component')
 
@@ -77,16 +76,16 @@ export default function PayConfirmationScreen({ route, navigation }: any) {
               </Text>
 
               <Text style={styles.payConfirmationTotal}>
-                ${subtotal}
+                ${total}
               </Text>
             </View>
 
             <Text style={styles.payConfirmationDateTime}>
-              {dateTime.toLocaleDateString()}
+              {date.toLocaleDateString()}
             </Text>
 
             <Text style={styles.payConfirmationDateTime}>
-              {dateTime.toLocaleTimeString()}
+              {date.toLocaleTimeString()}
             </Text>
           </View>
 

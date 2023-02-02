@@ -111,7 +111,7 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       // Alert.alert('Success', 'Your order is confirmed!');
 
 
-      const date = new Date()
+      const dateTime = new Date().getTime()
 
       navigation.popToTop()
       navigation.goBack()
@@ -119,8 +119,9 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
       navigation.navigate("PayConfirmation", {
         businessID: businessID,
         pocketID: pocketID,
-        subtotal: amount,
-        date: date,
+        total: total.toFixed(2),
+        // todo: pass date as int; Date objects may not be serializable, causing navigation state error
+        dateTime: dateTime,
       })
 
       console.log('navigated to PayConfirmation')
@@ -149,7 +150,6 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
         />
 
         <View style={{ height: MARGIN }} />
-
 
         <TransactionSummary
           amount={amount}
@@ -180,25 +180,8 @@ export default function PaySummaryScreen({ route, navigation }: { route: any, na
         <ButtonWithText
           color={colors.gold}
           text="Confirm and Pay"
-          onPress={() => {
-
-            const date = new Date()
-
-            navigation.popToTop()
-            navigation.goBack()
-
-            navigation.navigate("PayConfirmation", {
-              businessID: businessID,
-              pocketID: pocketID,
-              subtotal: total.toFixed(2),
-              date: date,
-            })
-
-            // console.log('navigated to PayConfirmation')
-          }}
+          onPress={openPaymentSheet}
         />
-
-
 
       </View>
 
