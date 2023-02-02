@@ -1,7 +1,7 @@
 
-import { Pressable, ScrollView } from "react-native";
+import { Alert, Pressable, ScrollView } from "react-native";
 import { ScreenContainer, View, Text } from "../../components/Themed";
-import { DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
+import { ButtonWithText, DivHeader, SettingPressable, SwitchAccountDropdown } from "../../components/Cards";
 
 import { styles } from "../../Styles";
 import { HorizontalLine } from "../../components/Lines";
@@ -42,9 +42,6 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
       <ScrollView
         contentContainerStyle={[styles.container]}>
 
-        {// TODO: make drop down
-        }
-
         <SwitchAccountDropdown
           authContext={authContext}
           rolesList={rolesData.getUserRoles}
@@ -55,88 +52,39 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
           <View style={[styles.businessListItemCard, { alignItems: 'center', justifyContent: 'center' }]}>
             <Text numberOfLines={1} style={[styles.pocketTitle, { textAlign: 'center' }]}>{pocketData?.pocket.pocketName}</Text>
 
-
           </View>
 
           <HorizontalLine />
 
           <SettingPressable
-            iconName='id-card'
+            iconName='image'
             settingText={`Edit Pocket Page`}
             onPress={() => navigation.navigate('EditPocketPage')}
           />
 
-          {/* <HorizontalLine /> */}
+          <HorizontalLine />
 
-          {/* <SettingPressable
-              iconName='users'
-              settingText="Businesses"
-              onPress={() => navigation.navigate('PocketBusinessesList')}
-            /> */}
+          <SettingPressable
+            iconName='envelope'
+            settingText={`Invite a Business`}
+            onPress={() => Alert.alert('invite a bus!', 'please.')}
+          />
 
         </View>
-
-
-
-
-        {/* <DivHeader text="Permissions" />
-
-        <View style={styles.card}>
-
-        </View> */}
-
-
 
         <DivHeader text="Payments" />
 
         <View style={styles.card}>
           <SettingPressable
             iconName='hand-holding-usd'
-            settingText={"Stripe Account"}
+            settingText={"Payment Methods"}
           />
-
-          {/* <HorizontalLine /> */}
-
-          {/* <SettingPressable
-            settingText="Taxes"
-          /> */}
-
-          {/* <HorizontalLine />
-
-          <SettingPressable
-            settingText="Tipping"
-            onPress={() => navigation.navigate('SettingsTipping')}
-          /> */}
-
-          {/* </View> */}
-
-          {/* <DivHeader text="Payment" /> */}
-
-          {/* <View style={styles.card}> */}
-          {/* <HorizontalLine /> */}
 
         </View>
 
-        {/* <DivHeader text="Privacy" />
-
-        <View style={styles.card}>
-          <SettingPressable
-            iconName='envelope'
-            settingText={"Email"}
-          />
-          <HorizontalLine />
-          <SettingPressable
-            iconName='map-pin'
-            settingText={"Location Data"}
-          />
-        </View> */}
-
         <DivHeader text="Other" />
 
-        {/* <FontAwesome name='key' */}
-
         <View style={styles.card}>
-
           <SettingPressable
             iconName='info-circle'
             settingText={"About"}
@@ -144,14 +92,14 @@ export default function LeaderSettingsScreen({ route, navigation }: { route: any
           />
         </View>
 
-        <Pressable
-          style={[styles.card, { height: 45, justifyContent: 'center', }]}
-          onPress={signOut}
+        <DivHeader text='' />
 
-        >
-          <Text style={[styles.settingText, { textAlign: 'center', alignSelf: 'center' }]}>Sign Out</Text>
-          {/* <HorizontalLine /> */}
-        </Pressable>
+        <ButtonWithText
+          text="Sign Out"
+          onPress={signOut}
+          negativeStyle
+          textTransform="none"
+        />
 
 
 
