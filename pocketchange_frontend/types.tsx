@@ -47,8 +47,12 @@ export type RootStackParamList = {
   Wallet: undefined;
   ConsumerSettings: undefined;
   EditProfile: undefined;
-  BusinessWizardProfile: undefined;
-  BusinessWizardStripe: undefined;
+
+  BusinessCreationStack: undefined;
+  BusinessCreationSearch: undefined;
+  BusinessCreationEdit: undefined;
+  BusinessCreationUploadImage: undefined;
+  BusinessCreationStripe: undefined;
 
   Survey: undefined;
 

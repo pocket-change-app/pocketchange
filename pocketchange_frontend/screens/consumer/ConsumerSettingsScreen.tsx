@@ -120,16 +120,13 @@ export default function ConsumerSettingsScreen({ route, navigation }: { route: a
         </View>
 
         <ButtonWithText
-          onPress={() => navigation.navigate("BusinessWizardProfile", { pocketID: "1p" })}
-          text="Join PocketChange for Business"
-          color={colors.gold}
+          onPress={() => navigation.navigate("BusinessCreationStack", { pocketID: "1p" })}
+          text="busy wiz testr"
+          color={colors.purple}
           textTransform="none"
-          negativeStyle
-          viewStyle={[styles.card, styles.container]}
-          textStyle={styles.settingText}
         />
 
-        <DivHeader />
+        <DivHeader text='' />
 
         <ButtonWithText
           text="Sign Out"

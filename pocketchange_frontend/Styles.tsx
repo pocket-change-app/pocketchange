@@ -171,6 +171,7 @@ export const styles = StyleSheet.create({
     color: colors.subtle,
   },
 
+  // todo: this may be responsible for pushing header titles
   navigationBackTitleStyle: {
     fontSize: 16,
     fontFamily: 'metropolis medium',

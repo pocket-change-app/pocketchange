@@ -13,7 +13,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import * as ImagePicker from 'expo-image-picker';
 
 
-export default function BusinessWizardUploadImage({ route, navigation }: { route: any, navigation: any }) {
+export default function ({ route, navigation }: { route: any, navigation: any }) {
 
   const { pocketID, businessID } = route.params
 

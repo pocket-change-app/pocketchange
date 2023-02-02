@@ -1,11 +1,9 @@
 import * as React from 'react';
-import * as Location from 'expo-location'
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 
 import { colors } from '../constants/Colors';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
@@ -15,7 +13,6 @@ import BusinessScreen from '../screens/shared/BusinessScreen';
 import QRScanScreen from '../screens/consumer/QRScanScreen';
 import NotFoundScreen from '../screens/shared/NotFoundScreen';
 import PocketTabScreen from '../screens/consumer/PocketTabScreen';
-import PayTabScreen from '../screens/consumer/PayTabScreen';
 import WalletScreen from '../screens/consumer/WalletScreen';
 import PocketScreen from '../screens/consumer/PocketScreen';
 import ConsumerSettingsScreen from '../screens/consumer/ConsumerSettingsScreen';
@@ -26,14 +23,15 @@ import PaySummaryScreen from '../screens/consumer/PaySummaryScreen';
 import PayConfirmationScreen from '../screens/consumer/PayConfirmationScreen';
 import EditProfileScreen from '../screens/consumer/EditProfileScreen';
 import SettingsAboutScreen from '../screens/shared/SettingsAboutScreen';
-import BusinessWizardProfileScreen from '../screens/consumer/BusinessWizardProfileScreen';
-import BusinessWizardUploadImage from '../screens/consumer/BusinessWizardUploadImage';
-import BusinessWizardStripeScreen from '../screens/consumer/BusinessWizardStripeScreen';
 import ContestScreen from '../screens/shared/ContestScreen';
 
 import ScanConfirmationScreen from '../screens/consumer/ScanConfirmationScreen';
 import SurveyScreen from '../screens/shared/SurveyScreen';
 import MapScreen from '../screens/consumer/MapScreen';
+import BusinessCreationSearchScreen from '../screens/consumer/BusinessCreationSearchScreen';
+import BusinessCreationEditScreen from '../screens/consumer/BusinessCreationEditScreen';
+import BusinessCreationUploadImageScreen from '../screens/consumer/BusinessCreationUploadImageScreen';
+import BusinessCreationStripeScreen from '../screens/consumer/BusinessCreationStripeScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,10 +41,6 @@ export const ConsumerNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        // tabBarStyle: styles.tabBar,
-        // tabBarActiveTintColor: colors.dark,
-        // tabBarInactiveTintColor: colors.subtle,
-        // tabBarShowLabel: false,
         headerTitleStyle: styles.navigationHeaderTitle,
         headerStyle: styles.navigationHeader,
         headerBackTitleStyle: styles.navigationBackTitleStyle,
@@ -54,8 +48,21 @@ export const ConsumerNavigation = () => {
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabConsumer} options={{ headerShown: false, animation: 'fade_from_bottom' }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen
+        name="Root"
+        component={BottomTabConsumer}
+        options={{ headerShown: false, animation: 'fade_from_bottom' }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: 'Oops!' }}
+      />
+      <Stack.Screen
+        name="BusinessCreationStack"
+        component={BusinessCreationStack}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="PaymentStack"
         component={PaymentStack}
@@ -75,7 +82,6 @@ export const ConsumerNavigation = () => {
           autoHideHomeIndicator: true,
         }}
       />
-
       <Stack.Screen
         name="ScanConfirmation"
         component={ScanConfirmationScreen}
@@ -87,7 +93,6 @@ export const ConsumerNavigation = () => {
           autoHideHomeIndicator: true,
         }}
       />
-
       <Stack.Screen
         name="Survey"
         component={SurveyScreen}
@@ -99,12 +104,6 @@ export const ConsumerNavigation = () => {
           autoHideHomeIndicator: true,
         }}
       />
-
-
-
-      {/* </Stack.Group> */}
-
-
     </Stack.Navigator>
   );
 }
@@ -112,7 +111,6 @@ export const ConsumerNavigation = () => {
 function PaymentStack() {
   return (
     <Stack.Navigator
-
       initialRouteName='PayAmount'
       screenOptions={({ navigation }: any) => ({
         headerTitleStyle: styles.navigationHeaderTitle,
@@ -183,6 +181,69 @@ function PaymentStack() {
   )
 }
 
+function BusinessCreationStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName='BusinessCreationSearch'
+      screenOptions={({ navigation }: any) => ({
+        // headerShown: false,
+        headerTitleStyle: styles.navigationHeaderTitle,
+        headerStyle: styles.navigationHeader,
+        headerShadowVisible: false,
+        headerTintColor: colors.gold,
+        headerBackTitleStyle: styles.navigationBackTitleStyle,
+        headerBackButtonMenuEnabled: true,
+        // headerRight: () => (
+        //   <Pressable
+        //     onPress={() => {
+        //       navigation.popToTop()
+        //       navigation.goBack()
+        //     }}
+        //     style={({ pressed }) => ({
+        //       opacity: pressed ? 0.5 : 1,
+        //     })}>
+        //     <FontAwesome
+        //       name='close'
+        //       size={25}
+        //       color={colors.medium}
+        //     // style={{ marginRight: 15 }}
+        //     />
+        //   </Pressable >
+        // ),
+      })}
+    >
+      <Stack.Screen
+        name="BusinessCreationSearch"
+        component={BusinessCreationSearchScreen}
+        options={{
+          title: 'Search'
+        }}
+      />
+      <Stack.Screen
+        name="BusinessCreationEdit"
+        component={BusinessCreationEditScreen}
+        options={{
+          title: 'Edit'
+        }}
+      />
+      <Stack.Screen
+        name="BusinessCreationUploadImage"
+        component={BusinessCreationUploadImageScreen}
+        options={{
+          title: 'Upload Image'
+        }}
+      />
+      <Stack.Screen
+        name="BusinessCreationStripe"
+        component={BusinessCreationStripeScreen}
+        options={{
+          title: 'Payments'
+        }}
+      />
+    </Stack.Navigator >
+  )
+}
+
 function ExploreStack() {
   return (
     <Stack.Navigator
@@ -222,11 +283,7 @@ function ExploreStack() {
       <Stack.Screen
         name="Contest"
         component={ContestScreen}
-        options={{
-          // presentation: 'modal',
-          // headerShown: false,
-          // title: '',
-        }}
+        // options={{}}
       />
       <Stack.Screen
         name="Map"
@@ -330,27 +387,7 @@ function WalletStack() {
         component={SettingsAboutScreen}
         options={{}}
       />
-      <Stack.Screen
-        name="BusinessWizardProfile"
-        component={BusinessWizardProfileScreen}
-        options={{
-          title: '',
-        }}
-      />
-       <Stack.Screen
-        name="BusinessWizardUploadImage"
-        component={BusinessWizardUploadImage}
-        options={{
-          title: '',
-        }}
-      />
-      <Stack.Screen
-        name="BusinessWizardStripe"
-        component={BusinessWizardStripeScreen}
-        options={{
-          title: '',
-        }}
-      />
+
     </Stack.Navigator>
   )
 }

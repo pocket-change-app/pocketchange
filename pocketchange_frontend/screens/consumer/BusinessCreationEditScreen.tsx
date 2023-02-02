@@ -16,7 +16,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 
-export default function BusinessWizardProfileScreen({ route, navigation }: { route: any, navigation: any }) {
+export default function ({ route, navigation }: { route: any, navigation: any }) {
 
   const { pocketID } = route.params
 
@@ -51,11 +51,11 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
     //{label: 'Toys', value: 'toys', parent: 'retail'},
   ]);
 
-  const ref_about = useRef();
-  const ref_address = useRef();
-  const ref_postalCode = useRef();
-  const ref_phone = useRef();
-  const ref_website = useRef();
+  // const ref_about = useRef();
+  const ref_address = useRef('addy');
+  const ref_postalCode = useRef('posty');
+  const ref_phone = useRef('phony');
+  const ref_website = useRef('webster');
 
   const [useCreateBusinessMutation, { loading, error }] = useMutation(
     BusinessMutations.createBusiness, {
@@ -86,7 +86,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
         <ScrollView
           contentContainerStyle={[styles.container, { flex: 1 }]}
         >
-          <Text style={styles.pocketTitle}>Create Business Profile</Text>
+          <Text style={styles.pocketTitle}>Edit Business Info</Text>
 
           {/* <View style={{ flexDirection: 'row' }}> */}
 
@@ -154,7 +154,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
             <TextInput
               // autoFocus={true}
-              returnKeyType="next"
+              returnKeyType='next'
               selectionColor={colors.gold}
               autoCapitalize='words'
               style={styles.settingEditText}
@@ -190,7 +190,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
 
               <TextInput
                 // autoFocus={true}
-                // returnKeyType='default'
+                returnKeyType='next'
                 selectionColor={colors.gold}
                 autoCapitalize='characters'
                 style={styles.settingEditText}
@@ -257,8 +257,7 @@ export default function BusinessWizardProfileScreen({ route, navigation }: { rou
             // color={
             //   (emailAddress != '' && password != '') ? colors.gold : colors.subtle
             // }
-            onPress={() =>
-              navigation.navigate('BusinessWizardUploadImage', { businessID: "1b" }) //TODO: remove, this line is just for testing
+            onPress={() => navigation.navigate('BusinessCreationStripe', { businessID: "1b" })
               // TODO: uncoment below
               // useCreateBusinessMutation({
               // variables: {
