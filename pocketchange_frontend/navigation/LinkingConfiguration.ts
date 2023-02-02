@@ -22,6 +22,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           PaySummary: 'summary/:businessID/:amount/:tip',
         },
       },
+      BusinessCreationStack: 'create-business',
       Root: {
         screens: {
           ExploreStack: {
@@ -30,6 +31,7 @@ const linking: LinkingOptions<RootStackParamList> = {
               PocketSearch: 'search',
               Map: 'map',
               Business: 'business/:businessID',
+              Pocket: 'pocket/:pocketID',
             },
           },
           ScanStack: {
