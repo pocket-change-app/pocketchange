@@ -193,31 +193,48 @@ function BusinessCreationStack() {
         headerTintColor: colors.gold,
         headerBackTitleStyle: styles.navigationBackTitleStyle,
         headerBackButtonMenuEnabled: true,
-        // headerRight: () => (
-        //   <Pressable
-        //     onPress={() => {
-        //       navigation.popToTop()
-        //       navigation.goBack()
-        //     }}
-        //     style={({ pressed }) => ({
-        //       opacity: pressed ? 0.5 : 1,
-        //     })}>
-        //     <FontAwesome
-        //       name='close'
-        //       size={25}
-        //       color={colors.medium}
-        //     // style={{ marginRight: 15 }}
-        //     />
-        //   </Pressable >
-        // ),
+        headerRight: () => (
+          <Pressable
+            onPress={() => {
+              navigation.popToTop()
+              navigation.goBack()
+            }}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}>
+            <FontAwesome
+              name='close'
+              size={25}
+              color={colors.medium}
+            // style={{ marginRight: 15 }}
+            />
+          </Pressable >
+        ),
       })}
     >
       <Stack.Screen
         name="BusinessCreationSearch"
         component={BusinessCreationSearchScreen}
-        options={{
-          title: 'Search'
-        }}
+        options={({ navigation }: { navigation: any }) => ({
+          title: 'Search',
+          headerRight: () => (
+            <Pressable
+              onPress={() => {
+                // navigation.popToTop()
+                navigation.goBack()
+              }}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name='close'
+                size={25}
+                color={colors.medium}
+              // style={{ marginRight: 15 }}
+              />
+            </Pressable >
+          ),
+        })}
       />
       <Stack.Screen
         name="BusinessCreationEdit"
