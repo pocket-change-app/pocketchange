@@ -46,6 +46,7 @@ export default {
       firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
       firebaseDatabaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
       backendURL: process.env.BACKEND_URL,
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       "eas": {
         "projectId": "6f2a3fd4-8dd0-4936-9afe-62388c3f7198"
       }
