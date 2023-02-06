@@ -1,6 +1,5 @@
-import { isNumber } from "ramda-adjunct";
-import { useContext, useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, TextInput, TouchableWithoutFeedback } from "react-native";
+import { useContext, useEffect, useRef, useState } from "react";
+import { KeyboardAvoidingView, Platform, ScrollView, TextInput } from "react-native";
 import { ButtonWithText } from "../../components/Cards";
 import { ScreenContainer, Text, View } from "../../components/Themed";
 import { colors } from "../../constants/Colors";
@@ -9,49 +8,71 @@ import { MARGIN, styles } from "../../Styles";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useMutation } from '@apollo/react-hooks'
 import BusinessMutations from '../../hooks-apollo/Business/mutations'
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import * as ImagePicker from 'expo-image-picker';
+import { getStorage, ref } from "firebase/storage";
+import Constants from "expo-constants";
 //import * as mime from 'react-native-mime-types';
 
 
+type AddressComponent = {
+  long_name: string,
+  short_name: string,
+  types: string[],
+}
+
+type Place = {
+  name: string,
+  formatted_address: string,
+  address_components: AddressComponent[],
+  international_phone_number: string,
+  website: string,
+  // fill this type out with additional fields as necessary
+}
+
+type PlaceDetailsStatus = 'OK' | 'ZERO_RESULTS' | 'NOT_FOUND' | 'INVALID_REQUEST' | 'OVER_QUERY_LIMIT' | 'REQUEST_DENIED' | 'UNKNOWN_ERROR';
+
+type PlaceDetailsResponse = {
+  html_attributions: string[],
+  result: Place,
+  status: PlaceDetailsStatus,
+  info_messages: string[],
+}
 
 
 export default function ({ route, navigation }: { route: any, navigation: any }) {
 
-  const { pocketID } = route.params
+  const { pocketID, place_id } = route.params
 
-  const authContext = useContext(AuthContext);
+  // const authContext = useContext(AuthContext);
 
-  const storage = getStorage();
+  // const storage = getStorage();
+
+  // const storageRef = ref(storage);
+  // const [uploadingImage, setUploadingImage] = useState(false);
+
+  // const [placeDetailsResponse, setPlaceDetailsResponse] = useState<PlaceDetailsResponse>()
 
 
-  const storageRef = ref(storage);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [businessName, setBusinessName] = useState<string>('')
+  // const [businessBio, setBusinessBio] = useState('')
+  const [businessAddress, setBusinessAddress] = useState<string>('')
+  // const [addressLineTwo, setAddressLineTwo] = useState('')
+  const [businessPostalCode, setBusinessPostalCode] = useState<string>('')
+  const [businessPhoneNumber, setBusinessPhoneNumber] = useState<string>('')
+  const [businessWebsite, setBusinessWebsite] = useState<string>('')
 
-
-  const [businessName, setBusinessName] = useState('')
-  const [businessBio, setBusinessBio] = useState('')
-  const [businessStreetAddress, setBusinessStreetAddress] = useState('')
-  const [addressLineTwo, setAddressLineTwo] = useState('')
-  const [businessPostalCode, setBusinessPostalCode] = useState('')
-  const [businessPhoneNumber, setBusinessPhoneNumber] = useState('')
-  const [website, setWebsite] = useState('')
-
-  const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [businessType, setBusinessType] = useState(null);
   //console.log(businessType)
-  const [items, setItems] = useState([
+  const businessTypes = [
     { label: 'Restaurant', value: 'restaurant' },
     //{label: 'Cafe', value: 'cafe', parent: 'restaurant'},
     //{label: 'Indian', value: 'indian', parent: 'restaurant'},
     { label: 'Grocery', value: 'grocery' },
-
     { label: 'Retail', value: 'retail' },
     //{label: 'Clothing', value: 'clothing', parent: 'retail'},
     //{label: 'Toys', value: 'toys', parent: 'retail'},
-  ]);
+  ];
 
-  // const ref_about = useRef();
   const ref_address = useRef('addy');
   const ref_postalCode = useRef('posty');
   const ref_phone = useRef('phony');
@@ -69,6 +90,48 @@ export default function ({ route, navigation }: { route: any, navigation: any })
     onError(error) { console.log(JSON.stringify(error, null, 2)) }
   })
 
+  const GOOGLE_MAPS_API_KEY = Constants.manifest?.extra?.googleMapsApiKey;
+  const placeDetailsFields = 'name,formatted_address,address_components,international_phone_number,website';
+  const GOOGLE_PLACES_DETAILS_API_URL = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=${placeDetailsFields}&key=${GOOGLE_MAPS_API_KEY}`;
+
+  // init fields with google place details
+  useEffect(() => {
+    if (!place_id) return;
+    const initFieldsWithPlacesDetail = async () => {
+      fetch(GOOGLE_PLACES_DETAILS_API_URL, {
+        method: 'get'
+      }).then((response) => {
+        return response.json();
+      }).then((response: PlaceDetailsResponse) => {
+        console.log("place details:\n", JSON.stringify(response.result, null, '  '))
+
+        const place = response.result;
+        setBusinessName(place.name);
+
+        // let address = '';
+        // let lastComponentName = '';
+        // for (let i in place.address_components) {
+        //   const addressComponent = place.address_components[i]
+        //   if (addressComponent.types.includes('country')) break;
+        //   lastComponentName = addressComponent.long_name
+        //   address += (lastComponentName + ', ')
+        // }
+        // address = address.slice(0, -2)
+        setBusinessAddress(place.formatted_address);
+
+        const postalCode = place.address_components.find(component => component.types.includes('postal_code'))?.long_name;
+        console.log(postalCode);
+        setBusinessPostalCode(postalCode ? postalCode : '')
+
+        setBusinessPhoneNumber(place.international_phone_number)
+        setBusinessWebsite(place.website)
+
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    initFieldsWithPlacesDetail();
+  }, [])
 
   return (
     <ScreenContainer>
@@ -102,7 +165,7 @@ export default function ({ route, navigation }: { route: any, navigation: any })
               autoCapitalize='words'
               style={styles.settingEditText}
               // keyboardType='numeric'
-              // value={firstName}
+              value={businessName}
               onChangeText={setBusinessName}
               placeholder={'Honest Bean Cafe'}
               placeholderTextColor={colors.subtle}
@@ -115,37 +178,13 @@ export default function ({ route, navigation }: { route: any, navigation: any })
             dropDownContainerStyle={styles.card}
             textStyle={styles.settingEditText}
             placeholder="Business Type"
-            open={open}
+            open={dropdownOpen}
             value={businessType}
-            items={items}
-            setOpen={setOpen}
+            items={businessTypes}
+            setOpen={setDropdownOpen}
             setValue={setBusinessType}
-            setItems={setItems}
+          // setItems={setItems}
           />
-
-          {/* <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
-            <Text style={styles.prose}>
-              About {!busName ? 'your business' : busName}:
-            </Text>
-
-            <TextInput
-
-              multiline
-              numberOfLines={2}
-              // autoFocus={true}
-              // returnKeyType="next"
-              selectionColor={colors.gold}
-              autoCapitalize='sentences'
-              style={styles.receipt}
-              // keyboardType='numeric'
-              // value={firstName}
-              onChangeText={setBusBio}
-              placeholder={'We sell cookies!'}
-              placeholderTextColor={colors.subtle}
-              ref={ref_about}
-            // onSubmitEditing={() => ref_inputLast.current.focus()}
-            />
-          </View> */}
 
           <View style={[styles.signUpInputText, { marginBottom: MARGIN }]}>
             <Text style={styles.prose}>
@@ -154,13 +193,14 @@ export default function ({ route, navigation }: { route: any, navigation: any })
 
             <TextInput
               // autoFocus={true}
+              multiline
               returnKeyType='next'
               selectionColor={colors.gold}
               autoCapitalize='words'
               style={styles.settingEditText}
               keyboardType='numbers-and-punctuation'
-              // value={lastName}
-              onChangeText={setBusinessStreetAddress}
+              value={businessAddress}
+              onChangeText={setBusinessAddress}
               placeholder={'000 Queen St E'}
               placeholderTextColor={colors.subtle}
               ref={ref_address}
@@ -183,7 +223,7 @@ export default function ({ route, navigation }: { route: any, navigation: any })
               </Text>
             </View>
 
-            <View style={[styles.signUpInputText, { flex: 1, marginBottom: MARGIN }]}>
+            <View style={[styles.card, styles.signUpInputText, { flex: 1 }]}>
               <Text style={styles.prose}>
                 Postal Code (no space)
               </Text>
@@ -195,7 +235,7 @@ export default function ({ route, navigation }: { route: any, navigation: any })
                 autoCapitalize='characters'
                 style={styles.settingEditText}
                 // keyboardType='number-pad'
-                // value={businessPostalCode}
+                value={businessPostalCode}
                 maxLength={6}
                 onChangeText={setBusinessPostalCode}
                 placeholder={'ABC123'}
@@ -219,7 +259,7 @@ export default function ({ route, navigation }: { route: any, navigation: any })
               autoCapitalize='words'
               style={styles.settingEditText}
               keyboardType='number-pad'
-              // value={lastName}
+              value={businessPhoneNumber}
               maxLength={10}
               onChangeText={setBusinessPhoneNumber}
               placeholder={'4161234567'}
@@ -241,8 +281,8 @@ export default function ({ route, navigation }: { route: any, navigation: any })
               autoCapitalize='words'
               style={styles.settingEditText}
               keyboardType='default'
-              // value={lastName}
-              onChangeText={setWebsite}
+              value={businessWebsite}
+              onChangeText={setBusinessWebsite}
               placeholder={'yourwebsite.com'}
               placeholderTextColor={colors.subtle}
               ref={ref_website}
