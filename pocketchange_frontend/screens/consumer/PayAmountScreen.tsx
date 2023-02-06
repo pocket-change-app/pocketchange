@@ -14,6 +14,7 @@ import { useBusinessQuery } from "../../hooks-apollo";
 export default function PayAmountScreen({ route, navigation }: { route: any, navigation: any }) {
 
   const authContext = useContext(AuthContext);
+  const headerHeight = useHeaderHeight();
 
   const { businessID, pocketID } = route.params;
 
@@ -27,7 +28,7 @@ export default function PayAmountScreen({ route, navigation }: { route: any, nav
 
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? 'padding' : "height"}
-      keyboardVerticalOffset={useHeaderHeight()}
+      keyboardVerticalOffset={headerHeight}
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
