@@ -1,31 +1,43 @@
 const gql = require('graphql-tag')
 
 module.exports = gql`
+
+  """
+  Account, a holder of money.
+  """
+  type Account {
+    accountID: ID 
+    ownerID: ID
+    balance: Decimal
+    currencyType: CurrencyType
+    pocketID: ID
+    lastUpdated: Date
+  }
+
+  enum CurrencyType {
+    FIAT
+    CHANGE_POCKET
+  }
+  
+  type Query {
     """
-    ChangeBalance, associated with a user for a specific Pocket
+    Query an Account by ID
     """
-    type ChangeBalance {
-      changeBalanceID: ID 
-      pocketID: ID
-      value: Decimal
-      userID: ID
-      expiryDate: Date
-    }
-    
-    type Query {
-        """
-        Query a users changeBalance by ID
-        """
-        changeBalance(changeBalanceID: ID) :ChangeBalance
-        """
-        Query a users changeBalance in a given Pocket
-        """
-        getAllChangeBalances(userID: ID, pocketID: ID): [ChangeBalance]
-      }
-      type Mutation {
-        """
-        Calculate a users changeBalance in a given pocket and update the value
-        """
-        updateUserChangeBalance(userID: ID, pocketID: ID):ChangeBalance
-      }
+    account(accountID: ID): Account
+    """
+    Query a users Accounts
+    """
+    getAccountsByUser(customerID: ID, currencyType: CurrencyType): [Account]
+    """
+    Query a users Change Account in a specific pocket
+    """
+    getChangeAccount(customerID: ID, pocketID: ID): Account
+  }
+
+  type Mutation {
+    """
+    Update an Account's balance using the Ledger table
+    """
+    updateAccount(accountID: ID): Account
+  }
 `
