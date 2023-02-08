@@ -1,6 +1,6 @@
 const { gql, ApolloError } = require('apollo-server');
 const R = require('ramda');
-const { Business } = require('../../../databases/SQLSchema/db');
+const { Business } = require('../../../database_schemas/SQLSchema/db');
 const {Op} = require('sequelize');
 const {decimalNested} = require('../../utils')
 const returnAllChange = require('../helpers/returnAllChange')

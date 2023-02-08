@@ -1,5 +1,5 @@
 const { gql, ApolloError } = require('apollo-server');
-const { IsIn, WorksAt } = require('../../../databases/SQLSchema/db');
+const { IsIn, WorksAt } = require('../../../database_schemas/SQLSchema/db');
 const {decimalNested} = require('../../utils')
 const returnAllBusinesses = require('../helpers/returnAllBusinesses')
 const R = require('ramda')

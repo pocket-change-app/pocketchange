@@ -7,7 +7,7 @@ require('dotenv').config({path: __dirname + '/../.env'});
 const { MongoClient } = require ('mongodb');
 
 //get SQL data
-const database = require('../databases/SQLSchema/db')
+const database = require('../database_schemas/SQLSchema/db')
 const sequelizeConnection = database.sequelize
 
 //entities
@@ -27,7 +27,7 @@ const WorksAt = database.WorksAt
 const ParticipatingIn = database.ParticipatingIn
 
 //get Mongo Data
-const mongodatabase = require('../databases/mongoSchema/mongodb')
+const mongodatabase = require('../database_schemas/mongoSchema/mongodb')
 const mongoose = mongodatabase.mongoose
 const mongoUser = mongoose.model('mongoUser')
 const mongoBusiness = mongoose.model('mongoBusiness')

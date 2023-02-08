@@ -2,7 +2,7 @@ const { gql, ApolloError } = require('apollo-server');
 const R = require('ramda')
 const math = require('mathjs')
 const {Op} = require('sequelize');
-const { mongoBusiness } = require('../../../databases/mongoSchema/mongodb');
+const { mongoBusiness } = require('../../../database_schemas/mongoSchema/mongodb');
 
                                                                                                                                                                                                                                                                                                        
 module.exports = {
